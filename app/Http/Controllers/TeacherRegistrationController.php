@@ -22,7 +22,9 @@ class TeacherRegistrationController extends Controller
             'password' => ['required', 'min:8', 'confirmed']
         ]);
 
-        User::registerTeacher(request()->only('name', 'email', 'password'));
+        $user = User::registerTeacher(request()->only('name', 'email', 'password'));
+
+        auth()->login($user);
 
         return redirect("/teachers");
     }

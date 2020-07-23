@@ -15,25 +15,24 @@ class SchoolSignUpTest extends TestCase
     use RefreshDatabase;
 
     /**
-     *@test
+     * @test
      */
     public function sign_up_a_school()
     {
         $this->withoutExceptionHandling();
 
         $response = $this->asGuest()->post("/register/school", [
-            'school_name' => 'test school',
-            'school_address' => 'test school address',
-            'name' => 'test name',
-            'email' => 'test@test.test',
-            'password' => 'test_password',
+            'school_name'           => 'test school',
+            'name'                  => 'test name',
+            'email'                 => 'test@test.test',
+            'password'              => 'test_password',
             'password_confirmation' => 'test_password',
         ]);
         $response->assertRedirect("/schools");
 
         $this->assertDatabaseHas('users', [
-            'name' => 'test name',
-            'email' => 'test@test.test',
+            'name'         => 'test name',
+            'email'        => 'test@test.test',
             'account_type' => User::ACCOUNT_SCHOOL,
         ]);
 
@@ -44,12 +43,17 @@ class SchoolSignUpTest extends TestCase
 
         $this->assertDatabaseHas('schools', [
             'name' => 'test school',
-            'address' => 'test school address',
+        ]);
+
+        $this->assertDatabaseHas('school_user', [
+            'school_id' => School::where('name', 'test school')->first()->id,
+            'user_id'   => $user->id,
+            'owner'     => true,
         ]);
     }
 
     /**
-     *@test
+     * @test
      */
     public function the_users_name_is_required()
     {
@@ -57,7 +61,7 @@ class SchoolSignUpTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function the_email_is_required()
     {
@@ -65,7 +69,7 @@ class SchoolSignUpTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function the_email_must_be_valid_email()
     {
@@ -73,7 +77,7 @@ class SchoolSignUpTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function the_email_must_be_unique()
     {
@@ -83,7 +87,7 @@ class SchoolSignUpTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function the_password_is_required()
     {
@@ -91,7 +95,7 @@ class SchoolSignUpTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function the_password_must_be_at_least_eight_characters()
     {
@@ -99,18 +103,18 @@ class SchoolSignUpTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function the_password_must_be_confirmed()
     {
         $this->assertFieldIsInvalid([
-            'password' => 'real-password',
+            'password'              => 'real-password',
             'password_confirmation' => 'different-password',
         ]);
     }
 
     /**
-     *@test
+     * @test
      */
     public function the_school_name_is_required()
     {
@@ -118,7 +122,7 @@ class SchoolSignUpTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function the_school_name_must_be_unique()
     {
@@ -127,22 +131,15 @@ class SchoolSignUpTest extends TestCase
         $this->assertFieldIsInvalid(['school_name' => 'test school']);
     }
 
-    /**
-     *@test
-     */
-    public function the_address_is_required()
-    {
-        $this->assertFieldIsInvalid(['school_address' => null]);
-    }
 
     private function assertFieldIsInvalid($field)
     {
         $valid = [
-            'school_name' => 'test school',
-            'school_address' => 'test school address',
-            'name' => 'test name',
-            'email' => 'test@test.test',
-            'password' => 'test_password',
+            'school_name'           => 'test school',
+            'school_address'        => 'test school address',
+            'name'                  => 'test name',
+            'email'                 => 'test@test.test',
+            'password'              => 'test_password',
             'password_confirmation' => 'test_password',
         ];
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSchoolsTable extends Migration
+class CreateSchoolSchoolTypePivotTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreateSchoolsTable extends Migration
      */
     public function up()
     {
-        Schema::create('schools', function (Blueprint $table) {
+        Schema::create('school_school_type', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('slug')->nullable();
-            $table->string('address')->nullable();
-            $table->text('introduction')->nullable();
-            $table->unsignedInteger('area_id')->nullable();
-            $table->string('key');
+            $table->unsignedInteger('school_id');
+            $table->unsignedInteger('school_type_id');
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ class CreateSchoolsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('schools');
+        Schema::dropIfExists('school_school_type');
     }
 }

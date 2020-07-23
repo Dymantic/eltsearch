@@ -39,7 +39,6 @@ class RegistrationTest extends TestCase
             'email' => 'test@test.test',
             'password' => 'test_password',
             'school_name' => 'test school',
-            'school_address' => 'test address'
         ]);
 
         $this->assertEquals('test name', $school_admin->name);
@@ -48,9 +47,8 @@ class RegistrationTest extends TestCase
         $this->assertEquals(User::ACCOUNT_SCHOOL, $school_admin->account_type);
         $this->assertTrue($school_admin->isSchool());
 
-        $this->assertEquals('test school', $school_admin->school->name);
-        $this->assertEquals('test address', $school_admin->school->address);
+        $this->assertEquals('test school', $school_admin->schools->first()->name);
 
-        $this->assertTrue($school_admin->fresh()->school->administrator->is($school_admin));
+        $this->assertTrue($school_admin->fresh()->schools->first()->team->owner);
     }
 }

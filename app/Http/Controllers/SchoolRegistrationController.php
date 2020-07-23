@@ -15,12 +15,13 @@ class SchoolRegistrationController extends Controller
             'email'          => ['required', 'email', Rule::unique('users', 'email')],
             'password'       => ['required', 'min:8', 'confirmed'],
             'school_name'    => ['required', Rule::unique('schools', 'name')],
-            'school_address' => ['required'],
         ]);
 
-        User::registerSchool(
+        $user = User::registerSchool(
             request()->only('name', 'email', 'password', 'school_name', 'school_address')
         );
+
+        auth()->login($user);
 
         return redirect("/schools");
     }

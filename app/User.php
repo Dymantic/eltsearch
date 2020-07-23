@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Schools\School;
+use App\Schools\SchoolUser;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -42,18 +43,19 @@ class User extends Authenticatable
             'account_type' => self::ACCOUNT_SCHOOL
         ]);
 
-        $school = School::create([
-            'name' => $school_data['school_name'],
-            'address' => $school_data['school_address'],
-            'user_id' => $user->id,
-        ]);
+        $school = School::new($school_data['school_name']);
+
+        $school->setOwner($user);
 
         return $user;
     }
 
-    public function school()
+    public function schools()
     {
-        return $this->hasOne(School::class);
+        return $this->belongsToMany(School::class)
+            ->withPivot(['owner'])
+            ->as('team')
+            ->using(SchoolUser::class);
     }
 
     public function isTeacher()
