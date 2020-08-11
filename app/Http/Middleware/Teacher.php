@@ -16,6 +16,7 @@ class Teacher
     public function handle($request, Closure $next)
     {
         if(auth()->user() && auth()->user()->isTeacher()) {
+            $request->merge(['teacherProfile' => $request->user()->teacher]);
             return $next($request);
         }
 

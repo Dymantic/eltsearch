@@ -44,8 +44,42 @@ Route::group([
     'prefix'     => 'api',
     'namespace'  => 'Admin\Schools'
 ], function () {
-    Route::post('schools/{school}', 'SchoolProfileController@update');
+    Route::post('schools/{school}', 'SchoolProfileController@update')->middleware('can:manage,school');
+
+    Route::post('schools/{school}/logos', 'SchoolLogosController@store')->middleware('can:manage,school');
+    Route::delete('schools/{school}/logos', 'SchoolLogosController@destroy')->middleware('can:manage,school');
+
+    Route::post('schools/{school}/images', 'SchoolImagesController@store')->middleware('can:manage,school');
+    Route::delete('schools/{school}/images/{image}', 'SchoolImagesController@delete')->middleware('can:manage,school');
+
+    Route::post('schools/{school}/job-posts', 'SchoolJobPostsController@store')->middleware('can:manage,school');
+    Route::post('schools/job-posts/{post}', 'SchoolJobPostsController@update')->middleware('can:manage,post');
+    Route::delete('schools/job-posts/{post}', 'SchoolJobPostsController@delete')->middleware('can:manage,post');
+
+    Route::post('published-job-posts', 'PublishedJobPostsController@store');
+    Route::delete('published-job-posts/{post}', 'PublishedJobPostsController@destroy');
+
+    Route::post('job-posts/{post}/images', 'JobPostImagesController@store')->middleware('can:manage,post');
 });
+
+Route::group([
+    'middleware' => ['teacher', 'auth'],
+    'prefix'     => 'api',
+    'namespace'  => 'Teachers'
+], function () {
+    Route::post('teachers/profile/general', 'TeacherGeneralProfileController@update');
+    Route::post('teachers/profile/education', 'TeacherEducationProfileController@update');
+
+    Route::post('teachers/previous-employment', 'TeacherPreviousEmploymentController@store');
+    Route::post('teachers/previous-employments/{employment}', 'TeacherPreviousEmploymentController@update')->middleware('can:manage,employment');
+    Route::delete('teachers/previous-employments/{employment}', 'TeacherPreviousEmploymentController@delete')->middleware('can:manage,employment');
+
+    Route::post('teachers/avatar', 'TeacherAvatarController@store');
+
+    Route::post('teachers/public-teachers', 'PublicTeachersController@store');
+    Route::delete('teachers/public-teachers', 'PublicTeachersController@destroy');
+});
+
 
 Route::group([
     'middleware' => ['admin', 'auth'],

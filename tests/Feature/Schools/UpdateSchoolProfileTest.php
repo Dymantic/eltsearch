@@ -59,6 +59,30 @@ class UpdateSchoolProfileTest extends TestCase
     /**
      *@test
      */
+    public function cannot_update_school_if_not_on_team()
+    {
+        $schoolA = factory(School::class)->state('empty')->create();
+        $schoolB = factory(School::class)->state('empty')->create();
+        $owner = factory(User::class)->state('school')->create();
+        $schoolA->setOwner($owner);
+
+        $location = factory(Area::class)->create();
+        $kindergarten = factory(SchoolType::class)->state('kindergarten')->create();
+        $elementary = factory(SchoolType::class)->state('elementary')->create();
+
+        $response = $this->actingAs($owner)->postJson("/api/schools/{$schoolB->id}/", [
+            'name'         => 'test name',
+            'introduction' => 'test introduction',
+            'area_id'      => $location->id,
+            'school_types' => [$kindergarten->id, $elementary->id],
+        ]);
+
+        $response->assertForbidden();
+    }
+
+    /**
+     *@test
+     */
     public function the_name_is_required()
     {
         $this->assertFieldIsInvalid(['name' => null]);

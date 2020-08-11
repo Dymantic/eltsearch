@@ -4,6 +4,7 @@ namespace App;
 
 use App\Schools\School;
 use App\Schools\SchoolUser;
+use App\Teachers\Teacher;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -23,6 +24,11 @@ class User extends Authenticatable
     protected $hidden = ['password', 'remember_token',];
 
     protected $casts = ['email_verified_at' => 'datetime', 'account_type' => 'integer'];
+
+    public function teacher()
+    {
+        return $this->hasOne(Teacher::class);
+    }
 
     public static function registerTeacher($teacher_data)
     {

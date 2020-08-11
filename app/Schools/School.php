@@ -2,12 +2,25 @@
 
 namespace App\Schools;
 
+use App\Placements\JobPost;
+use App\Placements\JobPostInfo;
 use App\UniqueKey;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\UploadedFile;
+use Spatie\Image\Manipulations;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class School extends Model
+class School extends Model implements HasMedia
 {
+    use InteractsWithMedia, HasSchoolLogo;
+
+    const MAX_IMAGES = 4;
+    const LOGOS = 'logos';
+    const IMAGES = 'images';
+
     protected $fillable = ['name', 'address', 'introduction', 'key', 'area_id'];
 
     protected $casts = ['area_id' => 'integer'];
@@ -38,6 +51,28 @@ class School extends Model
         return $this->belongsToMany(SchoolType::class);
     }
 
+
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')
+            ->fit(Manipulations::FIT_MAX, 600, 600)
+            ->optimize()
+            ->performOnCollections(self::LOGOS, self::IMAGES);
+    }
+
+    public function hasMaxImages(): bool
+    {
+        return $this->getMedia(School::IMAGES)->count() >= School::MAX_IMAGES;
+    }
+
+    public function addImage(UploadedFile $upload): Media
+    {
+        return $this->addMedia($upload)
+            ->usingFileName($upload->hashName())
+            ->toMediaCollection(self::IMAGES);
+    }
+
     public function updateProfile(SchoolProfileInfo $info)
     {
         $this->update([
@@ -47,5 +82,19 @@ class School extends Model
         ]);
 
         $this->schoolTypes()->sync($info->types);
+    }
+
+    public function jobPosts()
+    {
+        return $this->hasMany(JobPost::class);
+    }
+
+    public function postJob(JobPostInfo $info, User $user): JobPost
+    {
+        $data = array_merge($info->toArray(), [
+            'posted_by' => $user->id,
+            'last_edited_by' => $user->id,
+        ]);
+        return $this->jobPosts()->create($data);
     }
 }
