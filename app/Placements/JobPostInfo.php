@@ -26,6 +26,7 @@ class JobPostInfo
     public Carbon $start_date;
     public array $benefits;
     public string $contract_length;
+    public array $schedule;
 
     public function __construct($info)
     {
@@ -46,6 +47,7 @@ class JobPostInfo
         $this->start_date = Carbon::parse($info['start_date']);
         $this->benefits = $info['benefits'] ?? [];
         $this->contract_length = $info['contract_length'] ?? '';
+        $this->schedule = $info['schedule'] ?? [];
     }
 
     public function toArray(): array
@@ -68,6 +70,7 @@ class JobPostInfo
             'start_date'             => $this->start_date,
             'benefits'               => $this->benefits,
             'contract_length'        => $this->contract_length,
+            'schedule'               => $this->schedule,
         ];
     }
 

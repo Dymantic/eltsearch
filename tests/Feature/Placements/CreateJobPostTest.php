@@ -54,7 +54,11 @@ class CreateJobPostTest extends TestCase
                 JobPost::BENEFIT_INSURANCE,
                 JobPost::BENEFIT_RENEWAL_BONUS,
             ],
-            'contract_length'        => JobPost::CONTRACT_YEAR
+            'contract_length'        => JobPost::CONTRACT_YEAR,
+            'schedule' => [
+                JobPost::SCHEDULE_MORNINGS,
+                JobPost::SCHEDULE_AFTERNOONS,
+            ]
         ]);
 
         $response->assertSuccessful();
@@ -91,7 +95,11 @@ class CreateJobPostTest extends TestCase
                 JobPost::BENEFIT_INSURANCE,
                 JobPost::BENEFIT_RENEWAL_BONUS,
             ]),
-            'contract_length'        => JobPost::CONTRACT_YEAR
+            'contract_length'        => JobPost::CONTRACT_YEAR,
+            'schedule' => json_encode([
+                JobPost::SCHEDULE_MORNINGS,
+                JobPost::SCHEDULE_AFTERNOONS,
+            ])
         ]);
     }
 
@@ -309,7 +317,11 @@ class CreateJobPostTest extends TestCase
                 JobPost::BENEFIT_INSURANCE,
                 JobPost::BENEFIT_RENEWAL_BONUS,
             ],
-            'contract_length'        => JobPost::CONTRACT_YEAR
+            'contract_length'        => JobPost::CONTRACT_YEAR,
+            'schedule' => [
+                JobPost::SCHEDULE_MORNINGS,
+                JobPost::SCHEDULE_AFTERNOONS,
+            ]
         ];
 
         $response = $this

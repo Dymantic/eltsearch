@@ -78,6 +78,11 @@ Route::group([
 
     Route::post('teachers/public-teachers', 'PublicTeachersController@store');
     Route::delete('teachers/public-teachers', 'PublicTeachersController@destroy');
+
+    Route::post('teachers/job-searches', 'TeacherJobSearchController@store');
+    Route::delete('teachers/job-searches/{search}', 'TeacherJobSearchController@delete');
+
+    Route::post('teachers/job-applications', 'TeacherJobApplicationsController@store');
 });
 
 

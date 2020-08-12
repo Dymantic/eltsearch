@@ -2,7 +2,12 @@
 
 namespace App\Teachers;
 
+use App\ContactDetails;
 use App\Locations\Area;
+use App\Placements\JobApplication;
+use App\Placements\JobPost;
+use App\Placements\JobSearch;
+use App\Placements\JobSearchCriteria;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
@@ -83,6 +88,39 @@ class Teacher extends Model implements HasMedia
         $this->save();
     }
 
+    public function jobSearches()
+    {
+        return $this->hasMany(JobSearch::class);
+    }
+
+    public function createJobSearch(JobSearchCriteria $criteria): JobSearch
+    {
+        return $this->jobSearches()->create($criteria->toArray());
+    }
+
+    public function jobApplications()
+    {
+        return $this->belongsToMany(JobPost::class, 'job_applications');
+    }
+
+    public function applyForJob(
+        JobPost $jobPost,
+        string $cover_letter,
+        ContactDetails $contactDetails
+    ): JobApplication {
+
+        $this->jobApplications()->attach($jobPost->id, [
+            'cover_letter' => $cover_letter,
+            'phone'        => $contactDetails->phone,
+            'email'        => $contactDetails->emailOr($this->email),
+        ]);
+
+        return JobApplication::where([
+            ['teacher_id', $this->id],
+            ['job_post_id', $jobPost->id],
+        ])->latest()->first();
+    }
+
     public function retract()
     {
         $this->is_public = false;
@@ -92,16 +130,16 @@ class Teacher extends Model implements HasMedia
     public function setAvatar(UploadedFile $upload): Media
     {
         return $this->addMedia($upload)
-            ->usingFileName($upload->hashName())
-            ->toMediaCollection(self::AVATAR);
+                    ->usingFileName($upload->hashName())
+                    ->toMediaCollection(self::AVATAR);
     }
 
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('thumb')
-            ->fit(Manipulations::FIT_CROP, 400,300)
-            ->optimize()
-            ->performOnCollections(self::AVATAR);
+             ->fit(Manipulations::FIT_CROP, 400, 300)
+             ->optimize()
+             ->performOnCollections(self::AVATAR);
 
     }
 }

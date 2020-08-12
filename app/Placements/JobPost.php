@@ -83,6 +83,16 @@ class JobPost extends Model implements HasMedia
         self::CONTRACT_OVER_YEAR,
     ];
 
+    const SCHEDULE_MORNINGS = 'morning';
+    const SCHEDULE_AFTERNOONS = 'afternoon';
+    const SCHEDULE_EVENINGS = 'evening';
+
+    const ALLOWED_SCHEDULE = [
+        self::SCHEDULE_MORNINGS,
+        self::SCHEDULE_AFTERNOONS,
+        self::SCHEDULE_EVENINGS,
+    ];
+
     const IMAGES = 'images';
     const MAX_IMAGES = 4;
 
@@ -92,6 +102,7 @@ class JobPost extends Model implements HasMedia
         'student_ages' => 'array',
         'requirements' => 'array',
         'benefits'     => 'array',
+        'schedule'     => 'array',
         'is_public'    => 'boolean',
     ];
 
@@ -142,19 +153,19 @@ class JobPost extends Model implements HasMedia
     public function addImage(UploadedFile $upload): Media
     {
         return $this->addMedia($upload)
-            ->usingFileName($upload->hashName())
-            ->toMediaCollection(self::IMAGES);
+                    ->usingFileName($upload->hashName())
+                    ->toMediaCollection(self::IMAGES);
     }
 
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('thumb')
-            ->fit(Manipulations::FIT_CROP, 600,400)
-            ->optimize()
-            ->performOnCollections(self::IMAGES);
+             ->fit(Manipulations::FIT_CROP, 600, 400)
+             ->optimize()
+             ->performOnCollections(self::IMAGES);
 
         $this->addMediaConversion('web')
-             ->fit(Manipulations::FIT_CROP, 900,600)
+             ->fit(Manipulations::FIT_CROP, 900, 600)
              ->optimize()
              ->performOnCollections(self::IMAGES);
     }

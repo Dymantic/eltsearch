@@ -30,20 +30,21 @@ $factory->define(JobPost::class, function (Faker $faker) {
         'start_date'             => Carbon::today(),
         'benefits'               => $faker->randomElement(JobPost::ALLOWED_BENEFITS),
         'contract_length'        => $faker->randomElement(JobPost::ALLOWED_CONTRACT_LENGTHS),
+        'schedule'               => $faker->randomElements(JobPost::ALLOWED_SCHEDULE, 2),
         'first_published_at'     => Carbon::yesterday(),
         'is_public'              => $faker->boolean
     ];
 });
 
 $factory->state(JobPost::class, 'draft', [
-    'first_published_at'     => null,
-    'is_public'              => false,
+    'first_published_at' => null,
+    'is_public'          => false,
 ]);
 
 $factory->state(JobPost::class, 'private', [
-    'is_public'              => false,
+    'is_public' => false,
 ]);
 
 $factory->state(JobPost::class, 'public', [
-    'is_public'              => true,
+    'is_public' => true,
 ]);

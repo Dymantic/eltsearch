@@ -55,7 +55,10 @@ class UpdateJobPostTest extends TestCase
                 JobPost::BENEFIT_ARC,
                 JobPost::BENEFIT_INSURANCE,
             ],
-            'contract_length'        => JobPost::CONTRACT_SIX_MONTHS
+            'contract_length'        => JobPost::CONTRACT_SIX_MONTHS,
+            'schedule'               => [
+                JobPost::SCHEDULE_MORNINGS,
+            ]
         ]);
 
         $response->assertSuccessful();
@@ -88,13 +91,14 @@ class UpdateJobPostTest extends TestCase
                 JobPost::BENEFIT_ARC,
                 JobPost::BENEFIT_INSURANCE,
             ]),
+            'schedule'               => json_encode([JobPost::SCHEDULE_MORNINGS]),
             'contract_length'        => JobPost::CONTRACT_SIX_MONTHS
         ]);
 
     }
 
     /**
-     *@test
+     * @test
      */
     public function only_members_of_school_team_can_update_posts()
     {
@@ -137,7 +141,7 @@ class UpdateJobPostTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function can_be_updated_with_certain_empty_states()
     {
@@ -196,7 +200,7 @@ class UpdateJobPostTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function the_name_is_required()
     {
@@ -204,7 +208,7 @@ class UpdateJobPostTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function the_area_id_must_exist_in_the_areas_table()
     {
@@ -214,7 +218,7 @@ class UpdateJobPostTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function the_engagement_type_must_be_valid()
     {
@@ -222,7 +226,7 @@ class UpdateJobPostTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function hours_per_week_must_be_an_integer_value()
     {
@@ -230,7 +234,7 @@ class UpdateJobPostTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function the_minimum_students_per_class_must_be_an_integer()
     {
@@ -238,7 +242,7 @@ class UpdateJobPostTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function the_maximum_students_per_class_must_be_an_integer()
     {
@@ -246,7 +250,7 @@ class UpdateJobPostTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function the_student_ages_must_be_an_array()
     {
@@ -254,7 +258,7 @@ class UpdateJobPostTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function each_student_age_must_be_a_valid_age_group()
     {
@@ -262,7 +266,7 @@ class UpdateJobPostTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function work_on_weekends_must_be_boolean()
     {
@@ -270,7 +274,7 @@ class UpdateJobPostTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function requirements_must_be_an_array()
     {
@@ -278,7 +282,7 @@ class UpdateJobPostTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function each_requirement_must_be_an_allowed_value()
     {
@@ -286,7 +290,7 @@ class UpdateJobPostTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function salary_rate_must_be_an_allowed_value()
     {
@@ -294,7 +298,7 @@ class UpdateJobPostTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function the_minimum_salary_must_be_an_integer()
     {
@@ -302,7 +306,7 @@ class UpdateJobPostTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function the_maximum_salary_must_be_an_integer()
     {
@@ -310,7 +314,7 @@ class UpdateJobPostTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function the_start_date_must_be_a_date()
     {
@@ -318,7 +322,7 @@ class UpdateJobPostTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function benefits_must_be_an_array()
     {
@@ -326,7 +330,7 @@ class UpdateJobPostTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function each_benefit_must_be_an_allowed_value()
     {
@@ -334,7 +338,7 @@ class UpdateJobPostTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function the_contract_length_must_be_an_allowed_value()
     {
@@ -373,6 +377,9 @@ class UpdateJobPostTest extends TestCase
             'benefits'               => [
                 JobPost::BENEFIT_ARC,
                 JobPost::BENEFIT_INSURANCE,
+            ],
+            'schedule'               => [
+                JobPost::SCHEDULE_MORNINGS,
             ],
             'contract_length'        => JobPost::CONTRACT_SIX_MONTHS
         ];

@@ -60,6 +60,7 @@ class JobPostRequest extends FormRequest
             'start_date',
             'benefits',
             'contract_length',
+            'schedule',
         ]));
     }
 }

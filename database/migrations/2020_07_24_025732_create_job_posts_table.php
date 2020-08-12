@@ -25,6 +25,7 @@ class CreateJobPostsTable extends Migration
             $table->json('student_ages');
             $table->json('requirements');
             $table->json('benefits');
+            $table->json('schedule');
             $table->boolean('work_on_weekends')->default(0);
             $table->string('salary_rate');
             $table->integer('salary_min')->nullable();

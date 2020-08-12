@@ -15,7 +15,7 @@ class SchoolJobPostsTest extends TestCase
     use RefreshDatabase;
 
     /**
-     *@test
+     * @test
      */
     public function school_can_post_a_job()
     {
@@ -23,35 +23,39 @@ class SchoolJobPostsTest extends TestCase
         $area = factory(Area::class)->create();
 
         $postInfo = new JobPostInfo([
-            'school_name'           => 'test name',
-            'description'           => 'test description',
-            'area_id'               => $area->id,
-            'position'              => 'test position',
-            'engagement'            => JobPost::FULL_TIME,
-            'hours_per_week'        => 25,
+            'school_name'            => 'test name',
+            'description'            => 'test description',
+            'area_id'                => $area->id,
+            'position'               => 'test position',
+            'engagement'             => JobPost::FULL_TIME,
+            'hours_per_week'         => 25,
             'min_students_per_class' => 5,
             'max_students_per_class' => 25,
-            'student_ages'          => [
+            'student_ages'           => [
                 JobPost::AGE_ELEMENTARY,
                 JobPost::AGE_JUNIOR_HIGH,
                 JobPost::AGE_SENIOR_HIGH,
             ],
-            'work_on_weekends'      => true,
-            'requirements'          => [
+            'work_on_weekends'       => true,
+            'requirements'           => [
                 JobPost::REQUIRES_DEGREE,
                 JobPost::REQUIRES_POLICE_CHECK,
                 JobPost::REQUIRES_TEFL,
             ],
-            'salary_rate'           => JobPost::SALARY_RATE_HOUR,
-            'salary_min'            => 500,
-            'salary_max'            => 650,
-            'start_date'            => Carbon::tomorrow()->format(DateFormatter::STANDARD),
-            'benefits'              => [
+            'salary_rate'            => JobPost::SALARY_RATE_HOUR,
+            'salary_min'             => 500,
+            'salary_max'             => 650,
+            'start_date'             => Carbon::tomorrow()->format(DateFormatter::STANDARD),
+            'benefits'               => [
                 JobPost::BENEFIT_ARC,
                 JobPost::BENEFIT_INSURANCE,
                 JobPost::BENEFIT_RENEWAL_BONUS,
             ],
-            'contract_length'       => JobPost::CONTRACT_YEAR
+            'contract_length'        => JobPost::CONTRACT_YEAR,
+            'schedule'               => [
+                JobPost::SCHEDULE_MORNINGS,
+                JobPost::SCHEDULE_AFTERNOONS,
+            ]
         ]);
 
         $job_post = $school->postJob($postInfo, $owner);
@@ -85,6 +89,10 @@ class SchoolJobPostsTest extends TestCase
             JobPost::BENEFIT_RENEWAL_BONUS,
         ], $job_post->benefits);
         $this->assertSame(JobPost::CONTRACT_YEAR, $job_post->contract_length);
+        $this->assertEquals([
+            JobPost::SCHEDULE_MORNINGS,
+            JobPost::SCHEDULE_AFTERNOONS,
+        ], $job_post->schedule);
 
         $this->assertTrue($job_post->school->is($school));
         $this->assertTrue($job_post->postedBy->is($owner));
@@ -93,7 +101,7 @@ class SchoolJobPostsTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function can_update_job_info()
     {
@@ -104,33 +112,37 @@ class SchoolJobPostsTest extends TestCase
         ]);
 
         $postInfo = new JobPostInfo([
-            'school_name'           => 'new name',
-            'description'           => 'new description',
-            'area_id'               => $area->id,
-            'position'              => 'new position',
-            'engagement'            => JobPost::PART_TIME,
-            'hours_per_week'        => 20,
+            'school_name'            => 'new name',
+            'description'            => 'new description',
+            'area_id'                => $area->id,
+            'position'               => 'new position',
+            'engagement'             => JobPost::PART_TIME,
+            'hours_per_week'         => 20,
             'min_students_per_class' => 6,
             'max_students_per_class' => 23,
-            'student_ages'          => [
+            'student_ages'           => [
                 JobPost::AGE_ELEMENTARY,
                 JobPost::AGE_JUNIOR_HIGH,
             ],
-            'work_on_weekends'      => false,
-            'requirements'          => [
+            'work_on_weekends'       => false,
+            'requirements'           => [
                 JobPost::REQUIRES_DEGREE,
                 JobPost::REQUIRES_POLICE_CHECK,
             ],
-            'salary_rate'           => JobPost::SALARY_RATE_WEEK,
-            'salary_min'            => 10000,
-            'salary_max'            => 15000,
-            'start_date'            => Carbon::today()->format(DateFormatter::STANDARD),
-            'benefits'              => [
+            'salary_rate'            => JobPost::SALARY_RATE_WEEK,
+            'salary_min'             => 10000,
+            'salary_max'             => 15000,
+            'start_date'             => Carbon::today()->format(DateFormatter::STANDARD),
+            'benefits'               => [
                 JobPost::BENEFIT_ARC,
                 JobPost::BENEFIT_INSURANCE,
                 JobPost::BENEFIT_RENEWAL_BONUS,
             ],
-            'contract_length'       => JobPost::CONTRACT_OVER_YEAR
+            'contract_length'        => JobPost::CONTRACT_OVER_YEAR,
+            'schedule'               => [
+                JobPost::SCHEDULE_MORNINGS,
+                JobPost::SCHEDULE_AFTERNOONS,
+            ]
         ]);
 
         $job_post->updateInfo($postInfo, $owner);
@@ -162,13 +174,16 @@ class SchoolJobPostsTest extends TestCase
             JobPost::BENEFIT_RENEWAL_BONUS,
         ], $job_post->benefits);
         $this->assertSame(JobPost::CONTRACT_OVER_YEAR, $job_post->contract_length);
-
+        $this->assertEquals([
+            JobPost::SCHEDULE_MORNINGS,
+            JobPost::SCHEDULE_AFTERNOONS,
+        ], $job_post->schedule);
         $this->assertTrue($job_post->school->is($school));
         $this->assertTrue($job_post->lastEditedBy->is($owner));
     }
 
     /**
-     *@test
+     * @test
      */
     public function can_make_a_job_post_public()
     {
@@ -181,7 +196,7 @@ class SchoolJobPostsTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function making_a_previously_public_post_public_does_not_change_the_published_date()
     {
@@ -197,7 +212,7 @@ class SchoolJobPostsTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function can_retract_a_post()
     {
