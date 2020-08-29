@@ -14,6 +14,8 @@ class JobSearchCriteria
     public ?int $salary;
     public ?int $hours_per_week;
     public bool $weekends;
+    public string $engagement;
+    public array $schedule;
 
     public function __construct($info)
     {
@@ -24,6 +26,8 @@ class JobSearchCriteria
         $this->salary = $info['salary'] ?? null;
         $this->hours_per_week = $info['hours_per_week'] ?? null;
         $this->weekends = $info['weekends'] ?? true;
+        $this->engagement = $info['engagement'] ?? '';
+        $this->schedule = $info['schedule'] ?? [];
     }
 
     public function toArray(): array
@@ -36,6 +40,8 @@ class JobSearchCriteria
             'salary'         => $this->salary,
             'hours_per_week' => $this->hours_per_week,
             'weekends'       => $this->weekends,
+            'engagement'     => $this->engagement,
+            'schedule'       => $this->schedule,
         ];
     }
 }

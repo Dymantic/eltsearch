@@ -39,4 +39,22 @@ class Country extends Model
         $this->regions->each(fn (Region $region) => $region->fullDelete());
         $this->delete();
     }
+
+    public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name->toArray(),
+            'regions' => $this->regions->map->toArray()
+        ];
+    }
+
+    public function presentForLang($lang)
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name->in($lang),
+            'regions' => $this->regions->map->presentForLang($lang)
+        ];
+    }
 }

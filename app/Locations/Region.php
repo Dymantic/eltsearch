@@ -39,4 +39,22 @@ class Region extends Model
         $this->areas()->delete();
         $this->delete();
     }
+
+    public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name->toArray(),
+            'areas' => $this->areas->map->toArray(),
+        ];
+    }
+
+    public function presentForLang($lang)
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name->in($lang),
+            'areas' => $this->areas->map->presentForLang($lang)
+        ];
+    }
 }

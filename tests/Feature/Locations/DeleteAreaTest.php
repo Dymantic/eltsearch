@@ -21,7 +21,7 @@ class DeleteAreaTest extends TestCase
 
         $area = factory(Area::class)->create();
 
-        $response = $this->asAdmin()->deleteJson("/api/areas/{$area->id}");
+        $response = $this->asAdmin()->deleteJson("/api/admin/areas/{$area->id}");
         $response->assertSuccessful();
 
         $this->assertDatabaseMissing('areas', ['id' => $area->id]);

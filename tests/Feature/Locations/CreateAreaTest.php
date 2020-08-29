@@ -24,7 +24,7 @@ class CreateAreaTest extends TestCase
 
         $region = factory(Region::class)->create();
 
-        $response = $this->asAdmin()->postJson("/api/regions/{$region->id}/areas", [
+        $response = $this->asAdmin()->postJson("/api/admin/regions/{$region->id}/areas", [
             'name' => ['en' => "test area name", 'zh' => "zh test area name"],
         ]);
         $response->assertSuccessful();
@@ -42,7 +42,7 @@ class CreateAreaTest extends TestCase
     {
         $region = factory(Region::class)->create();
 
-        $response = $this->asAdmin()->postJson("/api/regions/{$region->id}/areas", [
+        $response = $this->asAdmin()->postJson("/api/admin/regions/{$region->id}/areas", [
             'name' => [],
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -60,19 +60,19 @@ class CreateAreaTest extends TestCase
             'name' => new Translation(['en' => "used name", 'zh' => "zh used name"]),
         ]);
 
-        $response = $this->asAdmin()->postJson("/api/regions/{$region->id}/areas", [
+        $response = $this->asAdmin()->postJson("/api/admin/regions/{$region->id}/areas", [
             'name' => ['en' => "used name", 'zh' => "zh used name"],
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('name');
 
-        $response = $this->asAdmin()->postJson("/api/regions/{$region->id}/areas", [
+        $response = $this->asAdmin()->postJson("/api/admin/regions/{$region->id}/areas", [
             'name' => ['en' => "used name", 'zh' => "zh unused name"],
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('name');
 
-        $response = $this->asAdmin()->postJson("/api/regions/{$region->id}/areas", [
+        $response = $this->asAdmin()->postJson("/api/admin/regions/{$region->id}/areas", [
             'name' => ['en' => "unused name", 'zh' => "zh used name"],
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);

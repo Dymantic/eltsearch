@@ -17,5 +17,7 @@ $factory->define(JobSearch::class, function (Faker $faker) {
         'salary'         => $faker->randomElement(JobSearch::ALLOWED_SALARIES),
         'hours_per_week' => $faker->randomElement(JobSearch::ALLOWED_HOURS),
         'weekends'       => $faker->boolean,
+        'schedule'       => $faker->randomElements(JobPost::ALLOWED_SCHEDULE, 2),
+        'engagement'     => $faker->randomElement(JobPost::ALLOWED_ENGAGEMENT),
     ];
 });

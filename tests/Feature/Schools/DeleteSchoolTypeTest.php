@@ -21,7 +21,7 @@ class DeleteSchoolTypeTest extends TestCase
 
         $type = factory(SchoolType::class)->create();
 
-        $response = $this->asAdmin()->deleteJson("/api/school-types/{$type->id}");
+        $response = $this->asAdmin()->deleteJson("/api/admin/school-types/{$type->id}");
         $response->assertSuccessful();
 
         $this->assertDatabaseMissing('school_types', ['id' => $type->id]);

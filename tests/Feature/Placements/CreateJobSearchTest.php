@@ -44,6 +44,8 @@ class CreateJobSearchTest extends TestCase
             ],
             'hours_per_week' => JobSearch::HOURS_MAX,
             'salary'         => JobSearch::SALARY_MID,
+            'engagement'     => JobPost::FULL_TIME,
+            'schedule'       => [JobPost::SCHEDULE_AFTERNOONS, JobPost::SCHEDULE_EVENINGS],
         ]);
 
         $response->assertSuccessful();
@@ -67,6 +69,11 @@ class CreateJobSearchTest extends TestCase
             ]),
             'hours_per_week' => JobSearch::HOURS_MAX,
             'salary'         => JobSearch::SALARY_MID,
+            'engagement'     => JobPost::FULL_TIME,
+            'schedule'       => json_encode([
+                JobPost::SCHEDULE_AFTERNOONS,
+                JobPost::SCHEDULE_EVENINGS
+            ]),
         ]);
     }
 
@@ -85,6 +92,8 @@ class CreateJobSearchTest extends TestCase
             'contract_type'  => [],
             'hours_per_week' => null,
             'salary'         => null,
+            'engagement' => null,
+            'schedule' => [],
         ]);
 
         $response->assertSuccessful();
@@ -191,6 +200,30 @@ class CreateJobSearchTest extends TestCase
         $this->assertFieldIsInvalid(['weekends' => 999]);
     }
 
+    /**
+     *@test
+     */
+    public function the_engagement_must_be_part_or_full_time()
+    {
+        $this->assertFieldIsInvalid(['engagement' => 'not-a-valid-engagement']);
+    }
+
+    /**
+     *@test
+     */
+    public function the_schedule_must_be_an_array()
+    {
+        $this->assertFieldIsInvalid(['schedule' => 'not-an-array']);
+    }
+
+    /**
+     *@test
+     */
+    public function each_schedule_value_must_be_an_allowed_schedule_time()
+    {
+        $this->assertFieldIsInvalid(['schedule' => ['not-a-valid-schedule-time']], 'schedule.0');
+    }
+
     private function assertFieldIsInvalid($field, $error_key = null)
     {
         $teacher = factory(Teacher::class)->create();
@@ -214,6 +247,8 @@ class CreateJobSearchTest extends TestCase
             ],
             'hours_per_week' => JobSearch::HOURS_MAX,
             'salary'         => JobSearch::SALARY_MID,
+            'engagement'     => JobPost::FULL_TIME,
+            'schedule'       => [JobPost::SCHEDULE_AFTERNOONS, JobPost::SCHEDULE_EVENINGS],
         ];
 
         $response = $this

@@ -11,6 +11,13 @@ use Illuminate\Http\Request;
 
 class CountriesController extends Controller
 {
+
+    public function index()
+    {
+        return Country::with('regions.areas')->get()->map->toArray();
+    }
+
+
     public function store()
     {
         request()->validate([
@@ -27,5 +34,10 @@ class CountriesController extends Controller
         ]);
 
         $country->rename(new Translation(request('name')));
+    }
+
+    public function delete(Country $country)
+    {
+        $country->fullDelete();
     }
 }

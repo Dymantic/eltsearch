@@ -1,1 +1,39 @@
+@tailwind base;
 
+@tailwind utilities;
+
+.btn {
+    @apply text-sm px-4 rounded-l-full rounded-r-full py-2 shadow-lg font-semibold;
+}
+
+.muted-btn {
+@apply text-sm text-gray-600 font-semibold;
+}
+
+.muted-btn:hover {
+@apply text-sky-blue;
+}
+
+.text-btn {
+@apply text-sm text-navy font-semibold;
+}
+
+.text-btn:hover {
+@apply text-sky-blue;
+}
+
+.btn-primary {
+    @apply bg-sky-blue text-white;
+}
+
+.btn-primary:hover {
+@apply bg-navy;
+}
+
+.btn-danger {
+@apply bg-red-600 text-white;
+}
+
+.btn-danger:hover {
+@apply bg-red-500;
+}

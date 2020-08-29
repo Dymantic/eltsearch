@@ -24,7 +24,7 @@ class DeleteRegionTest extends TestCase
         $areaA = factory(Area::class)->create(['region_id' => $region->id]);
         $areaB = factory(Area::class)->create(['region_id' => $region->id]);
 
-        $response = $this->asAdmin()->deleteJson("/api/regions/{$region->id}");
+        $response = $this->asAdmin()->deleteJson("/api/admin/regions/{$region->id}");
         $response->assertSuccessful();
 
         $this->assertDatabaseMissing('regions', ['id' => $region->id]);

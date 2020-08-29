@@ -21,7 +21,7 @@ class CreateSchoolTypeTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $response = $this->asAdmin()->postJson("/api/school-types", [
+        $response = $this->asAdmin()->postJson("/api/admin/school-types", [
             'name' => ['en' => "test type", 'zh' => "zh test type"],
         ]);
         $response->assertSuccessful();
@@ -36,7 +36,7 @@ class CreateSchoolTypeTest extends TestCase
      */
     public function the_name_is_required_in_at_least_one_language()
     {
-        $response = $this->asAdmin()->postJson("/api/school-types", [
+        $response = $this->asAdmin()->postJson("/api/admin/school-types", [
             'name' => [],
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -52,25 +52,25 @@ class CreateSchoolTypeTest extends TestCase
             'name' => new Translation(['en' => "used name", 'zh' => "zh used name"]),
         ]);
 
-        $response = $this->asAdmin()->postJson("/api/school-types", [
+        $response = $this->asAdmin()->postJson("/api/admin/school-types", [
             'name' => ['en' => "used name", 'zh' => "zh used name"],
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('name');
 
-        $response = $this->asAdmin()->postJson("/api/school-types", [
+        $response = $this->asAdmin()->postJson("/api/admin/school-types", [
             'name' => ['en' => "unused name", 'zh' => "zh used name"],
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('name');
 
-        $response = $this->asAdmin()->postJson("/api/school-types", [
+        $response = $this->asAdmin()->postJson("/api/admin/school-types", [
             'name' => ['en' => "used name", 'zh' => "zh used name"],
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('name');
 
-        $response = $this->asAdmin()->postJson("/api/school-types", [
+        $response = $this->asAdmin()->postJson("/api/admin/school-types", [
             'name' => ['en' => "used name", 'zh' => "zh used name"],
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);

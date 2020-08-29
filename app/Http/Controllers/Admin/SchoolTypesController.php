@@ -11,6 +11,15 @@ use Illuminate\Http\Request;
 
 class SchoolTypesController extends Controller
 {
+
+    public function index()
+    {
+        return SchoolType::all()->map(fn (SchoolType $type) => [
+            'id' => $type->id,
+            'name' => $type->name->toArray(),
+        ]);
+    }
+
     public function store()
     {
         request()->validate([

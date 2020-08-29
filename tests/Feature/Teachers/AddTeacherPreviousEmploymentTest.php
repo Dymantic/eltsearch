@@ -23,7 +23,7 @@ class AddTeacherPreviousEmploymentTest extends TestCase
 
         $teacher = factory(Teacher::class)->create();
 
-        $response = $this->actingAs($teacher->user)->postJson("/api/teachers/previous-employment", [
+        $response = $this->actingAs($teacher->user)->postJson("/api/teachers/previous-employments", [
             'employer' => 'test employer',
             'start_month' => 1,
             'start_year' => 2010,
@@ -51,7 +51,7 @@ class AddTeacherPreviousEmploymentTest extends TestCase
     {
         $teacher = factory(Teacher::class)->create();
 
-        $response = $this->actingAs($teacher->user)->postJson("/api/teachers/previous-employment", [
+        $response = $this->actingAs($teacher->user)->postJson("/api/teachers/previous-employments", [
             'employer' => 'test employer',
             'start_month' => 1,
             'start_year' => 2010,
@@ -180,7 +180,7 @@ class AddTeacherPreviousEmploymentTest extends TestCase
 
         $response = $this
             ->actingAs($teacher->user)
-            ->postJson("/api/teachers/previous-employment", array_merge($valid, $field));
+            ->postJson("/api/teachers/previous-employments", array_merge($valid, $field));
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors(array_key_first($field));

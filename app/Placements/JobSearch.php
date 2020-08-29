@@ -36,7 +36,9 @@ class JobSearch extends Model
         'contract_type',
         'salary',
         'hours_per_week',
-        'weekends'
+        'weekends',
+        'engagement',
+        'schedule',
     ];
 
     protected $casts = [
@@ -44,6 +46,7 @@ class JobSearch extends Model
         'student_ages' => 'array',
         'benefits' => 'array',
         'contract_type' => 'array',
+        'schedule' => 'array',
         'weekends' => 'boolean',
     ];
 

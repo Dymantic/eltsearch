@@ -20,6 +20,8 @@ class CreateJobSearchesTable extends Migration
             $table->json('student_ages');
             $table->json('benefits');
             $table->json('contract_type');
+            $table->json('schedule');
+            $table->string('engagement');
             $table->boolean('weekends')->default(1);
             $table->tinyInteger('salary')->nullable();
             $table->tinyInteger('hours_per_week')->nullable();

@@ -32,20 +32,33 @@ class User extends Authenticatable
 
     public static function registerTeacher($teacher_data)
     {
-        return static::create([
-            'name' => $teacher_data['name'],
-            'email' => $teacher_data['email'],
-            'password' => Hash::make($teacher_data['password']),
+        $user = static::create([
+            'name'         => $teacher_data['name'],
+            'email'        => $teacher_data['email'],
+            'password'     => Hash::make($teacher_data['password']),
             'account_type' => self::ACCOUNT_TEACHER
         ]);
+
+        $user->teacher()->create([
+            'name'                    => $teacher_data['name'],
+            'email'                   => $teacher_data['email'],
+            'nationality'             => '',
+            'native_language'         => '',
+            'other_languages'         => '',
+            'education_level'         => '',
+            'education_institution'   => '',
+            'education_qualification' => '',
+        ]);
+
+        return $user;
     }
 
     public static function registerSchool($school_data)
     {
         $user = static::create([
-            'name' => $school_data['name'],
-            'email' => $school_data['email'],
-            'password' => Hash::make($school_data['password']),
+            'name'         => $school_data['name'],
+            'email'        => $school_data['email'],
+            'password'     => Hash::make($school_data['password']),
             'account_type' => self::ACCOUNT_SCHOOL
         ]);
 
@@ -56,12 +69,18 @@ class User extends Authenticatable
         return $user;
     }
 
+    public function resetPassword(string $password)
+    {
+        $this->password = Hash::make($password);
+        $this->save();
+    }
+
     public function schools()
     {
         return $this->belongsToMany(School::class)
-            ->withPivot(['owner'])
-            ->as('team')
-            ->using(SchoolUser::class);
+                    ->withPivot(['owner'])
+                    ->as('team')
+                    ->using(SchoolUser::class);
     }
 
     public function isTeacher()
@@ -83,8 +102,8 @@ class User extends Authenticatable
     {
         $paths = [
             self::ACCOUNT_TEACHER => "/teachers",
-            self::ACCOUNT_SCHOOL => "/schools",
-            self::ACCOUNT_ADMIN => "/admin",
+            self::ACCOUNT_SCHOOL  => "/schools",
+            self::ACCOUNT_ADMIN   => "/admin",
         ];
 
         return $paths[$this->account_type] ?? "/";

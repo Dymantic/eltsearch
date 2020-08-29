@@ -21,4 +21,20 @@ class Area extends Model
         $this->name = $name;
         $this->save();
     }
+
+    public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name->toArray(),
+        ];
+    }
+
+    public function presentForLang($lang)
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name->in($lang),
+        ];
+    }
 }

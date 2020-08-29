@@ -35,7 +35,10 @@ class JobSearchRequest extends FormRequest
             'contract_type.*' => [Rule::in(JobPost::ALLOWED_CONTRACT_LENGTHS)],
             'salary'          => [Rule::in(JobSearch::ALLOWED_SALARIES), 'nullable'],
             'hours_per_week'  => [Rule::in(JobSearch::ALLOWED_HOURS), 'nullable'],
-            'weekends'        => ['boolean', 'nullable']
+            'weekends'        => ['boolean', 'nullable'],
+            'engagement'      => [Rule::in(JobPost::ALLOWED_ENGAGEMENT), 'nullable'],
+            'schedule'        => ['array'],
+            'schedule.*'      => [Rule::in(JobPost::ALLOWED_SCHEDULE)],
         ];
     }
 
@@ -48,7 +51,9 @@ class JobSearchRequest extends FormRequest
             'contract_type',
             'salary',
             'hours_per_week',
-            'weekends'
+            'weekends',
+            'engagement',
+            'schedule',
         ]));
     }
 }

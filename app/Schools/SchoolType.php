@@ -23,4 +23,12 @@ class SchoolType extends Model
         $this->name = $name;
         $this->save();
     }
+
+    public function presentForLang($lang = 'en')
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name->in($lang),
+        ];
+    }
 }

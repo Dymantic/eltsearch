@@ -23,7 +23,7 @@ class UpdateRegionTest extends TestCase
 
         $region = factory(Region::class)->create();
 
-        $response = $this->asAdmin()->postJson("/api/regions/{$region->id}", [
+        $response = $this->asAdmin()->postJson("/api/admin/regions/{$region->id}", [
             'name' => ['en' => "new name", 'zh' => "zh new name"],
         ]);
         $response->assertSuccessful();
@@ -41,7 +41,7 @@ class UpdateRegionTest extends TestCase
     {
         $region = factory(Region::class)->create();
 
-        $response = $this->asAdmin()->postJson("/api/regions/{$region->id}", [
+        $response = $this->asAdmin()->postJson("/api/admin/regions/{$region->id}", [
             'name' => [],
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -59,25 +59,25 @@ class UpdateRegionTest extends TestCase
             'name' => new Translation(['en' => "used name", 'zh' => "zh used name"]),
         ]);
 
-        $response = $this->asAdmin()->postJson("/api/regions/{$region->id}", [
+        $response = $this->asAdmin()->postJson("/api/admin/regions/{$region->id}", [
             'name' => ['en' => "used name", 'zh' => "zh used name"],
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('name');
 
-        $response = $this->asAdmin()->postJson("/api/regions/{$region->id}", [
+        $response = $this->asAdmin()->postJson("/api/admin/regions/{$region->id}", [
             'name' => ['en' => "used name", 'zh' => "zh unused name"],
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('name');
 
-        $response = $this->asAdmin()->postJson("/api/regions/{$region->id}", [
+        $response = $this->asAdmin()->postJson("/api/admin/regions/{$region->id}", [
             'name' => ['en' => "unused name", 'zh' => "zh used name"],
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('name');
 
-        $response = $this->asAdmin()->postJson("/api/regions/{$region->id}", [
+        $response = $this->asAdmin()->postJson("/api/admin/regions/{$region->id}", [
             'name' => ['en' => "Used Name", 'zh' => "ZH used Name"],
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -93,7 +93,7 @@ class UpdateRegionTest extends TestCase
             'name' => new Translation(['en' => "used name", 'zh' => "zh used name"]),
         ]);
 
-        $response = $this->asAdmin()->postJson("/api/regions/{$region->id}", [
+        $response = $this->asAdmin()->postJson("/api/admin/regions/{$region->id}", [
             'name' => ['en' => "unused name", 'zh' => "zh used name"],
         ]);
         $response->assertSuccessful();

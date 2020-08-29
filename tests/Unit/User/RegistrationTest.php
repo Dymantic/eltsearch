@@ -2,6 +2,7 @@
 
 namespace Test\Unit\User;
 
+use App\Teachers\Teacher;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
@@ -22,11 +23,21 @@ class RegistrationTest extends TestCase
             'password' => 'test_password',
         ]);
 
+        $profile = $teacher->fresh()->teacher;
+
         $this->assertEquals('test name', $teacher->name);
         $this->assertEquals('test@test.test', $teacher->email);
         $this->assertTrue(Hash::check('test_password', $teacher->password));
         $this->assertEquals(User::ACCOUNT_TEACHER, $teacher->account_type);
         $this->assertTrue($teacher->isTeacher());
+
+        $this->assertInstanceOf(Teacher::class, $profile);
+        $this->assertSame('test name', $profile->name);
+        $this->assertSame('test@test.test', $profile->email);
+        $this->assertNull($profile->date_of_birth);
+        $this->assertSame('', $profile->nationality);
+        $this->assertSame('', $profile->native_language);
+        $this->assertSame('', $profile->other_languages);
     }
 
     /**

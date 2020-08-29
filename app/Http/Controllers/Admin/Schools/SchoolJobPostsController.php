@@ -10,6 +10,12 @@ use Illuminate\Http\Request;
 
 class SchoolJobPostsController extends Controller
 {
+
+    public function index(School $school)
+    {
+        return $school->jobPosts->map->toArray();
+    }
+
     public function store(School $school, JobPostRequest $request)
     {
         $school->postJob($request->postInfo(), $request->user());

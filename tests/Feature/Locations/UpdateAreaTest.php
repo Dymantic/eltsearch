@@ -24,7 +24,7 @@ class UpdateAreaTest extends TestCase
 
         $area = factory(Area::class)->create();
 
-        $response = $this->asAdmin()->postJson("/api/areas/{$area->id}", [
+        $response = $this->asAdmin()->postJson("/api/admin/areas/{$area->id}", [
             'name' => ['en' => "new name", 'zh' => "zh new name"],
         ]);
         $response->assertSuccessful();
@@ -42,7 +42,7 @@ class UpdateAreaTest extends TestCase
     {
         $area = factory(Area::class)->create();
 
-        $response = $this->asAdmin()->postJson("/api/areas/{$area->id}", [
+        $response = $this->asAdmin()->postJson("/api/admin/areas/{$area->id}", [
             'name' => [],
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -60,19 +60,19 @@ class UpdateAreaTest extends TestCase
             'name' => new Translation(['en' => "used name", 'zh' => "zh used name"]),
         ]);
 
-        $response = $this->asAdmin()->postJson("/api/areas/{$area->id}", [
+        $response = $this->asAdmin()->postJson("/api/admin/areas/{$area->id}", [
             'name' => ['en' => "used name", 'zh' => "zh used name"],
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('name');
 
-        $response = $this->asAdmin()->postJson("/api/areas/{$area->id}", [
+        $response = $this->asAdmin()->postJson("/api/admin/areas/{$area->id}", [
             'name' => ['en' => "used name", 'zh' => "zh unused name"],
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors('name');
 
-        $response = $this->asAdmin()->postJson("/api/areas/{$area->id}", [
+        $response = $this->asAdmin()->postJson("/api/admin/areas/{$area->id}", [
             'name' => ['en' => "unused name", 'zh' => "zh used name"],
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -88,7 +88,7 @@ class UpdateAreaTest extends TestCase
             'name' => new Translation(['en' => "used name", 'zh' => "zh used name"]),
         ]);
 
-        $response = $this->asAdmin()->postJson("/api/areas/{$area->id}", [
+        $response = $this->asAdmin()->postJson("/api/admin/areas/{$area->id}", [
             'name' => ['en' => "unused name", 'zh' => "zh used name"],
         ]);
         $response->assertSuccessful();
