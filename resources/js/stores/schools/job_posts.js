@@ -2,6 +2,8 @@ import {
     createJobPost,
     fetchJobPostOptions,
     fetchSchoolJobPosts,
+    publishJobPost,
+    retractJobPost,
     updateJobPost,
 } from "../../api/schools/job_posts";
 import { showError } from "../../libs/notifications";
@@ -36,28 +38,46 @@ export default {
             );
         },
 
-        fetchPosts({ commit }, school_id) {
-            return fetchSchoolJobPosts(school_id).then((posts) =>
+        fetchPosts({ dispatch, commit, rootState }) {
+            if (!rootState.schoolprofile.current_school) {
+                return dispatch("schoolprofile/fetchProfiles", null, {
+                    root: true,
+                }).then(() => {
+                    fetchSchoolJobPosts(
+                        rootState.schoolprofile.current_school.id
+                    ).then((posts) => commit("setPosts", posts));
+                });
+            }
+            const schoolio = rootState.schoolprofile.current_school.id;
+            return fetchSchoolJobPosts(schoolio).then((posts) =>
                 commit("setPosts", posts)
             );
         },
 
-        refreshPosts({ dispatch }, school_id) {
-            return dispatch("fetchPosts", school_id).catch(() =>
+        refreshPosts({ dispatch }) {
+            return dispatch("fetchPosts").catch(() =>
                 showError("Failed to fetch job posts")
             );
         },
 
         createPost({ dispatch }, { school_id, formData }) {
             return createJobPost(school_id, formData).then(() =>
-                dispatch("refreshPosts", school_id)
+                dispatch("refreshPosts")
             );
         },
 
         updatePost({ dispatch }, { post_id, formData, school_id }) {
             return updateJobPost(post_id, formData).then(() =>
-                dispatch("refreshPosts", school_id)
+                dispatch("refreshPosts")
             );
+        },
+
+        publishPost({ dispatch }, post_id) {
+            return publishJobPost(post_id).then(() => dispatch("refreshPosts"));
+        },
+
+        retractPost({ dispatch }, post_id) {
+            return retractJobPost(post_id).then(() => dispatch("refreshPosts"));
         },
     },
 };

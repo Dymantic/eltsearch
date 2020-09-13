@@ -26,4 +26,18 @@ function del(url) {
     });
 }
 
-export { get, post, del };
+function upload({ file, url, name, onUpdate }) {
+    const payload = new FormData();
+    payload.append(name, file);
+    return new Promise((resolve, reject) => {
+        axios
+            .post(url, payload, {
+                onUploadProgress: (ev) =>
+                    onUpdate(parseInt((ev.loaded / ev.total) * 100)),
+            })
+            .then(({ data }) => resolve(data))
+            .catch(({ response }) => reject(response));
+    });
+}
+
+export { get, post, del, upload };

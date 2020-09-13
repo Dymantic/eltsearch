@@ -8,7 +8,7 @@
         <div>
             <div v-for="post in posts" :key="post.id" class="shadow my-8 p-6">
                 <p>
-                    <router-link :to="`/job-posts/${post.id}/edit`">{{
+                    <router-link :to="`/job-posts/${post.id}/show`">{{
                         post.position
                     }}</router-link>
                 </p>
@@ -29,25 +29,10 @@ export default {
         posts() {
             return this.$store.state.posts.all;
         },
-
-        schoolId() {
-            const school = this.$store.state.schoolprofile.current_school;
-            return school ? school.id : null;
-        },
     },
 
     mounted() {
-        if (this.schoolId) {
-            this.fetch();
-        }
-    },
-
-    watch: {
-        schoolId(to) {
-            if (to) {
-                this.fetch();
-            }
-        },
+        this.fetch();
     },
 
     methods: {

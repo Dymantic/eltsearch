@@ -95,6 +95,10 @@ class School extends Model implements HasMedia
             'posted_by' => $user->id,
             'last_edited_by' => $user->id,
         ]);
-        return $this->jobPosts()->create($data);
+
+        return tap($this->jobPosts()->create($data), function ($post) {
+            $post->slug = UniqueKey::for('job_posts:slug');
+            $post->save();
+        });
     }
 }

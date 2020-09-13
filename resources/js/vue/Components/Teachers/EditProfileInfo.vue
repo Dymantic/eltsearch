@@ -1,6 +1,10 @@
 <template>
     <div v-if="general_info">
-        <p class="font-bold text-2xl mb-8">Update your personal info</p>
+        <page-header title="Update your personal info">
+            <router-link to="/profile" class="muted-btn"
+                >&larr; Back</router-link
+            >
+        </page-header>
         <form @submit.prevent="submit">
             <text-field
                 class="my-6 max-w-md"
@@ -57,6 +61,7 @@
 </template>
 
 <script type="text/babel">
+import PageHeader from "../PageHeader";
 import TextField from "../Forms/TextField";
 import SubmitButton from "../Forms/SubmitButton";
 import {
@@ -70,6 +75,7 @@ import {
 } from "../../../libs/forms";
 export default {
     components: {
+        PageHeader,
         TextField,
         SubmitButton,
     },
@@ -139,9 +145,14 @@ export default {
             this.formErrors = clearValidationErrors(this.formErrors);
             this.$store
                 .dispatch("profile/updateGeneralInfo", this.formData)
-                .then(() => showSuccess("Your info has been updated."))
+                .then(this.onSuccess)
                 .catch(this.onError)
                 .then(() => (this.waiting = false));
+        },
+
+        onSuccess() {
+            showSuccess("Your info has been updated.");
+            this.$router.push("/profile");
         },
 
         onError({ status, data }) {

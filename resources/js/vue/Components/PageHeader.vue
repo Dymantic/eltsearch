@@ -1,6 +1,6 @@
 <template>
     <div class="flex justify-between items-center mb-12">
-        <p class="text-xl-xl font-bold">{{ title }}</p>
+        <p class="type-h3">{{ title }}</p>
         <div class="flex justify-end items-center">
             <slot></slot>
         </div>

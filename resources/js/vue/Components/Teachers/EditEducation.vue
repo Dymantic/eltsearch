@@ -114,9 +114,14 @@ export default {
             this.formErrors = clearValidationErrors(this.formErrors);
             this.$store
                 .dispatch("profile/updateEducation", this.formData)
-                .then(() => showSuccess("Education info updated"))
+                .then(this.onSuccess)
                 .catch(this.onError)
                 .then(() => (this.waiting = false));
+        },
+
+        onSuccess() {
+            showSuccess("Education info updated");
+            this.$router.push("/profile");
         },
 
         onError({ status, data }) {

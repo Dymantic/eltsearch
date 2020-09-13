@@ -14,7 +14,7 @@ class PublishedJobPostsController extends Controller
         $request->getPost()->publish();
     }
 
-    public function destroy(PublishJobPostRequest $request)
+    public function destroy(PublishJobPostRequest $request, JobPost $job_post)
     {
         $request->getPost()->retract();
     }

@@ -1,7 +1,9 @@
 import {
     fetchJobSearchOptions,
+    fetchTeacherJobSearch,
     saveJobSearch,
 } from "../../api/teachers/job_searches";
+import { showError } from "../../libs/notifications";
 
 export default {
     namespaced: true,
@@ -14,6 +16,7 @@ export default {
         salary_ranges: [],
         engagements: [],
         schedule_times: [],
+        job_search: null,
     },
 
     mutations: {
@@ -26,9 +29,19 @@ export default {
             state.engagements = options.engagements;
             state.schedule_times = options.schedule_times;
         },
+
+        setJobSearch(state, search) {
+            state.job_search = search;
+        },
     },
 
     actions: {
+        fetchJobSearch({ commit }) {
+            return fetchTeacherJobSearch().then((search) =>
+                commit("setJobSearch", search)
+            );
+        },
+
         fetchOptions({ commit }) {
             fetchJobSearchOptions().then((options) =>
                 commit("setAllowedOptions", options)
@@ -36,7 +49,11 @@ export default {
         },
 
         updateJobSearch({ dispatch }, formData) {
-            return saveJobSearch(formData);
+            return saveJobSearch(formData).then(() =>
+                dispatch("fetchJobSearch").catch(() =>
+                    showError("Failed to refresh job search")
+                )
+            );
         },
     },
 };

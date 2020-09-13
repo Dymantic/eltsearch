@@ -1,18 +1,20 @@
 <template>
     <div>
         <div class="mb-3">
-            <router-link class="font-semibold" to="/general-info/edit"
+            <router-link class="font-semibold" to="/profile"
                 >My Profile</router-link
             >
         </div>
-        <div class="mb-3">
-            <router-link class="font-semibold" to="/education/edit"
-                >Education</router-link
-            >
-        </div>
+
         <div class="mb-3">
             <router-link class="font-semibold" to="/previous-employments"
                 >Employment History</router-link
+            >
+        </div>
+
+        <div class="mb-3">
+            <router-link class="font-semibold" to="/job-search/show"
+                >Job Search</router-link
             >
         </div>
     </div>

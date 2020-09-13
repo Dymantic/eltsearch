@@ -7,11 +7,11 @@ use Illuminate\View\Component;
 
 class UserLayout extends Component
 {
-    public User $teacher;
+    public User $user;
 
-    public function __construct(User $teacher)
+    public function __construct(User $user)
     {
-        $this->teacher = $teacher;
+        $this->user = $user;
     }
 
 
@@ -22,41 +22,55 @@ class UserLayout extends Component
 
     public function name()
     {
-        return $this->teacher->name;
+        return $this->user->name;
     }
 
     public function email()
     {
-        return $this->teacher->email;
+        return $this->user->email;
     }
 
     public function avatar()
     {
-        return 'foo';
+        if($this->user->isTeacher()) {
+            return $this->user->teacher->getAvatar();
+        }
+
+        if($this->user->isSchool()) {
+            return '';
+        }
+
+        if($this->user->isAdmin()) {
+            return '';
+        }
+
+        return '';
     }
 
     public function script()
     {
-        if($this->teacher->isTeacher()) {
+        if($this->user->isTeacher()) {
             return 'teacher-app.js';
         }
 
-        if($this->teacher->isSchool()) {
+        if($this->user->isSchool()) {
             return 'school-app.js';
         }
 
-        if($this->teacher->isAdmin()) {
+        if($this->user->isAdmin()) {
             return 'admin-app.js';
         }
+
+        return '';
     }
 
     public function account()
     {
-        if($this->teacher->isTeacher()) {
+        if($this->user->isTeacher()) {
             return 'teacher';
         }
 
-        if($this->teacher->isSchool()) {
+        if($this->user->isSchool()) {
             return 'school';
         }
     }

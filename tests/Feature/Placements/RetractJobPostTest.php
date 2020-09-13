@@ -14,7 +14,7 @@ class RetractJobPostTest extends TestCase
     use RefreshDatabase;
 
     /**
-     *@test
+     * @test
      */
     public function retract_a_published_job_post()
     {
@@ -25,19 +25,19 @@ class RetractJobPostTest extends TestCase
             'school_id' => $shcool->id,
         ]);
 
-        $response = $this->actingAs($owner)->deleteJson("/api/published-job-posts/{$post->id}", [
-            'job_post_id' => $post->id,
-        ]);
+        $response = $this
+            ->actingAs($owner)
+            ->deleteJson("/api/schools/posts/published-job-posts/{$post->id}");
         $response->assertSuccessful();
 
         $this->assertDatabaseHas('job_posts', [
-            'id' => $post->id,
+            'id'        => $post->id,
             'is_public' => false,
         ]);
     }
 
     /**
-     *@test
+     * @test
      */
     public function another_user_cannot_retract_a_job_post()
     {
@@ -47,13 +47,13 @@ class RetractJobPostTest extends TestCase
         ]);
         $another_user = factory(User::class)->state('school')->create();
 
-        $response = $this->actingAs($another_user)->deleteJson("/api/published-job-posts/{$post->id}", [
-            'job_post_id' => $post->id,
-        ]);
+        $response = $this
+            ->actingAs($another_user)
+            ->deleteJson("/api/schools/posts/published-job-posts/{$post->id}");
         $response->assertForbidden();
 
         $this->assertDatabaseHas('job_posts', [
-            'id' => $post->id,
+            'id'        => $post->id,
             'is_public' => true,
         ]);
     }

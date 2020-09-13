@@ -11,6 +11,7 @@ use App\Placements\JobSearchCriteria;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Str;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -32,6 +33,7 @@ class Teacher extends Model implements HasMedia
     ];
 
     const AVATAR = 'avatar';
+    const DEFAULT_AVATAR = '/images/default_avatar.jpg';
 
     protected $fillable = [
         'name',
@@ -127,19 +129,34 @@ class Teacher extends Model implements HasMedia
         $this->save();
     }
 
+    public function getAvatar()
+    {
+        $image = $this->getFirstMedia(self::AVATAR);
+
+        return $image ? $image->getUrl('thumb') : self::DEFAULT_AVATAR;
+    }
+
     public function setAvatar(UploadedFile $upload): Media
     {
+        $this->clearMediaCollection(self::AVATAR);
         return $this->addMedia($upload)
                     ->usingFileName($upload->hashName())
+                    ->toMediaCollection(self::AVATAR);
+    }
+
+    public function setAvatarFromUrl($url)
+    {
+        $this->clearMediaCollection(self::AVATAR);
+        return $this->addMediaFromUrl($url)
+                    ->usingFileName(Str::random(10))
                     ->toMediaCollection(self::AVATAR);
     }
 
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('thumb')
-             ->fit(Manipulations::FIT_CROP, 400, 300)
+             ->fit(Manipulations::FIT_MAX, 400, 400)
              ->optimize()
              ->performOnCollections(self::AVATAR);
-
     }
 }

@@ -5,15 +5,23 @@
         @mouseleave="showMenu = false"
         @click="showMenu = !showMenu"
     >
-        <div class="w-12 h-12 rounded-full border-2 border-blue-500"></div>
         <div
-            class="p-6 shadow-lg absolute top-100 right-0 z-50 bg-white"
+            class="w-12 h-12 rounded-full border-2 border-blue-500 overflow-hidden"
+        >
+            <img
+                :src="avatar"
+                alt="my avatar"
+                class="w-full h-full object-cover"
+            />
+        </div>
+        <div
+            class="p-6 shadow-lg absolute top-100 right-0 z-50 bg-white rounded-lg"
             :class="{ hidden: !showMenu }"
         >
             <div class="py-4 border-b">
-                <p class="font-bold">{{ username }}</p>
-                <p class="text-gray-600">{{ email }}</p>
-                <p class="text-sm uppercase text-gray-500">
+                <p class="type-h4 text-navy">{{ username }}</p>
+                <p class="type-b1 text-gray-600">{{ email }}</p>
+                <p class="type-b2 text-sky-blue capitalize">
                     {{ account_type }}
                 </p>
             </div>
@@ -52,6 +60,10 @@ export default {
 
         account_type() {
             return this.$store.state.profile.account_type;
+        },
+
+        avatar() {
+            return this.$store.state.profile.avatar;
         },
     },
 

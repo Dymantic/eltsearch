@@ -1,7 +1,7 @@
 <template>
     <div class="" :class="{ 'border-b border-red-400': errorMsg }">
         <label>
-            <span class="text-sm font-bold">{{ label }}</span>
+            <span class="type-b2">{{ label }}</span>
             <span class="text-xs text-red-400" v-show="errorMsg">{{
                 errorMsg
             }}</span>
@@ -13,7 +13,7 @@
                 :type="inputType"
                 :value="value"
                 @input="emit"
-                class="mt-1 w-full block border p-2"
+                class="mt-1 w-full block border p-2 type-b1"
             />
         </label>
     </div>

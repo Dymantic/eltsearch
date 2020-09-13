@@ -24,6 +24,8 @@ $factory->define(User::class, function (Faker $faker) {
         'email_verified_at' => now(),
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         'account_type' => $faker->randomElement([User::ACCOUNT_TEACHER, User::ACCOUNT_SCHOOL, User::ACCOUNT_ADMIN]),
+        'provider_user_id' => null,
+        'platform' => null,
         'remember_token' => Str::random(10),
     ];
 });
@@ -39,3 +41,13 @@ $factory->state(User::class, 'school', [
 $factory->state(User::class, 'admin', [
     'account_type' => User::ACCOUNT_ADMIN,
 ]);
+
+$factory->state(User::class, 'facebook', [
+    'name' => 'test fb user',
+    'email' => 'test@test.test',
+    'provider_user_id' => 'test_fb_id',
+    'platform' => User::PLATFORM_FACEBOOK,
+    'password' => null,
+    'account_type' => User::ACCOUNT_TEACHER,
+]);
+

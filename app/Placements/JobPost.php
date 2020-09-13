@@ -99,14 +99,23 @@ class JobPost extends Model implements HasMedia
     protected $guarded = [];
 
     protected $casts = [
-        'student_ages' => 'array',
-        'requirements' => 'array',
-        'benefits'     => 'array',
-        'schedule'     => 'array',
-        'is_public'    => 'boolean',
+        'student_ages'     => 'array',
+        'requirements'     => 'array',
+        'benefits'         => 'array',
+        'schedule'         => 'array',
+        'work_on_weekends' => 'boolean',
+        'is_public'        => 'boolean',
     ];
 
     protected $dates = ['start_date', 'first_published_at'];
+
+    public function scopeLive($query)
+    {
+        $query->where([
+            ['is_public', true],
+            ['first_published_at', '>', Carbon::today()->subDays(30)],
+        ]);
+    }
 
     public function area()
     {

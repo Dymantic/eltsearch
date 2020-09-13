@@ -25,7 +25,7 @@ class PublishJobPostTest extends TestCase
             'school_id' => $shcool->id,
         ]);
 
-        $response = $this->actingAs($owner)->postJson("/api/published-job-posts", [
+        $response = $this->actingAs($owner)->postJson("/api/schools/posts/published-job-posts", [
             'job_post_id' => $post->id,
         ]);
         $response->assertSuccessful();
@@ -48,7 +48,7 @@ class PublishJobPostTest extends TestCase
         ]);
         $another_user = factory(User::class)->state('school')->create();
 
-        $response = $this->actingAs($another_user)->postJson("/api/published-job-posts", [
+        $response = $this->actingAs($another_user)->postJson("/api/schools/posts/published-job-posts", [
             'job_post_id' => $post->id,
         ]);
         $response->assertForbidden();

@@ -17,7 +17,7 @@ class TeacherJobSearchesTest extends TestCase
     use RefreshDatabase;
 
     /**
-     *@test
+     * @test
      */
     public function teacher_can_create_job_search()
     {
@@ -26,23 +26,23 @@ class TeacherJobSearchesTest extends TestCase
         $areaB = factory(Area::class)->create();
 
         $searchInfo = new JobSearchCriteria([
-            'area_ids' => [$areaA->id, $areaB->id],
-            'student_ages' => [
+            'area_ids'       => [$areaA->id, $areaB->id],
+            'student_ages'   => [
                 JobPost::AGE_SENIOR_HIGH,
                 JobPost::AGE_UNIVERSITY,
                 JobPost::AGE_ADULT,
             ],
-            'benefits' => [
+            'benefits'       => [
                 JobPost::BENEFIT_ARC,
                 JobPost::BENEFIT_INSURANCE,
             ],
-            'weekends' => false,
-            'contract_type' => [
+            'weekends'       => false,
+            'contract_type'  => [
                 JobPost::CONTRACT_SIX_MONTHS,
                 JobPost::CONTRACT_YEAR
             ],
             'hours_per_week' => JobSearch::HOURS_MAX,
-            'salary' => JobSearch::SALARY_MID,
+            'salary'         => JobSearch::SALARY_MID,
         ]);
 
         $search = $teacher->createJobSearch($searchInfo);
@@ -66,5 +66,37 @@ class TeacherJobSearchesTest extends TestCase
         ], $search->contract_type);
         $this->assertSame(JobSearch::HOURS_MAX, $search->hours_per_week);
         $this->assertSame(JobSearch::SALARY_MID, $search->salary);
+    }
+
+    /**
+     * @test
+     */
+    public function can_get_used_fields_of_job_search()
+    {
+        $teacher = factory(Teacher::class)->create();
+        $areaA = factory(Area::class)->create();
+        $areaB = factory(Area::class)->create();
+
+        $searchInfo = new JobSearchCriteria([
+            'area_ids'     => [$areaA->id, $areaB->id],
+            'student_ages' => [
+                JobPost::AGE_SENIOR_HIGH,
+                JobPost::AGE_UNIVERSITY,
+                JobPost::AGE_ADULT,
+            ],
+            'weekends'     => false,
+            'salary'       => JobSearch::SALARY_MID,
+        ]);
+
+        $search = $teacher->createJobSearch($searchInfo);
+
+        $expected = [
+            JobSearch::CRITERIA_LOCATION,
+            JobSearch::CRITERIA_STUDENTS,
+            JobSearch::CRITERIA_SALARY,
+            JobSearch::CRITERIA_WEEKENDS,
+        ];
+
+        $this->assertEquals($expected, $search->listCriteria());
     }
 }

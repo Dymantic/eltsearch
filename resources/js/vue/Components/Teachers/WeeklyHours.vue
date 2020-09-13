@@ -1,5 +1,5 @@
 <template>
-    <labeled-box label="Hours per Week" @dismiss="$emit('dismiss')">
+    <labeled-box label="Hours per Week" @dismiss="dismiss">
         <div class="flex justify-between items-center">
             <p class="text-lg font-bold">
                 How many hours are you happy working per week?
@@ -48,6 +48,13 @@ export default {
     watch: {
         selected() {
             this.$emit("input", this.selected);
+        },
+    },
+
+    methods: {
+        dismiss() {
+            this.selected = null;
+            this.$emit("dismiss");
         },
     },
 };

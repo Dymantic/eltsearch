@@ -13,7 +13,7 @@ class JobSearchCriteria
     public array $contract_type;
     public ?int $salary;
     public ?int $hours_per_week;
-    public bool $weekends;
+    public ?bool $weekends;
     public string $engagement;
     public array $schedule;
 
@@ -25,7 +25,7 @@ class JobSearchCriteria
         $this->contract_type = $info['contract_type'] ?? [];
         $this->salary = $info['salary'] ?? null;
         $this->hours_per_week = $info['hours_per_week'] ?? null;
-        $this->weekends = $info['weekends'] ?? true;
+        $this->weekends = $info['weekends'];
         $this->engagement = $info['engagement'] ?? '';
         $this->schedule = $info['schedule'] ?? [];
     }

@@ -36,14 +36,6 @@ export default {
         },
     },
 
-    watch: {
-        schoolId(to) {
-            if (to) {
-                this.fetchPosts();
-            }
-        },
-    },
-
     created() {
         this.$store
             .dispatch("posts/fetchOptions")
@@ -52,16 +44,10 @@ export default {
         this.$store
             .dispatch("locations/fetchLocations")
             .catch(() => showError("Failed to fetch locations."));
-
-        this.$store
-            .dispatch("schoolprofile/fetchProfiles")
-            .catch(() => showError("Failed to fetch school info."));
     },
 
     mounted() {
-        if (this.schoolId) {
-            this.fetchPosts();
-        }
+        this.fetchPosts();
     },
 
     methods: {

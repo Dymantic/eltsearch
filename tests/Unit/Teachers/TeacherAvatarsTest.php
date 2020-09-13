@@ -36,7 +36,25 @@ class TeacherAvatarsTest extends TestCase
 
         Storage::disk('media')->assertExists(Str::after($avatar->getUrl(), '/media'));
         Storage::disk('media')->assertExists(Str::after($avatar->getUrl('thumb'), '/media'));
+    }
 
+    /**
+     *@test
+     */
+    public function setting_the_avatar_clears_any_previous_ones()
+    {
+        Storage::fake('media', config('filesystems.disks.media'));
+
+        $teacher = factory(Teacher::class)->create();
+        $old_upload = UploadedFile::fake()->image('testpic.png');
+        $teacher->setAvatar($old_upload);
+
+        $new_upload = UploadedFile::fake()->image('testpic.jpg');
+        $teacher->setAvatar($new_upload);
+
+        $this->assertCount(1, $teacher->getMedia(Teacher::AVATAR));
+
+        $this->assertStringContainsString($new_upload->hashName(), $teacher->fresh()->getFirstMedia(Teacher::AVATAR)->getPath());
 
     }
 }

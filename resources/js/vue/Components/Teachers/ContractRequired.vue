@@ -1,5 +1,5 @@
 <template>
-    <labeled-box label="Contract" @dismiss="$emit('dismiss')">
+    <labeled-box label="Contract" @dismiss="dismiss">
         <div class="flex justify-between items-center">
             <p class="text-lg font-bold">
                 What contract lengths are you happy with?
@@ -47,6 +47,13 @@ export default {
     watch: {
         selected() {
             this.$emit("input", this.selected);
+        },
+    },
+
+    methods: {
+        dismiss() {
+            this.selected = [];
+            this.$emit("dismiss");
         },
     },
 };

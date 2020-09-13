@@ -19,6 +19,7 @@
                         :options="all_months"
                         label=""
                         help-text="Month"
+                        empty="--"
                     ></select-field>
                     <span class="pt-6 px-4 text-gray-500"> - </span>
                     <select-field
@@ -27,6 +28,7 @@
                         :options="all_years"
                         :error-msg="formErrors.start_year"
                         label=""
+                        empty="----"
                         help-text="Year"
                     ></select-field>
                 </div>
@@ -41,6 +43,7 @@
                         :error-msg="formErrors.end_month"
                         :options="all_months"
                         label=""
+                        empty="--"
                         help-text="Month"
                     ></select-field>
                     <span class="pt-6 px-4 text-gray-500"> - </span>
@@ -50,6 +53,7 @@
                         :options="all_years"
                         :error-msg="formErrors.end_year"
                         label=""
+                        empty="----"
                         help-text="Year"
                     ></select-field>
                 </div>

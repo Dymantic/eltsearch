@@ -1,5 +1,5 @@
 <template>
-    <labeled-box label="students" @dismiss="$emit('dismiss')">
+    <labeled-box label="students" @dismiss="dismiss">
         <div class="flex justify-between items-center">
             <p class="text-lg font-bold">
                 What age of student would you like to teach?
@@ -47,6 +47,13 @@ export default {
     watch: {
         selected() {
             this.$emit("input", this.selected);
+        },
+    },
+
+    methods: {
+        dismiss() {
+            this.selected = [];
+            this.$emit("dismiss");
         },
     },
 };

@@ -9,6 +9,7 @@ import {
     updateTeacherPreviousEmployment,
 } from "../../api/teachers/profile";
 import { showError } from "../../libs/notifications";
+import { refreshProfileInfo } from "../../api/basic_profile";
 
 export default {
     namespaced: true,
@@ -50,6 +51,12 @@ export default {
     },
 
     actions: {
+        refreshBasicInfo({ commit }) {
+            return refreshProfileInfo()
+                .then((info) => commit("setProfileDetails", info))
+                .catch(() => showError("Unable to refresh profile info."));
+        },
+
         fetchGeneralInfo({ commit }) {
             return fetchTeacherGeneralInfo().then((info) =>
                 commit("setGeneralInfo", info)

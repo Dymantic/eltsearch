@@ -32,7 +32,9 @@ class TeacherProfilePresenter
 
     public static function previousEmployment(Teacher $teacher): array
     {
-        return $teacher->previousEmployments->map(fn(PreviousEmployment $employment) => [
+        return $teacher
+            ->previousEmployments()->orderBy('employed_from', 'desc')->get()
+            ->map(fn(PreviousEmployment $employment) => [
             'id'          => $employment->id,
             'employer'    => $employment->employer,
             'job_title'   => $employment->job_title,

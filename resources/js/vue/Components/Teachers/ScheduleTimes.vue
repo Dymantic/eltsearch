@@ -1,5 +1,5 @@
 <template>
-    <labeled-box label="Working Times" @dismiss="$emit('dismiss')">
+    <labeled-box label="Working Times" @dismiss="dismiss">
         <div class="flex justify-between items-center">
             <p class="text-lg font-bold">
                 What times of day are you okay to work in?
@@ -47,6 +47,13 @@ export default {
     watch: {
         selected() {
             this.$emit("input", this.selected);
+        },
+    },
+
+    methods: {
+        dismiss() {
+            this.selected = [];
+            this.$emit("dismiss");
         },
     },
 };

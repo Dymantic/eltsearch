@@ -1,5 +1,5 @@
 <template>
-    <labeled-box label="Benefits" @dismiss="$emit('dismiss')">
+    <labeled-box label="Benefits" @dismiss="dismiss">
         <div class="flex justify-between items-center">
             <p class="text-lg font-bold">
                 What benefits do you require from the job?
@@ -47,6 +47,13 @@ export default {
     watch: {
         selected() {
             this.$emit("input", this.selected);
+        },
+    },
+
+    methods: {
+        dismiss() {
+            this.selected = [];
+            this.$emit("dismiss");
         },
     },
 };

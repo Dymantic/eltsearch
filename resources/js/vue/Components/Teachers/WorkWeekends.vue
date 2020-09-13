@@ -1,5 +1,5 @@
 <template>
-    <labeled-box label="Weekends" @dismiss="$emit('dismiss')">
+    <labeled-box label="Weekends" @dismiss="dismiss">
         <p class="font-bold text-lg">Are you happy to work on the weekend?</p>
         <div class="my-4">
             <radio-input
@@ -44,6 +44,13 @@ export default {
     watch: {
         is_checked(to) {
             this.$emit("input", to);
+        },
+    },
+
+    methods: {
+        dismiss() {
+            this.is_checked = null;
+            this.$emit("dismiss");
         },
     },
 };

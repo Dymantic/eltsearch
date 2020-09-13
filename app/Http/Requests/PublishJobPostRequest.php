@@ -12,7 +12,12 @@ class PublishJobPostRequest extends FormRequest
 
     public function authorize()
     {
-        $this->post = JobPost::with('school')->find($this->job_post_id);
+        if($this->job_post) {
+            $this->post = $this->job_post;
+        } else {
+            $this->post = JobPost::with('school')->find($this->job_post_id);
+        }
+
 
         if(!$this->post) {
             return false;

@@ -1,3 +1,20 @@
 @tailwind base;
 
+@import "type";
+@import "buttons";
+@import "forms";
+
 @tailwind utilities;
+
+@media screen and (max-width: 1024px) {
+    .main-nav .sub-nav {
+        transition: .3s;
+        transform: translate3d(-100%,0,0);
+    }
+
+    .main-nav.show .sub-nav {
+        transform: translate3d(0,0,0);
+    }
+}
+
+

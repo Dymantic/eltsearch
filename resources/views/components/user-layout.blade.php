@@ -8,6 +8,7 @@
     <title>ELTSearch | {{ $name }}</title>
 
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;800&display=swap" rel="stylesheet">
 
     <META NAME="ROBOTS"
           CONTENT="NOINDEX, NOFOLLOW">
@@ -21,7 +22,7 @@
             }
         </script>
 </head>
-<body>
+<body class="text-black font-sans type-b1">
 <div id="app">
     <app-shell></app-shell>
 </div>

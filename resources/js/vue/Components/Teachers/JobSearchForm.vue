@@ -1,5 +1,5 @@
 <template>
-    <div v-if="ready">
+    <div>
         <div>
             <p class="text-lg font-bold">Your Job Search</p>
             <div class="flex flex-col">
@@ -13,7 +13,7 @@
                     v-show="useCriteria('students')"
                     v-model="formData.student_ages"
                     :class="orderPosition('students')"
-                    @dismiss="clearCriteria('students', 'student_types', [])"
+                    @dismiss="clearCriteria('students', 'student_ages', [])"
                 ></student-types>
                 <benefits-wanted
                     v-show="useCriteria('benefits')"
@@ -25,7 +25,7 @@
                     v-show="useCriteria('contract')"
                     v-model="formData.contract_type"
                     :class="orderPosition('contract')"
-                    @dismiss="clearCriteria('contract', 'contract', [])"
+                    @dismiss="clearCriteria('contract', 'contract_type', [])"
                 ></contract-required>
                 <weekly-hours
                     v-show="useCriteria('hours')"
@@ -37,15 +37,13 @@
                     v-show="useCriteria('salary')"
                     v-model="formData.salary"
                     :class="orderPosition('salary')"
-                    @dismiss="clearCriteria('salary', 'salary_range', null)"
+                    @dismiss="clearCriteria('salary', 'salary', null)"
                 ></salary-wanted>
                 <work-weekends
                     v-show="useCriteria('weekends')"
                     v-model="formData.weekends"
                     :class="orderPosition('weekends')"
-                    @dismiss="
-                        clearCriteria('weekends', 'work_on_weekends', null)
-                    "
+                    @dismiss="clearCriteria('weekends', 'weekends', null)"
                 ></work-weekends>
                 <schedule-times
                     v-show="useCriteria('schedule')"
@@ -111,6 +109,8 @@ export default {
         SubmitButton,
     },
 
+    props: ["search", ""],
+
     data() {
         return {
             all_criteria: [
@@ -124,19 +124,19 @@ export default {
                 "schedule",
                 "engagement",
             ],
-            used_criteria: [],
+            used_criteria: this.search.used_criteria || [],
             ready: false,
             waiting: false,
             formData: {
-                area_ids: [],
-                student_ages: [],
-                benefits: [],
-                contract_type: [],
-                hours_per_week: null,
-                salary: null,
-                weekends: null,
-                schedule: [],
-                engagement: null,
+                area_ids: this.search.area_ids || [],
+                student_ages: this.search.student_ages || [],
+                benefits: this.search.benefits || [],
+                contract_type: this.search.contract_type || [],
+                hours_per_week: this.search.hours_per_week,
+                salary: this.search.salary,
+                weekends: this.search.weekends,
+                schedule: this.search.schedule || [],
+                engagement: this.search.engagement || null,
             },
         };
     },
@@ -157,14 +157,7 @@ export default {
         },
     },
 
-    mounted() {
-        Promise.all([
-            this.$store.dispatch("placements/fetchOptions"),
-            this.$store.dispatch("locations/fetchLocations"),
-        ])
-            .then(() => (this.ready = true))
-            .catch(() => showError("Failed to fetch available options"));
-    },
+    mounted() {},
 
     methods: {
         useCriteria(criterion) {
@@ -198,6 +191,7 @@ export default {
 
         onSuccess() {
             showSuccess("Your job search has been updated");
+            this.$emit("updated");
         },
 
         onError() {

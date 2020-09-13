@@ -9,6 +9,9 @@
 
     <link rel="stylesheet" href="{{ mix('/css/front.css') }}">
 
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;800&display=swap" rel="stylesheet">
+
+
     <meta name="og:image" content=""/>
     <meta name="og:url" content="{{ Request::url() }}"/>
     <meta name="og:title" content="{{ $title }}"/>
@@ -18,8 +21,10 @@
     <meta name="description" content="{{ $description }}">
     <meta name="twitter:card" content="summary_large_image">
 </head>
-<body>
+<body class="text-black font-sans pt-16">
     {{ $slot }}
+    @include('front.partials.footer')
+    @include('front.partials.navbar')
     <script src="{{ mix("/js/front.js") }}"></script>
 </body>
 </html>

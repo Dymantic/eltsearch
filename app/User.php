@@ -18,8 +18,10 @@ class User extends Authenticatable
     const ACCOUNT_SCHOOL = 2;
     const ACCOUNT_ADMIN = 3;
 
+    const PLATFORM_FACEBOOK = 'facebook';
 
-    protected $fillable = ['name', 'email', 'password', 'account_type'];
+
+    protected $fillable = ['name', 'email', 'password', 'account_type', 'platform', 'provider_user_id'];
 
     protected $hidden = ['password', 'remember_token',];
 
@@ -28,6 +30,30 @@ class User extends Authenticatable
     public function teacher()
     {
         return $this->hasOne(Teacher::class);
+    }
+
+    public static function findFacebookUser($creds): ?self
+    {
+        return self::where([
+            ['email', $creds['email']],
+            ['platform', self::PLATFORM_FACEBOOK],
+            ['provider_user_id', $creds['id']],
+        ])->first();
+    }
+
+    public static function registerTeacherViaFacebook($user_data)
+    {
+        $user = self::create([
+            'name' => $user_data['name'],
+            'email' => $user_data['email'],
+            'provider_user_id' => $user_data['id'],
+            'platform' => self::PLATFORM_FACEBOOK,
+            'account_type' => self::ACCOUNT_TEACHER
+        ]);
+
+        $user->createTeacherProfile($user_data);
+
+        return $user;
     }
 
     public static function registerTeacher($teacher_data)
@@ -39,7 +65,14 @@ class User extends Authenticatable
             'account_type' => self::ACCOUNT_TEACHER
         ]);
 
-        $user->teacher()->create([
+        $user->createTeacherProfile($teacher_data);
+
+        return $user;
+    }
+
+    protected function createTeacherProfile($teacher_data)
+    {
+        $teacher = $this->teacher()->create([
             'name'                    => $teacher_data['name'],
             'email'                   => $teacher_data['email'],
             'nationality'             => '',
@@ -50,7 +83,9 @@ class User extends Authenticatable
             'education_qualification' => '',
         ]);
 
-        return $user;
+        if($teacher_data['avatar'] ?? false) {
+            $teacher->setAvatarFromUrl($teacher_data['avatar']);
+        }
     }
 
     public static function registerSchool($school_data)

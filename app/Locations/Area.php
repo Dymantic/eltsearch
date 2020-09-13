@@ -25,7 +25,7 @@ class Area extends Model
     public function toArray()
     {
         return [
-            'id' => $this->id,
+            'id'   => $this->id,
             'name' => $this->name->toArray(),
         ];
     }
@@ -33,8 +33,16 @@ class Area extends Model
     public function presentForLang($lang)
     {
         return [
-            'id' => $this->id,
+            'id'   => $this->id,
             'name' => $this->name->in($lang),
         ];
+    }
+
+    public function fullName($lang): string
+    {
+        $region = $this->region;
+        $country = $region->country;
+
+        return sprintf("%s, %s, %s", $this->name->in($lang), $region->name->in($lang), $country->name->in($lang));
     }
 }

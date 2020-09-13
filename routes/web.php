@@ -13,9 +13,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group([
+    'prefix' => \Mcamara\LaravelLocalization\Facades\LaravelLocalization::setLocale(),
+    'middleware' => [ 'localeSessionRedirect', 'localizationRedirect' ]
+], function() {
+    Route::get('/', 'HomePageController@show');
+    Route::view('how-it-works', 'front.how-it-works.page');
+    Route::view('for-schools', 'front.for-schools.page');
 });
+
+Route::get('login/facebook', 'FacebookLoginController@redirect');
+Route::get('register/teacher/facebook', 'FacebookRegisterController@redirect');
+Route::get('facebook/auth/callback', 'FacebookAuthResponseController@store');
+
+Route::get('job-posts', 'JobPostsController@index');
+Route::get('/job-posts/{post:slug}', 'JobPostsController@show');
+
+
 
 Route::post('logout', 'LoginController@logout');
 
@@ -49,6 +63,8 @@ Route::group([
     Route::get('locations', 'LocationsController@index');
 
     Route::get('school-types', 'SchoolTypesController@index');
+
+    Route::get('basic-profile', 'BasicProfileController@show');
 });
 
 
@@ -71,8 +87,8 @@ Route::group([
     Route::post('schools/job-posts/{post}', 'SchoolJobPostsController@update')->middleware('can:manage,post');
     Route::delete('schools/job-posts/{post}', 'SchoolJobPostsController@delete')->middleware('can:manage,post');
 
-    Route::post('published-job-posts', 'PublishedJobPostsController@store');
-    Route::delete('published-job-posts/{post}', 'PublishedJobPostsController@destroy');
+    Route::post('schools/posts/published-job-posts', 'PublishedJobPostsController@store');
+    Route::delete('schools/posts/published-job-posts/{job_post}', 'PublishedJobPostsController@destroy');
 
     Route::post('job-posts/{post}/images', 'JobPostImagesController@store')->middleware('can:manage,post');
 
@@ -101,6 +117,7 @@ Route::group([
     Route::post('teachers/public-teachers', 'PublicTeachersController@store');
     Route::delete('teachers/public-teachers', 'PublicTeachersController@destroy');
 
+    Route::get('teachers/job-search', 'TeacherJobSearchController@show');
     Route::post('teachers/job-searches', 'TeacherJobSearchController@store');
     Route::delete('teachers/job-searches/{search}', 'TeacherJobSearchController@delete');
 

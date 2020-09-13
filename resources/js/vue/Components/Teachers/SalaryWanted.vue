@@ -1,5 +1,5 @@
 <template>
-    <labeled-box label="Salary" @dismiss="$emit('dismiss')">
+    <labeled-box label="Salary" @dismiss="dismiss">
         <div class="flex justify-between items-center">
             <p class="text-lg font-bold">
                 What salary would you be interested in?
@@ -48,6 +48,13 @@ export default {
     watch: {
         selected() {
             this.$emit("input", this.selected);
+        },
+    },
+
+    methods: {
+        dismiss() {
+            this.selected = null;
+            this.$emit("dismiss");
         },
     },
 };

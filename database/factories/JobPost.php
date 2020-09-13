@@ -48,3 +48,13 @@ $factory->state(JobPost::class, 'private', [
 $factory->state(JobPost::class, 'public', [
     'is_public' => true,
 ]);
+
+$factory->state(JobPost::class, 'current', [
+    'first_published_at' => Carbon::yesterday(),
+    'is_public'          => true,
+]);
+
+$factory->state(JobPost::class, 'expired', [
+    'first_published_at' => Carbon::yesterday()->subDays(30),
+    'is_public'          => true,
+]);

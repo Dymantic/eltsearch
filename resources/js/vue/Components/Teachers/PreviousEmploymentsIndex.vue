@@ -1,36 +1,46 @@
 <template>
     <div>
-        <div class="flex justify-between items-center">
-            <p class="text-lg font-bold">Employment History</p>
-            <router-link to="/previous-employments/create"
+        <page-header title="Employment History">
+            <router-link
+                to="/previous-employments/create"
+                class="btn btn-primary"
                 >Add Employer</router-link
             >
-        </div>
+        </page-header>
+
         <div>
             <div
                 v-for="employment in employments"
                 :key="employment.id"
-                class="m-6 p-6 shadow"
+                class="m-6 p-6 shadow rounded-lg"
             >
-                <p class="font-bold">{{ employment.employer }}</p>
-                <p class="text-sm uppercase text-gray-600">
+                <p class="type-h4">{{ employment.employer }}</p>
+                <p class="type-b2 text-sky-blue">
                     {{ employment.job_title }}
                 </p>
-                <p>{{ employment.duration }}</p>
-                <p>{{ employment.description }}</p>
-                <router-link :to="`/previous-employments/${employment.id}/edit`"
-                    >Edit</router-link
-                >
+                <p class="text-gray-600 type-b2">{{ employment.duration }}</p>
+                <p class="type-b1 mt-3">{{ employment.description }}</p>
+                <div class="mt-4 flex justify-end">
+                    <router-link
+                        :to="`/previous-employments/${employment.id}/edit`"
+                        class="btn btn-primary"
+                        >Edit</router-link
+                    >
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script type="text/babel">
+import PageHeader from "../PageHeader";
 import PreviousEmploymentForm from "./PreviousEmploymentForm";
 import { showError } from "../../../libs/notifications";
 export default {
-    components: { PreviousEmploymentForm },
+    components: {
+        PageHeader,
+        PreviousEmploymentForm,
+    },
 
     computed: {
         employments() {
