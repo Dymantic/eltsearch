@@ -39,7 +39,7 @@ class FetchTeacherShowOfInterestsTest extends TestCase
         $response = $this->actingAs($teacher->user)->getJson("/api/teachers/show-of-interests");
         $response->assertSuccessful();
 
-        $fetched = $response->decodeResponseJson();
+        $fetched = $response->json();
 
         $this->assertCount(2, $fetched);
 

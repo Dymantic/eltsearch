@@ -32,7 +32,7 @@ class FetchSchoolApplicationsTest extends TestCase
         $response = $this->actingAs($owner)->getJson("/api/schools/{$school->id}/applications");
         $response->assertSuccessful();
 
-        $fetched = $response->decodeResponseJson();
+        $fetched = $response->json();
 
         $this->assertCount(2, $fetched);
         $this->assertTrue(collect($fetched)->contains(
