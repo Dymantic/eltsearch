@@ -103,7 +103,7 @@ class CreateJobSearchTest extends TestCase
             'area_ids'       => json_encode([]),
             'student_ages'   => json_encode([]),
             'benefits'       => json_encode([]),
-            'weekends'       => true,
+            'weekends'       => null,
             'contract_type'  => json_encode([]),
             'hours_per_week' => null,
             'salary'         => null,

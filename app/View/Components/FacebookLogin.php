@@ -8,10 +8,12 @@ class FacebookLogin extends Component
 {
 
     public $redirect;
+    public $text;
 
-    public function __construct($redirect)
+    public function __construct($redirect, $text = "Sign up with Facebook")
     {
         $this->redirect = $redirect;
+        $this->text = $text;
     }
 
     /**

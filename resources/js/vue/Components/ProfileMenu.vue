@@ -29,10 +29,35 @@
                 <router-link
                     to="/change-password"
                     class="block mb-2 whitespace-no-wrap hover:text-blue-600"
-                    >Change password</router-link
+                    >{{ menu_items.password }}</router-link
                 >
                 <button @click="logout" class="hover:text-blue-600">
-                    Logout
+                    {{ menu_items.logout }}
+                </button>
+            </div>
+            <div
+                v-if="account_type === 'school'"
+                class="mt-4 pt-4 border-t border-gray-300 flex justify-between px-6"
+            >
+                <button
+                    :class="{
+                        'font-bold text-sky-blue underline':
+                            current_locale === 'en',
+                    }"
+                    :disabled="current_locale === 'en'"
+                    @click="setLocale('en')"
+                >
+                    EN
+                </button>
+                <button
+                    :class="{
+                        'font-bold text-sky-blue underline':
+                            current_locale === 'zh',
+                    }"
+                    :disabled="current_locale === 'zh'"
+                    @click="setLocale('zh')"
+                >
+                    ZH
                 </button>
             </div>
         </div>
@@ -65,11 +90,38 @@ export default {
         avatar() {
             return this.$store.state.profile.avatar;
         },
+
+        menu_items() {
+            return {
+                password:
+                    this.account_type === "school"
+                        ? this.trns("nav.change_password")
+                        : "Change password",
+                logout:
+                    this.account_type === "school"
+                        ? this.trns("nav.logout")
+                        : "Logout",
+            };
+        },
+
+        current_locale() {
+            if (!this.$store.state.lang) {
+                return "en";
+            }
+            return this.$store.state.lang.locale;
+        },
     },
 
     methods: {
         logout() {
             post("/logout", {}).then(() => (window.location = "/"));
+        },
+
+        setLocale(locale) {
+            if (this.$store.state.lang.locale === locale) {
+                return;
+            }
+            this.$store.commit("lang/setLocale", locale);
         },
     },
 };

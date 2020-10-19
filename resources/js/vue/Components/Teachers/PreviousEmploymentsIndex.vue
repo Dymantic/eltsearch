@@ -12,7 +12,7 @@
             <div
                 v-for="employment in employments"
                 :key="employment.id"
-                class="m-6 p-6 shadow rounded-lg"
+                class="m-6 p-6 shadow rounded-lg max-w-3xl"
             >
                 <p class="type-h4">{{ employment.employer }}</p>
                 <p class="type-b2 text-sky-blue">

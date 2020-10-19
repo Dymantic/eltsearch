@@ -102,7 +102,7 @@ class Teacher extends Model implements HasMedia
 
     public function jobApplications()
     {
-        return $this->belongsToMany(JobPost::class, 'job_applications');
+        return $this->hasMany(JobApplication::class);
     }
 
     public function applyForJob(
@@ -111,7 +111,8 @@ class Teacher extends Model implements HasMedia
         ContactDetails $contactDetails
     ): JobApplication {
 
-        $this->jobApplications()->attach($jobPost->id, [
+        $this->jobApplications()->create([
+            'job_post_id' => $jobPost->id,
             'cover_letter' => $cover_letter,
             'phone'        => $contactDetails->phone,
             'email'        => $contactDetails->emailOr($this->email),

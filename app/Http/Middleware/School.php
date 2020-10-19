@@ -16,6 +16,7 @@ class School
     public function handle($request, Closure $next)
     {
         if(auth()->user() && auth()->user()->isSchool()) {
+            app()->setLocale(auth()->user()->preferred_lang ?? 'en');
             return $next($request);
         }
 

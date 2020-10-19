@@ -1,28 +1,27 @@
 <template>
     <div>
-        <page-header title="Job Posts">
-            <router-link to="/job-posts/create" class="btn btn-primary"
-                >Create New Post</router-link
-            >
+        <page-header :title="trns('posts_index.title')">
+            <router-link to="/job-posts/create" class="btn btn-primary">{{
+                trns("posts_index.create_post")
+            }}</router-link>
         </page-header>
         <div>
-            <div v-for="post in posts" :key="post.id" class="shadow my-8 p-6">
-                <p>
-                    <router-link :to="`/job-posts/${post.id}/show`">{{
-                        post.position
-                    }}</router-link>
-                </p>
-                <p>{{ post.school_name }}</p>
-            </div>
+            <job-post-card
+                v-for="post in posts"
+                :post="post"
+                :key="post.id"
+            ></job-post-card>
         </div>
     </div>
 </template>
 
 <script type="text/babel">
 import PageHeader from "../../Components/PageHeader";
+import JobPostCard from "../../Components/Schools/JobPostCard";
 export default {
     components: {
         PageHeader,
+        JobPostCard,
     },
 
     computed: {

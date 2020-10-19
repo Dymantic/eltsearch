@@ -8,6 +8,10 @@ import EditPreviousEmployment from "../../vue/Components/Teachers/EditPreviousEm
 import ProfilePage from "../../vue/Pages/Teachers/ProfilePage";
 import EditJobSearch from "../../vue/Components/Teachers/EditJobSearch";
 import ShowJobSearch from "../../vue/Components/Teachers/ShowJobSearch";
+import TeacherApplications from "../../vue/Pages/Teachers/TeacherApplications";
+import ApplicationPost from "../../vue/Pages/ApplicationPost";
+import ApplicationDetails from "../../vue/Pages/Teachers/ApplicationDetails";
+import ShowOfInterest from "../../vue/Pages/Teachers/ShowOfInterest";
 
 export default [
     { path: "/", component: TeacherDashboard },
@@ -23,4 +27,14 @@ export default [
     },
     { path: "/job-search/show", component: ShowJobSearch },
     { path: "/job-search/edit", component: EditJobSearch },
+    { path: "/applications", component: TeacherApplications },
+    { path: "/applications/:application/post", component: ApplicationPost },
+    {
+        path: "/applications/:application/details",
+        component: ApplicationDetails,
+    },
+    {
+        path: "/applications/:application/show-of-interest",
+        component: ShowOfInterest,
+    },
 ];

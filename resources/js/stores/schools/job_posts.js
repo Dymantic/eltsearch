@@ -38,26 +38,28 @@ export default {
             );
         },
 
-        fetchPosts({ dispatch, commit, rootState }) {
+        fetchPosts({ state, dispatch, rootState }) {
             if (!rootState.schoolprofile.current_school) {
-                return dispatch("schoolprofile/fetchProfiles", null, {
-                    root: true,
-                }).then(() => {
-                    fetchSchoolJobPosts(
-                        rootState.schoolprofile.current_school.id
-                    ).then((posts) => commit("setPosts", posts));
-                });
+                return Promise.reject("No school profile set");
             }
-            const schoolio = rootState.schoolprofile.current_school.id;
-            return fetchSchoolJobPosts(schoolio).then((posts) =>
-                commit("setPosts", posts)
-            );
+
+            if (state.all.length) {
+                return Promise.resolve();
+            }
+
+            return dispatch("refreshPosts");
         },
 
-        refreshPosts({ dispatch }) {
-            return dispatch("fetchPosts").catch(() =>
-                showError("Failed to fetch job posts")
-            );
+        refreshPosts({ rootState, commit }) {
+            if (!rootState.schoolprofile.current_school) {
+                return Promise.reject("No school profile set");
+            }
+
+            return fetchSchoolJobPosts(
+                rootState.schoolprofile.current_school.id
+            )
+                .then((posts) => commit("setPosts", posts))
+                .catch(() => showError("Unable to fetch posts"));
         },
 
         createPost({ dispatch }, { school_id, formData }) {

@@ -14,13 +14,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group([
-    'prefix' => \Mcamara\LaravelLocalization\Facades\LaravelLocalization::setLocale(),
-    'middleware' => [ 'localeSessionRedirect', 'localizationRedirect' ]
-], function() {
+    'prefix'     => \Mcamara\LaravelLocalization\Facades\LaravelLocalization::setLocale(),
+    'middleware' => ['localeSessionRedirect', 'localizationRedirect']
+], function () {
     Route::get('/', 'HomePageController@show');
     Route::view('how-it-works', 'front.how-it-works.page');
     Route::view('for-schools', 'front.for-schools.page');
 });
+
+Route::get('/job-posts/{post:slug}/apply', 'ApplicationsController@create');
+Route::post('/job-posts/{post:slug}/apply', 'ApplicationsController@store');
 
 Route::get('login/facebook', 'FacebookLoginController@redirect');
 Route::get('register/teacher/facebook', 'FacebookRegisterController@redirect');
@@ -28,7 +31,6 @@ Route::get('facebook/auth/callback', 'FacebookAuthResponseController@store');
 
 Route::get('job-posts', 'JobPostsController@index');
 Route::get('/job-posts/{post:slug}', 'JobPostsController@show');
-
 
 
 Route::post('logout', 'LoginController@logout');
@@ -74,25 +76,41 @@ Route::group([
     'namespace'  => 'Admin\Schools'
 ], function () {
     Route::get('schools/user-schools', 'UserSchoolsController@index');
-    Route::post('schools/{school}', 'SchoolProfileController@update')->middleware('can:manage,school');
+    Route::post('schools/{school}', 'SchoolProfileController@update')
+         ->middleware('can:manage,school');
 
-    Route::post('schools/{school}/logos', 'SchoolLogosController@store')->middleware('can:manage,school');
-    Route::delete('schools/{school}/logos', 'SchoolLogosController@destroy')->middleware('can:manage,school');
+    Route::post('schools/{school}/logos', 'SchoolLogosController@store')
+         ->middleware('can:manage,school');
+    Route::delete('schools/{school}/logos', 'SchoolLogosController@destroy')
+         ->middleware('can:manage,school');
 
-    Route::post('schools/{school}/images', 'SchoolImagesController@store')->middleware('can:manage,school');
-    Route::delete('schools/{school}/images/{image}', 'SchoolImagesController@delete')->middleware('can:manage,school');
+    Route::post('schools/{school}/images', 'SchoolImagesController@store')
+         ->middleware('can:manage,school');
+    Route::delete('schools/{school}/images/{image}', 'SchoolImagesController@delete')
+         ->middleware('can:manage,school');
 
-    Route::get('schools/{school}/job-posts', 'SchoolJobPostsController@index')->middleware('can:manage,school');
-    Route::post('schools/{school}/job-posts', 'SchoolJobPostsController@store')->middleware('can:manage,school');
-    Route::post('schools/job-posts/{post}', 'SchoolJobPostsController@update')->middleware('can:manage,post');
-    Route::delete('schools/job-posts/{post}', 'SchoolJobPostsController@delete')->middleware('can:manage,post');
+    Route::get('schools/{school}/job-posts', 'SchoolJobPostsController@index')
+         ->middleware('can:manage,school');
+    Route::post('schools/{school}/job-posts', 'SchoolJobPostsController@store')
+         ->middleware('can:manage,school');
+    Route::post('schools/job-posts/{post}', 'SchoolJobPostsController@update')
+         ->middleware('can:manage,post');
+    Route::delete('schools/job-posts/{post}', 'SchoolJobPostsController@delete')
+         ->middleware('can:manage,post');
 
     Route::post('schools/posts/published-job-posts', 'PublishedJobPostsController@store');
     Route::delete('schools/posts/published-job-posts/{job_post}', 'PublishedJobPostsController@destroy');
 
-    Route::post('job-posts/{post}/images', 'JobPostImagesController@store')->middleware('can:manage,post');
+    Route::post('job-posts/{post}/images', 'JobPostImagesController@store')
+         ->middleware('can:manage,post');
+    Route::delete('job-posts/{post}/images/{image}', 'JobPostImagesController@destroy')
+         ->middleware('can:manage,post');
 
     Route::get('schools/job-post-options', 'JobPostOptionsController@show');
+
+    Route::get('schools/{school}/applications', 'SchoolApplicationsController@index');
+
+    Route::post('schools/applications/{application}/show-of-interest', 'ShowOfInterestController@store');
 });
 
 Route::group([
@@ -108,7 +126,8 @@ Route::group([
     Route::get('teachers/previous-employments', 'TeacherPreviousEmploymentController@index');
     Route::post('teachers/previous-employments', 'TeacherPreviousEmploymentController@store');
     Route::post('teachers/previous-employments/{employment}',
-        'TeacherPreviousEmploymentController@update')->middleware('can:manage,employment');
+        'TeacherPreviousEmploymentController@update')
+         ->middleware('can:manage,employment');
     Route::delete('teachers/previous-employments/{employment}',
         'TeacherPreviousEmploymentController@delete')->middleware('can:manage,employment');
 
@@ -123,7 +142,9 @@ Route::group([
 
     Route::get('teachers/job-search-options', 'JobSearchOptionsController@show');
 
-    Route::post('teachers/job-applications', 'TeacherJobApplicationsController@store');
+    Route::get('teachers/job-applications', 'TeacherJobApplicationsController@index');
+
+    Route::get('teachers/show-of-interests', 'TeacherShowOfInterestsController@index');
 });
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Schools;
 
+use App\Locations\Area;
 use App\Placements\JobPost;
 use App\Placements\JobPostInfo;
 use App\UniqueKey;
@@ -49,6 +50,11 @@ class School extends Model implements HasMedia
     public function schoolTypes()
     {
         return $this->belongsToMany(SchoolType::class);
+    }
+
+    public function area()
+    {
+        return $this->belongsTo(Area::class);
     }
 
 

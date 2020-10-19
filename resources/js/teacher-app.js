@@ -9,12 +9,14 @@ import notifications from "./stores/notifications";
 import profile from "./stores/teachers/profile";
 import locations from "./stores/teachers/locations";
 import placements from "./stores/teachers/placements";
+import applications from "./stores/teachers/applications";
 const store = new Vuex.Store({
     modules: {
         notifications,
         profile,
         locations,
         placements,
+        applications,
     },
 });
 
@@ -23,6 +25,9 @@ import routes from "./routes/teachers/routes";
 const router = new VueRouter({
     routes: routes,
 });
+
+import transPlugin from "./vue/transPlugin";
+Vue.use(transPlugin);
 
 import AppShell from "./vue/Pages/AppShell";
 import MainNavigation from "./vue/Components/Teachers/MainNavigation";

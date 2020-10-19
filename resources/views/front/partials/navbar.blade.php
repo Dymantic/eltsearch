@@ -9,8 +9,15 @@
             <div class="type-b2 pl-4 lg:pl-0 mr-4 mb-4 lg:mb-0"><a class="text-gray-600 hover:text-sky-blue" href="/for-schools">For Schools</a></div>
         </div>
         <div class="lg:border-l border-gray-400 flex flex-col lg:flex-row lg:items-center">
-            <div class="type-b2 pl-4 lg:pl-0 mx-0 lg:mx-6 mb-4 lg:mb-0"><a class="hover:text-sky-blue" href="/login">Sign in</a></div>
-            <div><a class="type-b2 btn-main" href="/register/teacher">Sign up</a></div>
+            @auth
+                <div class="type-b2 pl-4 lg:pl-0 mx-0 lg:mx-6 mb-4 lg:mb-0"><a class="hover:text-sky-blue" href="/teachers">Dashboard</a></div>
+                <div><a class="type-b2 " href="/register/teacher">Logout</a></div>
+            @endauth
+            @guest
+                    <div class="type-b2 pl-4 lg:pl-0 mx-0 lg:mx-6 mb-4 lg:mb-0"><a class="hover:text-sky-blue" href="/login">Sign in</a></div>
+                    <div><a class="type-b2 btn-main" href="/register/teacher">Sign up</a></div>
+            @endguest
+
         </div>
     </div>
     <button class="nav-trigger absolute top-0 right-0 m-3 lg:hidden">menu</button>

@@ -21,7 +21,7 @@ class User extends Authenticatable
     const PLATFORM_FACEBOOK = 'facebook';
 
 
-    protected $fillable = ['name', 'email', 'password', 'account_type', 'platform', 'provider_user_id'];
+    protected $fillable = ['name', 'email', 'password', 'account_type', 'platform', 'provider_user_id', 'preferred_lang'];
 
     protected $hidden = ['password', 'remember_token',];
 
@@ -94,7 +94,8 @@ class User extends Authenticatable
             'name'         => $school_data['name'],
             'email'        => $school_data['email'],
             'password'     => Hash::make($school_data['password']),
-            'account_type' => self::ACCOUNT_SCHOOL
+            'account_type' => self::ACCOUNT_SCHOOL,
+            'preferred_lang' => $school_data['preferred_lang'] ?? 'en',
         ]);
 
         $school = School::new($school_data['school_name']);

@@ -12,6 +12,7 @@
                 ref="input"
                 @input="emit"
                 class="mt-1 w-full block border p-2"
+                :class="height"
                 >{{ value }}</textarea
             >
         </label>
@@ -20,7 +21,15 @@
 
 <script type="text/babel">
 export default {
-    props: ["value", "error-msg", "input-name", "label", "type", "help-text"],
+    props: [
+        "value",
+        "error-msg",
+        "input-name",
+        "label",
+        "type",
+        "help-text",
+        "height",
+    ],
 
     computed: {
         inputType() {

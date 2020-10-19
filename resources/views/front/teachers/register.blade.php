@@ -2,7 +2,7 @@
     <div class="my-20 text-center">
         <h1 class="type-h2 text-navy mb-8">Sign up to find jobs on ELT Search</h1>
         <p class="max-w-3xl mx-auto type-b1">This is for teachers to sign up. Are you a school looking to post jobs? Then <a
-                href="/register/schools" class="type-b2 text-sky-blue hover:text-navy">sign up here.</a></p>
+                href="/register/school" class="type-b2 text-sky-blue hover:text-navy">sign up here.</a></p>
 
         </p>
     </div>

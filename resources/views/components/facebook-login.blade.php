@@ -5,6 +5,6 @@
         </a>
     </div>
     <div class="flex-1 text-navy hover:text-sky-blue type-b2 text-center flex justify-center items-center ml-1 bg-medium-gray">
-        <p><a href="{{$redirect}}">Sign Up with Facebook</a></p>
+        <p><a href="{{$redirect}}">{{ $text }}</a></p>
     </div>
 </div>

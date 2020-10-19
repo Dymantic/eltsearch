@@ -17,7 +17,7 @@ class SchoolProfileRequest extends FormRequest
     {
         return [
             'name'           => ['required'],
-            'area_id'        => ['exists:areas,id'],
+            'area_id'        => ['exists:areas,id', 'nullable'],
             'school_types'   => ['array'],
             'school_types.*' => ['exists:school_types,id']
         ];

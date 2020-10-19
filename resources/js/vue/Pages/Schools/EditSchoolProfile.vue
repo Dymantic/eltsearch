@@ -1,8 +1,8 @@
 <template>
     <div v-if="profile && types.length">
-        <page-header title="Edit School Profile">
+        <page-header :title="trns('edit_profile.title')">
             <router-link to="/profile" class="muted-btn"
-                >&larr; back</router-link
+                >&larr; {{ trns("actions.back") }}</router-link
             >
         </page-header>
         <school-profile-form
@@ -35,11 +35,11 @@ export default {
     mounted() {
         this.$store
             .dispatch("schoolprofile/fetchProfiles")
-            .catch(() => showError("Failed to fetch school info"));
+            .catch(() => showError(this.trns("errors.fetch_school_info")));
 
         this.$store
             .dispatch("schoolprofile/fetchSchoolTypes")
-            .catch(() => showError("Failed to fetch school types"));
+            .catch(() => showError(this.trns("errors.fetch_school_types")));
     },
 };
 </script>

@@ -11,14 +11,15 @@ class SchoolRegistrationController extends Controller
     public function store()
     {
         request()->validate([
-            'name'           => ['required'],
-            'email'          => ['required', 'email', Rule::unique('users', 'email')],
-            'password'       => ['required', 'min:8', 'confirmed'],
-            'school_name'    => ['required', Rule::unique('schools', 'name')],
+            'name'        => ['required'],
+            'email'       => ['required', 'email', Rule::unique('users', 'email')],
+            'password'    => ['required', 'min:8', 'confirmed'],
+            'school_name' => ['required', Rule::unique('schools', 'name')],
+            'preferred_lang' => ['required', Rule::in(['en', 'zh'])],
         ]);
 
         $user = User::registerSchool(
-            request()->only('name', 'email', 'password', 'school_name', 'school_address')
+            request()->only('name', 'email', 'password', 'school_name', 'school_address', 'preferred_lang')
         );
 
         auth()->login($user);

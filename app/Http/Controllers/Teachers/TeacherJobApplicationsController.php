@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class TeacherJobApplicationsController extends Controller
 {
+
+    public function index()
+    {
+        return request()->teacherProfile->jobApplications()->latest()->get()->map->presentForTeacher();
+    }
+
     public function store(JobApplicationRequest $request)
     {
         $request->teacher()

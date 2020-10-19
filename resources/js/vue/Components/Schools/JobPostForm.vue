@@ -1,23 +1,24 @@
 <template>
     <form @submit.prevent="submit" v-if="options && schoolId">
-        <labeled-box :dismissable="false" label="Job">
+        <labeled-box :dismissable="false" :label="trns('job_post_form.job')">
             <text-field
                 class="my-6 max-w-md"
-                label="Job Title"
+                :label="trns('job_post_form.job_title')"
                 v-model="formData.position"
                 :error-msg="formErrors.position"
             ></text-field>
 
             <textarea-field
                 class="my-6 max-w-lg"
-                label="Description of Job"
+                :label="trns('job_post_form.description')"
                 v-model="formData.description"
                 :error-msg="formErrors.description"
+                height="h-40"
             ></textarea-field>
 
             <div class="mt-6">
                 <p class="font-bold mb-2">
-                    When would you like the teacher to start?
+                    {{ trns("job_post_form.start_date_prompt") }}
                 </p>
                 <date-picker
                     v-model="formData.start_date"
@@ -26,27 +27,34 @@
             </div>
         </labeled-box>
 
-        <labeled-box :dismissable="false" label="School">
+        <labeled-box :dismissable="false" :label="trns('job_post_form.school')">
             <text-field
                 class="my-6 max-w-md"
-                label="Name of school"
+                :label="trns('job_post_form.school_name')"
                 v-model="formData.school_name"
                 :error-msg="formErrors.school_name"
             ></text-field>
             <div class="mt-6">
-                <p class="font-bold mb-2">Where is the school located?</p>
+                <p class="font-bold mb-2">
+                    {{ trns("job_post_form.location_prompt") }}
+                </p>
                 <div class="flex justify-between max-w-md">
                     <p>{{ current_location }}</p>
                     <choose-location
-                        label="Set location"
+                        :label="trns('job_post_form.set_location')"
                         @chosen="setArea"
                     ></choose-location>
                 </div>
             </div>
         </labeled-box>
 
-        <labeled-box :dismissable="false" label="Engagement">
-            <p class="font-bold">Is this job full time or part time?</p>
+        <labeled-box
+            :dismissable="false"
+            :label="trns('job_post_form.engagement')"
+        >
+            <p class="font-bold">
+                {{ trns("job_post_form.engagement_prompt") }}
+            </p>
             <div class="flex flex-wrap max-w-md mt-2">
                 <radio-input
                     v-for="engagement in options.engagements"
@@ -61,11 +69,12 @@
 
             <div class="mt-6">
                 <p class="font-bold mb-2">
-                    How many hours approximately would the teacher work per
-                    week?
+                    {{ trns("job_post_form.hours_prompt") }}
                 </p>
                 <div class="">
-                    <span class="mb-2 font-bold text-sm">Hours per week</span>
+                    <span class="mb-2 font-bold text-sm">{{
+                        trns("job_post_form.hours")
+                    }}</span>
                     <text-field
                         class="w-24"
                         label=""
@@ -83,20 +92,19 @@
 
             <div class="mt-6">
                 <p class="font-bold mb-2">
-                    Is the teacher required to work on either Saturdays or
-                    Sundays?
+                    {{ trns("job_post_form.weekends_prompt") }}
                 </p>
                 <div class="flex">
                     <radio-input
                         v-model="formData.work_on_weekends"
-                        label="Yes"
+                        :label="trns('job_post_form.yes')"
                         :value="true"
                         name="weekends"
                         class="mr-8"
                     ></radio-input>
                     <radio-input
                         v-model="formData.work_on_weekends"
-                        label="No"
+                        :label="trns('job_post_form.no')"
                         name="weekends"
                         :value="false"
                     ></radio-input>
@@ -105,7 +113,7 @@
 
             <div class="mt-6">
                 <p class="font-bold mb-2">
-                    What time of days would the teacher be working?
+                    {{ trns("job_post_form.times_prompt") }}
                 </p>
                 <div class="">
                     <checkbox-input
@@ -119,10 +127,13 @@
             </div>
         </labeled-box>
 
-        <labeled-box :dismissable="false" label="students">
+        <labeled-box
+            :dismissable="false"
+            :label="trns('job_post_form.students')"
+        >
             <div>
                 <p class="font-bold mb-2">
-                    What age of students would the teacher teach?
+                    {{ trns("job_post_form.student_age_prompt") }}
                 </p>
                 <div class="">
                     <checkbox-input
@@ -135,21 +146,21 @@
                 </div>
 
                 <p class="mt-6 font-bold mb-2">
-                    How many students are in each class?
+                    {{ trns("job_post_form.student_number_prompt") }}
                 </p>
 
                 <div class="flex">
                     <div class="mr-8">
                         <number-field
                             class="w-24"
-                            label="Min"
+                            :label="trns('job_post_form.min')"
                             v-model="formData.min_students_per_class"
                         ></number-field>
                     </div>
                     <div class="">
                         <number-field
                             class="w-24"
-                            label="Max"
+                            :label="trns('job_post_form.max')"
                             v-model="formData.max_students_per_class"
                         ></number-field>
                     </div>
@@ -157,9 +168,12 @@
             </div>
         </labeled-box>
 
-        <labeled-box :dismissable="false" label="requirements">
+        <labeled-box
+            :dismissable="false"
+            :label="trns('job_post_form.requirements')"
+        >
             <p class="mt-6 font-bold mb-2">
-                What do you require from the teacher?
+                {{ trns("job_post_form.requirements_prompt") }}
             </p>
             <div>
                 <checkbox-input
@@ -172,9 +186,9 @@
             </div>
         </labeled-box>
 
-        <labeled-box :dismissable="false" label="salary">
+        <labeled-box :dismissable="false" :label="trns('job_post_form.salary')">
             <p class="mt-6 font-bold mb-2">
-                What is the salary based on?
+                {{ trns("job_post_form.salary_rate_prompt") }}
             </p>
             <div class="flex flex-wrap">
                 <radio-input
@@ -188,29 +202,32 @@
                 ></radio-input>
             </div>
             <p class="mt-6 font-bold mb-2">
-                What salary are you offering?
+                {{ trns("job_post_form.salary_total_prompt") }}
             </p>
             <div class="flex">
                 <div class="mr-8">
                     <number-field
                         class="w-32"
-                        label="Min"
+                        :label="trns('job_post_form.min')"
                         v-model="formData.salary_min"
                     ></number-field>
                 </div>
                 <div class="">
                     <number-field
                         class="w-32"
-                        label="Max"
+                        :label="trns('job_post_form.max')"
                         v-model="formData.salary_max"
                     ></number-field>
                 </div>
             </div>
         </labeled-box>
 
-        <labeled-box :dismissable="false" label="benefits">
+        <labeled-box
+            :dismissable="false"
+            :label="trns('job_post_form.benefits')"
+        >
             <p class="mt-6 font-bold mb-2">
-                Which of these benefits do you offer?
+                {{ trns("job_post_form.benefits_prompt") }}
             </p>
             <div>
                 <checkbox-input
@@ -223,9 +240,12 @@
             </div>
         </labeled-box>
 
-        <labeled-box :dismissable="false" label="contract">
+        <labeled-box
+            :dismissable="false"
+            :label="trns('job_post_form.contract')"
+        >
             <p class="font-bold mb-2">
-                What contract length do you offer?
+                {{ trns("job_post_form.contract_prompt") }}
             </p>
             <div class="">
                 <radio-input
@@ -241,7 +261,9 @@
         </labeled-box>
 
         <div>
-            <submit-button :waiting="waiting">Save Job Post</submit-button>
+            <submit-button :waiting="waiting">{{
+                trns("job_post_form.submit")
+            }}</submit-button>
         </div>
     </form>
 </template>
@@ -329,7 +351,7 @@ export default {
     computed: {
         current_location() {
             if (!this.formData.area_id) {
-                return "No location set";
+                return this.trns("job_post_form.no_location");
             }
 
             const loc = this.$store.getters["locations/area_info"](
@@ -337,7 +359,7 @@ export default {
             );
 
             if (!loc) {
-                return "No location set";
+                return this.trns("job_post_form.no_location");
             }
 
             return `${loc.area_name}, ${loc.region_name}, ${loc.country_name}`;
@@ -400,21 +422,20 @@ export default {
                   };
             this.$store
                 .dispatch(action, payload)
-                .then(() => showSuccess("Your post has been saved"))
+                .then(() => showSuccess(this.trns("job_post_form.success")))
                 .catch(this.onError)
                 .then(() => (this.waiting = false));
         },
 
         onError({ status, data }) {
-            console.log({ status, data });
             if (status === 422) {
                 this.formErrors = setValidationErrors(
                     this.formErrors,
                     data.errors
                 );
-                return showWarning("Some input was not valid");
+                return showWarning(this.trns("errors.invalid_input"));
             }
-            showError("Sorry, failed to save info.");
+            showError(this.trns("errors.save_failed"));
         },
     },
 };

@@ -24,7 +24,7 @@
 <body class="text-black font-sans pt-16">
     {{ $slot }}
     @include('front.partials.footer')
-    @include('front.partials.navbar')
+    <x-main-navbar></x-main-navbar>
     <script src="{{ mix("/js/front.js") }}"></script>
 </body>
 </html>

@@ -19,6 +19,9 @@
                 email: "{{ $email }}",
                 avatar: "{{ $avatar }}",
                 account_type: "{{ $account }}",
+                @if($user->isSchool())
+                school_ids: [{{ $user->schools->pluck('id')->join(", ") }}]
+                @endif
             }
         </script>
 </head>

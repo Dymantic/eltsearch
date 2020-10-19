@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Placements\JobPost;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class JobPostImagesController extends Controller
 {
@@ -22,5 +23,10 @@ class JobPostImagesController extends Controller
         }
 
         $post->addImage(request('image'));
+    }
+
+    public function destroy(JobPost $post, Media $image)
+    {
+        $image->delete();
     }
 }

@@ -17,6 +17,12 @@
                 >Job Search</router-link
             >
         </div>
+
+        <div class="mb-3">
+            <router-link class="font-semibold" to="/applications"
+                >Job Applications</router-link
+            >
+        </div>
     </div>
 </template>
 

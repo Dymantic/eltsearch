@@ -2,34 +2,35 @@
     <form @submit.prevent="submit">
         <text-field
             class="my-6 max-w-md"
-            label="School name"
+            :label="trns('edit_profile.labels.name')"
             v-model="formData.name"
             :error-msg="formErrors.name"
         ></text-field>
 
         <textarea-field
             class="my-6 max-w-lg"
-            label="Introduction"
+            :label="trns('edit_profile.labels.intro')"
             v-model="formData.introduction"
             :error-msg="formErrors.introduction"
         ></textarea-field>
 
         <div class="my-8 max-w-lg">
-            <p class="font-bold mb-1">Main School Location</p>
+            <p class="font-bold mb-1">
+                {{ trns("edit_profile.labels.location") }}
+            </p>
             <div class="flex justify-between">
                 <p>{{ current_location }}</p>
                 <choose-location
-                    label="Set location"
+                    :label="trns('edit_profile.set_location')"
                     @chosen="setArea"
                 ></choose-location>
             </div>
         </div>
 
         <div class="my-8 max-w-lg">
-            <p class="font-bold mb-1">Type of school</p>
+            <p class="font-bold mb-1">{{ trns("edit_profile.labels.type") }}</p>
             <p class="my-3 text-gray-600">
-                Choose what types your school falls into. You may select more
-                than one.
+                {{ trns("edit_profile.labels.type_help") }}
             </p>
             <school-type-options
                 :options="schoolTypes"
@@ -38,9 +39,9 @@
         </div>
 
         <div class="my-8">
-            <submit-button :waiting="waiting"
-                >Update School Profile</submit-button
-            >
+            <submit-button :waiting="waiting">{{
+                trns("edit_profile.labels.submit")
+            }}</submit-button>
         </div>
     </form>
 </template>
@@ -88,7 +89,7 @@ export default {
     computed: {
         current_location() {
             if (!this.formData.area_id) {
-                return "No location set";
+                return this.trns("edit_profile.no_location");
             }
 
             const loc = this.$store.getters["locations/area_info"](
@@ -96,7 +97,7 @@ export default {
             );
 
             if (!loc) {
-                return "No location set";
+                return this.trns("edit_profile.no_location");
             }
 
             return `${loc.area_name}, ${loc.region_name}, ${loc.country_name}`;
@@ -140,7 +141,7 @@ export default {
         },
 
         onSuccess() {
-            showSuccess("School profile updated.");
+            showSuccess(this.trns("edit_profile.success"));
             this.$router.push("/profile");
         },
 
@@ -151,7 +152,7 @@ export default {
                     data.errors
                 ));
             }
-            showError("Failed to save profile info.");
+            showError(this.trns("errors.save_profile"));
         },
     },
 };

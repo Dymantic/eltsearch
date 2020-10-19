@@ -5,7 +5,7 @@
     </div>
 
     <div class="mb-12">
-        <x-facebook-login redirect="/login/facebook"></x-facebook-login>
+        <x-facebook-login text="Sign in with Facebook" redirect="/login/facebook"></x-facebook-login>
         @error('facebook_login')
         <p class="text-red-500 text-xs text-center mt-2">{{ $message }}</p>
         @enderror

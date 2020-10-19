@@ -79,7 +79,15 @@
         </div>
 
         <div class="text-center my-12">
-            <a href="" class="hover:bg-sky-blue bg-navy text-white px-4 py-2 shadow rounded-l-full rounded-r-full text-sm">Apply Now</a>
+            <a href="/job-posts/{{ $post['slug'] }}/apply" class="hover:bg-sky-blue bg-navy text-white px-4 py-2 shadow rounded-l-full rounded-r-full text-sm">Apply Now</a>
         </div>
+    </div>
+
+    <div class="my-12 flex justify-center max-w-5xl mx-auto">
+        @foreach($post['images'] as $image)
+        <div class="w-1/4 mx-4">
+            <img src="{{ $image['thumb'] }}" alt="{{ $post['school_name'] }}" class="w-full h-full object-cover">
+        </div>
+        @endforeach
     </div>
 </x-public-page>

@@ -10,6 +10,7 @@ use Illuminate\Support\Carbon;
 
 $factory->define(JobPost::class, function (Faker $faker) {
     return [
+        'slug'                   => \Illuminate\Support\Str::random(8),
         'school_id'              => factory(School::class),
         'posted_by'              => factory(User::class)->state('school'),
         'last_edited_by'         => factory(User::class)->state('school'),

@@ -5,3 +5,11 @@
 .form-text-input {
     @apply block p-2 border border-navy rounded-lg w-full type-b1;
 }
+
+.custom-check {
+    @apply inline-block w-4 h-4 border border-navy mx-2 bg-white rounded;
+}
+
+    input:checked + .custom-check {
+        @apply bg-sky-blue;
+    }

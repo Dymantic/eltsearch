@@ -1,14 +1,19 @@
 <template>
     <div>
         <div class="mb-3">
-            <router-link class="font-semibold text-white" to="/profile"
-                >Profile</router-link
-            >
+            <router-link class="font-semibold text-white" to="/profile">{{
+                trns("nav.profile")
+            }}</router-link>
         </div>
         <div class="mb-3">
-            <router-link class="font-semibold text-white" to="/job-posts"
-                >Job Posts</router-link
-            >
+            <router-link class="font-semibold text-white" to="/job-posts">{{
+                trns("nav.posts")
+            }}</router-link>
+        </div>
+        <div class="mb-3">
+            <router-link class="font-semibold text-white" to="/applications">{{
+                trns("nav.applications")
+            }}</router-link>
         </div>
     </div>
 </template>

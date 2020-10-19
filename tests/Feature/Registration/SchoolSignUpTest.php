@@ -27,6 +27,7 @@ class SchoolSignUpTest extends TestCase
             'email'                 => 'test@test.test',
             'password'              => 'test_password',
             'password_confirmation' => 'test_password',
+            'preferred_lang'        => 'zh',
         ]);
         $response->assertRedirect("/schools");
 
@@ -34,6 +35,7 @@ class SchoolSignUpTest extends TestCase
             'name'         => 'test name',
             'email'        => 'test@test.test',
             'account_type' => User::ACCOUNT_SCHOOL,
+            'preferred_lang' => 'zh',
         ]);
 
         $this->assertCount(1, User::all());
@@ -46,9 +48,9 @@ class SchoolSignUpTest extends TestCase
         ]);
 
         $this->assertDatabaseHas('school_user', [
-            'school_id' => School::where('name', 'test school')->first()->id,
-            'user_id'   => $user->id,
-            'owner'     => true,
+            'school_id'      => School::where('name', 'test school')->first()->id,
+            'user_id'        => $user->id,
+            'owner'          => true,
         ]);
     }
 
@@ -131,6 +133,22 @@ class SchoolSignUpTest extends TestCase
         $this->assertFieldIsInvalid(['school_name' => 'test school']);
     }
 
+    /**
+     *@test
+     */
+    public function the_preferred_lang_must_be_present()
+    {
+        $this->assertFieldIsInvalid(['preferred_lang' => null]);
+    }
+
+    /**
+     *@test
+     */
+    public function the_preferred_lang_must_be_accepted_lang_code()
+    {
+        $this->assertFieldIsInvalid(['preferred_lang' => 'neither-en-nor-zh']);
+    }
+
 
     private function assertFieldIsInvalid($field)
     {
@@ -141,6 +159,7 @@ class SchoolSignUpTest extends TestCase
             'email'                 => 'test@test.test',
             'password'              => 'test_password',
             'password_confirmation' => 'test_password',
+            'preferred_lang'        => 'zh',
         ];
 
         $response = $this

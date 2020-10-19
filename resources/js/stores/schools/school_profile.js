@@ -16,9 +16,15 @@ export default {
 
     mutations: {
         setProfiles(state, profiles) {
-            state.profile = profiles;
+            state.profiles = profiles;
             if (profiles && !state.current_school) {
                 state.current_school = profiles[0];
+            }
+
+            if (profiles && state.current_school) {
+                state.current_school = profiles.find(
+                    (profile) => profile.id === state.current_school.id
+                );
             }
         },
 
@@ -33,16 +39,24 @@ export default {
     },
 
     actions: {
-        fetchProfiles({ commit }) {
-            return fetchSchoolProfiles().then((profiles) => {
-                commit("setProfiles", profiles);
-            });
+        fetchProfiles({ state, dispatch }) {
+            if (state.profiles.length) {
+                console.log("not fetching");
+                return Promise.resolve();
+            }
+
+            return dispatch("refreshProfile");
         },
 
-        refreshProfile({ dispatch }, school_id) {
-            dispatch("fetchProfiles").catch(() =>
-                showError("Failed to fetch profile info")
-            );
+        refreshProfile({ commit }, school_id) {
+            return fetchSchoolProfiles()
+                .then((profiles) => {
+                    commit("setProfiles", profiles);
+                    commit("profile/setProfileAvatar", profiles[0].logo.thumb, {
+                        root: true,
+                    });
+                })
+                .catch(() => showError("Failed to fetch school info"));
         },
 
         updateProfile({ dispatch }, { school_id, formData }) {

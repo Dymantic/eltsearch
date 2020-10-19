@@ -12,25 +12,19 @@ class JobApplicationRequest extends FormRequest
 
     public function authorize()
     {
-        return true;
+        return $this->user()->isTeacher();
     }
 
     public function teacher(): Teacher
     {
-        return $this->teacherProfile;
+        return $this->user()->teacher;
     }
 
 
     public function rules()
     {
         return [
-            'job_post_id' => ['exists:job_posts,id']
         ];
-    }
-
-    public function jobPost(): JobPost
-    {
-        return JobPost::findOrFail($this->job_post_id);
     }
 
     public function coverLetter(): string

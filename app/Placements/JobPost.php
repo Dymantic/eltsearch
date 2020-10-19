@@ -117,6 +117,11 @@ class JobPost extends Model implements HasMedia
         ]);
     }
 
+    public function jobApplications()
+    {
+        return $this->hasMany(JobApplication::class);
+    }
+
     public function area()
     {
         return $this->belongsTo(Area::class);

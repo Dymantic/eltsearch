@@ -1,8 +1,11 @@
 <template>
-    <div class="min-h-screen flex relative" :class="{ 'expose-nav': !hideNav }">
+    <div
+        class="min-h-screen flex relative w-screen"
+        :class="{ 'expose-nav': !hideNav }"
+    >
         <side-nav></side-nav>
 
-        <div class="flex flex-col flex-1 lg:pl-80">
+        <div class="flex flex-col flex-1 lg:pl-80 max-w-full">
             <div
                 class="h-20 bg-gray-100 shadow flex justify-end items-center px-6"
             >

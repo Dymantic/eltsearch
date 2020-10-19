@@ -1,6 +1,6 @@
 <template>
     <div v-if="options">
-        <page-header title="Edit Job Post"></page-header>
+        <page-header :title="trns('create_post.title')"></page-header>
         <job-post-form :options="options" :school-id="schoolId"></job-post-form>
     </div>
 </template>
@@ -29,15 +29,15 @@ export default {
     created() {
         this.$store
             .dispatch("posts/fetchOptions")
-            .catch(() => showError("Failed to fetch options."));
+            .catch(() => showError(this.trns("errors.fetch_options")));
 
         this.$store
             .dispatch("locations/fetchLocations")
-            .catch(() => showError("Failed to fetch locations."));
+            .catch(() => showError(this.trns("errors.fetch_locations")));
 
         this.$store
             .dispatch("schoolprofile/fetchProfiles")
-            .catch(() => showError("Failed to fetch school info."));
+            .catch(() => showError(this.trns("errors.fetch_school_info")));
     },
 };
 </script>

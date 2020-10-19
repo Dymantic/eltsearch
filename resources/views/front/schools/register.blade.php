@@ -1,19 +1,8 @@
 <x-public-page title="Signup for ELTSearch">
         <div class="my-20 text-center">
             <h1 class="type-h2 text-navy mb-8 max-w-3xl mx-auto">Sign up to post jobs ELT Search</h1>
-            <p class="type-b1 mt-4">Already a member? <a href="" class="type-b2 text-sky-blue hover:text-navy ">Sign in</a>
+            <p class="type-b1 mt-4">Already a member? <a href="/login" class="type-b2 text-sky-blue hover:text-navy ">Sign in</a>
             </p>
-        </div>
-
-        <div class="mb-12">
-            <div class="flex max-w-sm mx-auto rounded-lg overflow-hidden">
-                <div class="flex justify-center items-center bg-medium-gray p-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="fill-current text-navy h-8"><path d="M17 1H3c-1.1 0-2 .9-2 2v14c0 1.101.9 2 2 2h7v-7H8V9.525h2v-2.05c0-2.164 1.212-3.684 3.766-3.684l1.803.002v2.605h-1.197c-.994 0-1.372.746-1.372 1.438v1.69h2.568L15 12h-2v7h4c1.1 0 2-.899 2-2V3c0-1.1-.9-2-2-2z"/></svg>
-                </div>
-                <div class="flex-1 text-center flex justify-center items-center ml-1 bg-medium-gray">
-                    <p>Sign Up with Facebook</p>
-                </div>
-            </div>
         </div>
 
         <form action="/register/school" method="post" class="max-w-md mx-auto">
@@ -52,6 +41,38 @@
                 <label class="form-label" for="password_confirmation">Confirm your password:</label>
 
                 <input type="password" id="password_confirmation" name="password_confirmation" class="form-text-input">
+            </div>
+
+            <div class="my-6">
+                <p class="form-label">What is your preferred language?</p>
+                <div class="flex justify-between mt-2">
+                    <div>
+                        <label for="lang_zh" class="flex items-center">
+                            <span>Chinese</span>
+                            <input type="radio" name="preferred_lang" value="zh" id="lang_zh" class="hidden">
+                            <span class="custom-check"></span>
+                        </label>
+                    </div>
+                    <div>
+                        <label for="lang_en" class="flex items-center">
+                            <span>English</span>
+                            <input type="radio" name="preferred_lang" value="en" id="lang_en" class="hidden">
+                            <span class="custom-check"></span>
+                        </label>
+                    </div>
+                </div>
+                <script>
+                    window.addEventListener('load', () => {
+                        if(navigator && navigator.language.includes('zh')) {
+                            const el = document.getElementById('lang_zh');
+                            el.checked = true;
+                        }
+                        if(navigator && navigator.language.includes('en')) {
+                            const el = document.getElementById('lang_en');
+                            el.checked = true;
+                        }
+                    })
+                </script>
             </div>
 
             <div class="my-12 text-center">
