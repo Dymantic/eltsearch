@@ -12,6 +12,8 @@ import TeacherApplications from "../../vue/Pages/Teachers/TeacherApplications";
 import ApplicationPost from "../../vue/Pages/ApplicationPost";
 import ApplicationDetails from "../../vue/Pages/Teachers/ApplicationDetails";
 import ShowOfInterest from "../../vue/Pages/Teachers/ShowOfInterest";
+import Notifications from "../../vue/Pages/Notifications";
+import ShowNotification from "../../vue/Pages/ShowNotification";
 
 export default [
     { path: "/", component: TeacherDashboard },
@@ -36,5 +38,13 @@ export default [
     {
         path: "/applications/:application/show-of-interest",
         component: ShowOfInterest,
+    },
+    {
+        path: "/notifications",
+        component: Notifications,
+    },
+    {
+        path: "/notifications/:notification",
+        component: ShowNotification,
     },
 ];

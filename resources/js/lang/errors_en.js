@@ -8,4 +8,7 @@ export default {
     fetch_school_info: "Failed to fetch school info",
     fetch_school_types: "Failed to fetch school types",
     fetch_applications: "Failed to fetch applications",
+    fetch_notifications: "Failed to fetch notifications",
+    delete_notification: "Failed to delete notification",
+    update_lang: "Failed to save language preference",
 };

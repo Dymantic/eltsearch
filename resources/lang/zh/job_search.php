@@ -2,9 +2,8 @@
 
 return [
   'salary' => [
-      \App\Placements\JobSearch::SALARY_LOW => 'Any salary',
-      \App\Placements\JobSearch::SALARY_MID => 'Above NT$30,000 per month',
-      \App\Placements\JobSearch::SALARY_HIGH => 'Above NT$65,000 per month',
+      \App\Placements\JobSearch::SALARY_AVG => 'An average salary for the industry, or higher.',
+      \App\Placements\JobSearch::SALARY_HIGH => 'Only salaries higher than the current average.',
   ],
 
     'hours' => [

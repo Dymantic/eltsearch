@@ -34,7 +34,7 @@ class School extends Model implements HasMedia
         ]);
     }
 
-    public function owners()
+    public function admins()
     {
         return $this->belongsToMany(User::class)
             ->withPivot(['owner'])
@@ -44,7 +44,7 @@ class School extends Model implements HasMedia
 
     public function setOwner(User $user)
     {
-        $this->owners()->attach([$user->id => ['owner' => true]]);
+        $this->admins()->attach([$user->id => ['owner' => true]]);
     }
 
     public function schoolTypes()

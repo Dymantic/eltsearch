@@ -6,16 +6,23 @@ use App\Http\Requests\JobApplicationRequest;
 use App\Placements\JobPost;
 use App\Placements\JobPostPresenter;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class ApplicationsController extends Controller
 {
     public function create(JobPost $post)
     {
-        return view('front.applications.create', ['post' => JobPostPresenter::forPublic($post)]);
+        return view('front.applications.create', [
+            'post' => JobPostPresenter::forPublic($post),
+        ]);
     }
 
     public function store(JobApplicationRequest $request, JobPost $post)
     {
+        if($request->teacher()->hasApplicationFor($post)) {
+            throw ValidationException::withMessages(['job_post' => 'You have already applied for this post']);
+        }
+
         $request->teacher()
                 ->applyForJob($post, $request->coverLetter(), $request->contactDetails());
 

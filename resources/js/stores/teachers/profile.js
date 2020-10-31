@@ -22,6 +22,7 @@ export default {
         general_info: null,
         education_info: null,
         previous_employments: [],
+        preferred_lang: "en",
     },
 
     getters: {
@@ -30,11 +31,15 @@ export default {
     },
 
     mutations: {
-        setProfileDetails(state, { name, email, avatar, account_type }) {
+        setProfileDetails(
+            state,
+            { name, email, avatar, account_type, preferred_lang }
+        ) {
             state.name = name;
             state.email = email;
             state.avatar = avatar;
             state.account_type = account_type;
+            state.preferred_lang = preferred_lang;
         },
 
         setGeneralInfo(state, info) {

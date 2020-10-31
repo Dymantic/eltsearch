@@ -5,10 +5,12 @@ namespace App\Providers;
 use App\Placements\JobPost;
 use App\Policies\JobPostPolicy;
 use App\Policies\PreviousEmploymentPolicy;
+use App\Policies\ReadNotificationsPolicy;
 use App\Policies\SchoolPolicy;
 use App\Schools\School;
 use App\Teachers\PreviousEmployment;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
@@ -22,6 +24,7 @@ class AuthServiceProvider extends ServiceProvider
         School::class             => SchoolPolicy::class,
         JobPost::class            => JobPostPolicy::class,
         PreviousEmployment::class => PreviousEmploymentPolicy::class,
+        DatabaseNotification::class => ReadNotificationsPolicy::class,
     ];
 
     /**

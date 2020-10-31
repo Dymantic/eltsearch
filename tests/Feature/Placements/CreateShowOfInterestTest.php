@@ -4,6 +4,8 @@
 namespace Tests\Feature\Placements;
 
 
+use App\ContactDetails;
+use App\ContactPersonInfo;
 use App\Placements\JobApplication;
 use App\Placements\JobPost;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -44,6 +46,33 @@ class CreateShowOfInterestTest extends TestCase
             'email'              => 'test@test.test',
             'phone'              => 'test phone'
         ]);
+    }
+
+    /**
+     *@test
+     */
+    public function cannot_reach_out_to_teacher_more_than_once()
+    {
+        list($school, $owner) = $this->setUpSchool();
+        $post = factory(JobPost::class)->create([
+            'school_id' => $school->id,
+        ]);
+        $application = factory(JobApplication::class)->create([
+            'job_post_id' => $post->id,
+        ]);
+        $school_contact = new ContactPersonInfo(
+            array_merge(['name' => 'test name'], ContactDetails::fake()->toArray())
+        );
+        $application->showInterest($school_contact);
+
+        $response = $this
+            ->actingAs($owner)
+            ->postJson("/api/schools/applications/{$application->id}/show-of-interest", [
+                'contact_name' => 'test name',
+                'email'        => 'test@test.test',
+                'phone'        => 'test phone'
+            ]);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /**

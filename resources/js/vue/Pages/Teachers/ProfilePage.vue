@@ -3,9 +3,9 @@
         <div class="max-w-xl mx-auto p-6 rounded-lg shadow">
             <div class="flex flex-col md:flex-row justify-between">
                 <div class="flex-1">
-                    <p class="type-h3">{{ profile.name }}</p>
+                    <p class="type-h3">{{ generalInfo.name }}</p>
                     <p class="mt-3 type-h4 text-gray-600">
-                        {{ profile.email }}
+                        {{ generalInfo.email }}
                     </p>
                     <p class="mt-4">{{ generalInfo.nationality }}</p>
 

@@ -19,6 +19,7 @@
                 email: "{{ $email }}",
                 avatar: "{{ $avatar }}",
                 account_type: "{{ $account }}",
+                preferred_lang: "{{ $preferred_lang }}",
                 @if($user->isSchool())
                 school_ids: [{{ $user->schools->pluck('id')->join(", ") }}]
                 @endif

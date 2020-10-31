@@ -26,7 +26,8 @@ class CreateCountryTest extends TestCase
         $response->assertSuccessful();
 
         $this->assertDatabaseHas('countries', [
-            'name' => json_encode(['en' => "test name", 'zh' => "zh test name"]),
+            'name->en' => 'test name',
+            'name->zh' => 'zh test name',
         ]);
     }
 

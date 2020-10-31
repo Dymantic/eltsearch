@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Teachers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\JobApplicationRequest;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class TeacherJobApplicationsController extends Controller
 {
@@ -16,6 +17,7 @@ class TeacherJobApplicationsController extends Controller
 
     public function store(JobApplicationRequest $request)
     {
+
         $request->teacher()
                 ->applyForJob($request->jobPost(), $request->coverLetter(), $request->contactDetails());
     }

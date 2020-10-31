@@ -21,6 +21,10 @@ class JobPostsController extends Controller
 
     public function show(JobPost $post)
     {
-        return view('front.job-posts.post', ['post' => JobPostPresenter::forPublic($post)]);
+        return view('front.job-posts.post', [
+            'post' => JobPostPresenter::forPublic($post),
+            'has_application' => $post->hasApplicationBy(auth()->user())
+        ]);
     }
+
 }

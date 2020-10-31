@@ -7,6 +7,7 @@ export default {
         applications: "Applications",
         change_password: "Change Password",
         logout: "Logout",
+        notifications: "Messages",
     },
     actions: {
         edit: "Edit",
@@ -125,6 +126,8 @@ export default {
         phone: "Phone",
         not_provided: "Not provided",
         inform: "Inform Applicant",
+        already_shown_interest:
+            "You have already contacted the teacher. If you wish to reach out again, contact the teacher directly.",
     },
     create_post: {
         title: "Create Job Post",
@@ -149,5 +152,15 @@ export default {
         cover_letter: "Introduction",
         education: "Education",
         work_experience: "Work Experience",
+    },
+    notifications: {
+        index_title: "Messages",
+        show_title: "Message",
+        received: "Received",
+        subject: "Subject",
+        back_button: "Back to Inbox",
+        delete_button: "Delete message",
+        deleted: "Notification deleted.",
+        empty_inbox: "There are no messages for you at the moment.",
     },
 };

@@ -29,7 +29,8 @@ class UpdateCountryTest extends TestCase
         $response->assertSuccessful();
 
         $this->assertDatabaseHas('countries', [
-            'name' => json_encode(['en' => "new name", 'zh' => "zh new name"]),
+            'name->en' => "new name",
+            'name->zh' => "zh new name"
         ]);
     }
 

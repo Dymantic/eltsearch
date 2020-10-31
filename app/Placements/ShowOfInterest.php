@@ -11,4 +11,9 @@ class ShowOfInterest extends Model
         'email',
         'phone',
     ];
+
+    public function jobApplication()
+    {
+        return $this->belongsTo(JobApplication::class);
+    }
 }

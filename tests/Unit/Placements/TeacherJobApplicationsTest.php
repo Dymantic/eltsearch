@@ -81,4 +81,23 @@ class TeacherJobApplicationsTest extends TestCase
         $this->assertSame('test phone', $application->phone);
         $this->assertSame($teacher_email, $application->email);
     }
+
+    /**
+     *@test
+     */
+    public function teacher_can_check_if_already_applied_for_job_post()
+    {
+        $teacher = factory(Teacher::class)->create();
+        $job_post = factory(JobPost::class)->create();
+        $contact_details = new ContactDetails([
+            'phone' => 'test phone',
+            'email' => '',
+        ]);
+
+        $this->assertFalse($teacher->fresh()->hasApplicationFor($job_post));
+
+        $teacher->applyForJob($job_post, 'test cover letter', $contact_details);
+
+        $this->assertTrue($teacher->fresh()->hasApplicationFor($job_post));
+    }
 }

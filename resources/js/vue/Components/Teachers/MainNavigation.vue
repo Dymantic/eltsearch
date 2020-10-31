@@ -23,6 +23,12 @@
                 >Job Applications</router-link
             >
         </div>
+
+        <div class="mb-3">
+            <router-link class="font-semibold" to="/notifications"
+                >Messages</router-link
+            >
+        </div>
     </div>
 </template>
 

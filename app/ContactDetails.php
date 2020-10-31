@@ -19,4 +19,20 @@ class ContactDetails
     {
         return $this->email === '' ? $default : $this->email;
     }
+
+    public static function fake()
+    {
+        return new self([
+            'email' => 'test@test.test',
+            'phone' => '0123456789',
+        ]);
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'email' => $this->email,
+            'phone' => $this->phone,
+        ];
+    }
 }

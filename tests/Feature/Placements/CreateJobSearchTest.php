@@ -43,7 +43,7 @@ class CreateJobSearchTest extends TestCase
                 JobPost::CONTRACT_YEAR
             ],
             'hours_per_week' => JobSearch::HOURS_MAX,
-            'salary'         => JobSearch::SALARY_MID,
+            'salary'         => JobSearch::SALARY_AVG,
             'engagement'     => JobPost::FULL_TIME,
             'schedule'       => [JobPost::SCHEDULE_AFTERNOONS, JobPost::SCHEDULE_EVENINGS],
         ]);
@@ -52,28 +52,28 @@ class CreateJobSearchTest extends TestCase
 
         $this->assertDatabaseHas('job_searches', [
             'teacher_id'     => $teacher->id,
-            'area_ids'       => json_encode([$area->id]),
-            'student_ages'   => json_encode([
+            'area_ids'       => $this->asJson([$area->id], 'area_ids'),
+            'student_ages'   => $this->asJson([
                 JobPost::AGE_SENIOR_HIGH,
                 JobPost::AGE_UNIVERSITY,
                 JobPost::AGE_ADULT,
-            ]),
-            'benefits'       => json_encode([
+            ], 'student_ages'),
+            'benefits'       => $this->asJson([
                 JobPost::BENEFIT_ARC,
                 JobPost::BENEFIT_INSURANCE,
-            ]),
+            ], 'benefits'),
             'weekends'       => false,
-            'contract_type'  => json_encode([
+            'contract_type'  => $this->asJson([
                 JobPost::CONTRACT_SIX_MONTHS,
                 JobPost::CONTRACT_YEAR
-            ]),
+            ], 'contract_type'),
             'hours_per_week' => JobSearch::HOURS_MAX,
-            'salary'         => JobSearch::SALARY_MID,
+            'salary'         => JobSearch::SALARY_AVG,
             'engagement'     => JobPost::FULL_TIME,
-            'schedule'       => json_encode([
+            'schedule'       => $this->asJson([
                 JobPost::SCHEDULE_AFTERNOONS,
                 JobPost::SCHEDULE_EVENINGS
-            ]),
+            ], 'schedule'),
         ]);
     }
 
@@ -100,11 +100,11 @@ class CreateJobSearchTest extends TestCase
 
         $this->assertDatabaseHas('job_searches', [
             'teacher_id'     => $teacher->id,
-            'area_ids'       => json_encode([]),
-            'student_ages'   => json_encode([]),
-            'benefits'       => json_encode([]),
+            'area_ids'       => $this->asJson([], 'area_ids'),
+            'student_ages'   => $this->asJson([], 'student_ages'),
+            'benefits'       => $this->asJson([], 'benefits'),
             'weekends'       => null,
-            'contract_type'  => json_encode([]),
+            'contract_type'  => $this->asJson([], 'contract_type'),
             'hours_per_week' => null,
             'salary'         => null,
         ]);
@@ -246,7 +246,7 @@ class CreateJobSearchTest extends TestCase
                 JobPost::CONTRACT_YEAR
             ],
             'hours_per_week' => JobSearch::HOURS_MAX,
-            'salary'         => JobSearch::SALARY_MID,
+            'salary'         => JobSearch::SALARY_AVG,
             'engagement'     => JobPost::FULL_TIME,
             'schedule'       => [JobPost::SCHEDULE_AFTERNOONS, JobPost::SCHEDULE_EVENINGS],
         ];

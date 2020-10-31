@@ -75,23 +75,23 @@ class UpdateJobPostTest extends TestCase
             'hours_per_week'         => 21,
             'min_students_per_class' => 12,
             'max_students_per_class' => 16,
-            'student_ages'           => json_encode([
+            'student_ages'           => $this->asJson([
                 JobPost::AGE_JUNIOR_HIGH,
                 JobPost::AGE_SENIOR_HIGH,
-            ]),
+            ], 'student_ages'),
             'work_on_weekends'       => false,
-            'requirements'           => json_encode([
+            'requirements'           => $this->asJson([
                 JobPost::REQUIRES_DEGREE,
-            ]),
+            ], 'requirements'),
             'salary_rate'            => JobPost::SALARY_RATE_MONTH,
             'salary_min'             => 50000,
             'salary_max'             => 65000,
             'start_date'             => Carbon::tomorrow(),
-            'benefits'               => json_encode([
+            'benefits'               => $this->asJson([
                 JobPost::BENEFIT_ARC,
                 JobPost::BENEFIT_INSURANCE,
-            ]),
-            'schedule'               => json_encode([JobPost::SCHEDULE_MORNINGS]),
+            ], 'benefits'),
+            'schedule'               => $this->asJson([JobPost::SCHEDULE_MORNINGS], 'schedule'),
             'contract_length'        => JobPost::CONTRACT_SIX_MONTHS
         ]);
 
@@ -187,14 +187,14 @@ class UpdateJobPostTest extends TestCase
             'hours_per_week'         => null,
             'min_students_per_class' => null,
             'max_students_per_class' => null,
-            'student_ages'           => json_encode([]),
+            'student_ages'           => $this->asJson([], 'student_ages'),
             'work_on_weekends'       => false,
-            'requirements'           => json_encode([]),
+            'requirements'           => $this->asJson([], 'requirements'),
             'salary_rate'            => '',
             'salary_min'             => null,
             'salary_max'             => null,
-            'start_date'             => Carbon::now(),
-            'benefits'               => json_encode([]),
+//            'start_date'             => Carbon::now(),
+            'benefits'               => $this->asJson([], 'benefits'),
             'contract_length'        => ''
         ]);
     }

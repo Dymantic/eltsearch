@@ -7,18 +7,20 @@ export default {
         avatar: "",
         account_type: "",
         school_ids: [],
+        preferred_lang: "en",
     },
 
     mutations: {
         setProfileDetails(
             state,
-            { name, email, avatar, account_type, school_ids }
+            { name, email, avatar, account_type, school_ids, preferred_lang }
         ) {
             state.name = name;
             state.email = email;
             state.avatar = avatar;
             state.account_type = account_type;
             state.school_ids = school_ids;
+            state.preferred_lang = preferred_lang;
         },
 
         setProfileAvatar(state, avatar) {

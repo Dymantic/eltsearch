@@ -4,6 +4,7 @@ namespace App\Rules;
 
 use App\Locations\Country;
 use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 
 class UniqueInCountry implements Rule
 {
@@ -29,7 +30,8 @@ class UniqueInCountry implements Rule
             ->where('id', '<>', $this->ignore)
             ->where(function($query) use ($value) {
                 collect($value)->each(function ($input, $lang) use ($query) {
-                    $query->orWhere("name->{$lang}", 'LIKE', $input);
+                    $query->orWhere(DB::raw("lower(json_unquote(json_extract(name, '$.{$lang}')))"),
+                        'LIKE', strtolower($input));
                 });
             });
 

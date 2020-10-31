@@ -50,9 +50,8 @@ class JobSearchOptionsController extends Controller
                 ["value" => JobSearch::HOURS_MAX, "description" => "As many as possible"],
             ],
             "salary_ranges"    => [
-                ["value" => JobSearch::SALARY_LOW, "description" => "Up to NT$30,000 / month"],
-                ["value" => JobSearch::SALARY_MID, "description" => "NT$30,000 - NT$70,000 / month"],
-                ["value" => JobSearch::SALARY_HIGH, "description" => "Over NT$70,000 / month"],
+                ["value" => JobSearch::SALARY_AVG, "description" => "An average salary for the industry or above"],
+                ["value" => JobSearch::SALARY_HIGH, "description" => "A higher than average salary"],
             ],
             "engagements"      => [
                 ["value" => JobPost::FULL_TIME, "description" => "Full Time"],

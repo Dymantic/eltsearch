@@ -35,6 +35,11 @@ class JobApplication extends Model
         return $this->showOfInterests()->create($contactPerson->toArray());
     }
 
+    public function hasShowOfInterest()
+    {
+        return !!$this->showOfInterests()->count();
+    }
+
     public function presentForTeacher()
     {
         return JobApplicationPresenter::forTeacher($this);

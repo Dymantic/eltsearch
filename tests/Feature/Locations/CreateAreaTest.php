@@ -31,7 +31,8 @@ class CreateAreaTest extends TestCase
 
         $this->assertDatabaseHas('areas', [
             'region_id' => $region->id,
-            'name'      => json_encode(['en' => "test area name", 'zh' => "zh test area name"]),
+            'name->en'      => "test area name",
+            'name->zh'      => "zh test area name",
         ]);
     }
 

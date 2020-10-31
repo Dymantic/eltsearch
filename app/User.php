@@ -7,8 +7,10 @@ use App\Schools\SchoolUser;
 use App\Teachers\Teacher;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Lang;
 
 class User extends Authenticatable
 {
@@ -111,6 +113,12 @@ class User extends Authenticatable
         $this->save();
     }
 
+    public function setLanguagePreference(string $lang)
+    {
+        $this->preferred_lang = $lang;
+        $this->save();
+    }
+
     public function schools()
     {
         return $this->belongsToMany(School::class)
@@ -143,5 +151,39 @@ class User extends Authenticatable
         ];
 
         return $paths[$this->account_type] ?? "/";
+    }
+
+    public function getNotifications()
+    {
+        return $this->notifications->map(fn ($notification) => $this->presentNotification($notification));
+    }
+
+    private function presentNotification(DatabaseNotification $notification): array
+    {
+
+        return [
+            'id' => $notification->id,
+            'is_read' => $notification->read(),
+            'subject' => $this->translatedNotificationField($notification, 'subject'),
+            'message' => $this->translatedNotificationField($notification, 'message'),
+            'action' => $this->translatedNotificationField($notification, 'action'),
+            'url' => $notification->data['action_url'],
+            'date_sent' => DateFormatter::pretty($notification->created_at),
+            'date_read' => DateFormatter::pretty($notification->read_at),
+        ];
+
+    }
+
+    private function translatedNotificationField($notification, $field)
+    {
+        if(!$notification->data['requires_translation'] ?? false) {
+            return $notification->data[$field]['text'];
+        }
+
+        return Lang::get(
+            $notification->data[$field]['text'],
+            $notification->data[$field]['params'],
+            $this->preferred_lang
+        );
     }
 }

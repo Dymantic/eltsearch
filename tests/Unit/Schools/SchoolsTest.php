@@ -33,7 +33,7 @@ class SchoolsTest extends TestCase
 
         $school->setOwner($user);
 
-        $this->assertTrue($school->fresh()->owners->contains($user));
+        $this->assertTrue($school->fresh()->admins->contains($user));
         $this->assertTrue($user->fresh()->schools->contains($school));
     }
 }

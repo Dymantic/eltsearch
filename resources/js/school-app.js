@@ -5,22 +5,24 @@ import Vuex from "vuex";
 Vue.use(VueRouter);
 Vue.use(Vuex);
 
-import notifications from "./stores/notifications";
+import messages from "./stores/messages";
 import profile from "./stores/schools/profile";
 import schoolprofile from "./stores/schools/school_profile";
 import locations from "./stores/schools/locations";
 import posts from "./stores/schools/job_posts";
 import applications from "./stores/schools/applications";
 import lang from "./stores/schools/lang";
+import notifications from "./stores/notifications";
 const store = new Vuex.Store({
     modules: {
-        notifications,
+        messages,
         profile,
         schoolprofile,
         locations,
         posts,
         applications,
         lang,
+        notifications,
     },
 });
 

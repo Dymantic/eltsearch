@@ -40,6 +40,7 @@ class JobApplicationPresenter
             'application_date'     => DateFormatter::pretty($application->created_at),
             'application_date_ago' => $application->created_at->diffForHumans(),
             'teacher'              => TeacherProfilePresenter::forSchool($application->teacher),
+            'shown_interest'       => $application->hasShowOfInterest(),
         ];
     }
 }

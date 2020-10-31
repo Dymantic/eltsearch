@@ -15,6 +15,11 @@
                 trns("nav.applications")
             }}</router-link>
         </div>
+        <div class="mb-3">
+            <router-link class="font-semibold text-white" to="/notifications">{{
+                trns("nav.notifications")
+            }}</router-link>
+        </div>
     </div>
 </template>
 

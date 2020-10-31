@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class JobSearch extends Model
 {
 
+    use ListsCriteria;
+
     const CRITERIA_LOCATION = 'location';
     const CRITERIA_STUDENTS = "students";
     const CRITERIA_BENEFITS = "benefits";
@@ -31,13 +33,11 @@ class JobSearch extends Model
         self::HOURS_MAX,
     ];
 
-    const SALARY_LOW = 2;
-    const SALARY_MID = 3;
-    const SALARY_HIGH = 4;
+    const SALARY_AVG = 2;
+    const SALARY_HIGH = 3;
 
     const ALLOWED_SALARIES = [
-        self::SALARY_LOW,
-        self::SALARY_MID,
+        self::SALARY_AVG,
         self::SALARY_HIGH,
     ];
 
@@ -67,91 +67,24 @@ class JobSearch extends Model
         return $this->belongsTo(Teacher::class);
     }
 
-    public function listCriteria(): array
+    public function minHours(): int
     {
-        $criteria =  collect([]);
+        $table = [
+            self::HOURS_MIN => 0,
+            self::HOURS_LOW => 10,
+            self::HOURS_MID => 20,
+            self::HOURS_MAX => 30,
+        ];
 
-        if($this->hasLocation()) {
-            $criteria->push(self::CRITERIA_LOCATION);
-        }
-
-        if($this->hasStudentAges()) {
-            $criteria->push(self::CRITERIA_STUDENTS);
-        }
-
-        if($this->hasBenefits()) {
-            $criteria->push(self::CRITERIA_BENEFITS);
-        }
-
-        if($this->hasContractTypes()) {
-            $criteria->push(self::CRITERIA_CONTRACT);
-        }
-
-        if($this->hasSchedule()) {
-            $criteria->push(self::CRITERIA_SCHEDULE);
-        }
-
-        if($this->hasSalary()) {
-            $criteria->push(self::CRITERIA_SALARY);
-        }
-
-        if($this->hasHours()) {
-            $criteria->push(self::CRITERIA_HOURS);
-        }
-
-        if($this->hasEngagement()) {
-            $criteria->push(self::CRITERIA_ENGAGEMENT);
-        }
-
-        if($this->hasWeekends()) {
-            $criteria->push(self::CRITERIA_WEEKENDS);
-        }
-
-        return $criteria->all();
+        return $table[$this->hours_per_week] ?? 0;
     }
 
-    public function hasLocation()
+    public function excludeStudentAges()
     {
-        return $this->area_ids && count($this->area_ids);
+        return collect(JobPost::ALLOWED_AGES)
+            ->filter(fn ($age) => !in_array($age, $this->student_ages ?? []))
+            ->values()->all();
     }
 
-    public function hasStudentAges()
-    {
-        return $this->student_ages && count($this->student_ages);
-    }
 
-    public function hasBenefits()
-    {
-        return $this->benefits && count($this->benefits);
-    }
-
-    public function hasContractTypes()
-    {
-        return $this->contract_type && count($this->contract_type);
-    }
-
-    public function hasSchedule()
-    {
-        return $this->schedule && count($this->schedule);
-    }
-
-    public function hasSalary()
-    {
-        return $this->salary !== null;
-    }
-
-    public function hasHours()
-    {
-        return $this->hours_per_week !== null;
-    }
-
-    public function hasWeekends()
-    {
-        return $this->weekends !== null;
-    }
-
-    public function hasEngagement()
-    {
-        return $this->engagement !== null && $this->engagement;
-    }
 }

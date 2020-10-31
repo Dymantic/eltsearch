@@ -27,7 +27,8 @@ class CreateSchoolTypeTest extends TestCase
         $response->assertSuccessful();
 
         $this->assertDatabaseHas('school_types', [
-            'name' => json_encode(['en' => "test type", 'zh' => "zh test type"]),
+            'name->en' => "test type",
+            'name->zh' => "zh test type"
         ]);
     }
 

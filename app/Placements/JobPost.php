@@ -61,6 +61,10 @@ class JobPost extends Model implements HasMedia
         self::SALARY_RATE_MONTH,
     ];
 
+    const SALARY_GRADE_MIN = 1;
+    const SALARY_GRADE_MID = 2;
+    const SALARY_GRADE_MAX = 3;
+
     const BENEFIT_ARC = 'benefit_ARC';
     const BENEFIT_INSURANCE = 'benefit_health_insurance';
     const BENEFIT_RENEWAL_BONUS = 'benefit_renewal_bonus';
@@ -105,9 +109,17 @@ class JobPost extends Model implements HasMedia
         'schedule'         => 'array',
         'work_on_weekends' => 'boolean',
         'is_public'        => 'boolean',
+        'start_date'       => 'datetime:Y-m-d',
     ];
 
-    protected $dates = ['start_date', 'first_published_at'];
+    protected $dates = ['first_published_at'];
+
+//    protected static function booted()
+//    {
+//        static::updated(function($post) {
+//            dump($post->position);
+//        });
+//    }
 
     public function scopeLive($query)
     {
@@ -117,9 +129,119 @@ class JobPost extends Model implements HasMedia
         ]);
     }
 
+    public function scopeMatching($query, JobSearch $search)
+    {
+        $query->live();
+        if ($search->hasLocation()) {
+            $query->whereIn('area_id', $search->area_ids);
+        }
+
+        if ($search->hasStudentAges()) {
+            $query->where(function ($query) use ($search) {
+                foreach ($search->excludeStudentAges() as $age) {
+                    $query->whereJsonDoesntContain('job_posts.student_ages', $age);
+                }
+            });
+        }
+
+        if ($search->hasWeekends()) {
+            $query->where('work_on_weekends', $search->weekends);
+        }
+
+        if ($search->hasBenefits()) {
+            $query->where(function ($query) use ($search) {
+                foreach ($search->benefits as $benefit) {
+                    $query->whereJsonContains('job_posts.benefits', $benefit);
+                }
+            });
+        }
+
+        if ($search->hasContractTypes()) {
+            $query->where(function ($query) use ($search) {
+                foreach ($search->contract_type as $type) {
+                    $query->orWhere('job_posts.contract_length', $type);
+                }
+            });
+        }
+
+        if ($search->hasHours()) {
+            $query->where('hours_per_week', '>=', $search->minHours());
+        }
+
+        if ($search->hasSchedule()) {
+            foreach ($search->schedule as $time) {
+                $query->whereJsonContains('job_posts.schedule', $time);
+            }
+        }
+
+        if ($search->hasEngagement()) {
+            $query->where('engagement', $search->engagement);
+        }
+
+        if ($search->hasSalary()) {
+            $query->where('salary_grade', '>=', $search->salary);
+        }
+    }
+
+    public function setSalaryGrade()
+    {
+        $mean_salary = ($this->salary_min + $this->salary_max) / 2;
+        switch ($this->salary_rate) {
+            case self::SALARY_RATE_HOUR:
+                $min_cutoff = 499;
+                $mid_cutoff = 699;
+                break;
+            case self::SALARY_RATE_WEEK:
+                $min_cutoff = 499 * 20;
+                $mid_cutoff = 699 * 20;
+                break;
+            case self::SALARY_RATE_MONTH:
+                $min_cutoff = 49999;
+                $mid_cutoff = 69999;
+                break;
+        }
+
+        $cutoffs = [
+            self::SALARY_GRADE_MIN => $min_cutoff,
+            self::SALARY_GRADE_MID => $mid_cutoff,
+        ];
+
+
+        if ($mean_salary > $cutoffs[self::SALARY_GRADE_MID]) {
+            $this->salary_grade = self::SALARY_GRADE_MAX;
+
+            return $this->save();
+        }
+
+        if (
+            $mean_salary > $cutoffs[self::SALARY_GRADE_MIN] &&
+            $mean_salary < $cutoffs[self::SALARY_GRADE_MID]
+        ) {
+            $this->salary_grade = self::SALARY_GRADE_MID;
+
+            return $this->save();
+        }
+
+        $this->salary_grade = self::SALARY_GRADE_MIN;
+
+        return $this->save();
+    }
+
     public function jobApplications()
     {
         return $this->hasMany(JobApplication::class);
+    }
+
+    public function hasApplicationBy(?User $user): bool
+    {
+        if (!$user) {
+            return false;
+        }
+
+        return $this
+                ->jobApplications()
+                ->whereHas('teacher', fn($query) => $query->where('user_id', $user->id))
+                ->count() > 0;
     }
 
     public function area()

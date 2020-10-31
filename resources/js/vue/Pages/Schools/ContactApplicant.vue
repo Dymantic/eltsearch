@@ -29,13 +29,16 @@
                 </p>
             </div>
 
-            <div>
-                <p class="type-h4 mb-3">
-                    {{ trns("contact_applicant.inform") }}
-                </p>
+            <p class="type-h4 mb-3">
+                {{ trns("contact_applicant.inform") }}
+            </p>
+            <div v-if="!application.shown_interest">
                 <show-of-interest-form
                     :application-id="application.id"
                 ></show-of-interest-form>
+            </div>
+            <div v-else>
+                {{ trns("contact_applicant.already_shown_interest") }}
             </div>
         </div>
     </div>

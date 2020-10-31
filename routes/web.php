@@ -67,6 +67,12 @@ Route::group([
     Route::get('school-types', 'SchoolTypesController@index');
 
     Route::get('basic-profile', 'BasicProfileController@show');
+
+    Route::get('notifications', 'NotificationsController@index');
+    Route::delete('notifications/{notification}', 'NotificationsController@delete');
+    Route::post('read-notifications', 'ReadNotificationsController@store');
+
+    Route::post('preferred-lang', 'PreferredLangController@store');
 });
 
 

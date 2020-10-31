@@ -12,6 +12,8 @@ import JobPostImages from "../../vue/Pages/Schools/JobPostImages";
 import SchoolApplications from "../../vue/Pages/Schools/SchoolApplications";
 import ShowApplication from "../../vue/Pages/Schools/ShowApplication";
 import ContactApplicant from "../../vue/Pages/Schools/ContactApplicant";
+import Notifications from "../../vue/Pages/Notifications";
+import ShowNotification from "../../vue/Pages/ShowNotification";
 
 export default [
     { path: "/", component: SchoolDashboard },
@@ -28,4 +30,6 @@ export default [
     { path: "/applications", component: SchoolApplications },
     { path: "/applications/:application", component: ShowApplication },
     { path: "/applications/:application/contact", component: ContactApplicant },
+    { path: "/notifications", component: Notifications },
+    { path: "/notifications/:notification", component: ShowNotification },
 ];

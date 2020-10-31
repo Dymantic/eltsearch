@@ -1,5 +1,7 @@
 import enTranslations from "../../lang/en";
 import zhTranslations from "../../lang/zh";
+import { setPreferredLang } from "../../api/lang";
+import { showError } from "../../libs/notifications";
 
 export default {
     namespaced: true,
@@ -33,6 +35,15 @@ export default {
             if (["en", "zh"].includes(locale)) {
                 state.locale = locale;
             }
+        },
+    },
+
+    actions: {
+        updateLocale({ commit, rootGetters }, locale) {
+            commit("setLocale", locale);
+            return setPreferredLang(locale).catch(() =>
+                showError(rootGetters["lang/byKey"]("errors.update_lang"))
+            );
         },
     },
 };

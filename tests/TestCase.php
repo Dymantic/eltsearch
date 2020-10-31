@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use App\Placements\JobPost;
 use App\Schools\School;
 use App\User;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
@@ -31,5 +32,15 @@ abstract class TestCase extends BaseTestCase
         $school->setOwner($owner);
 
         return [$school, $owner];
+    }
+
+    public function asJson($array, $column)
+    {
+        return function ($query) use ($column, $array) {
+            $query->select($column);
+            foreach ($array as $value) {
+                $query->whereJsonContains($column, $value);
+            }
+        };
     }
 }

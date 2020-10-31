@@ -31,7 +31,8 @@ class CreateRegionTest extends TestCase
 
         $this->assertDatabaseHas('regions', [
             'country_id' => $country->id,
-            'name' => json_encode(['en' => "test name", 'zh' => "zh test name"]),
+            'name->en' => 'test name',
+            'name->zh' => 'zh test name',
         ]);
     }
 

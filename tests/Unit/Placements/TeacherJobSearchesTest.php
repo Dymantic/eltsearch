@@ -42,7 +42,7 @@ class TeacherJobSearchesTest extends TestCase
                 JobPost::CONTRACT_YEAR
             ],
             'hours_per_week' => JobSearch::HOURS_MAX,
-            'salary'         => JobSearch::SALARY_MID,
+            'salary'         => JobSearch::SALARY_AVG,
         ]);
 
         $search = $teacher->createJobSearch($searchInfo);
@@ -65,7 +65,7 @@ class TeacherJobSearchesTest extends TestCase
             JobPost::CONTRACT_YEAR,
         ], $search->contract_type);
         $this->assertSame(JobSearch::HOURS_MAX, $search->hours_per_week);
-        $this->assertSame(JobSearch::SALARY_MID, $search->salary);
+        $this->assertSame(JobSearch::SALARY_AVG, $search->salary);
     }
 
     /**
@@ -85,7 +85,7 @@ class TeacherJobSearchesTest extends TestCase
                 JobPost::AGE_ADULT,
             ],
             'weekends'     => false,
-            'salary'       => JobSearch::SALARY_MID,
+            'salary'       => JobSearch::SALARY_AVG,
         ]);
 
         $search = $teacher->createJobSearch($searchInfo);
@@ -98,5 +98,24 @@ class TeacherJobSearchesTest extends TestCase
         ];
 
         $this->assertEquals($expected, $search->listCriteria());
+    }
+
+    /**
+     *@test
+     */
+    public function can_get_student_ages_to_exclude()
+    {
+        $search = factory(JobSearch::class)->create([
+            'student_ages' => [JobPost::AGE_JUNIOR_HIGH, JobPost::AGE_SENIOR_HIGH],
+        ]);
+
+        $expected = [
+            JobPost::AGE_KINDERGARTEN,
+            JobPost::AGE_ELEMENTARY,
+            JobPost::AGE_UNIVERSITY,
+            JobPost::AGE_ADULT,
+        ];
+
+        $this->assertSame($expected, $search->excludeStudentAges());
     }
 }

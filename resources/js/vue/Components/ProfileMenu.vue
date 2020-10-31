@@ -121,7 +121,7 @@ export default {
             if (this.$store.state.lang.locale === locale) {
                 return;
             }
-            this.$store.commit("lang/setLocale", locale);
+            this.$store.dispatch("lang/updateLocale", locale);
         },
     },
 };

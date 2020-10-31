@@ -60,7 +60,7 @@ export default {
         },
 
         notifications() {
-            return this.$store.state.notifications.queue;
+            return this.$store.state.messages.queue;
         },
 
         boundClasses() {
@@ -91,7 +91,7 @@ export default {
 
     methods: {
         clearNotification(notification) {
-            this.$store.commit("notifications/clear", notification);
+            this.$store.commit("messages/clear", notification);
         },
     },
 };

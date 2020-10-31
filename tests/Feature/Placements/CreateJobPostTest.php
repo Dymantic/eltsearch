@@ -5,9 +5,11 @@ namespace Tests\Feature\Placements;
 use App\DateFormatter;
 use App\Locations\Area;
 use App\Placements\JobPost;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class CreateJobPostTest extends TestCase
@@ -75,31 +77,31 @@ class CreateJobPostTest extends TestCase
             'hours_per_week'         => 25,
             'min_students_per_class' => 5,
             'max_students_per_class' => 25,
-            'student_ages'           => json_encode([
+            'student_ages'           => $this->asJson([
                 JobPost::AGE_ELEMENTARY,
                 JobPost::AGE_JUNIOR_HIGH,
                 JobPost::AGE_SENIOR_HIGH,
-            ]),
+            ], 'student_ages'),
             'work_on_weekends'       => true,
-            'requirements'           => json_encode([
+            'requirements'           => $this->asJson([
                 JobPost::REQUIRES_DEGREE,
                 JobPost::REQUIRES_POLICE_CHECK,
                 JobPost::REQUIRES_TEFL,
-            ]),
+            ], 'requirements'),
             'salary_rate'            => JobPost::SALARY_RATE_HOUR,
             'salary_min'             => 500,
             'salary_max'             => 650,
             'start_date'             => Carbon::tomorrow(),
-            'benefits'               => json_encode([
+            'benefits'               => $this->asJson([
                 JobPost::BENEFIT_ARC,
                 JobPost::BENEFIT_INSURANCE,
                 JobPost::BENEFIT_RENEWAL_BONUS,
-            ]),
+            ], 'benefits'),
             'contract_length'        => JobPost::CONTRACT_YEAR,
-            'schedule' => json_encode([
+            'schedule' => $this->asJson([
                 JobPost::SCHEDULE_MORNINGS,
                 JobPost::SCHEDULE_AFTERNOONS,
-            ])
+            ], 'schedule')
         ]);
     }
 

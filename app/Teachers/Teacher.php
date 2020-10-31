@@ -3,6 +3,7 @@
 namespace App\Teachers;
 
 use App\ContactDetails;
+use App\Events\ApplicationReceived;
 use App\Locations\Area;
 use App\Placements\JobApplication;
 use App\Placements\JobPost;
@@ -105,23 +106,29 @@ class Teacher extends Model implements HasMedia
         return $this->hasMany(JobApplication::class);
     }
 
+    public function hasApplicationFor(JobPost $jobPost): bool
+    {
+        return $this->jobApplications()
+            ->whereHas('jobPost', fn($query) => $query->where('job_posts.id', $jobPost->id))
+            ->count();
+    }
+
     public function applyForJob(
         JobPost $jobPost,
         string $cover_letter,
         ContactDetails $contactDetails
     ): JobApplication {
 
-        $this->jobApplications()->create([
+        $application = $this->jobApplications()->create([
             'job_post_id' => $jobPost->id,
             'cover_letter' => $cover_letter,
             'phone'        => $contactDetails->phone,
             'email'        => $contactDetails->emailOr($this->email),
         ]);
 
-        return JobApplication::where([
-            ['teacher_id', $this->id],
-            ['job_post_id', $jobPost->id],
-        ])->latest()->first();
+        event(new ApplicationReceived($application));
+
+        return $application;
     }
 
     public function retract()

@@ -31,7 +31,8 @@ class UpdateAreaTest extends TestCase
 
         $this->assertDatabaseHas('areas', [
             'id'   => $area->id,
-            'name' => json_encode(['en' => "new name", 'zh' => "zh new name"]),
+            'name->en' => "new name",
+            'name->zh' => "zh new name"
         ]);
     }
 

@@ -30,7 +30,8 @@ class UpdateRegionTest extends TestCase
 
         $this->assertDatabaseHas('regions', [
             'id' => $region->id,
-            'name' => json_encode(['en' => "new name", 'zh' => "zh new name"]),
+            'name->en' => "new name",
+            'name->zh' => "zh new name"
         ]);
     }
 

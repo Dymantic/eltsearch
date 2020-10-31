@@ -73,6 +73,13 @@ class UserLayout extends Component
         if($this->user->isSchool()) {
             return 'school';
         }
+
+        return null;
+    }
+
+    public function preferred_lang()
+    {
+        return $this->user->preferred_lang ?? 'en';
     }
 
 }
