@@ -3,6 +3,7 @@
 namespace App\Placements;
 
 use App\Teachers\Teacher;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class JobSearch extends Model
@@ -21,15 +22,11 @@ class JobSearch extends Model
     const CRITERIA_ENGAGEMENT = "engagement";
 
 
-    const HOURS_MIN = 1;
     const HOURS_LOW = 2;
-    const HOURS_MID = 3;
     const HOURS_MAX = 4;
 
     const ALLOWED_HOURS = [
-        self::HOURS_MIN,
         self::HOURS_LOW,
-        self::HOURS_MID,
         self::HOURS_MAX,
     ];
 
@@ -62,6 +59,75 @@ class JobSearch extends Model
         'weekends'      => 'boolean',
     ];
 
+    public function scopeMatching(Builder $query, JobPost $post)
+    {
+        if (!$post->salary_grade) {
+            $post->setSalaryGrade();
+        }
+
+        $query->where(function ($query) use ($post) {
+            $query->whereJsonContains('area_ids', $post->area_id)
+                  ->orWhereJsonLength('area_ids', 0)
+                  ->orWhereNull('area_ids');
+        });
+
+        $query->where(function (Builder $query) use ($post) {
+            foreach ($post->student_ages ?? [] as $age) {
+                $query->whereJsonContains('student_ages', $age);
+            }
+            $query->orWhereJsonLength('student_ages', 0)
+                  ->orWhereNull('student_ages');
+        });
+
+        $query->where(function (Builder $query) use ($post) {
+            $query->where('salary', '<=', $post->salary_grade)
+                  ->orWhereNull('salary');
+        });
+
+        if ($post->work_on_weekends) {
+            $query->where(function (Builder $query) use ($post) {
+                $query->where('weekends', true)
+                      ->orWhereNull('weekends');
+            });
+        }
+
+        $query->where(function (Builder $query) use ($post) {
+            foreach ($post->excludedBenefits() as $benefit) {
+                $query->whereJsonDoesntContain('benefits', $benefit);
+            }
+            $query->orWhereJsonLength('benefits', 0)
+                  ->orWhereNull('benefits');
+        });
+
+        $query->where(function (Builder $query) use ($post) {
+            $query->whereJsonContains('contract_type', $post->contract_length)
+                  ->orWhereJsonLength('contract_type', 0)
+                  ->orWhereNull('contract_type');
+        });
+
+        $query->where(function (Builder $query) use ($post) {
+            $required_hours = $post->hours_per_week >= 20 ? self::HOURS_MAX : self::HOURS_LOW;
+            $query->where('hours_per_week', $required_hours)
+                  ->orWhereNull('hours_per_week');
+        });
+
+        $query->where(function (Builder $query) use ($post) {
+            foreach ($post->schedule ?? [] as $time) {
+                $query->whereJsonContains('schedule', $time);
+            }
+            $query->orWhereJsonLength('schedule', 0)
+                  ->orWhereNull('schedule');
+        });
+
+        $query->where(function(Builder $query) use ($post) {
+            $query->where('engagement', $post->engagement)
+                ->orWhere('engagement', '')
+                ->orWhereNull('engagement');
+        });
+
+
+    }
+
     public function teacher()
     {
         return $this->belongsTo(Teacher::class);
@@ -82,8 +148,27 @@ class JobSearch extends Model
     public function excludeStudentAges()
     {
         return collect(JobPost::ALLOWED_AGES)
-            ->filter(fn ($age) => !in_array($age, $this->student_ages ?? []))
+            ->filter(fn($age) => !in_array($age, $this->student_ages ?? []))
             ->values()->all();
+    }
+
+    public function matches()
+    {
+        return $this->hasMany(JobMatch::class);
+    }
+
+    public function findMatches()
+    {
+        return JobPost::matching($this)
+                      ->get()
+                      ->map(fn(JobPost $jobPost) => $this->createMatch($jobPost));
+    }
+
+    private function createMatch(JobPost $post)
+    {
+        return $this->matches()->create([
+            'job_post_id' => $post->id,
+        ]);
     }
 
 

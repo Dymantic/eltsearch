@@ -7,9 +7,7 @@ return [
   ],
 
     'hours' => [
-        \App\Placements\JobSearch::HOURS_MIN => 'Less than 14 hours a week',
-        \App\Placements\JobSearch::HOURS_LOW => 'Less than 20 hours a week',
-        \App\Placements\JobSearch::HOURS_MID => 'Less than 30 hours a week',
-        \App\Placements\JobSearch::HOURS_MAX => 'As many as possible',
+        \App\Placements\JobSearch::HOURS_LOW => 'Under 20 hours a week',
+        \App\Placements\JobSearch::HOURS_MAX => '20 hours or more per week',
     ]
 ];

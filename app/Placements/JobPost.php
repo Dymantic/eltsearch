@@ -114,12 +114,7 @@ class JobPost extends Model implements HasMedia
 
     protected $dates = ['first_published_at'];
 
-//    protected static function booted()
-//    {
-//        static::updated(function($post) {
-//            dump($post->position);
-//        });
-//    }
+
 
     public function scopeLive($query)
     {
@@ -129,9 +124,15 @@ class JobPost extends Model implements HasMedia
         ]);
     }
 
+    public function matches()
+    {
+        return $this->hasMany(JobMatch::class);
+    }
+
     public function scopeMatching($query, JobSearch $search)
     {
-        $query->live();
+        $query->live()
+            ->whereDoesntHave('matches', fn ($query) => $query->where('job_search_id', $search->id));
         if ($search->hasLocation()) {
             $query->whereIn('area_id', $search->area_ids);
         }
@@ -165,7 +166,8 @@ class JobPost extends Model implements HasMedia
         }
 
         if ($search->hasHours()) {
-            $query->where('hours_per_week', '>=', $search->minHours());
+            $operator = $search->hours_per_week === JobSearch::HOURS_MAX ? '>=' : '<';
+            $query->where('hours_per_week', $operator, 20);
         }
 
         if ($search->hasSchedule()) {
@@ -225,6 +227,13 @@ class JobPost extends Model implements HasMedia
         $this->salary_grade = self::SALARY_GRADE_MIN;
 
         return $this->save();
+    }
+
+    public function excludedBenefits(): array
+    {
+        return collect(self::ALLOWED_BENEFITS)
+            ->filter(fn ($benefit) => !in_array($benefit, $this->benefits ?? []))
+            ->values()->all();
     }
 
     public function jobApplications()

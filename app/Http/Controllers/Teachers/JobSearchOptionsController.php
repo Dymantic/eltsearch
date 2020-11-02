@@ -44,10 +44,8 @@ class JobSearchOptionsController extends Controller
                 ],
             ],
             "hours"            => [
-                ["value" => JobSearch::HOURS_MIN, "description" => "Less than 14 hours a week"],
                 ["value" => JobSearch::HOURS_LOW, "description" => "Less than 20 hours per week"],
-                ["value" => JobSearch::HOURS_MID, "description" => "Less than 30 hours per week"],
-                ["value" => JobSearch::HOURS_MAX, "description" => "As many as possible"],
+                ["value" => JobSearch::HOURS_MAX, "description" => "20 hours or more a week"],
             ],
             "salary_ranges"    => [
                 ["value" => JobSearch::SALARY_AVG, "description" => "An average salary for the industry or above"],

@@ -5,6 +5,7 @@ namespace Tests\Unit\Placements;
 
 
 use App\Locations\Area;
+use App\Placements\JobMatch;
 use App\Placements\JobPost;
 use App\Placements\JobSearch;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -186,7 +187,7 @@ class MatchJobSearchTest extends TestCase
             ->state('expired')
             ->create(['hours_per_week' => 26]);
 
-        $search = $this->makeTestSearch(['hours_per_week' => JobSearch::HOURS_MID]);
+        $search = $this->makeTestSearch(['hours_per_week' => JobSearch::HOURS_MAX]);
 
         $matches = JobPost::matching($search)->get();
 
@@ -355,6 +356,40 @@ class MatchJobSearchTest extends TestCase
 
         $this->assertCount(1, $matches);
         $this->assertTrue($matches->first()->is($should_match));
+    }
+
+    /**
+     *@test
+     */
+    public function does_not_match_on_posts_already_matched()
+    {
+        $should_match = factory(JobPost::class)
+            ->state('current')
+            ->create([
+                'schedule' => [
+                    JobPost::SCHEDULE_AFTERNOONS,
+                    JobPost::SCHEDULE_EVENINGS,
+                ]
+            ]);
+
+
+
+        $search = $this->makeTestSearch([
+            'schedule' => [
+                JobPost::SCHEDULE_AFTERNOONS,
+                JobPost::SCHEDULE_EVENINGS
+            ]
+        ]);
+
+        factory(JobMatch::class)->create([
+            'job_post_id' => $should_match->id,
+            'job_search_id' => $search->id,
+
+        ]);
+
+        $matches = JobPost::matching($search)->get();
+
+        $this->assertCount(0, $matches);
     }
 
     private function makeTestSearch($criteria)
