@@ -5,6 +5,7 @@ namespace Tests\Unit\Placements;
 
 
 use App\Locations\Area;
+use App\Placements\JobMatch;
 use App\Placements\JobPost;
 use App\Placements\JobSearch;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -21,7 +22,7 @@ class MatchJobPostsTest extends TestCase
     {
         $area = factory(Area::class)->create();
 
-        $should_match = $this->makeTestSearch(['area_ids' => [$area->id]]);
+        $should_match = $this->makeTestSearch(['area_ids' => ["{$area->id}"]]);
         $should_not__match = $this->makeTestSearch(['area_ids' => [99]]);
 
         $post = $this->makeTestPost(['area_id' => $area->id]);
@@ -235,7 +236,7 @@ class MatchJobPostsTest extends TestCase
         $area = factory(Area::class)->create();
 
         $should_match = $this->makeTestSearch([
-            'area_ids'       => [$area->id, 55],
+            'area_ids'       => ["$area->id", 55],
             'student_ages'   => [JobPost::AGE_SENIOR_HIGH, JobPost::AGE_UNIVERSITY, JobPost::AGE_ADULT],
             'benefits'       => [JobPost::BENEFIT_ARC],
             'contract_type'  => [JobPost::CONTRACT_YEAR],
@@ -277,6 +278,25 @@ class MatchJobPostsTest extends TestCase
 
         $this->assertCount(1, $matches);
         $this->assertTrue($matches->first()->is($should_match));
+    }
+
+    /**
+     *@test
+     */
+    public function does_not_match_on_previously_matched_matches()
+    {
+        $post = $this->makeTestPost(['engagement' => JobPost::FULL_TIME]);
+        $should_match = $this->makeTestSearch(['engagement' => JobPost::FULL_TIME]);
+
+        factory(JobMatch::class)->create([
+            'job_post_id' => $post->id,
+            'job_search_id' => $should_match->id
+        ]);
+
+
+        $matches = JobSearch::matching($post)->get();
+
+        $this->assertCount(0, $matches);
     }
 
     private function makeTestSearch($criteria): JobSearch

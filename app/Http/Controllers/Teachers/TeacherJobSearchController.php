@@ -22,7 +22,7 @@ class TeacherJobSearchController extends Controller
 
     public function store(JobSearchRequest $request)
     {
-        $search = $request->teacher()->createJobSearch($request->searchInfo());
+        $search = $request->teacher()->setJobSearch($request->searchInfo());
 
         MatchJobSearch::dispatch($search);
     }

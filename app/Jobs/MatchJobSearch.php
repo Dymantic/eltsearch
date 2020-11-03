@@ -28,7 +28,7 @@ class MatchJobSearch implements ShouldQueue
     {
         $matches = $this->jobSearch->findMatches();
 
-        if($matches) {
+        if($matches->count()) {
             Notification::send($this->jobSearch->teacher->user, new SearchMatchesFound($matches));
         }
 

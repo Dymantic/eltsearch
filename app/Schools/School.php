@@ -102,9 +102,10 @@ class School extends Model implements HasMedia
             'last_edited_by' => $user->id,
         ]);
 
-        return tap($this->jobPosts()->create($data), function ($post) {
+        return tap($this->jobPosts()->create($data), function (JobPost $post) {
             $post->slug = UniqueKey::for('job_posts:slug');
             $post->save();
+            $post->setSalaryGrade();
         });
     }
 }

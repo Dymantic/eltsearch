@@ -96,9 +96,14 @@ class Teacher extends Model implements HasMedia
         return $this->hasMany(JobSearch::class);
     }
 
-    public function createJobSearch(JobSearchCriteria $criteria): JobSearch
+    public function setJobSearch(JobSearchCriteria $criteria): JobSearch
     {
-        $this->jobSearches()->delete();
+        $search = $this->currentJobSearch();
+
+        if($search) {
+            return tap($search, fn ($job_search) => $job_search->update($criteria->toArray()));
+        }
+
         return $this->jobSearches()->create($criteria->toArray());
     }
 

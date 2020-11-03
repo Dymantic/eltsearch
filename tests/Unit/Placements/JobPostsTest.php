@@ -102,4 +102,52 @@ class JobPostsTest extends TestCase
 
         $this->assertSame(JobPost::SALARY_GRADE_MAX, $post->salary_grade);
     }
+
+    /**
+     *@test
+     */
+    public function doesnt_grade_salary_without_salary_rate()
+    {
+        $post = factory(JobPost::class)->create([
+            'salary_rate' => '',
+            'salary_min' => 14000,
+            'salary_max' => 16000,
+        ]);
+
+        $post->setSalaryGrade();
+
+        $this->assertNull($post->salary_grade);
+    }
+
+    /**
+     *@test
+     */
+    public function doesnt_grade_salary_without_minimum()
+    {
+        $post = factory(JobPost::class)->create([
+            'salary_rate' => JobPost::SALARY_RATE_HOUR,
+            'salary_min' => null,
+            'salary_max' => 16000,
+        ]);
+
+        $post->setSalaryGrade();
+
+        $this->assertNull($post->salary_grade);
+    }
+
+    /**
+     *@test
+     */
+    public function doesnt_grade_salary_without_maximum()
+    {
+        $post = factory(JobPost::class)->create([
+            'salary_rate' => JobPost::SALARY_RATE_HOUR,
+            'salary_min' => 500,
+            'salary_max' => null,
+        ]);
+
+        $post->setSalaryGrade();
+
+        $this->assertNull($post->salary_grade);
+    }
 }

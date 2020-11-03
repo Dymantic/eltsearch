@@ -61,12 +61,13 @@ class JobSearch extends Model
 
     public function scopeMatching(Builder $query, JobPost $post)
     {
+        $query->whereDoesntHave('matches', fn($query) => $query->where('job_post_id', $post->id));
         if (!$post->salary_grade) {
             $post->setSalaryGrade();
         }
 
         $query->where(function ($query) use ($post) {
-            $query->whereJsonContains('area_ids', $post->area_id)
+            $query->whereJsonContains('area_ids', "{$post->area_id}")
                   ->orWhereJsonLength('area_ids', 0)
                   ->orWhereNull('area_ids');
         });

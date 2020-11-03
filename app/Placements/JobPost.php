@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Lang;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -15,7 +16,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class JobPost extends Model implements HasMedia
 {
-    use InteractsWithMedia;
+    use InteractsWithMedia, GradesSalary;
 
     const FULL_TIME = 'full_time';
     const PART_TIME = 'part_time';
@@ -97,6 +98,21 @@ class JobPost extends Model implements HasMedia
         self::SCHEDULE_EVENINGS,
     ];
 
+    const REQUIRED_FIELDS = [
+        'area_id' => 'string',
+        'school_name' => 'string',
+        'position' => 'string',
+        'description' => 'string',
+        'student_ages' => 'array',
+        'schedule' => 'array',
+        'salary_rate' => 'salary',
+        'min_students_per_class' => 'integer',
+        'max_students_per_class' => 'integer',
+        'contract_length' => 'string',
+        'engagement' => 'string',
+        'hours_per_week' => 'integer',
+    ];
+
     const IMAGES = 'images';
     const MAX_IMAGES = 4;
 
@@ -115,7 +131,6 @@ class JobPost extends Model implements HasMedia
     protected $dates = ['first_published_at'];
 
 
-
     public function scopeLive($query)
     {
         $query->where([
@@ -132,7 +147,7 @@ class JobPost extends Model implements HasMedia
     public function scopeMatching($query, JobSearch $search)
     {
         $query->live()
-            ->whereDoesntHave('matches', fn ($query) => $query->where('job_search_id', $search->id));
+              ->whereDoesntHave('matches', fn($query) => $query->where('job_search_id', $search->id));
         if ($search->hasLocation()) {
             $query->whereIn('area_id', $search->area_ids);
         }
@@ -185,54 +200,26 @@ class JobPost extends Model implements HasMedia
         }
     }
 
-    public function setSalaryGrade()
+
+    public function findMatches()
     {
-        $mean_salary = ($this->salary_min + $this->salary_max) / 2;
-        switch ($this->salary_rate) {
-            case self::SALARY_RATE_HOUR:
-                $min_cutoff = 499;
-                $mid_cutoff = 699;
-                break;
-            case self::SALARY_RATE_WEEK:
-                $min_cutoff = 499 * 20;
-                $mid_cutoff = 699 * 20;
-                break;
-            case self::SALARY_RATE_MONTH:
-                $min_cutoff = 49999;
-                $mid_cutoff = 69999;
-                break;
-        }
-
-        $cutoffs = [
-            self::SALARY_GRADE_MIN => $min_cutoff,
-            self::SALARY_GRADE_MID => $mid_cutoff,
-        ];
-
-
-        if ($mean_salary > $cutoffs[self::SALARY_GRADE_MID]) {
-            $this->salary_grade = self::SALARY_GRADE_MAX;
-
-            return $this->save();
-        }
-
-        if (
-            $mean_salary > $cutoffs[self::SALARY_GRADE_MIN] &&
-            $mean_salary < $cutoffs[self::SALARY_GRADE_MID]
-        ) {
-            $this->salary_grade = self::SALARY_GRADE_MID;
-
-            return $this->save();
-        }
-
-        $this->salary_grade = self::SALARY_GRADE_MIN;
-
-        return $this->save();
+        return JobSearch::matching($this)
+                        ->get()
+                        ->map(fn(JobSearch $search) => $this->saveMatch($search));
     }
+
+    private function saveMatch(JobSearch $search)
+    {
+        return $this->matches()->create([
+            'job_search_id' => $search->id,
+        ]);
+    }
+
 
     public function excludedBenefits(): array
     {
         return collect(self::ALLOWED_BENEFITS)
-            ->filter(fn ($benefit) => !in_array($benefit, $this->benefits ?? []))
+            ->filter(fn($benefit) => !in_array($benefit, $this->benefits ?? []))
             ->values()->all();
     }
 
@@ -278,6 +265,7 @@ class JobPost extends Model implements HasMedia
         $this->update($info->toArray());
         $this->last_edited_by = $user->id;
         $this->save();
+        $this->setSalaryGrade();
     }
 
     public function publish()
@@ -293,6 +281,42 @@ class JobPost extends Model implements HasMedia
     {
         $this->is_public = false;
         $this->save();
+    }
+
+    public function readyForPublication(): bool
+    {
+        return collect($this->requiredFieldsStatus())
+            ->every(fn ($field) => !!$field['complete']);
+    }
+
+    public function requiredFieldsStatus()
+    {
+        return collect(self::REQUIRED_FIELDS)
+            ->map(fn($type, $field) => $this->fieldStatus($field, $type))->values()->all();
+    }
+
+    public function fieldStatus($field, $type)
+    {
+        switch($type) {
+            case 'string':
+                $status = !!$this->{$field};
+                break;
+            case 'array':
+                $status = ($this->{$field} && count($this->{$field}));
+                break;
+            case 'salary':
+                $status = !$this->missingSalaryInfo();
+                break;
+            case 'integer':
+                $status = $this->{$field} !== null;
+                break;
+            default:
+                $status = false;
+        }
+        return [
+            'label' => "job_posts.required.{$field}",
+            'complete' => $status,
+        ];
     }
 
     public function addImage(UploadedFile $upload): Media

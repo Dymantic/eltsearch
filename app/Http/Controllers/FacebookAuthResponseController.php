@@ -13,6 +13,7 @@ class FacebookAuthResponseController extends Controller
 {
     public function store(FacebookAuthRequest $request)
     {
+//        dd($request->session()->pull('state'), $request->input('state'));
         if($request->forLogin()) {
             $user = User::findFacebookUser($this->facebookUser());
 
@@ -28,7 +29,6 @@ class FacebookAuthResponseController extends Controller
         }
 
         if($request->forRegistration()) {
-
             $user = User::findFacebookUser($this->facebookUser());
 
             if($user) {
@@ -50,7 +50,7 @@ class FacebookAuthResponseController extends Controller
 
     private function facebookUser()
     {
-        $fb_user = Socialite::driver('facebook')->user();
+        $fb_user = Socialite::driver('facebook')->stateless()->user();
 
         return [
             'name' => $fb_user->getName(),

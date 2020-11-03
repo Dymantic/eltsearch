@@ -105,39 +105,5 @@ class TeachersTest extends TestCase
         $this->assertTrue($current->is($jobSearch));
     }
 
-    /**
-     *@test
-     */
-    public function creating_a_new_job_search_clears_the_old_searches()
-    {
-        $teacher = factory(Teacher::class)->create();
-        $original_search = factory(JobSearch::class)->create(['teacher_id' => $teacher->id]);
 
-        $this->assertCount(1, $teacher->jobSearches);
-
-        $searchInfo = new JobSearchCriteria([
-            'area_ids'       => [],
-            'student_ages'   => [
-                JobPost::AGE_SENIOR_HIGH,
-                JobPost::AGE_UNIVERSITY,
-                JobPost::AGE_ADULT,
-            ],
-            'benefits'       => [
-                JobPost::BENEFIT_ARC,
-                JobPost::BENEFIT_INSURANCE,
-            ],
-            'weekends'       => false,
-            'contract_type'  => [
-                JobPost::CONTRACT_SIX_MONTHS,
-                JobPost::CONTRACT_YEAR
-            ],
-            'hours_per_week' => JobSearch::HOURS_MAX,
-            'salary'         => JobSearch::SALARY_AVG,
-        ]);
-
-        $teacher->createJobSearch($searchInfo);
-
-        $this->assertCount(1, $teacher->fresh()->jobSearches);
-        $this->assertNull($teacher->fresh()->jobSearches()->find($original_search->id));
-    }
 }

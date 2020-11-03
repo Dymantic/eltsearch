@@ -45,7 +45,7 @@ class TeacherJobSearchesTest extends TestCase
             'salary'         => JobSearch::SALARY_AVG,
         ]);
 
-        $search = $teacher->createJobSearch($searchInfo);
+        $search = $teacher->setJobSearch($searchInfo);
 
         $this->assertInstanceOf(JobSearch::class, $search);
         $this->assertTrue($search->teacher->is($teacher));
@@ -88,7 +88,7 @@ class TeacherJobSearchesTest extends TestCase
             'salary'       => JobSearch::SALARY_AVG,
         ]);
 
-        $search = $teacher->createJobSearch($searchInfo);
+        $search = $teacher->setJobSearch($searchInfo);
 
         $expected = [
             JobSearch::CRITERIA_LOCATION,
@@ -117,5 +117,40 @@ class TeacherJobSearchesTest extends TestCase
         ];
 
         $this->assertSame($expected, $search->excludeStudentAges());
+    }
+
+    /**
+     *@test
+     */
+    public function setting_a_new_job_search_does_not_change_the_id_of_the_search()
+    {
+        $teacher = factory(Teacher::class)->create();
+        $original_search = factory(JobSearch::class)->create(['teacher_id' => $teacher->id]);
+
+        $this->assertCount(1, $teacher->jobSearches);
+
+        $searchInfo = new JobSearchCriteria([
+            'area_ids'       => [],
+            'student_ages'   => [
+                JobPost::AGE_SENIOR_HIGH,
+                JobPost::AGE_UNIVERSITY,
+                JobPost::AGE_ADULT,
+            ],
+            'benefits'       => [
+                JobPost::BENEFIT_ARC,
+                JobPost::BENEFIT_INSURANCE,
+            ],
+            'weekends'       => false,
+            'contract_type'  => [
+                JobPost::CONTRACT_SIX_MONTHS,
+                JobPost::CONTRACT_YEAR
+            ],
+            'hours_per_week' => JobSearch::HOURS_MAX,
+            'salary'         => JobSearch::SALARY_AVG,
+        ]);
+
+        $teacher->setJobSearch($searchInfo);
+
+        $this->assertSame($original_search->id, $teacher->currentJobSearch()->id);
     }
 }

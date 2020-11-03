@@ -51,6 +51,33 @@ class JobMatchesTest extends TestCase
         });
     }
 
+    /**
+     *@test
+     */
+    public function can_create_matches_for_a_job_post()
+    {
+        $matchA = $this->makeTestSearch(['student_ages' => [JobPost::AGE_ADULT, JobPost::AGE_UNIVERSITY]]);
+        $matchB = $this->makeTestSearch(['student_ages' => [JobPost::AGE_UNIVERSITY, JobPost::AGE_ADULT]]);
+        $no_match = $this->makeTestSearch(['student_ages' => [JobPost::AGE_ELEMENTARY]]);
+
+        $post = $this->makeCurrentTestPost([
+            'student_ages' => [JobPost::AGE_UNIVERSITY, JobPost::AGE_ADULT]
+        ]);
+
+        $matches = $post->findMatches();
+
+        $this->assertCount(2, $matches);
+
+        $matches->each(function($match) use ($matchA, $matchB, $no_match, $post) {
+        $this->assertInstanceOf(JobMatch::class, $match);
+        $this->assertSame($post->id, $match->job_post_id);
+        $this->assertContains($match->job_search_id, [$matchA->id, $matchB->id]);
+        $this->assertNotSame($no_match->id, $match->job_search_id);
+    });
+
+
+    }
+
 
     private function makeTestSearch($criteria)
     {
