@@ -1,6 +1,14 @@
 <?php
 
 return [
+
+    'status' => [
+        'live' => 'Live',
+        'draft' => 'Draft',
+        'private' => 'Private',
+        'expired' => 'Expired',
+    ],
+
     'engagement' => [
         \App\Placements\JobPost::FULL_TIME => 'Full Time',
         \App\Placements\JobPost::PART_TIME => 'Part Time',
@@ -47,6 +55,21 @@ return [
         \App\Placements\JobPost::SCHEDULE_AFTERNOONS => 'Afternoon',
         \App\Placements\JobPost::SCHEDULE_EVENINGS => 'Evening',
     ],
+
+    'required' => [
+        'area_id' => 'Location',
+        'school_name' => 'School name',
+        'position' => 'Position',
+        'description' => 'Job description',
+        'student_ages' => 'Student Ages',
+        'schedule' => 'Schedule / Times of day',
+        'salary_rate' => 'Salary information',
+        'min_students_per_class' => 'Students per class (min)',
+        'max_students_per_class' => 'Students per class (max)',
+        'contract_length' => 'Contract',
+        'engagement' => 'Full time/Part time',
+        'hours_per_week' => 'Hours per week',
+    ]
 
 
 ];

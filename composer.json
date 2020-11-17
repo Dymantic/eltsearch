@@ -19,7 +19,8 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
         "mcamara/laravel-localization": "^1.6",
-        "spatie/laravel-medialibrary": "^8.3"
+        "spatie/laravel-medialibrary": "^8.3",
+      "ext-json": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",

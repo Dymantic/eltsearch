@@ -9,6 +9,7 @@
                 {{ helpText }}
             </p>
             <input
+                :disabled="disabled"
                 ref="input"
                 :type="inputType"
                 :value="value"
@@ -21,7 +22,15 @@
 
 <script type="text/babel">
 export default {
-    props: ["value", "error-msg", "input-name", "label", "type", "help-text"],
+    props: [
+        "value",
+        "error-msg",
+        "input-name",
+        "label",
+        "type",
+        "help-text",
+        "disabled",
+    ],
 
     computed: {
         inputType() {

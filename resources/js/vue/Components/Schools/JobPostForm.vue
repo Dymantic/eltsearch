@@ -260,10 +260,18 @@
             </div>
         </labeled-box>
 
-        <div>
+        <div class="flex">
             <submit-button :waiting="waiting">{{
                 trns("job_post_form.submit")
             }}</submit-button>
+
+            <submit-button
+                :waiting="waiting"
+                class="mx-4"
+                role="button"
+                @click.native="saveAndPublish"
+                >{{ trns("job_post_form.submit_and_publish") }}</submit-button
+            >
         </div>
     </form>
 </template>
@@ -425,6 +433,33 @@ export default {
                 .then(() => showSuccess(this.trns("job_post_form.success")))
                 .catch(this.onError)
                 .then(() => (this.waiting = false));
+        },
+
+        saveAndPublish() {
+            this.waiting = true;
+            this.formErrors = clearValidationErrors(this.formErrors);
+            const action = this.post ? "posts/updatePost" : "posts/createPost";
+            const payload = this.post
+                ? {
+                      school_id: this.schoolId,
+                      formData: this.formData,
+                      post_id: this.post.id,
+                  }
+                : {
+                      school_id: this.schoolId,
+                      formData: this.formData,
+                  };
+            this.$store
+                .dispatch(action, payload)
+                .then(this.onSuccess)
+                .catch(this.onError)
+                .then(() => (this.waiting = false));
+        },
+
+        onSuccess(post) {
+            console.log({ post });
+            showSuccess(this.trns("job_post_form.success"));
+            this.$router.push(`/job-posts/${post.id}/publish`);
         },
 
         onError({ status, data }) {

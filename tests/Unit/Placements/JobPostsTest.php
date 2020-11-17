@@ -150,4 +150,20 @@ class JobPostsTest extends TestCase
 
         $this->assertNull($post->salary_grade);
     }
+
+    /**
+     *@test
+     */
+    public function job_posts_have_a_status()
+    {
+        $live = factory(JobPost::class)->state('public')->create();
+        $expired = factory(JobPost::class)->state('expired')->create();
+        $draft = factory(JobPost::class)->state('draft')->create();
+        $private = factory(JobPost::class)->state('private')->create();
+
+        $this->assertSame(['text' => 'Live', 'colour' => 'green'], $live->status('en'));
+        $this->assertSame(['text' => 'Expired', 'colour' => 'purple'], $expired->status('en'));
+        $this->assertSame(['text' => 'Private', 'colour' => 'red'], $private->status('en'));
+        $this->assertSame(['text' => 'Draft', 'colour' => 'orange'], $draft->status('en'));
+    }
 }

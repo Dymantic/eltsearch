@@ -2,7 +2,9 @@
 
 namespace App\Placements;
 
+use App\Exceptions\InsufficientTokensException;
 use App\Locations\Area;
+use App\Purchasing\Token;
 use App\Schools\School;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
@@ -99,18 +101,18 @@ class JobPost extends Model implements HasMedia
     ];
 
     const REQUIRED_FIELDS = [
-        'area_id' => 'string',
-        'school_name' => 'string',
-        'position' => 'string',
-        'description' => 'string',
-        'student_ages' => 'array',
-        'schedule' => 'array',
-        'salary_rate' => 'salary',
+        'area_id'                => 'string',
+        'school_name'            => 'string',
+        'position'               => 'string',
+        'description'            => 'string',
+        'student_ages'           => 'array',
+        'schedule'               => 'array',
+        'salary_rate'            => 'salary',
         'min_students_per_class' => 'integer',
         'max_students_per_class' => 'integer',
-        'contract_length' => 'string',
-        'engagement' => 'string',
-        'hours_per_week' => 'integer',
+        'contract_length'        => 'string',
+        'engagement'             => 'string',
+        'hours_per_week'         => 'integer',
     ];
 
     const IMAGES = 'images';
@@ -268,10 +270,15 @@ class JobPost extends Model implements HasMedia
         $this->setSalaryGrade();
     }
 
-    public function publish()
+    public function publish(?Token $token = null)
     {
         if (!$this->first_published_at) {
+
+            if ($token === null || $token->isSpent()) {
+                throw InsufficientTokensException::tokenRequired();
+            }
             $this->first_published_at = Carbon::now();
+            $token->spend();
         }
         $this->is_public = true;
         $this->save();
@@ -283,10 +290,56 @@ class JobPost extends Model implements HasMedia
         $this->save();
     }
 
+    public function status($lang)
+    {
+        if ($this->isDraft()) {
+            return [
+                'text'   => trans('job_posts.status.draft', [], $lang),
+                'colour' => 'orange'
+            ];
+        }
+
+        if ($this->expired()) {
+            return [
+                'text'   => trans('job_posts.status.expired', [], $lang),
+                'colour' => 'purple'
+            ];
+        }
+
+        if ($this->is_public) {
+            return [
+                'text'   => trans('job_posts.status.live', [], $lang),
+                'colour' => 'green'
+            ];
+        }
+
+        return [
+            'text'   => trans('job_posts.status.private', [], $lang),
+            'colour' => 'red'
+        ];
+
+    }
+
+    private function isDraft(): bool
+    {
+        return $this->first_published_at === null;
+    }
+
+    private function hasBeenPublished(): bool
+    {
+        return $this->first_published_at !== null;
+    }
+
+    public function expired(): bool
+    {
+        return $this->hasBeenPublished() &&
+            $this->first_published_at->isBefore(now()->subDays(30));
+    }
+
     public function readyForPublication(): bool
     {
         return collect($this->requiredFieldsStatus())
-            ->every(fn ($field) => !!$field['complete']);
+            ->every(fn($field) => !!$field['complete']);
     }
 
     public function requiredFieldsStatus()
@@ -297,7 +350,7 @@ class JobPost extends Model implements HasMedia
 
     public function fieldStatus($field, $type)
     {
-        switch($type) {
+        switch ($type) {
             case 'string':
                 $status = !!$this->{$field};
                 break;
@@ -313,8 +366,9 @@ class JobPost extends Model implements HasMedia
             default:
                 $status = false;
         }
+
         return [
-            'label' => "job_posts.required.{$field}",
+            'label'    => "job_posts.required.{$field}",
             'complete' => $status,
         ];
     }

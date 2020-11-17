@@ -63,19 +63,28 @@ export default {
         },
 
         createPost({ dispatch }, { school_id, formData }) {
-            return createJobPost(school_id, formData).then(() =>
-                dispatch("refreshPosts")
-            );
+            return createJobPost(school_id, formData).then((post) => {
+                dispatch("refreshPosts");
+                return post;
+            });
         },
 
         updatePost({ dispatch }, { post_id, formData, school_id }) {
-            return updateJobPost(post_id, formData).then(() =>
-                dispatch("refreshPosts")
-            );
+            return updateJobPost(post_id, formData).then((post) => {
+                dispatch("refreshPosts");
+                return post;
+            });
         },
 
-        publishPost({ dispatch }, post_id) {
-            return publishJobPost(post_id).then(() => dispatch("refreshPosts"));
+        publishPost({ dispatch, rootState }, post_id) {
+            return publishJobPost(post_id).then(() => {
+                dispatch("refreshPosts");
+                dispatch(
+                    "tokens/refresh",
+                    rootState.schoolprofile.current_school.id,
+                    { root: true }
+                );
+            });
         },
 
         retractPost({ dispatch }, post_id) {

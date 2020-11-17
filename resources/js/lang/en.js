@@ -8,6 +8,9 @@ export default {
         change_password: "Change Password",
         logout: "Logout",
         notifications: "Messages",
+        billing: "Billing",
+        tokens: "Buy Tokens",
+        purchases: "Purchases",
     },
     actions: {
         edit: "Edit",
@@ -105,6 +108,7 @@ export default {
         contract: "Contract",
         contract_prompt: "What contract length do you offer?",
         submit: "Save Job Post",
+        submit_and_publish: "Save & Publish",
         success: "Your post has been saved",
     },
     show_interest_form: {
@@ -162,5 +166,14 @@ export default {
         delete_button: "Delete message",
         deleted: "Notification deleted.",
         empty_inbox: "There are no messages for you at the moment.",
+    },
+    billing: {
+        address_label: "Address",
+        city_label: "City",
+        country_label: "Country",
+        zip_label: "Postal Code",
+        state_label: "State",
+        submit: "Update Billing Info",
+        success: "Billing details updated",
     },
 };

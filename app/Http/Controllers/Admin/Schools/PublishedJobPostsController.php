@@ -7,6 +7,7 @@ use App\Http\Requests\PublishJobPostRequest;
 use App\Jobs\MatchJobPost;
 use App\Placements\JobPost;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class PublishedJobPostsController extends Controller
 {
@@ -14,7 +15,13 @@ class PublishedJobPostsController extends Controller
     {
         $post = $request->getPost();
 
-        $post->publish();
+        if(!$post->readyForPublication()) {
+            throw ValidationException::withMessages([
+                'job_post_id' => 'Your post is not ready to be published'
+            ]);
+        }
+
+        $post->publish($post->school->nextToken());
 
         MatchJobPost::dispatch($post);
     }

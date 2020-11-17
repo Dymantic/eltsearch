@@ -19,7 +19,10 @@ Route::group([
 ], function () {
     Route::get('/', 'HomePageController@show');
     Route::view('how-it-works', 'front.how-it-works.page');
-    Route::view('for-schools', 'front.for-schools.page');
+    Route::get('for-schools', 'ForSchoolsPageController@show');
+
+    Route::get('privacy-policy', 'PrivacyPolicyController@show');
+    Route::get('terms-of-service', 'TermsOfServiceController@show');
 });
 
 Route::get('/job-posts/{post:slug}/apply', 'ApplicationsController@create');
@@ -95,6 +98,9 @@ Route::group([
     Route::delete('schools/{school}/images/{image}', 'SchoolImagesController@delete')
          ->middleware('can:manage,school');
 
+    Route::post('schools/{school}/billing-details', 'SchoolBillingDetailsController@update')
+    ->middleware('can:manage,school');
+
     Route::get('schools/{school}/job-posts', 'SchoolJobPostsController@index')
          ->middleware('can:manage,school');
     Route::post('schools/{school}/job-posts', 'SchoolJobPostsController@store')
@@ -117,6 +123,13 @@ Route::group([
     Route::get('schools/{school}/applications', 'SchoolApplicationsController@index');
 
     Route::post('schools/applications/{application}/show-of-interest', 'ShowOfInterestController@store');
+
+    Route::get('schools/{school}/purchases', 'SchoolPurchasesController@index');
+    Route::post('schools/{school}/purchases', 'SchoolPurchasesController@store');
+
+    Route::get('schools/{school}/tokens', 'SchoolTokensController@index');
+
+    Route::get('schools/packages', 'PackagesController@index');
 });
 
 Route::group([

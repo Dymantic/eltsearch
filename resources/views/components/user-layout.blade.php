@@ -25,11 +25,13 @@
                 @endif
             }
         </script>
-</head>
+        <script type="text/javascript" src="https://2pay-js.2checkout.com/v1/2pay.js"></script>
+        </head>
 <body class="text-black font-sans type-b1">
 <div id="app">
     <app-shell></app-shell>
 </div>
+
 <script src="{{ mix("/js/{$script}") }}"></script>
 </body>
 </html>

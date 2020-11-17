@@ -10,7 +10,7 @@
         <p class="text-red-500 text-xs text-center mt-2">{{ $message }}</p>
         @enderror
     </div>
-        <form action="/login" method="post" class="max-w-md mx-auto">
+        <form action="/login" method="post" class="max-w-md mx-auto px-6">
             {!! csrf_field() !!}
             <div class="my-6">
                 <label class="form-label" for="email">Your email address:</label>

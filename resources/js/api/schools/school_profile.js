@@ -8,4 +8,8 @@ function updateSchoolProfile(school_id, formData) {
     return post(`/api/schools/${school_id}`, formData);
 }
 
-export { fetchSchoolProfiles, updateSchoolProfile };
+function updateSchoolBillingInfo(school_id, formData) {
+    return post(`/api/schools/${school_id}/billing-details`, formData);
+}
+
+export { fetchSchoolProfiles, updateSchoolProfile, updateSchoolBillingInfo };

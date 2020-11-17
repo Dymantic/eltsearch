@@ -1,5 +1,6 @@
 import {
     fetchSchoolProfiles,
+    updateSchoolBillingInfo,
     updateSchoolProfile,
 } from "../../api/schools/school_profile";
 import { showError } from "../../libs/notifications";
@@ -36,12 +37,44 @@ export default {
     getters: {
         profileById: (state) => (id) =>
             state.profiles.find((profile) => profile.id === parseInt(id)),
+
+        hasCompleteBillingInfo: (state) => {
+            const school = state.current_school;
+            if (!school) {
+                return false;
+            }
+            return (
+                school.billing_zip &&
+                school.billing_country &&
+                school.billing_city &&
+                school.billing_address
+            );
+        },
+
+        billingInfo: (state) => {
+            const school = state.current_school;
+            if (!school) {
+                return {
+                    address: null,
+                    city: null,
+                    state: null,
+                    zip: null,
+                    country: null,
+                };
+            }
+            return {
+                zip: school.billing_zip,
+                country: school.billing_country,
+                city: school.billing_city,
+                address: school.billing_address,
+                state: school.billing_state,
+            };
+        },
     },
 
     actions: {
         fetchProfiles({ state, dispatch }) {
             if (state.profiles.length) {
-                console.log("not fetching");
                 return Promise.resolve();
             }
 
@@ -68,6 +101,12 @@ export default {
         fetchSchoolTypes({ commit }) {
             return fetchSchoolTypes("zh").then((types) =>
                 commit("setSchoolTypes", types)
+            );
+        },
+
+        updateBillingInfo({ dispatch }, { school_id, formData }) {
+            return updateSchoolBillingInfo(school_id, formData).then(() =>
+                dispatch("refreshProfile")
             );
         },
     },

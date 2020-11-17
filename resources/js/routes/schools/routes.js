@@ -14,6 +14,11 @@ import ShowApplication from "../../vue/Pages/Schools/ShowApplication";
 import ContactApplicant from "../../vue/Pages/Schools/ContactApplicant";
 import Notifications from "../../vue/Pages/Notifications";
 import ShowNotification from "../../vue/Pages/ShowNotification";
+import EditSchoolBillingDetails from "../../vue/Pages/Schools/EditSchoolBillingDetails";
+import PurchasePackages from "../../vue/Pages/Schools/PurchasePackages";
+import PurchaseItem from "../../vue/Pages/Schools/PurchaseItem";
+import PastPurchases from "../../vue/Pages/Schools/PastPurchases";
+import PurchaseDetails from "../../vue/Pages/Schools/PurchaseDetails";
 
 export default [
     { path: "/", component: SchoolDashboard },
@@ -32,4 +37,9 @@ export default [
     { path: "/applications/:application/contact", component: ContactApplicant },
     { path: "/notifications", component: Notifications },
     { path: "/notifications/:notification", component: ShowNotification },
+    { path: "/billing-details", component: EditSchoolBillingDetails },
+    { path: "/purchasing", component: PurchasePackages },
+    { path: "/purchasing/:package", component: PurchaseItem },
+    { path: "/purchases", component: PastPurchases },
+    { path: "/purchases/:purchase", component: PurchaseDetails },
 ];

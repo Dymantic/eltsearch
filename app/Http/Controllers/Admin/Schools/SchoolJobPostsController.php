@@ -14,19 +14,26 @@ class SchoolJobPostsController extends Controller
 
     public function index(School $school)
     {
-        return $school->jobPosts->map(
-            fn (JobPost $post) => array_merge($post->toArray(), ['presented' => JobPostPresenter::forAdmin($post)])
+        return $school
+            ->jobPosts()
+            ->latest()
+            ->get()
+            ->map(
+            fn (JobPost $post) => array_merge(
+                $post->toArray(), ['presented' => JobPostPresenter::forAdmin($post)]
+            )
         )->values()->all();
     }
 
     public function store(School $school, JobPostRequest $request)
     {
-        $school->postJob($request->postInfo(), $request->user());
+        return $school->postJob($request->postInfo(), $request->user());
     }
 
     public function update(JobPost $post, JobPostRequest $request)
     {
         $post->updateInfo($request->postInfo(), $request->user());
+        return $post->fresh();
     }
 
     public function delete(JobPost $post)

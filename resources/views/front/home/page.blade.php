@@ -9,6 +9,7 @@
         @endforeach
     </div>
     <div class="text-center my-12">
-        <a href="" class="btn-text">See more job posts &gt;</a>
+        <a href=""
+           class="btn-text">See more job posts &gt;</a>
     </div>
 </x-public-page>

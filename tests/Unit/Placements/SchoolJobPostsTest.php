@@ -3,6 +3,7 @@
 namespace Tests\Unit\Placements;
 
 use App\DateFormatter;
+use App\Exceptions\InsufficientTokensException;
 use App\Locations\Area;
 use App\Placements\JobPost;
 use App\Placements\JobPostInfo;
@@ -188,11 +189,34 @@ class SchoolJobPostsTest extends TestCase
     public function can_make_a_job_post_public()
     {
         $post = factory(JobPost::class)->state('draft')->create();
+        $post->school->grantTokens(1, 1, now()->addCentury());
+        $token = $post->school->fresh()->nextToken();
 
-        $post->publish();
+        $post->publish($token);
 
         $this->assertTrue($post->fresh()->first_published_at->isSameDay(Carbon::today()));
         $this->assertTrue($post->fresh()->is_public);
+        $this->assertTrue($token->isSpent());
+    }
+
+    /**
+     *@test
+     */
+    public function publishing_for_first_time_requires_a_token()
+    {
+        $post = factory(JobPost::class)->state('draft')->create();
+        $post->school->grantTokens(1, 1, now()->addCentury());
+
+        try {
+            $post->publish();
+            $this->fail('Expected exception not thrown');
+        } catch(\Exception $e) {
+            $this->assertInstanceOf(InsufficientTokensException::class, $e);
+        }
+
+
+        $this->assertNull($post->fresh()->first_published_at);
+        $this->assertFalse($post->fresh()->is_public);
     }
 
     /**
@@ -204,6 +228,42 @@ class SchoolJobPostsTest extends TestCase
         $post = factory(JobPost::class)->state('private')->create([
             'first_published_at' => $publish_date,
         ]);
+
+        $post->publish();
+
+        $this->assertTrue($post->fresh()->first_published_at->eq($publish_date));
+        $this->assertTrue($post->fresh()->is_public);
+    }
+
+    /**
+     *@test
+     */
+    public function republishing_does_not_spend_token_if_given()
+    {
+        $publish_date = Carbon::today()->subWeek();
+        $post = factory(JobPost::class)->state('private')->create([
+            'first_published_at' => $publish_date,
+        ]);
+        $post->school->grantTokens(1, 1, now()->addCentury());
+        $token = $post->school->fresh()->nextToken();
+
+        $post->publish($token);
+
+        $this->assertTrue($post->fresh()->first_published_at->eq($publish_date));
+        $this->assertTrue($post->fresh()->is_public);
+        $this->assertFalse($token->isSpent());
+    }
+
+    /**
+     *@test
+     */
+    public function republishing_does_not_require_a_token()
+    {
+        $publish_date = Carbon::today()->subWeek();
+        $post = factory(JobPost::class)->state('private')->create([
+            'first_published_at' => $publish_date,
+        ]);
+
 
         $post->publish();
 

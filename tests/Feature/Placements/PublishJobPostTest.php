@@ -7,6 +7,7 @@ namespace Tests\Feature\Placements;
 use App\Placements\JobPost;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class PublishJobPostTest extends TestCase
@@ -20,10 +21,11 @@ class PublishJobPostTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        list($shcool, $owner) = $this->setUpSchool();
+        list($school, $owner) = $this->setUpSchool();
         $post = factory(JobPost::class)->state('draft')->create([
-            'school_id' => $shcool->id,
+            'school_id' => $school->id,
         ]);
+        $school->grantTokens(1, 1, now()->addCentury());
 
         $response = $this->actingAs($owner)->postJson("/api/schools/posts/published-job-posts", [
             'job_post_id' => $post->id,
@@ -35,6 +37,8 @@ class PublishJobPostTest extends TestCase
             'is_public' => true,
             'first_published_at' => now(),
         ]);
+
+        $this->assertCount(0, $school->fresh()->availableTokens);
     }
 
     /**
@@ -58,6 +62,25 @@ class PublishJobPostTest extends TestCase
             'is_public' => false,
             'first_published_at' => null,
         ]);
+    }
+
+    /**
+     *@test
+     */
+    public function an_incomplete_post_can_not_be_published()
+    {
+        list($shcool, $owner) = $this->setUpSchool();
+        $post = factory(JobPost::class)->state('draft')->create([
+            'school_id' => $shcool->id,
+            'student_ages' => [],
+            'engagement' => ''
+        ]);
+
+        $response = $this->actingAs($owner)->postJson("/api/schools/posts/published-job-posts", [
+            'job_post_id' => $post->id,
+        ]);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertJsonValidationErrors('job_post_id');
     }
 
 

@@ -14,6 +14,11 @@ $factory->define(School::class, function (Faker $faker) {
         'introduction' => $faker->paragraph,
         'key'         => \App\UniqueKey::for('schools:key'),
         'area_id'      => factory(Area::class),
+        'billing_country' => $faker->countryCode,
+        'billing_address' => $faker->address,
+        'billing_city' => $faker->city,
+        'billing_state' => '',
+        'billing_zip' => $faker->numberBetween(100, 999),
     ];
 });
 

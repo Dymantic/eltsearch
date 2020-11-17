@@ -4,9 +4,9 @@
     </a>
     <div class="sub-nav text-navy bg-white left-0 pt-12 lg:pt-0 pl-6 lg:pl-0 fixed top-16 w-screen lg:w-auto h-screen lg:h-16 lg:static flex flex-col lg:flex-row lg:items-center">
         <div class="flex flex-col lg:flex-row lg:items-center">
-            <div class="type-b2 pl-4 lg:pl-0 mr-4 mb-4 lg:mb-0"><a class="hover:text-sky-blue" href="/job-posts">Find Jobs</a></div>
-            <div class="type-b2 pl-4 lg:pl-0 mr-4 mb-4 lg:mb-0"><a class="hover:text-sky-blue" href="/how-it-works">How It Works</a></div>
-            <div class="type-b2 pl-4 lg:pl-0 mr-4 mb-4 lg:mb-0"><a class="text-gray-600 hover:text-sky-blue" href="/for-schools">For Schools</a></div>
+            <div class="type-b2 pl-4 lg:pl-0 mr-4 mb-4 lg:mb-0"><a class="hover:text-sky-blue" href="/job-posts">{{ trans('nav.find_jobs') }}</a></div>
+            <div class="type-b2 pl-4 lg:pl-0 mr-4 mb-4 lg:mb-0"><a class="hover:text-sky-blue" href="/how-it-works">{{ trans('nav.how_it_works') }}</a></div>
+            <div class="type-b2 pl-4 lg:pl-0 mr-4 mb-4 lg:mb-0"><a class="text-gray-600 hover:text-sky-blue" href="/for-schools">{{ trans('nav.for_schools') }}</a></div>
         </div>
         <div class="lg:border-l border-gray-400 flex flex-col lg:flex-row lg:items-center">
             @auth
@@ -14,8 +14,8 @@
                 <div><a class="type-b2 " href="/register/teacher">Logout</a></div>
             @endauth
             @guest
-                    <div class="type-b2 pl-4 lg:pl-0 mx-0 lg:mx-6 mb-4 lg:mb-0"><a class="hover:text-sky-blue" href="/login">Sign in</a></div>
-                    <div><a class="type-b2 btn-main" href="/register/teacher">Sign up</a></div>
+                    <div class="type-b2 pl-4 lg:pl-0 mx-0 lg:mx-6 mb-4 lg:mb-0"><a class="hover:text-sky-blue" href="/login">{{ trans('nav.sign_in') }}</a></div>
+                    <div><a class="type-b2 btn-main" href="/register/teacher">{{ trans('nav.sign_up') }}</a></div>
             @endguest
 
         </div>

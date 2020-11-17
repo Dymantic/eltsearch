@@ -11,7 +11,13 @@
             >
         </p>
         <p>{{ post.school_name }}</p>
-        <p>{{ trns("posts_index.card.status") }}: Draft</p>
+        <p>
+            <colour-label
+                class="mt-2 inline-block"
+                :colour="post.presented.status.colour"
+                :text="post.presented.status.text"
+            ></colour-label>
+        </p>
         <div class="flex justify-end mt-4">
             <router-link
                 class="text-btn ml-4"
@@ -28,12 +34,19 @@
                 :to="`/job-posts/${post.id}/edit`"
                 >{{ trns("actions.edit") }}</router-link
             >
+            <router-link
+                class="text-btn ml-4"
+                :to="`/job-posts/${post.id}/publish`"
+                >{{ trns("actions.publish") }}</router-link
+            >
         </div>
     </div>
 </template>
 
 <script type="text/babel">
+import ColourLabel from "../ColourLabel";
 export default {
+    components: { ColourLabel },
     props: ["post"],
 };
 </script>

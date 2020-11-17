@@ -2,9 +2,12 @@
 
 namespace App\Schools;
 
+use App\BillingDetails;
 use App\Locations\Area;
 use App\Placements\JobPost;
 use App\Placements\JobPostInfo;
+use App\Purchasing\MakesPurchases;
+use App\Purchasing\UsesTokens;
 use App\UniqueKey;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
@@ -16,13 +19,13 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class School extends Model implements HasMedia
 {
-    use InteractsWithMedia, HasSchoolLogo;
+    use InteractsWithMedia, HasSchoolLogo, MakesPurchases, UsesTokens;
 
     const MAX_IMAGES = 4;
     const LOGOS = 'logos';
     const IMAGES = 'images';
 
-    protected $fillable = ['name', 'address', 'introduction', 'key', 'area_id'];
+    protected $guarded = [];
 
     protected $casts = ['area_id' => 'integer'];
 
@@ -107,5 +110,10 @@ class School extends Model implements HasMedia
             $post->save();
             $post->setSalaryGrade();
         });
+    }
+
+    public function setBillingDetails(BillingDetails $details)
+    {
+        $this->update($details->toArray());
     }
 }

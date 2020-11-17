@@ -23,6 +23,7 @@ class PublishingJobPostDispatchesJobTest extends TestCase
         $this->withoutExceptionHandling();
         list($school, $owner) = $this->setUpSchool();
         $post = factory(JobPost::class)->state('draft')->create(['school_id' => $school->id]);
+        $school->grantTokens(1, 1, now()->addCentury());
 
         $response = $this->actingAs($owner)->postJson("/api/schools/posts/published-job-posts", [
             'job_post_id' => $post->id

@@ -13,6 +13,9 @@ import posts from "./stores/schools/job_posts";
 import applications from "./stores/schools/applications";
 import lang from "./stores/schools/lang";
 import notifications from "./stores/notifications";
+import purchases from "./stores/schools/purchases";
+import tokens from "./stores/schools/tokens";
+
 const store = new Vuex.Store({
     modules: {
         messages,
@@ -23,6 +26,8 @@ const store = new Vuex.Store({
         applications,
         lang,
         notifications,
+        purchases,
+        tokens,
     },
 });
 
