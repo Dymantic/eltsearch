@@ -61,7 +61,8 @@ class JobPostPresenter
         $lang = app()->getLocale();
 
         return [
-            'status'             => $post->status('en'),
+            'id'                    => $post->id,
+            'status'                => $post->status('en'),
             'slug'                  => $post->slug,
             'school'                => $post->school->name,
             'school_name'           => $post->school_name,

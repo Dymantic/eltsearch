@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\JobApplicationRequest;
+use App\Placements\JobApplication;
 use App\Placements\JobPost;
 use App\Placements\JobPostPresenter;
 use Illuminate\Http\Request;
@@ -20,7 +21,9 @@ class ApplicationsController extends Controller
     public function store(JobApplicationRequest $request, JobPost $post)
     {
         if($request->teacher()->hasApplicationFor($post)) {
-            throw ValidationException::withMessages(['job_post' => 'You have already applied for this post']);
+            throw ValidationException::withMessages([
+                'job_post' => 'You have already applied for this post'
+            ]);
         }
 
         $request->teacher()

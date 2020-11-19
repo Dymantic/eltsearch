@@ -21,11 +21,10 @@ class PackagesTest extends TestCase
             'packages' => [
                 [
                     'id' => 'my_package',
-                    'name' => 'test name',
-                    'description' => 'test description',
                     'price' => 33,
                     'quantity' => 10,
-                    'type' => 'token'
+                    'type' => 'token',
+                    'trans_key' => 'test_key'
                 ],
             ],
         ]);
@@ -39,8 +38,8 @@ class PackagesTest extends TestCase
      */
     public function package_has_name()
     {
-        $package = $this->makePackage(['name' => 'package name']);
-        $this->assertSame('package name', $package->getName());
+        $package = $this->makePackage(['trans_key' => 'test_key']);
+        $this->assertSame(trans("test_key.name"), $package->getName('en'));
     }
 
     /**
@@ -57,8 +56,8 @@ class PackagesTest extends TestCase
      */
     public function package_has_description()
     {
-        $package = $this->makePackage(['description' => 'package description']);
-        $this->assertSame('package description', $package->getDescription());
+        $package = $this->makePackage(['trans_key' => 'test_key']);
+        $this->assertSame(trans('test_key.description'), $package->getDescription());
     }
 
     /**
@@ -97,11 +96,10 @@ class PackagesTest extends TestCase
     {
         $valid = [
             'id' => 'test_package',
-            'name' => 'test name',
-            'description' => 'test description',
             'price' => 33,
             'quantity' => 10,
-            'type' => 'token'
+            'type' => 'token',
+            'trans_key' => 'test_key',
         ];
         return new Package(array_merge($valid, $attributes));
     }

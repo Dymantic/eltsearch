@@ -19,6 +19,10 @@ class Admin
             return $next($request);
         }
 
-        abort(403);
+        if($request->wantsJson()) {
+            abort(403);
+        }
+
+        return $next($request);
     }
 }

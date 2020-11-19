@@ -24,13 +24,13 @@ class TeacherMiddlewareTest extends TestCase {
             return response("", 200);
         })->middleware("teacher");
 
-        $response = $this->actingAs($teacher)->get("/test-teacher-middleware");
+        $response = $this->actingAs($teacher)->getJson("/test-teacher-middleware");
         $response->assertSuccessful();
 
-        $response = $this->actingAs($school)->get("/test-teacher-middleware");
+        $response = $this->actingAs($school)->getJson("/test-teacher-middleware");
         $response->assertStatus(Response::HTTP_FORBIDDEN);
 
-        $response = $this->actingAs($admin)->get("/test-teacher-middleware");
+        $response = $this->actingAs($admin)->getJson("/test-teacher-middleware");
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 }

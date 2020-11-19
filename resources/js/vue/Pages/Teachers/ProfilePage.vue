@@ -23,6 +23,11 @@
                             <span class="type-b2">Born: </span
                             ><span>{{ generalInfo.date_of_birth }}</span>
                         </p>
+                        <p>
+                            <span class="type-b2"
+                                >Years of Teaching Experience: </span
+                            ><span>{{ generalInfo.years_experience }}</span>
+                        </p>
                     </div>
                 </div>
                 <div>

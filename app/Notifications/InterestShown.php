@@ -41,7 +41,7 @@ class InterestShown extends Notification implements ActionableNotification
             ->markdown('email.teachers.interest_shown', [
                 'body' => $this->getMessageFor($notifiable),
                 'action' => $this->actionTextFor($notifiable),
-                'url' => $this->actionUrl(),
+                'url' => $this->actionUrl($notifiable),
                 'image' => $this->school->getLogo(),
                 'extra_fields' => [
                     'email' => $this->showOfInterest->email,
@@ -69,7 +69,7 @@ class InterestShown extends Notification implements ActionableNotification
                 'text' => $this->getMessageFor($notifiable)
             ],
             'action' => ['text' => $this->actionTextFor($notifiable)],
-            'action_url' => $this->actionUrl(),
+            'action_url' => $this->actionUrl($notifiable),
             'extra_fields' => [
                 'email' => $this->showOfInterest->email,
                 'phone' => $this->showOfInterest->phone,
@@ -92,7 +92,7 @@ class InterestShown extends Notification implements ActionableNotification
         return 'See details';
     }
 
-    public function actionUrl(): string
+    public function actionUrl($notifiable): string
     {
         return url("teachers#/applications/{$this->application->id}/show-of-interest");
     }

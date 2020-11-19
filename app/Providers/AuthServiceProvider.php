@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Placements\JobMatch;
 use App\Placements\JobPost;
+use App\Policies\JobMatchPolicy;
 use App\Policies\JobPostPolicy;
 use App\Policies\PreviousEmploymentPolicy;
 use App\Policies\ReadNotificationsPolicy;
@@ -21,10 +23,11 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        School::class             => SchoolPolicy::class,
-        JobPost::class            => JobPostPolicy::class,
-        PreviousEmployment::class => PreviousEmploymentPolicy::class,
+        School::class               => SchoolPolicy::class,
+        JobPost::class              => JobPostPolicy::class,
+        PreviousEmployment::class   => PreviousEmploymentPolicy::class,
         DatabaseNotification::class => ReadNotificationsPolicy::class,
+        JobMatch::class             => JobMatchPolicy::class,
     ];
 
     /**

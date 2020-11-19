@@ -16,7 +16,7 @@ export default {
 
     state: {
         name: "",
-        email: "",
+        email: window.currentProfile.email,
         avatar: "",
         account_type: "",
         general_info: null,

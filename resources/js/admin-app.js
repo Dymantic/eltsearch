@@ -26,7 +26,9 @@ const router = new VueRouter({
 });
 
 import MainNavigation from "./vue/Components/Admin/MainNavigation";
+import TopBar from "./vue/Components/Admin/TopBar";
 Vue.component("main-navigation", MainNavigation);
+Vue.component("top-bar", TopBar);
 import AppShell from "./vue/Pages/AppShell";
 
 window.app = new Vue({

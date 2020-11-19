@@ -1,7 +1,11 @@
-import { get } from "../http";
+import { get, post } from "../http";
 
 function fetchTeacherApplications() {
     return get("/api/teachers/job-applications");
 }
 
-export { fetchTeacherApplications };
+function applyForJob(formData) {
+    return post("/api/teachers/job-applications", formData);
+}
+
+export { fetchTeacherApplications, applyForJob };

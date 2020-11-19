@@ -57,7 +57,7 @@ class ApplicationReceived extends Notification
         ], $notifiable->preferred_lang ?? 'en');
     }
 
-    public function actionUrl()
+    public function actionUrl($notifiable)
     {
         return url("schools#/applications/{$this->jobApplication->id}");
     }
@@ -82,7 +82,7 @@ class ApplicationReceived extends Notification
             ->subject($this->getSubjectFor($notifiable))
             ->markdown('email.schools.application-received', [
                 'body'   => $this->getMessageFor($notifiable),
-                'url'    => $this->actionUrl(),
+                'url'    => $this->actionUrl($notifiable),
                 'action' => $this->actionTextFor($notifiable),
                 'image'  => url($this->teacher()->getAvatar()),
             ]);
@@ -116,7 +116,7 @@ class ApplicationReceived extends Notification
                 'text' => self::transKeyFor('action'),
                 'params' => []
             ],
-            'action_url'           => url("/schools#/applications/{$this->jobApplication->id}"),
+            'action_url'           => $this->actionUrl($notifiable),
         ];
     }
 }

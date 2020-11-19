@@ -55,7 +55,7 @@ class InterestShownTest extends TestCase
         $this->assertSame($expected_subject, $notification->getSubjectFor($teacher->user));
         $this->assertSame($expected_message, $notification->getMessageFor($teacher->user));
         $this->assertSame($expected_action, $notification->actionTextFor($teacher->user));
-        $this->assertSame($expected_url, $notification->actionUrl());
+        $this->assertSame($expected_url, $notification->actionUrl($teacher->user));
 
         $this->assertEquals($expected_data, $notification->toDatabase($teacher->user));
 

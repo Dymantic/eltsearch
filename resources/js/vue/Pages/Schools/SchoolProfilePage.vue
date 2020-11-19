@@ -6,7 +6,7 @@
             }}</router-link>
         </page-header>
 
-        <div class="max-w-xl p-6 rounded-lg shadow-lg">
+        <div class="max-w-3xl p-6 rounded-lg shadow-lg">
             <div class="flex flex-col md:flex-row justify-between">
                 <div class="flex-1">
                     <p class="type-h3">{{ school.name }}</p>
@@ -38,8 +38,8 @@
             </div>
         </div>
 
-        <div class="my-12">
-            <div class="flex justify-between mb-4">
+        <div class="my-12 max-w-3xl">
+            <div class="flex justify-between mb-4 border-b border-gray-300">
                 <p class="type-h3">{{ trns("show_profile.images") }}</p>
                 <router-link class="text-btn" to="/profile/images">{{
                     trns("actions.edit_images")
@@ -59,14 +59,20 @@
                 </div>
             </div>
         </div>
+
+        <div class="my-12 p-6 shadow-lg rounded-lg max-w-3xl">
+            <billing-details-summary :school="school"></billing-details-summary>
+        </div>
     </div>
 </template>
 
 <script type="text/babel">
 import PageHeader from "../../Components/PageHeader";
 import ImageUpload from "../../Components/ImageUpload";
+import BillingDetailsSummary from "../../Components/Schools/BillingDetailsSummary";
 export default {
     components: {
+        BillingDetailsSummary,
         PageHeader,
         ImageUpload,
     },

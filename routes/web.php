@@ -99,7 +99,7 @@ Route::group([
          ->middleware('can:manage,school');
 
     Route::post('schools/{school}/billing-details', 'SchoolBillingDetailsController@update')
-    ->middleware('can:manage,school');
+         ->middleware('can:manage,school');
 
     Route::get('schools/{school}/job-posts', 'SchoolJobPostsController@index')
          ->middleware('can:manage,school');
@@ -162,8 +162,15 @@ Route::group([
     Route::get('teachers/job-search-options', 'JobSearchOptionsController@show');
 
     Route::get('teachers/job-applications', 'TeacherJobApplicationsController@index');
+    Route::post('teachers/job-applications', 'TeacherJobApplicationsController@store');
 
     Route::get('teachers/show-of-interests', 'TeacherShowOfInterestsController@index');
+
+    Route::get('teachers/job-matches', 'TeacherJobMatchesController@index');
+    Route::delete('teachers/job-matches/{match}', 'TeacherJobMatchesController@destroy')
+         ->middleware('can:manage,match');
+
+
 });
 
 

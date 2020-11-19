@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Placements\JobPost;
+use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -41,8 +42,12 @@ class JobPostMatchesFound extends Notification implements ActionableNotification
         return 'View Job Post';
     }
 
-    public function actionUrl(): string
+    public function actionUrl($notifiable): string
     {
+        if($notifiable instanceof User && $notifiable->isTeacher()) {
+            $match = $notifiable->teacher->jobMatches()->where('job_post_id', $this->jobPost->id)->first();
+            return url("teachers#/job-matches/{$match->id}/post");
+        }
         return url("teachers#/job-posts/{$this->jobPost->slug}");
     }
 
@@ -54,7 +59,7 @@ class JobPostMatchesFound extends Notification implements ActionableNotification
             ->markdown('email.teachers.job-post-matches-found', [
                 'body' => $this->getMessageFor($notifiable),
                 'action' => $this->actionTextFor($notifiable),
-                'url' => $this->actionUrl(),
+                'url' => $this->actionUrl($notifiable),
             ]);
     }
 
@@ -82,7 +87,7 @@ class JobPostMatchesFound extends Notification implements ActionableNotification
                 'text' => $this->getMessageFor($notifiable)
             ],
             'action' => ['text' => $this->actionTextFor($notifiable)],
-            'action_url' => $this->actionUrl(),
+            'action_url' => $this->actionUrl($notifiable),
 
         ];
     }

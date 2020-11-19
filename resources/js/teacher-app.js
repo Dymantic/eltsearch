@@ -12,6 +12,7 @@ import placements from "./stores/teachers/placements";
 import applications from "./stores/teachers/applications";
 import notifications from "./stores/notifications";
 import lang from "./stores/schools/lang";
+import matches from "./stores/teachers/matches";
 const store = new Vuex.Store({
     modules: {
         messages,
@@ -21,6 +22,7 @@ const store = new Vuex.Store({
         applications,
         notifications,
         lang,
+        matches,
     },
 });
 
@@ -35,7 +37,9 @@ Vue.use(transPlugin);
 
 import AppShell from "./vue/Pages/AppShell";
 import MainNavigation from "./vue/Components/Teachers/MainNavigation";
+import TopBar from "./vue/Components/Teachers/TopBar";
 Vue.component("main-navigation", MainNavigation);
+Vue.component("top-bar", TopBar);
 window.app = new Vue({
     el: "#app",
 

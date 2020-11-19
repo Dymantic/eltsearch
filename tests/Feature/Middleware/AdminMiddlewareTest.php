@@ -27,13 +27,13 @@ class AdminMiddlewareTest extends TestCase
             return response("", 200);
         })->middleware("admin");
 
-        $response = $this->actingAs($admin)->get("/test-admin-middleware");
+        $response = $this->actingAs($admin)->getJson("/test-admin-middleware");
         $response->assertSuccessful();
 
-        $response = $this->actingAs($teacher)->get("/test-admin-middleware");
+        $response = $this->actingAs($teacher)->getJson("/test-admin-middleware");
         $response->assertStatus(Response::HTTP_FORBIDDEN);
 
-        $response = $this->actingAs($school)->get("/test-admin-middleware");
+        $response = $this->actingAs($school)->getJson("/test-admin-middleware");
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 }

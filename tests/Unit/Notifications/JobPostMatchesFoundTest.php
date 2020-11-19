@@ -49,7 +49,7 @@ class JobPostMatchesFoundTest extends TestCase
         $this->assertSame($expected_subject, $notification->getSubjectFor(null));
         $this->assertSame($expected_message, $notification->getMessageFor(null));
         $this->assertSame($expected_action, $notification->actionTextFor(null));
-        $this->assertSame($expected_url, $notification->actionUrl());
+        $this->assertSame($expected_url, $notification->actionUrl(null));
 
         $this->assertEquals($expected_data, $notification->toDatabase(null));
     }

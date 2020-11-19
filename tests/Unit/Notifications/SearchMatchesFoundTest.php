@@ -20,7 +20,7 @@ class SearchMatchesFoundTest extends TestCase
     use RefreshDatabase;
 
     /**
-     *@test
+     * @test
      */
     public function the_search_matches_found_notification_has_expected_attributes()
     {
@@ -34,18 +34,18 @@ class SearchMatchesFoundTest extends TestCase
         $expected_subject = 'New Jobs Found';
         $expected_message = 'We have matched 2 new jobs with your latest job search. Visit your dashboard to see more details.';
         $expected_action = 'See Matches';
-        $expected_url = url("teachers#/matches");
+        $expected_url = url("teachers#/job-matches");
 
         $expected_data = [
             'requires_translation' => false,
-            'subject' => [
+            'subject'              => [
                 'text' => 'New Jobs Found',
             ],
-            'message' => [
+            'message'              => [
                 'text' => 'We have matched 2 new jobs with your latest job search. Visit your dashboard to see more details.'
             ],
-            'action' => ['text' => 'See Matches'],
-            'action_url' => $expected_url,
+            'action'               => ['text' => 'See Matches'],
+            'action_url'           => $expected_url,
 
         ];
 
@@ -54,7 +54,7 @@ class SearchMatchesFoundTest extends TestCase
         $this->assertSame($expected_subject, $notification->getSubjectFor($notifiable));
         $this->assertSame($expected_message, $notification->getMessageFor($notifiable));
         $this->assertSame($expected_action, $notification->actionTextFor($notifiable));
-        $this->assertSame($expected_url, $notification->actionUrl());
+        $this->assertSame($expected_url, $notification->actionUrl($notifiable));
 
         $this->assertEquals($expected_data, $notification->toDatabase($notifiable));
     }

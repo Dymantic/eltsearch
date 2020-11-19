@@ -22,7 +22,9 @@
                         />
                     </svg>
                 </button>
+
                 <div class="flex justify-end items-center flex-1">
+                    <top-bar></top-bar>
                     <router-link
                         to="/notifications"
                         class="inline-block rounded-full mx-4 p-2"

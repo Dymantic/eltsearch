@@ -14,7 +14,8 @@
                 :type="inputType"
                 :value="value"
                 @input="emit"
-                class="mt-1 w-full block border p-2 type-b1"
+                class="mt-1 border block p-2 type-b1"
+                :class="{ 'w-full': !minWidth, 'w-20': minWidth }"
             />
         </label>
     </div>
@@ -30,6 +31,7 @@ export default {
         "type",
         "help-text",
         "disabled",
+        "min-width",
     ],
 
     computed: {

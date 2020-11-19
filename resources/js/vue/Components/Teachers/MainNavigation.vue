@@ -19,6 +19,12 @@
         </div>
 
         <div class="mb-3">
+            <router-link class="font-semibold" to="/job-matches"
+                >Job Matches</router-link
+            >
+        </div>
+
+        <div class="mb-3">
             <router-link class="font-semibold" to="/applications"
                 >Job Applications</router-link
             >

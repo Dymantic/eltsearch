@@ -20,6 +20,7 @@ class TeacherProfilePresenter
             'native_language' => $teacher->native_language,
             'other_languages' => $teacher->other_languages,
             'avatar'          => $teacher->getAvatar(),
+            'years_experience' => $teacher->years_experience,
         ];
     }
 

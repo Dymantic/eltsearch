@@ -42,9 +42,9 @@ class SearchMatchesFound extends Notification implements ActionableNotification
         return 'See Matches';
     }
 
-    public function actionUrl(): string
+    public function actionUrl($notifiable): string
     {
-        return url("teachers#/matches");
+        return url("teachers#/job-matches");
     }
 
 
@@ -55,7 +55,7 @@ class SearchMatchesFound extends Notification implements ActionableNotification
             ->markdown('email.teachers.search-matches-found', [
                 'body' => $this->getMessageFor($notifiable),
                 'action' => $this->actionTextFor($notifiable),
-                'url' => $this->actionUrl(),
+                'url' => $this->actionUrl($notifiable),
 
             ]);
     }
@@ -79,7 +79,7 @@ class SearchMatchesFound extends Notification implements ActionableNotification
                 'text' => $this->getMessageFor($notifiable)
             ],
             'action' => ['text' => $this->actionTextFor($notifiable)],
-            'action_url' => $this->actionUrl(),
+            'action_url' => $this->actionUrl($notifiable),
 
         ];
     }

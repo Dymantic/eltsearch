@@ -5,6 +5,7 @@ namespace Tests\Feature\Placements;
 
 
 use App\ContactDetails;
+use App\Placements\JobApplication;
 use App\Placements\JobPost;
 use App\Teachers\Teacher;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -47,6 +48,35 @@ class CreateJobApplicationTest extends TestCase
     /**
      *@test
      */
+    public function apply_via_api()
+    {
+        $this->withoutExceptionHandling();
+
+        $teacher = factory(Teacher::class)->create();
+        $job_post = factory(JobPost::class)->create();
+
+        $response = $this
+            ->actingAs($teacher->user)->postJson("/api/teachers/job-applications", [
+                'job_post_id'  => $job_post->id,
+                'cover_letter' => 'test cover letter',
+                'phone'        => 'test phone',
+                'email'        => 'test@test.test',
+            ]);
+
+        $response->assertSuccessful();
+
+        $this->assertDatabaseHas('job_applications', [
+            'job_post_id'  => $job_post->id,
+            'teacher_id'   => $teacher->id,
+            'cover_letter' => 'test cover letter',
+            'phone'        => 'test phone',
+            'email'        => 'test@test.test',
+        ]);
+    }
+
+    /**
+     *@test
+     */
     public function can_not_apply_for_a_job_more_than_once()
     {
         $teacher = factory(Teacher::class)->create();
@@ -73,27 +103,29 @@ class CreateJobApplicationTest extends TestCase
     /**
      *@test
      */
-    public function check_empty_or_null_fields_allowed()
+    public function the_cover_letter_is_required()
+    {
+        $this->assertFieldIsInvalid(['cover_letter' => null]);
+    }
+
+    private function assertFieldIsInvalid($field)
     {
         $teacher = factory(Teacher::class)->create();
         $job_post = factory(JobPost::class)->create();
 
-        $response = $this->actingAs($teacher->user)->post("/job-posts/{$job_post->slug}/apply", [
+        $valid = [
             'job_post_id'  => $job_post->id,
-            'cover_letter' => null,
-            'phone'        => null,
-            'email'        => null,
-        ]);
+            'cover_letter' => 'test cover letter',
+            'phone'        => 'test phone',
+            'email'        => 'test@test.test',
+        ];
 
-        $response->assertRedirect("/");
+        $response = $this
+            ->actingAs($teacher->user)
+            ->postJson("/api/teachers/job-applications", array_merge($valid, $field));
 
-        $this->assertDatabaseHas('job_applications', [
-            'job_post_id'  => $job_post->id,
-            'teacher_id'   => $teacher->id,
-            'cover_letter' => '',
-            'phone'        => '',
-            'email'        => $teacher->email,
-        ]);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertJsonValidationErrors(array_key_first($field));
     }
 
 

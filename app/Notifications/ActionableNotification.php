@@ -12,5 +12,5 @@ interface ActionableNotification
 
     public function actionTextFor($notifiable): string;
 
-    public function actionUrl(): string;
+    public function actionUrl($notifiable): string;
 }

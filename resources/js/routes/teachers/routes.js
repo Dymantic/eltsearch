@@ -14,6 +14,9 @@ import ApplicationDetails from "../../vue/Pages/Teachers/ApplicationDetails";
 import ShowOfInterest from "../../vue/Pages/Teachers/ShowOfInterest";
 import Notifications from "../../vue/Pages/Notifications";
 import ShowNotification from "../../vue/Pages/ShowNotification";
+import JobMatchesIndex from "../../vue/Pages/Teachers/JobMatchesIndex";
+import MatchedJobPost from "../../vue/Pages/Teachers/MatchedJobPost";
+import CreateApplication from "../../vue/Pages/Teachers/CreateApplication";
 
 export default [
     { path: "/", component: TeacherDashboard },
@@ -47,4 +50,7 @@ export default [
         path: "/notifications/:notification",
         component: ShowNotification,
     },
+    { path: "/job-matches", component: JobMatchesIndex },
+    { path: "/job-matches/:job_match/post", component: MatchedJobPost },
+    { path: "/job-matches/:job_match/apply", component: CreateApplication },
 ];

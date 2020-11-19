@@ -42,6 +42,27 @@
                         </p>
                         <p class="mb-2">
                             <span class="type-b2"
+                                >{{
+                                    trns("show_application.years_experience")
+                                }}: </span
+                            >{{ application.teacher.years_experience }}
+                        </p>
+                        <p class="mb-2">
+                            <span class="type-b2"
+                                >{{
+                                    trns("show_application.native_language")
+                                }}: </span
+                            >{{ application.teacher.native_language }}
+                        </p>
+                        <p class="mb-2">
+                            <span class="type-b2"
+                                >{{
+                                    trns("show_application.other_languages")
+                                }}: </span
+                            >{{ application.teacher.other_languages }}
+                        </p>
+                        <p class="mb-2">
+                            <span class="type-b2"
                                 >{{ trns("show_application.age") }}: </span
                             >{{ application.teacher.age }}
                         </p>

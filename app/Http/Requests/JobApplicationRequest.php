@@ -24,7 +24,16 @@ class JobApplicationRequest extends FormRequest
     public function rules()
     {
         return [
+            'job_post_id' => 'exists:job_posts,id',
+            'cover_letter' => ['required'],
+            'email' => ['required_without:phone', 'email'],
+            'phone' => ['required_without:email']
         ];
+    }
+
+    public function jobPost(): JobPost
+    {
+        return JobPost::find($this->job_post_id);
     }
 
     public function coverLetter(): string

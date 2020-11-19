@@ -6,6 +6,7 @@ export default {
         email: "",
         avatar: "",
         account_type: "",
+        current_school_id: window.currentProfile.school_ids[0] || null,
         school_ids: [],
         preferred_lang: "en",
     },

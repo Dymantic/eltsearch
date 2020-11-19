@@ -6,6 +6,7 @@ use App\ContactDetails;
 use App\Events\ApplicationReceived;
 use App\Locations\Area;
 use App\Placements\JobApplication;
+use App\Placements\JobMatch;
 use App\Placements\JobPost;
 use App\Placements\JobSearch;
 use App\Placements\JobSearchCriteria;
@@ -47,6 +48,7 @@ class Teacher extends Model implements HasMedia
         'education_level',
         'education_institution',
         'education_qualification',
+        'years_experience',
     ];
 
     protected $dates = ['date_of_birth'];
@@ -100,8 +102,8 @@ class Teacher extends Model implements HasMedia
     {
         $search = $this->currentJobSearch();
 
-        if($search) {
-            return tap($search, fn ($job_search) => $job_search->update($criteria->toArray()));
+        if ($search) {
+            return tap($search, fn($job_search) => $job_search->update($criteria->toArray()));
         }
 
         return $this->jobSearches()->create($criteria->toArray());
@@ -112,6 +114,19 @@ class Teacher extends Model implements HasMedia
         return $this->jobSearches()->latest()->first();
     }
 
+    public function jobMatches()
+    {
+        $job_search_id = optional($this->currentJobSearch())->id;
+
+        if (!$job_search_id) {
+            return;
+        }
+
+        return JobMatch::with('jobPost')
+                       ->where('job_search_id', $job_search_id)
+                       ->where('dismissed', false);
+    }
+
     public function jobApplications()
     {
         return $this->hasMany(JobApplication::class);
@@ -120,8 +135,8 @@ class Teacher extends Model implements HasMedia
     public function hasApplicationFor(JobPost $jobPost): bool
     {
         return $this->jobApplications()
-            ->whereHas('jobPost', fn($query) => $query->where('job_posts.id', $jobPost->id))
-            ->count();
+                    ->whereHas('jobPost', fn($query) => $query->where('job_posts.id', $jobPost->id))
+                    ->count();
     }
 
     public function applyForJob(
@@ -131,15 +146,33 @@ class Teacher extends Model implements HasMedia
     ): JobApplication {
 
         $application = $this->jobApplications()->create([
-            'job_post_id' => $jobPost->id,
+            'job_post_id'  => $jobPost->id,
             'cover_letter' => $cover_letter,
             'phone'        => $contactDetails->phone,
             'email'        => $contactDetails->emailOr($this->email),
         ]);
 
+        if($this->hasBeenMatchedWithPost($jobPost)) {
+            $this->dismissMatchForPost($jobPost);
+        }
+
         event(new ApplicationReceived($application));
 
         return $application;
+    }
+
+    private function hasBeenMatchedWithPost(JobPost $post): bool
+    {
+        if(!$this->jobMatches()) {
+            return false;
+        }
+
+        return $this->jobMatches()->where('job_post_id', $post->id)->count() > 0;
+    }
+
+    private function dismissMatchForPost(JobPost $post)
+    {
+        $this->jobMatches()->where('job_post_id', $post->id)->get()->each->dismiss();
     }
 
     public function retract()
@@ -158,6 +191,7 @@ class Teacher extends Model implements HasMedia
     public function setAvatar(UploadedFile $upload): Media
     {
         $this->clearMediaCollection(self::AVATAR);
+
         return $this->addMedia($upload)
                     ->usingFileName($upload->hashName())
                     ->toMediaCollection(self::AVATAR);
@@ -166,6 +200,7 @@ class Teacher extends Model implements HasMedia
     public function setAvatarFromUrl($url)
     {
         $this->clearMediaCollection(self::AVATAR);
+
         return $this->addMediaFromUrl($url)
                     ->usingFileName(Str::random(10))
                     ->toMediaCollection(self::AVATAR);

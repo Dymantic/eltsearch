@@ -53,6 +53,16 @@
                 help-text="Languages you speak confidently, other than your native language"
             ></text-field>
 
+            <text-field
+                class="my-6 max-w-md"
+                v-model="formData.years_experience"
+                :error-msg="formErrors.years_experience"
+                label="Years of teaching experience"
+                help-text="How many years of actual teaching experience do you have?"
+                type="number"
+                min-width="true"
+            ></text-field>
+
             <div class="my-6">
                 <submit-button :waiting="waiting">Update Info</submit-button>
             </div>
@@ -90,6 +100,7 @@ export default {
                 email: "",
                 native_language: "",
                 other_languages: "",
+                years_experience: null,
             },
             formErrors: {
                 name: "",
@@ -98,6 +109,7 @@ export default {
                 email: "",
                 native_language: "",
                 other_languages: "",
+                years_experience: "",
             },
         };
     },
@@ -137,6 +149,7 @@ export default {
                 email: this.general_info.email,
                 native_language: this.general_info.native_language,
                 other_languages: this.general_info.other_languages,
+                years_experience: this.general_info.years_experience,
             };
         },
 

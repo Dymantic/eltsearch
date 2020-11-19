@@ -54,7 +54,9 @@ import transPlugin from "./vue/transPlugin";
 Vue.use(transPlugin);
 
 import MainNavigation from "./vue/Components/Schools/MainNavigation";
+import TopBar from "./vue/Components/Schools/TopBar";
 Vue.component("main-navigation", MainNavigation);
+Vue.component("top-bar", TopBar);
 import AppShell from "./vue/Pages/AppShell";
 import { showError } from "./libs/notifications";
 

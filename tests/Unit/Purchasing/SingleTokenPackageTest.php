@@ -16,10 +16,10 @@ class SingleTokenPackageTest extends TestCase
             'packages' => [
                 [
                     'id' => 'single_token',
-                    'name' => 'Single Job Post Token',
                     'description' => 'Allows you to publish a single job post. Does not expire',
                     'price' => 88,
-                    'type' => 'token'
+                    'type' => 'token',
+                    'trans_key' => 'pricing.single_post'
                 ],
             ]
         ]);
@@ -28,14 +28,14 @@ class SingleTokenPackageTest extends TestCase
 
         $this->assertInstanceOf(Package::class, $package);
         $this->assertSame(88, $package->getPrice());
-        $this->assertSame('Single Job Post Token', $package->getName());
+        $this->assertSame('Single Post', $package->getName());
 
         $expected = [
             'Code'         => null,
             'IsDynamic'    => true,
             'PurchaseType' => 'PRODUCT',
             'Tangible'     => false,
-            'Name'         => 'Single Job Post Token',
+            'Name'         => 'Single Post',
             'Price'        => [
                 'PriceAmount' => 88.00,
                 'PriceType'   => 'CUSTOM',

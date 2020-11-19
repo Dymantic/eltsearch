@@ -32,6 +32,7 @@ class UpdateTeacherProfileTest extends TestCase
             'area_id'         => $area->id,
             'native_language' => 'test native language',
             'other_languages' => 'test other languages',
+            'years_experience' => 4
         ]);
 
         $response->assertSuccessful();
@@ -46,6 +47,7 @@ class UpdateTeacherProfileTest extends TestCase
             'date_of_birth'   => Carbon::today()->subYears(35),
             'native_language' => 'test native language',
             'other_languages' => 'test other languages',
+            'years_experience' => 4,
         ]);
     }
 
@@ -64,6 +66,7 @@ class UpdateTeacherProfileTest extends TestCase
             'area_id'         => null,
             'native_language' => null,
             'other_languages' => null,
+            'years_experience' => null,
         ]);
 
         $response->assertSuccessful();
@@ -115,6 +118,14 @@ class UpdateTeacherProfileTest extends TestCase
     public function the_email_must_be_a_valid_email_address()
     {
         $this->assertFieldIsInvalid(['email' => 'not-a-valid-email']);
+    }
+
+    /**
+     *@test
+     */
+    public function the_years_experience_should_be_an_integer()
+    {
+        $this->assertFieldIsInvalid(['years_experience' => 'not-a-number']);
     }
 
     /**

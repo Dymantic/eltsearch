@@ -19,7 +19,7 @@ class Package
     {
         $this->id = $configured['id'];
         $this->price = $configured['price'];
-        $this->trans_key = $configured['trans_key'];
+        $this->trans_key = $configured['trans_key'] ?? '';
         $this->type = $configured['type'];
         $this->quantity = $configured['quantity'] ?? 1;
         $this->description = $configured['description'] ?? '';
@@ -62,9 +62,9 @@ class Package
         return trans("{$this->trans_key}.name", [], $lang);
     }
 
-    public function getDescription(): string
+    public function getDescription($lang = 'en'): string
     {
-        return $this->description;
+        return trans("{$this->trans_key}.description", [], $lang);
     }
 
     public function getId()

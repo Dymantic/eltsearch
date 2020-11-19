@@ -6,7 +6,9 @@ namespace Tests\Unit\Placements;
 
 use App\ContactDetails;
 use App\Placements\JobApplication;
+use App\Placements\JobMatch;
 use App\Placements\JobPost;
+use App\Placements\JobSearch;
 use App\Teachers\Teacher;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -16,7 +18,7 @@ class TeacherJobApplicationsTest extends TestCase
     use RefreshDatabase;
 
     /**
-     *@test
+     * @test
      */
     public function teacher_can_apply_for_job()
     {
@@ -38,7 +40,7 @@ class TeacherJobApplicationsTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function with_empty_phone_field()
     {
@@ -60,7 +62,7 @@ class TeacherJobApplicationsTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function empty_email_gets_overwritten_with_teachers_email()
     {
@@ -83,7 +85,7 @@ class TeacherJobApplicationsTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function teacher_can_check_if_already_applied_for_job_post()
     {
@@ -99,5 +101,29 @@ class TeacherJobApplicationsTest extends TestCase
         $teacher->applyForJob($job_post, 'test cover letter', $contact_details);
 
         $this->assertTrue($teacher->fresh()->hasApplicationFor($job_post));
+    }
+
+    /**
+     * @test
+     */
+    public function applying_for_a_matched_job_dismisses_the_match()
+    {
+        $teacher = factory(Teacher::class)->create();
+        $search = factory(JobSearch::class)->create(['teacher_id' => $teacher->id]);
+        $job_post = factory(JobPost::class)->create();
+        $match = factory(JobMatch::class)->create([
+            'job_search_id' => $search->id,
+            'job_post_id'   => $job_post->id,
+        ]);
+        $contact_details = new ContactDetails([
+            'phone' => 'test phone',
+            'email' => '',
+        ]);
+
+        $this->assertFalse($match->dismissed);
+
+        $teacher->applyForJob($job_post, 'test cover letter', $contact_details);
+
+        $this->assertTrue($match->fresh()->dismissed);
     }
 }

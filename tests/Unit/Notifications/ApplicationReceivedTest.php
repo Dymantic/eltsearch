@@ -84,7 +84,7 @@ class ApplicationReceivedTest extends TestCase
 
         $this->assertSame($expected_subject, $notification->getSubjectFor($school_admin));
         $this->assertSame($expected_message, $notification->getMessageFor($school_admin));
-        $this->assertSame(url("/schools#/applications/{$application->id}"), $notification->actionUrl());
+        $this->assertSame(url("/schools#/applications/{$application->id}"), $notification->actionUrl($school_admin));
         $this->assertSame($expected_action, $notification->actionTextFor($school_admin));
         $this->assertEquals($expected_data, $notification->toDatabase($school_admin));
     }
