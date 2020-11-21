@@ -6,6 +6,7 @@ use App\BillingDetails;
 use App\Locations\Area;
 use App\Placements\JobPost;
 use App\Placements\JobPostInfo;
+use App\Purchasing\HasResumePasses;
 use App\Purchasing\MakesPurchases;
 use App\Purchasing\UsesTokens;
 use App\UniqueKey;
@@ -19,7 +20,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class School extends Model implements HasMedia
 {
-    use InteractsWithMedia, HasSchoolLogo, MakesPurchases, UsesTokens;
+    use InteractsWithMedia, HasSchoolLogo, MakesPurchases, UsesTokens, HasResumePasses;
 
     const MAX_IMAGES = 4;
     const LOGOS = 'logos';

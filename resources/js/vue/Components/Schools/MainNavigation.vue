@@ -21,8 +21,13 @@
             }}</router-link>
         </div>
         <div class="mb-3">
-            <router-link class="font-semibold text-white" to="/purchasing">{{
+            <router-link class="font-semibold text-white" to="/tokens">{{
                 trns("nav.tokens")
+            }}</router-link>
+        </div>
+        <div class="mb-3">
+            <router-link class="font-semibold text-white" to="/resume-pass">{{
+                trns("nav.resume_pass")
             }}</router-link>
         </div>
         <div class="mb-3">

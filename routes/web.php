@@ -128,7 +128,7 @@ Route::group([
     Route::post('schools/{school}/purchases', 'SchoolPurchasesController@store');
 
     Route::get('schools/{school}/tokens', 'SchoolTokensController@index');
-
+    Route::get('schools/{school}/resume-pass', 'SchoolResumePassController@show');
     Route::get('schools/packages', 'PackagesController@index');
 });
 
@@ -197,4 +197,10 @@ Route::group([
     Route::post('school-types', 'SchoolTypesController@store');
     Route::post('school-types/{schoolType}', 'SchoolTypesController@update');
     Route::delete('school-types/{schoolType}', 'SchoolTypesController@delete');
+
+    Route::post('public-announcements', 'PublicAnnouncementsController@store');
+    Route::post('school-announcements', 'SchoolAnnouncementsController@store');
+    Route::post('teacher-announcements', 'TeacherAnnouncementsController@store');
+    Route::post('announcements/{announcement}', 'AnnouncementsController@update');
+    Route::delete('announcements/{announcement}', 'AnnouncementsController@delete');
 });

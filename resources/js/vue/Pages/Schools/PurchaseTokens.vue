@@ -4,21 +4,7 @@
             <p class="type-h4">You have {{ tokens.length }} token(s)</p>
         </page-header>
 
-        <div class="my-12">
-            <div
-                v-for="buyable in buyables"
-                :key="buyable.id"
-                class="my-8 shadow p-6"
-            >
-                <p class="type-h4">{{ buyable.name }}</p>
-                <p class="type-b1 mt-4 mb-6">{{ buyable.description }}</p>
-                <router-link
-                    :to="`/purchasing/${buyable.id}`"
-                    class="btn btn-primary"
-                    >Buy Now for {{ buyable.price }}</router-link
-                >
-            </div>
-        </div>
+        <product-list :buyables="buyables" class="my-12"></product-list>
 
         <billing-details-summary
             :school="school"
@@ -30,12 +16,13 @@
 <script type="text/babel">
 import PageHeader from "../../Components/PageHeader";
 import BillingDetailsSummary from "../../Components/Schools/BillingDetailsSummary";
+import ProductList from "../../Components/Schools/ProductList";
 export default {
-    components: { PageHeader, BillingDetailsSummary },
+    components: { ProductList, PageHeader, BillingDetailsSummary },
 
     computed: {
         buyables() {
-            return this.$store.state.purchases.packages;
+            return this.$store.getters["purchases/tokenPackages"];
         },
 
         tokens() {

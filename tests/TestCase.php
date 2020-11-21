@@ -38,8 +38,9 @@ abstract class TestCase extends BaseTestCase
     {
         return function ($query) use ($column, $array) {
             $query->select($column);
-            foreach ($array as $value) {
-                $query->whereJsonContains($column, $value);
+            foreach ($array as $key => $value) {
+                $col = is_string($key) ? "{$column}->{$key}" : $column;
+                $query->whereJsonContains($col, $value);
             }
         };
     }

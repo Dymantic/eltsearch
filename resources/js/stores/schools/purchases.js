@@ -1,5 +1,6 @@
 import {
     fetchSchoolPackages,
+    fetchSchoolResumePassInfo,
     getSchoolPurchases,
     purchasePackageForSchool,
 } from "../../api/schools/paurchasing";
@@ -15,9 +16,20 @@ export default {
             merchant_code: "250584922092",
             script_src: "https://2pay-js.2checkout.com/v1/2pay.js",
         },
+        resumePass: {
+            has_access: false,
+            expires_on: "",
+            days_remaining: 0,
+        },
     },
 
     getters: {
+        tokenPackages: (state) =>
+            state.packages.filter((pack) => pack.type === "token"),
+
+        resumePassPackages: (state) =>
+            state.packages.filter((pack) => pack.type === "resume_pass"),
+
         packageById: (state) => (id) => state.packages.find((p) => p.id === id),
 
         purchaseById: (state) => (id) =>
@@ -31,6 +43,10 @@ export default {
 
         setPurchases(state, purchases) {
             state.purchases = purchases;
+        },
+
+        setResumePass(state, passInfo) {
+            state.resumePass = passInfo;
         },
     },
 
@@ -71,6 +87,15 @@ export default {
                     return purchase;
                 }
             );
+        },
+
+        checkResumePass({ commit, rootState }, school_id) {
+            if (!school_id) {
+                school_id = rootState.schoolprofile.current_school.id;
+            }
+            return fetchSchoolResumePassInfo(school_id)
+                .then((passInfo) => commit("setResumePass", passInfo))
+                .catch(() => showError("Unable to get resume pass info"));
         },
     },
 };

@@ -10,6 +10,7 @@ export default {
         notifications: "Messages",
         billing: "Billing",
         tokens: "Buy Tokens",
+        resume_pass: "Resume Pass",
         purchases: "Purchases",
     },
     actions: {

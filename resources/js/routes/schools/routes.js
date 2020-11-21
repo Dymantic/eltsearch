@@ -15,10 +15,12 @@ import ContactApplicant from "../../vue/Pages/Schools/ContactApplicant";
 import Notifications from "../../vue/Pages/Notifications";
 import ShowNotification from "../../vue/Pages/ShowNotification";
 import EditSchoolBillingDetails from "../../vue/Pages/Schools/EditSchoolBillingDetails";
-import PurchasePackages from "../../vue/Pages/Schools/PurchasePackages";
 import PurchaseItem from "../../vue/Pages/Schools/PurchaseItem";
 import PastPurchases from "../../vue/Pages/Schools/PastPurchases";
 import PurchaseDetails from "../../vue/Pages/Schools/PurchaseDetails";
+import PurchaseTokens from "../../vue/Pages/Schools/PurchaseTokens";
+import ResumePasses from "../../vue/Pages/Schools/ResumePasses";
+import CurrentResumePass from "../../vue/Pages/Schools/CurrentResumePass";
 
 export default [
     { path: "/", component: SchoolDashboard },
@@ -38,8 +40,10 @@ export default [
     { path: "/notifications", component: Notifications },
     { path: "/notifications/:notification", component: ShowNotification },
     { path: "/billing-details", component: EditSchoolBillingDetails },
-    { path: "/purchasing", component: PurchasePackages },
+    { path: "/tokens", component: PurchaseTokens },
     { path: "/purchasing/:package", component: PurchaseItem },
     { path: "/purchases", component: PastPurchases },
     { path: "/purchases/:purchase", component: PurchaseDetails },
+    { path: "/resume-pass", component: CurrentResumePass },
+    { path: "/resume-passes/buy", component: ResumePasses },
 ];

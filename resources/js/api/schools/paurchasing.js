@@ -12,4 +12,13 @@ function purchasePackageForSchool(school_id, formData) {
     return post(`/api/schools/${school_id}/purchases`, formData);
 }
 
-export { fetchSchoolPackages, purchasePackageForSchool, getSchoolPurchases };
+function fetchSchoolResumePassInfo(school_id) {
+    return get(`/api/schools/${school_id}/resume-pass`);
+}
+
+export {
+    fetchSchoolPackages,
+    purchasePackageForSchool,
+    getSchoolPurchases,
+    fetchSchoolResumePassInfo,
+};

@@ -45,5 +45,9 @@ trait MakesPurchases
         if ($package->getType() === 'token') {
             $this->grantTokens($package->getQuantity(), $purchase->id, $package->getExpiry());
         }
+
+        if($package->getType() === 'resume_pass') {
+            $this->grantResumeAccess($package, $purchase);
+        }
     }
 }

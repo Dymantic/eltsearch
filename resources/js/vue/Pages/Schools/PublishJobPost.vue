@@ -23,9 +23,7 @@
                             you can publish.
                         </p>
                         <div class="mt-6">
-                            <router-link
-                                to="/purchasing"
-                                class="btn btn-primary"
+                            <router-link to="/tokens" class="btn btn-primary"
                                 >Buy Token</router-link
                             >
                         </div>

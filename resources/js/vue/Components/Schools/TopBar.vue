@@ -1,5 +1,5 @@
 <template>
-    <router-link to="/purchasing" class="text-sky-blue hover:text-navy">
+    <router-link to="/tokens" class="text-sky-blue hover:text-navy">
         <div class="flex items-center px-4 py-1 border rounded-lg">
             <token-icon class="h-5"></token-icon>
             <span class="ml-4 type-h4">{{ tokens.length }}</span>
