@@ -35,7 +35,7 @@ class RegistrationTest extends TestCase
         $this->assertSame('test name', $profile->name);
         $this->assertSame('test@test.test', $profile->email);
         $this->assertNull($profile->date_of_birth);
-        $this->assertSame('', $profile->nationality);
+        $this->assertSame(null, $profile->nation_id);
         $this->assertSame('', $profile->native_language);
         $this->assertSame('', $profile->other_languages);
     }

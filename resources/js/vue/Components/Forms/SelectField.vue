@@ -14,12 +14,12 @@
                 :disabled="disabled"
                 class="mt-1 w-full block border p-2 bg-transparent"
             >
-                <option value selected="!value"
+                <option value :selected="!value"
                     ><span class="text-gray-500">{{ prompt }}</span></option
                 >
                 <option
-                    :selected="value === val"
                     v-for="(option, val) in options"
+                    :selected="value == val"
                     :value="val"
                     >{{ option }}</option
                 >
@@ -47,7 +47,7 @@ export default {
     },
 
     mounted() {
-        this.$emit("input", this.$refs.input.value);
+        // this.$emit("input", this.$refs.input.value);
     },
 
     methods: {

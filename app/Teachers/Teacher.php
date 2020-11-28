@@ -5,12 +5,15 @@ namespace App\Teachers;
 use App\ContactDetails;
 use App\Events\ApplicationReceived;
 use App\Locations\Area;
+use App\Nation;
 use App\Placements\JobApplication;
 use App\Placements\JobMatch;
 use App\Placements\JobPost;
 use App\Placements\JobSearch;
 use App\Placements\JobSearchCriteria;
 use App\User;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
@@ -39,7 +42,7 @@ class Teacher extends Model implements HasMedia
 
     protected $fillable = [
         'name',
-        'nationality',
+        'nation_id',
         'date_of_birth',
         'email',
         'area_id',
@@ -60,6 +63,17 @@ class Teacher extends Model implements HasMedia
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function nation()
+    {
+        return $this->belongsTo(Nation::class);
+    }
+
+    public function scopeSignedUpSince(Builder $query, Carbon $cutoff)
+    {
+        return $query
+            ->whereHas('user', fn($q) => $q->where('created_at', '>=', $cutoff));
     }
 
     public function updateGeneralInfo(TeacherGeneralInfo $generalInfo)

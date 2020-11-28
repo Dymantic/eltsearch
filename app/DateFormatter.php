@@ -4,7 +4,7 @@
 namespace App;
 
 
-use Illuminate\Support\Carbon;
+use Carbon\Carbon;
 
 class DateFormatter
 {
@@ -54,5 +54,27 @@ class DateFormatter
         }
 
         return $date->format('M, Y');
+    }
+
+    public static function range(?Carbon $from, ?Carbon $to, $separator = '-')
+    {
+        if(!$from || !$to) {
+            return '';
+        }
+
+        if($from->isSameDay($to)) {
+            return self::pretty($from);
+        }
+
+        if(($from->year === $to->year) && ($from->month === $to->month)) {
+            return sprintf("%s%s%s", $from->format("jS"), $separator, $to->format(self::PRETTY));
+        }
+
+        if(($from->year === $to->year) && ($from->month !== $to->month)) {
+            return sprintf("%s%s%s", $from->format("jS M"), $separator, $to->format(self::PRETTY));
+        }
+
+        return sprintf("%s%s%s", $from->format(self::PRETTY), $separator, $to->format(self::PRETTY));
+
     }
 }

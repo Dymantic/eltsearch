@@ -47,11 +47,13 @@ class JobPost extends Model implements HasMedia
     const REQUIRES_DEGREE = 'requires_degree';
     const REQUIRES_POLICE_CHECK = 'requires_police_check';
     const REQUIRES_TEFL = 'requires_tefl';
+    const REQUIRES_HEALTH_CHECK = 'requires_health_check';
 
     const ALLOWED_REQUIREMENTS = [
         self::REQUIRES_DEGREE,
         self::REQUIRES_POLICE_CHECK,
         self::REQUIRES_TEFL,
+        self::REQUIRES_HEALTH_CHECK,
     ];
 
     const SALARY_RATE_HOUR = 'salary_by_hour';
@@ -71,11 +73,13 @@ class JobPost extends Model implements HasMedia
     const BENEFIT_ARC = 'benefit_ARC';
     const BENEFIT_INSURANCE = 'benefit_health_insurance';
     const BENEFIT_RENEWAL_BONUS = 'benefit_renewal_bonus';
+    const BENEFIT_ANNUAL_BONUS = 'benefit_annual_bonus';
 
     const ALLOWED_BENEFITS = [
         self::BENEFIT_ARC,
         self::BENEFIT_INSURANCE,
         self::BENEFIT_RENEWAL_BONUS,
+        self::BENEFIT_ANNUAL_BONUS,
     ];
 
     const CONTRACT_NONE = 'no_contract';
@@ -146,10 +150,20 @@ class JobPost extends Model implements HasMedia
         return $this->hasMany(JobMatch::class);
     }
 
+    public function scopePublishedSince($query, \Carbon\Carbon $cutoff)
+    {
+        return $query->live()
+            ->where('first_published_at', '>=', $cutoff);
+    }
+
     public function scopeMatching($query, JobSearch $search)
     {
         $query->live()
-              ->whereDoesntHave('matches', fn($query) => $query->where('job_search_id', $search->id));
+              ->whereDoesntHave(
+                  'matches',
+                  fn($query) => $query->where('job_search_id', $search->id)
+              );
+
         if ($search->hasLocation()) {
             $query->whereIn('area_id', $search->area_ids);
         }

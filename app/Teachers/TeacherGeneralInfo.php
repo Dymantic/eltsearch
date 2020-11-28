@@ -9,7 +9,7 @@ use Illuminate\Support\Carbon;
 class TeacherGeneralInfo
 {
     public string $name;
-    public string $nationality;
+    public ?int $nation_id;
     public string $email;
     public string $native_language;
     public string $other_languages;
@@ -20,7 +20,7 @@ class TeacherGeneralInfo
     public function __construct($info)
     {
         $this->name = $info['name'] ?? '';
-        $this->nationality = $info['nationality'] ?? '';
+        $this->nation_id = $info['nation_id'] ?? null;
         $this->email = $info['email'] ?? '';
         $this->native_language = $info['native_language'] ?? '';
         $this->other_languages = $info['other_languages'] ?? '';
@@ -33,7 +33,7 @@ class TeacherGeneralInfo
     {
         return [
             'name'             => $this->name,
-            'nationality'      => $this->nationality,
+            'nation_id'        => $this->nation_id,
             'email'            => $this->email,
             'native_language'  => $this->native_language,
             'other_languages'  => $this->other_languages,

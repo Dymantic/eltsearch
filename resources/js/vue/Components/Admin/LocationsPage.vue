@@ -1,11 +1,9 @@
 <template>
     <div>
-        <div class="flex justify-between items-center">
-            <p class="text-lg font-bold">ELTSearch Locations</p>
-            <div class="flex justify-end items-center">
-                <add-country></add-country>
-            </div>
-        </div>
+        <page-header title="ELT Search Locations">
+            <add-country></add-country>
+        </page-header>
+
         <div>
             <div
                 v-for="country in locations"
@@ -33,8 +31,9 @@
 <script type="text/babel">
 import AddCountry from "./AddCountry";
 import { showError } from "../../../libs/notifications";
+import PageHeader from "../PageHeader";
 export default {
-    components: { AddCountry },
+    components: { PageHeader, AddCountry },
 
     computed: {
         locations() {

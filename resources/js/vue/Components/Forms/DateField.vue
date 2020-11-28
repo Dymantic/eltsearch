@@ -20,7 +20,7 @@
 
 <script type="text/babel">
 import DatePicker from "vuejs-datepicker";
-import { toStandardDateString } from "../../lib/dates";
+// import {toStandardDateFormat} from "../../"
 export default {
     components: {
         DatePicker,

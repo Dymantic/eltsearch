@@ -76,6 +76,8 @@ Route::group([
     Route::post('read-notifications', 'ReadNotificationsController@store');
 
     Route::post('preferred-lang', 'PreferredLangController@store');
+
+    Route::get('nations', 'NationsController@index');
 });
 
 
@@ -198,9 +200,22 @@ Route::group([
     Route::post('school-types/{schoolType}', 'SchoolTypesController@update');
     Route::delete('school-types/{schoolType}', 'SchoolTypesController@delete');
 
+    Route::get('announcements', 'AnnouncementsController@index');
     Route::post('public-announcements', 'PublicAnnouncementsController@store');
     Route::post('school-announcements', 'SchoolAnnouncementsController@store');
     Route::post('teacher-announcements', 'TeacherAnnouncementsController@store');
     Route::post('announcements/{announcement}', 'AnnouncementsController@update');
     Route::delete('announcements/{announcement}', 'AnnouncementsController@delete');
+
+    Route::get('job-posts', 'JobPostsController@index');
+    Route::get('job-posts/{jobPost}', 'JobPostsController@show');
+    Route::get('job-posts-overview', 'JobPostsOverviewController@show');
+
+    Route::get('teachers', 'TeachersController@index');
+    Route::get('teachers-overview', 'TeacherOverviewController@show');
+    Route::get('teachers/{teacher}', 'TeachersController@show');
+
+    Route::get('schools-overview', 'SchoolsOverviewController@show');
+    Route::get('schools', 'SchoolsController@index');
+    Route::get('schools/{school}', 'SchoolsController@show');
 });

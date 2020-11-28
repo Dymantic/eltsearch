@@ -11,6 +11,7 @@ use App\Purchasing\MakesPurchases;
 use App\Purchasing\UsesTokens;
 use App\UniqueKey;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Spatie\Image\Manipulations;
@@ -25,6 +26,7 @@ class School extends Model implements HasMedia
     const MAX_IMAGES = 4;
     const LOGOS = 'logos';
     const IMAGES = 'images';
+    const DEFAULT_LOGO = '/images/icon_logo.svg';
 
     protected $guarded = [];
 
@@ -44,6 +46,11 @@ class School extends Model implements HasMedia
             ->withPivot(['owner'])
             ->as('team')
             ->using(SchoolUser::class);
+    }
+
+    public function scopeSignedUpSince($query, Carbon $cuttoff)
+    {
+        return $query->where('created_at', '>=', $cuttoff);
     }
 
     public function setOwner(User $user)

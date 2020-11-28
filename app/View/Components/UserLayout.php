@@ -41,7 +41,7 @@ class UserLayout extends Component
         }
 
         if($this->user->isAdmin()) {
-            return '';
+            return '/images/eric.jpg';
         }
 
         return '';

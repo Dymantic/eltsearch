@@ -4,6 +4,7 @@ namespace Tests\Unit\Teachers;
 
 use App\DateFormatter;
 use App\Locations\Area;
+use App\Nation;
 use App\Placements\JobPost;
 use App\Placements\JobSearch;
 use App\Placements\JobSearchCriteria;
@@ -24,11 +25,12 @@ class TeachersTest extends TestCase
     public function can_update_general_info()
     {
         $area = factory(Area::class)->create();
+        $nation = factory(Nation::class)->create();
         $teacher = factory(Teacher::class)->create();
 
         $general_info = new TeacherGeneralInfo([
             'name'          => 'test name',
-            'nationality'   => 'test nationality',
+            'nation_id'   => $nation->id,
             'email'         => 'test@test.test',
             'date_of_birth' => Carbon::today()->subYears(35)->format(DateFormatter::STANDARD),
             'area_id'       => $area->id,
@@ -40,7 +42,7 @@ class TeachersTest extends TestCase
         $teacher->refresh();
 
         $this->assertSame('test name', $teacher->name);
-        $this->assertSame('test nationality', $teacher->nationality);
+        $this->assertSame($nation->id, $teacher->nation_id);
         $this->assertSame('test@test.test', $teacher->email);
         $this->assertSame('test native language', $teacher->native_language);
         $this->assertSame('test other languages', $teacher->other_languages);
@@ -103,6 +105,24 @@ class TeachersTest extends TestCase
         $current = $teacher->currentJobSearch();
 
         $this->assertTrue($current->is($jobSearch));
+    }
+
+    /**
+     *@test
+     */
+    public function can_query_teacher_signed_up_since_a_given_date()
+    {
+        $this->travel(-15)->days();
+
+        $old = factory(Teacher::class)->create();
+
+        $this->travelBack();
+
+        factory(Teacher::class, 3)->create();
+
+        $since_last_week = Teacher::signedUpSince(now()->subDays(7))->get();
+
+        $this->assertFalse($since_last_week->contains($old));
     }
 
 

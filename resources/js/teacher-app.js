@@ -13,6 +13,8 @@ import applications from "./stores/teachers/applications";
 import notifications from "./stores/notifications";
 import lang from "./stores/schools/lang";
 import matches from "./stores/teachers/matches";
+import nations from "./stores/nations";
+
 const store = new Vuex.Store({
     modules: {
         messages,
@@ -23,6 +25,7 @@ const store = new Vuex.Store({
         notifications,
         lang,
         matches,
+        nations,
     },
 });
 

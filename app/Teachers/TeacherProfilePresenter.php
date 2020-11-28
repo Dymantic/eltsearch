@@ -12,15 +12,17 @@ class TeacherProfilePresenter
     public static function generalInfo(Teacher $teacher): array
     {
         return [
-            'name'            => $teacher->name,
-            'nationality'     => $teacher->nationality,
-            'date_of_birth'   => DateFormatter::standard($teacher->date_of_birth),
-            'age'             => now()->diffInYears($teacher->date_of_birth),
-            'email'           => $teacher->email,
-            'native_language' => $teacher->native_language,
-            'other_languages' => $teacher->other_languages,
-            'avatar'          => $teacher->getAvatar(),
+            'name'             => $teacher->name,
+            'nation_id'        => $teacher->nation_id,
+            'nationality'      => optional($teacher->nation)->nationality,
+            'date_of_birth'    => DateFormatter::standard($teacher->date_of_birth),
+            'age'              => now()->diffInYears($teacher->date_of_birth),
+            'email'            => $teacher->email,
+            'native_language'  => $teacher->native_language,
+            'other_languages'  => $teacher->other_languages,
+            'avatar'           => $teacher->getAvatar(),
             'years_experience' => $teacher->years_experience,
+            'signed_up' => $teacher->created_at->diffForHumans(),
         ];
     }
 
@@ -59,5 +61,14 @@ class TeacherProfilePresenter
         $employment = ['previous_employment' => self::previousEmployment($teacher)];
 
         return array_merge($general, $education, $employment);
+    }
+
+    public static function forAdmin(Teacher $teacher)
+    {
+        $general = self::generalInfo($teacher);
+        $education = self::educationInfo($teacher);
+        $employment = ['previous_employment' => self::previousEmployment($teacher)];
+
+        return array_merge($general, $education, $employment, ['id' => $teacher->id]);
     }
 }

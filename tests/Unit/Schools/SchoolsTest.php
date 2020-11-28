@@ -36,4 +36,22 @@ class SchoolsTest extends TestCase
         $this->assertTrue($school->fresh()->admins->contains($user));
         $this->assertTrue($user->fresh()->schools->contains($school));
     }
+
+    /**
+     *@test
+     */
+    public function can_be_scoped_to_signed_up_since_date()
+    {
+        $too_old = factory(School::class)->create([
+            'created_at' => now()->subDays(10)
+        ]);
+        factory(School::class, 2)->create([
+            'created_at' => now()->subDays(5)
+        ]);
+
+        $scoped = School::signedUpSince(now()->subDays(7))->get();
+
+        $this->assertCount(2, $scoped);
+        $this->assertFalse($scoped->contains($too_old));
+    }
 }

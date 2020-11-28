@@ -9,6 +9,12 @@ use Illuminate\Http\Request;
 
 class AnnouncementsController extends Controller
 {
+
+    public function index()
+    {
+        return Announcement::latest()->get()->map->toArray()->values()->all();
+    }
+
     public function update(AnnouncementRequest $request, Announcement $announcement)
     {
         $announcement->update($request->announcementInfo()->toArray());

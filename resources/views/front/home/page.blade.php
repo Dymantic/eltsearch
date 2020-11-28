@@ -1,6 +1,6 @@
 <x-public-page>
     <div class="py-3 bg-sky-blue text-white flex justify-center items-center">
-        <p class="text-center type-h4">ELT Search has matched 2,567 teachers with jobs, and counting!</p>
+        <p class="text-center type-h4">{{ $announcement }}</p>
     </div>
     @include('front.home.banner')
     <div class="py-20 px-6">

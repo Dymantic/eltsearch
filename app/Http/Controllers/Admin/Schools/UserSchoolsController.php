@@ -11,6 +11,6 @@ class UserSchoolsController extends Controller
 {
     public function index()
     {
-        return request()->user()->schools->map(fn (School $school) => SchoolPresenter::forAdmin($school));
+        return request()->user()->schools->map(fn (School $school) => SchoolPresenter::forSchools($school));
     }
 }

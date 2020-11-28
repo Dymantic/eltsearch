@@ -88,8 +88,8 @@ class JobPostPresenter
             'ready_for_publication' => $post->readyForPublication(),
             'required_fields'       => self::presentRequiredFields($post),
             'logo'                  => [
-                'thumb'    => optional($logo)->getUrl('thumb'),
-                'original' => optional($logo)->getUrl(),
+                'thumb'    => optional($logo)->getUrl('thumb') ?? School::DEFAULT_LOGO,
+                'original' => optional($logo)->getUrl() ?? School::DEFAULT_LOGO,
             ],
             'images'                => $post->getMedia(JobPost::IMAGES)->map(
                 fn(Media $media) => [

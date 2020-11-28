@@ -4,6 +4,7 @@ namespace Tests\Feature\Teachers;
 
 use App\DateFormatter;
 use App\Locations\Area;
+use App\Nation;
 use App\Teachers\Teacher;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -23,30 +24,31 @@ class UpdateTeacherProfileTest extends TestCase
         $this->withoutExceptionHandling();
         $teacher = factory(Teacher::class)->create();
         $area = factory(Area::class)->create();
+        $nation = factory(Nation::class)->create();
 
         $response = $this->actingAs($teacher->user)->postJson("/api/teachers/profile/general", [
-            'name'            => 'test name',
-            'nationality'     => 'test nationality',
-            'email'           => 'test@test.test',
-            'date_of_birth'   => Carbon::today()->subYears(35)->format(DateFormatter::STANDARD),
-            'area_id'         => $area->id,
-            'native_language' => 'test native language',
-            'other_languages' => 'test other languages',
+            'name'             => 'test name',
+            'nation_id'      => $nation->id,
+            'email'            => 'test@test.test',
+            'date_of_birth'    => Carbon::today()->subYears(35)->format(DateFormatter::STANDARD),
+            'area_id'          => $area->id,
+            'native_language'  => 'test native language',
+            'other_languages'  => 'test other languages',
             'years_experience' => 4
         ]);
 
         $response->assertSuccessful();
 
         $this->assertDatabaseHas('teachers', [
-            'id'              => $teacher->id,
-            'user_id'         => $teacher->user->id,
-            'area_id'         => $area->id,
-            'name'            => 'test name',
-            'nationality'     => 'test nationality',
-            'email'           => 'test@test.test',
-            'date_of_birth'   => Carbon::today()->subYears(35),
-            'native_language' => 'test native language',
-            'other_languages' => 'test other languages',
+            'id'               => $teacher->id,
+            'user_id'          => $teacher->user->id,
+            'area_id'          => $area->id,
+            'name'             => 'test name',
+            'nation_id'        => $nation->id,
+            'email'            => 'test@test.test',
+            'date_of_birth'    => Carbon::today()->subYears(35),
+            'native_language'  => 'test native language',
+            'other_languages'  => 'test other languages',
             'years_experience' => 4,
         ]);
     }
@@ -59,13 +61,13 @@ class UpdateTeacherProfileTest extends TestCase
         $teacher = factory(Teacher::class)->create();
 
         $response = $this->actingAs($teacher->user)->postJson("/api/teachers/profile/general", [
-            'name'            => null,
-            'nationality'     => null,
-            'email'           => null,
-            'date_of_birth'   => null,
-            'area_id'         => null,
-            'native_language' => null,
-            'other_languages' => null,
+            'name'             => null,
+            'nation_id'      => null,
+            'email'            => null,
+            'date_of_birth'    => null,
+            'area_id'          => null,
+            'native_language'  => null,
+            'other_languages'  => null,
             'years_experience' => null,
         ]);
 
@@ -76,7 +78,7 @@ class UpdateTeacherProfileTest extends TestCase
             'user_id'         => $teacher->user->id,
             'area_id'         => null,
             'name'            => '',
-            'nationality'     => '',
+            'nation_id'     => null,
             'email'           => '',
             'date_of_birth'   => null,
             'native_language' => '',
@@ -91,10 +93,11 @@ class UpdateTeacherProfileTest extends TestCase
     {
         $user = factory(User::class)->state('school')->create();
         $area = factory(Area::class)->create();
+        $nation = factory(Nation::class)->create();
 
         $response = $this->actingAs($user)->postJson("/api/teachers/profile/general", [
             'name'          => 'test name',
-            'nationality'   => 'test nationality',
+            'nation_id'   => $nation->id,
             'email'         => 'test@test.test',
             'date_of_birth' => Carbon::today()->subYears(35)->format(DateFormatter::STANDARD),
             'area_id'       => $area->id,
@@ -121,7 +124,7 @@ class UpdateTeacherProfileTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function the_years_experience_should_be_an_integer()
     {
@@ -140,9 +143,10 @@ class UpdateTeacherProfileTest extends TestCase
     {
         $teacher = factory(Teacher::class)->create();
         $area = factory(Area::class)->create();
+        $nation = factory(Nation::class)->create();
         $valid = [
             'name'          => 'test name',
-            'nationality'   => 'test nationality',
+            'nation_id'   => $nation->id,
             'email'         => 'test@test.test',
             'date_of_birth' => Carbon::today()->subYears(35)->format(DateFormatter::STANDARD),
             'area_id'       => $area->id,

@@ -29,12 +29,14 @@ return [
         \App\Placements\JobPost::REQUIRES_DEGREE => 'Graduate Degree',
         \App\Placements\JobPost::REQUIRES_POLICE_CHECK => 'Police Clearance',
         \App\Placements\JobPost::REQUIRES_TEFL => 'TEFL Certificate',
+        \App\Placements\JobPost::REQUIRES_HEALTH_CHECK => 'Health Check',
     ],
 
     'benefits' => [
         \App\Placements\JobPost::BENEFIT_ARC => 'ARC',
         \App\Placements\JobPost::BENEFIT_INSURANCE => 'Health Insurance',
         \App\Placements\JobPost::BENEFIT_RENEWAL_BONUS => 'Renewal Bonus',
+        \App\Placements\JobPost::BENEFIT_ANNUAL_BONUS => 'Annual Bonus',
     ],
 
     'contract' => [

@@ -166,4 +166,24 @@ class JobPostsTest extends TestCase
         $this->assertSame(['text' => 'Private', 'colour' => 'red'], $private->status('en'));
         $this->assertSame(['text' => 'Draft', 'colour' => 'orange'], $draft->status('en'));
     }
+
+    /**
+     *@test
+     */
+    public function can_get_count_of_recently_published_in_last_days()
+    {
+        factory(JobPost::class)->state('current')->create([
+            'first_published_at' => now()->subDay(),
+        ]);
+        factory(JobPost::class)->state('current')->create([
+            'first_published_at' => now()->subDays(3),
+        ]);
+        factory(JobPost::class)->state('current')->create([
+            'first_published_at' => now()->subDays(10),
+        ]);
+        factory(JobPost::class)->state('draft')->create();
+        factory(JobPost::class)->state('expired')->create();
+
+        $this->assertSame(2, JobPost::publishedSince(now()->subDays(5))->count());
+    }
 }

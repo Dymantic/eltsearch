@@ -25,6 +25,16 @@ $factory->state(Announcement::class, 'schools', [
     'type' => Announcement::FOR_SCHOOLS,
 ]);
 
+$factory->state(Announcement::class, 'current', [
+    'starts' => now()->subDay(),
+    'ends' => now()->addDay(),
+]);
+
+$factory->state(Announcement::class, 'upcoming', [
+    'starts' => now()->addDay(),
+    'ends' => now()->addDays(4),
+]);
+
 $factory->state(Announcement::class, 'teachers', [
     'type' => Announcement::FOR_TEACHERS,
 ]);

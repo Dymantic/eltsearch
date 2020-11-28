@@ -18,9 +18,9 @@ class TeacherGeneralInfoRequest extends FormRequest
     public function rules()
     {
         return [
-            'email'         => ['email', 'nullable'],
-            'date_of_birth' => ['date', 'nullable'],
-            'area_id'       => ['exists:areas,id', 'nullable'],
+            'email'            => ['email', 'nullable'],
+            'date_of_birth'    => ['date', 'nullable'],
+            'area_id'          => ['exists:areas,id', 'nullable'],
             'years_experience' => ['integer', 'nullable'],
         ];
     }
@@ -34,7 +34,7 @@ class TeacherGeneralInfoRequest extends FormRequest
     {
         return new TeacherGeneralInfo($this->all([
             'name',
-            'nationality',
+            'nation_id',
             'date_of_birth',
             'email',
             'area_id',
