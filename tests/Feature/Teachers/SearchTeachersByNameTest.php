@@ -26,9 +26,9 @@ class SearchTeachersByNameTest extends TestCase
         $response = $this->asAdmin()->getJson("/api/admin/teachers?q=test");
         $response->assertSuccessful();
 
-        $this->assertCount(2, $response->json());
+        $this->assertCount(2, $response->json('items'));
 
-        collect($response->json())
+        collect($response->json('items'))
             ->each(
                 fn($teacher) => $this->assertNotSame('unwanted teacher', $teacher['name'])
             );
