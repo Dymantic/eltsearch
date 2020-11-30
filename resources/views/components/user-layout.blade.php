@@ -20,12 +20,17 @@
                 avatar: "{{ $avatar }}",
                 account_type: "{{ $account }}",
                 preferred_lang: "{{ $preferred_lang }}",
+
                 @if($user->isSchool())
-                school_ids: [{{ $user->schools->pluck('id')->join(", ") }}]
+                school_ids: [{{ $user->schools->pluck('id')->join(", ") }}],
+                merchant: "{{ config('two-checkout.merchant_code') }}"
+
                 @endif
             }
         </script>
-        <script type="text/javascript" src="https://2pay-js.2checkout.com/v1/2pay.js"></script>
+        @if($user->isSchool())
+            <script type="text/javascript" src="https://2pay-js.2checkout.com/v1/2pay.js"></script>
+        @endif
         </head>
 <body class="text-black font-sans type-b1">
 <div id="app">

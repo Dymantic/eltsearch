@@ -33,7 +33,7 @@ class TransactionResult
     public static function from2Checkout(array $response_data): self
     {
         return new self([
-            'success' => $response_data['Status'] === 'AUTHRECEIVED',
+            'success' => $response_data['Status'] ?? '' === 'AUTHRECEIVED',
             'ref_no' => $response_data['RefNo'] ?? '',
             'amount_paid' => $response_data['NetPrice'] ?? 0,
             'currency' => $response_data['Currency'] ?? '',

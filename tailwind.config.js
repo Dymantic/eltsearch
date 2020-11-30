@@ -10,6 +10,7 @@ module.exports = {
                 "medium-gray": "#E1E2E3",
                 "light-gray": "#F5F5F5",
                 black: "#131A21",
+                "odd-pink": "#F29072",
             },
             fontFamily: {
                 sans: [
@@ -34,10 +35,14 @@ module.exports = {
                 80: "20rem",
             },
             inset: {
+                8: "2rem",
                 16: "4rem",
                 20: "5rem",
                 50: "50%",
                 100: "100%",
+            },
+            opacity: {
+                10: "0.05",
             },
         },
     },

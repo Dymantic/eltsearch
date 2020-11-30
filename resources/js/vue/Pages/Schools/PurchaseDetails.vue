@@ -17,7 +17,7 @@
                 <div class="border-b border-gray-200 py-4">
                     <p class="type-b2 mb-2">{{ purchase.package.price }}</p>
                     <div class="flex justify-between items-center">
-                        <p class="capitalize">
+                        <p class="capitalize mr-4">
                             {{ purchase.card_type }}: **** **** ****
                             {{ purchase.card_last_four }}
                         </p>

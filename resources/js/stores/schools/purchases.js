@@ -13,8 +13,7 @@ export default {
         purchases: [],
         packages: [],
         two_checkout: {
-            merchant_code: "250584922092",
-            script_src: "https://2pay-js.2checkout.com/v1/2pay.js",
+            merchant_code: window.currentProfile.merchant,
         },
         resumePass: {
             has_access: false,
