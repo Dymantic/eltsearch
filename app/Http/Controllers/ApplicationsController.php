@@ -13,6 +13,10 @@ class ApplicationsController extends Controller
 {
     public function create(JobPost $post)
     {
+        if(auth()->check() && auth()->user()->isTeacher()) {
+            return redirect("/teachers#/apply-to-post/{$post->slug}");
+        }
+
         return view('front.applications.create', [
             'post' => JobPostPresenter::forPublic($post),
         ]);

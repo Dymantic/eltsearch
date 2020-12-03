@@ -74,6 +74,10 @@ class UserLayout extends Component
             return 'school';
         }
 
+        if($this->user->isAdmin()) {
+            return 'admin';
+        }
+
         return null;
     }
 

@@ -54,6 +54,11 @@ class JobPostPresenter
         ];
     }
 
+    public static function forTeacher(JobPost $post): array
+    {
+        return array_merge(static::forPublic($post), ['id' => $post->id]);
+    }
+
     public static function forAdmin(JobPost $post): array
     {
         $post->load('area.region.country', 'school');

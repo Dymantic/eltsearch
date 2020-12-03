@@ -1,3 +1,3 @@
 <x-public-page>
-    eltsearch. your journey has just begun
+    welcome
 </x-public-page>

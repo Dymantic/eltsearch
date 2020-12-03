@@ -13,7 +13,6 @@ class FacebookAuthResponseController extends Controller
 {
     public function store(FacebookAuthRequest $request)
     {
-//        dd($request->session()->pull('state'), $request->input('state'));
         if($request->forLogin()) {
             $user = User::findFacebookUser($this->facebookUser());
 
@@ -25,7 +24,7 @@ class FacebookAuthResponseController extends Controller
 
             Auth::login($user, true);
 
-            return redirect($user->redirectHome());
+            return redirect($user->redirectHome("#/" . $request->intendedHash()));
         }
 
         if($request->forRegistration()) {

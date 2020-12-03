@@ -5,6 +5,7 @@ import Vuex from "vuex";
 Vue.use(VueRouter);
 Vue.use(Vuex);
 
+import general from "./stores/general";
 import messages from "./stores/messages";
 import profile from "./stores/admin/profile";
 import locations from "./stores/admin/locations";
@@ -15,8 +16,10 @@ import announcements from "./stores/admin/announcements";
 import posts from "./stores/admin/job_posts";
 import teachers from "./stores/admin/teachers";
 import schools from "./stores/admin/schools";
+import purchases from "./stores/admin/purchases";
 const store = new Vuex.Store({
     modules: {
+        general,
         messages,
         profile,
         locations,
@@ -27,12 +30,20 @@ const store = new Vuex.Store({
         posts,
         teachers,
         schools,
+        purchases,
     },
 });
 
 import routes from "./routes/admin/routes";
 const router = new VueRouter({
     routes,
+    scrollBehavior(to, from, savedPosition) {
+        if (savedPosition) {
+            return savedPosition;
+        } else {
+            return { x: 0, y: 0 };
+        }
+    },
 });
 
 import transPlugin from "./vue/transPlugin";

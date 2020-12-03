@@ -11,6 +11,11 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        return response()->redirectToIntended($user->redirectHome());
+        $hash = $request->get('hash');
+
+        $response = response()->redirectToIntended($user->redirectHome($hash));
+        $response->setTargetUrl($response->getTargetUrl() . $hash);
+
+        return $response;
     }
 }

@@ -1,10 +1,11 @@
-import { allLocations } from "../../api/shared/locations";
+import { allLocations } from "../api/shared/locations";
 
 export default {
     namespaced: true,
 
     state: {
         all_locations: [],
+        lang: "",
     },
 
     getters: {
@@ -38,15 +39,24 @@ export default {
     },
 
     mutations: {
-        setLocations(state, locations) {
+        setLocations(state, { locations, lang }) {
             state.all_locations = locations;
+            state.lang = lang;
         },
     },
 
     actions: {
-        fetchLocations({ commit }) {
-            return allLocations("en").then((locations) =>
-                commit("setLocations", locations)
+        fetchLocations({ state, dispatch }, lang = "en") {
+            if (state.all_locations.length && state.lang === lang) {
+                return Promise.resolve();
+            }
+
+            dispatch("refresh", lang);
+        },
+
+        refresh({ commit }, lang) {
+            return allLocations(lang).then((locations) =>
+                commit("setLocations", { locations, lang })
             );
         },
     },

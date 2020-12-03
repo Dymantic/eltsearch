@@ -3,6 +3,9 @@
         <page-header title="Recent Job Matches"></page-header>
 
         <div class="my-12">
+            <p class="text-grey-600" v-show="!matches.length">
+                There are no job matches for you at the moment.
+            </p>
             <div
                 v-for="match in matches"
                 :key="match.id"

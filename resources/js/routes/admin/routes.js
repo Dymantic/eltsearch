@@ -20,9 +20,14 @@ import PostsBrowse from "../../vue/Pages/Admin/Posts/PostsBrowse";
 import SchoolsOverview from "../../vue/Pages/Admin/Schools/SchoolsOverview";
 import SchoolShow from "../../vue/Pages/Admin/Schools/SchoolShow";
 import SchoolBrowse from "../../vue/Pages/Admin/Schools/SchoolBrowse";
+import PurchasesBrowse from "../../vue/Pages/Admin/Purchases/PurchasesBrowse";
+import PurchasesIndex from "../../vue/Pages/Admin/Purchases/PurchasesIndex";
+import PurchaseShow from "../../vue/Pages/Admin/Purchases/PurchaseShow";
+import SessionExpired from "../../vue/Pages/SessionExpired";
 
 export default [
     { path: "/", component: AdminDashboard },
+    { path: "/session-expired", component: SessionExpired },
     { path: "/change-password", component: ChangePassword },
     { path: "/locations", component: LocationsPage },
     { path: "/countries/:country", component: CountryPage },
@@ -85,5 +90,17 @@ export default [
     {
         path: "/schools/:school/show",
         component: SchoolShow,
+    },
+    {
+        path: "/purchases",
+        component: PurchasesIndex,
+    },
+    {
+        path: "/purchases/:purchase/show",
+        component: PurchaseShow,
+    },
+    {
+        path: "/purchases/browse",
+        component: PurchasesBrowse,
     },
 ];

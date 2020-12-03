@@ -7,7 +7,9 @@
             >
                 <input
                     class="bg-gray-100 rounded-lg w-40 p-1 focus:outline-none"
-                    placeholder="Search by name"
+                    :placeholder="
+                        searchPlaceholder ? searchPlaceholder : `Search by name`
+                    "
                     type="text"
                     v-model="search"
                 />
@@ -80,7 +82,13 @@ import { showError, showWarning } from "../../../libs/notifications";
 export default {
     components: { PageHeader, BusyLoading },
 
-    props: ["query", "initial-order", "initial-descending", "title"],
+    props: [
+        "query",
+        "initial-order",
+        "initial-descending",
+        "title",
+        "search-placeholder",
+    ],
 
     data() {
         return {

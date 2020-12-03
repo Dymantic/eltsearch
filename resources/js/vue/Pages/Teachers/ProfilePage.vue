@@ -69,15 +69,21 @@
                 >
             </div>
         </div>
+
+        <div class="my-12 max-w-xl mx-auto p-6 shadow rounded-lg">
+            <teacher-location></teacher-location>
+        </div>
     </div>
 </template>
 
 <script type="text/babel">
+import TeacherLocation from "../../Components/Teachers/TeacherLocation";
 import ImageUpload from "../../Components/ImageUpload";
 import { showError } from "../../../libs/notifications";
 export default {
     components: {
         ImageUpload,
+        TeacherLocation,
     },
 
     computed: {

@@ -3,6 +3,9 @@
         <page-header title="Your Applications"></page-header>
 
         <div>
+            <p v-show="!applications.length" class="text-grey-600">
+                You currently have no applications on record.
+            </p>
             <div
                 v-for="application in applications"
                 :key="application.id"

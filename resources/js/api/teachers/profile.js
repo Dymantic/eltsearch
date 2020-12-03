@@ -35,6 +35,10 @@ function deleteTeacherPreviousEmployment(employment_id) {
     return del(`/api/teachers/previous-employments/${employment_id}`);
 }
 
+function updateTeacherLocation(area_id) {
+    return post("/api/teachers/area", { area_id });
+}
+
 export {
     updateTeacherPersonalInfo,
     fetchTeacherGeneralInfo,
@@ -44,4 +48,5 @@ export {
     createTeacherPreviousEmployment,
     updateTeacherPreviousEmployment,
     deleteTeacherPreviousEmployment,
+    updateTeacherLocation,
 };

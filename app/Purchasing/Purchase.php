@@ -4,6 +4,7 @@ namespace App\Purchasing;
 
 use App\DateFormatter;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -30,6 +31,16 @@ class Purchase extends Model
         'paid'  => 'boolean',
         'price' => 'integer',
     ];
+
+    public function scopeSince($query, Carbon $cutoff)
+    {
+        return $query->where('created_at', '>=', $cutoff);
+    }
+
+    public function scopePaid($query)
+    {
+        return $query->where('paid', true);
+    }
 
     public function customer()
     {

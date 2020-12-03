@@ -11,7 +11,10 @@ class NotificationsController extends Controller
 {
     public function index()
     {
-        return auth()->user()->getNotifications();
+        return [
+            'notifications' => auth()->user()->getNotifications(),
+            'last_fetched' => now()->timestamp,
+        ];
     }
 
     public function delete(DatabaseNotification $notification)

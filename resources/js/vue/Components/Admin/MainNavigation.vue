@@ -20,6 +20,12 @@
                 >Schools</router-link
             >
         </div>
+
+        <div class="mb-3">
+            <router-link to="/purchases" class="font-semibold text-white"
+                >Sales</router-link
+            >
+        </div>
         <div class="mb-3">
             <router-link to="/locations" class="font-semibold text-white"
                 >Locations</router-link

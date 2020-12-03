@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::group([
     'prefix'     => \Mcamara\LaravelLocalization\Facades\LaravelLocalization::setLocale(),
     'middleware' => ['localeSessionRedirect', 'localizationRedirect']
@@ -35,6 +36,12 @@ Route::get('facebook/auth/callback', 'FacebookAuthResponseController@store');
 Route::get('job-posts', 'JobPostsController@index');
 Route::get('/job-posts/{post:slug}', 'JobPostsController@show');
 
+Route::post('guest-applications', 'GuestApplicationsController@store');
+Route::get('guest-applications/create-profile', 'GuestApplicationsProfileController@create');
+Route::post('guest-applications/profile', 'GuestApplicationsProfileController@store');
+Route::post('guest-applications/experience', 'GuestApplicationExperienceController@store');
+Route::post('guest-applications/profile-image', 'GuestApplicationsProfileImageController@store');
+Route::post('complete-guest-applications', 'CompleteGuestApplicationsController@store');
 
 Route::post('logout', 'LoginController@logout');
 
@@ -74,10 +81,15 @@ Route::group([
     Route::get('notifications', 'NotificationsController@index');
     Route::delete('notifications/{notification}', 'NotificationsController@delete');
     Route::post('read-notifications', 'ReadNotificationsController@store');
+    Route::get('new-notifications-status', 'NewNotificationsStatusController@show');
 
     Route::post('preferred-lang', 'PreferredLangController@store');
 
     Route::get('nations', 'NationsController@index');
+
+    Route::get('job-posts/{post:slug}', 'PublicJobPostsController@show');
+
+
 });
 
 
@@ -143,6 +155,7 @@ Route::group([
     Route::post('teachers/profile/general', 'TeacherGeneralProfileController@update');
     Route::get('teachers/profile/education', 'TeacherEducationProfileController@show');
     Route::post('teachers/profile/education', 'TeacherEducationProfileController@update');
+    Route::post('teachers/area', 'TeacherAreaController@update');
 
     Route::get('teachers/previous-employments', 'TeacherPreviousEmploymentController@index');
     Route::post('teachers/previous-employments', 'TeacherPreviousEmploymentController@store');
@@ -218,4 +231,8 @@ Route::group([
     Route::get('schools-overview', 'SchoolsOverviewController@show');
     Route::get('schools', 'SchoolsController@index');
     Route::get('schools/{school}', 'SchoolsController@show');
+
+    Route::get('purchases', 'PurchasesController@index');
+    Route::get('purchases/{purchase}', 'PurchasesController@show');
+    Route::get('purchases-overview', 'PurchasesOverviewController@show');
 });

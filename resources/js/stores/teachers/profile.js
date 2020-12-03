@@ -5,6 +5,7 @@ import {
     fetchTeacherGeneralInfo,
     fetchTeacherPreviousEmploymentInfo,
     updateTeacherEducationInfo,
+    updateTeacherLocation,
     updateTeacherPersonalInfo,
     updateTeacherPreviousEmployment,
 } from "../../api/teachers/profile";
@@ -28,6 +29,9 @@ export default {
     getters: {
         employmentById: (state) => (id) =>
             state.previous_employments.find((emp) => emp.id === parseInt(id)),
+
+        current_location: (state) =>
+            state.general_info ? state.general_info.location : "",
     },
 
     mutations: {
@@ -73,6 +77,12 @@ export default {
                 dispatch("fetchGeneralInfo").catch(() =>
                     showError("Unable to fetch profile info")
                 )
+            );
+        },
+
+        setLocation({ dispatch }, area_id) {
+            return updateTeacherLocation(area_id).then(() =>
+                dispatch("fetchGeneralInfo")
             );
         },
 

@@ -23,10 +23,6 @@ export default {
 
     actions: {
         fetchApplications({ state, dispatch, rootState }, school_id) {
-            if (!rootState.schoolprofile.current_school) {
-                return Promise.reject(() => "No school profile set");
-            }
-
             if (state.all.length) {
                 return Promise.resolve();
             }

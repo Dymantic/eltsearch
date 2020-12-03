@@ -26,6 +26,7 @@
                 <div class="flex justify-end items-center flex-1">
                     <top-bar></top-bar>
                     <router-link
+                        v-if="$store.state.profile.account_type !== 'admin'"
                         to="/notifications"
                         class="inline-block rounded-full mx-4 p-2"
                         :class="{
@@ -86,6 +87,10 @@ export default {
             this.$store.state.profile.preferred_lang
         );
         this.$store.dispatch("notifications/fetchAll");
+
+        window.setInterval(() => {
+            this.$store.dispatch("notifications/checkNew");
+        }, 1000 * 60);
     },
 
     watch: {

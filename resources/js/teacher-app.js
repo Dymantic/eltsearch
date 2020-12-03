@@ -5,9 +5,10 @@ import Vuex from "vuex";
 Vue.use(VueRouter);
 Vue.use(Vuex);
 
+import general from "./stores/general";
 import messages from "./stores/messages";
 import profile from "./stores/teachers/profile";
-import locations from "./stores/teachers/locations";
+import locations from "./stores/locations";
 import placements from "./stores/teachers/placements";
 import applications from "./stores/teachers/applications";
 import notifications from "./stores/notifications";
@@ -17,6 +18,7 @@ import nations from "./stores/nations";
 
 const store = new Vuex.Store({
     modules: {
+        general,
         messages,
         profile,
         locations,
@@ -33,6 +35,13 @@ import routes from "./routes/teachers/routes";
 
 const router = new VueRouter({
     routes: routes,
+    scrollBehavior(to, from, savedPosition) {
+        if (savedPosition) {
+            return savedPosition;
+        } else {
+            return { x: 0, y: 0 };
+        }
+    },
 });
 
 import transPlugin from "./vue/transPlugin";

@@ -12,4 +12,13 @@ function deleteNotification(notification_id) {
     return del(`/api/notifications/${notification_id}`);
 }
 
-export { fetchNotifications, markNotificationAsRead, deleteNotification };
+function checkNewNotificationStatus(timestamp) {
+    return get(`/api/new-notifications-status?t=${timestamp}`);
+}
+
+export {
+    fetchNotifications,
+    markNotificationAsRead,
+    deleteNotification,
+    checkNewNotificationStatus,
+};

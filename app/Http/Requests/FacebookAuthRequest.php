@@ -38,4 +38,9 @@ class FacebookAuthRequest extends FormRequest
                 }
             });
     }
+
+    public function intendedHash(): string
+    {
+        return $this->session()->pull('fb_login_hash', '');
+    }
 }

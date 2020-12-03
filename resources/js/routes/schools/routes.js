@@ -21,9 +21,11 @@ import PurchaseDetails from "../../vue/Pages/Schools/PurchaseDetails";
 import PurchaseTokens from "../../vue/Pages/Schools/PurchaseTokens";
 import ResumePasses from "../../vue/Pages/Schools/ResumePasses";
 import CurrentResumePass from "../../vue/Pages/Schools/CurrentResumePass";
+import SessionExpired from "../../vue/Pages/SessionExpired";
 
 export default [
     { path: "/", component: SchoolDashboard },
+    { path: "/session-expired", component: SessionExpired },
     { path: "/change-password", component: ChangePassword },
     { path: "/profile", component: SchoolProfilePage },
     { path: "/profile/edit", component: EditSchoolProfile },

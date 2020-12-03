@@ -2,7 +2,7 @@
     <transition name="fade">
         <div
             v-if="current"
-            class="fixed bottom-0 left-50 mb-8 z-50 w-screen max-w-md py-3 border rounded-lg text-center transform -translate-x-1/2 flex items-center px-4"
+            class="fixed bottom-0 left-50 mb-8 z-50 w-9/10 max-w-md py-3 border rounded-lg text-center transform -translate-x-1/2 flex items-center px-4"
             :class="boundClasses"
         >
             <svg

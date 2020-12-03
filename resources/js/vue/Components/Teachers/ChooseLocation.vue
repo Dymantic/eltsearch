@@ -152,6 +152,10 @@ export default {
         },
     },
 
+    mounted() {
+        this.$store.dispatch("locations/fetchLocations", "en");
+    },
+
     methods: {
         chooseArea() {
             this.$emit("chosen", this.area);

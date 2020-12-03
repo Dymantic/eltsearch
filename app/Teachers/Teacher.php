@@ -101,6 +101,11 @@ class Teacher extends Model implements HasMedia
         return $this->belongsTo(Area::class);
     }
 
+    public function setLocation(int $area_id)
+    {
+        return $this->update(['area_id' => $area_id]);
+    }
+
     public function publish()
     {
         $this->is_public = true;

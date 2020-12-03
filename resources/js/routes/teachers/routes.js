@@ -17,9 +17,12 @@ import ShowNotification from "../../vue/Pages/ShowNotification";
 import JobMatchesIndex from "../../vue/Pages/Teachers/JobMatchesIndex";
 import MatchedJobPost from "../../vue/Pages/Teachers/MatchedJobPost";
 import CreateApplication from "../../vue/Pages/Teachers/CreateApplication";
+import SessionExpired from "../../vue/Pages/SessionExpired";
+import ApplyToPost from "../../vue/Pages/Teachers/ApplyToPost";
 
 export default [
     { path: "/", component: TeacherDashboard },
+    { path: "/session-expired", component: SessionExpired },
     { path: "/profile", component: ProfilePage },
     { path: "/change-password", component: ChangePassword },
     { path: "/general-info/edit", component: EditProfileInfo },
@@ -33,6 +36,7 @@ export default [
     { path: "/job-search/show", component: ShowJobSearch },
     { path: "/job-search/edit", component: EditJobSearch },
     { path: "/applications", component: TeacherApplications },
+    { path: "/apply-to-post/:post", component: ApplyToPost },
     { path: "/applications/:application/post", component: ApplicationPost },
     {
         path: "/applications/:application/details",

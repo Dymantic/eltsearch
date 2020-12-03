@@ -22,7 +22,8 @@ class TeacherProfilePresenter
             'other_languages'  => $teacher->other_languages,
             'avatar'           => $teacher->getAvatar(),
             'years_experience' => $teacher->years_experience,
-            'signed_up' => $teacher->created_at->diffForHumans(),
+            'signed_up'        => $teacher->created_at->diffForHumans(),
+            'location'         => optional($teacher->area)->fullName('en'),
         ];
     }
 

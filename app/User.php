@@ -5,6 +5,8 @@ namespace App;
 use App\Schools\School;
 use App\Schools\SchoolUser;
 use App\Teachers\Teacher;
+use App\Teachers\TeacherEducationInfo;
+use App\Teachers\TeacherGeneralInfo;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
@@ -23,7 +25,15 @@ class User extends Authenticatable
     const PLATFORM_FACEBOOK = 'facebook';
 
 
-    protected $fillable = ['name', 'email', 'password', 'account_type', 'platform', 'provider_user_id', 'preferred_lang'];
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'account_type',
+        'platform',
+        'provider_user_id',
+        'preferred_lang'
+    ];
 
     protected $hidden = ['password', 'remember_token',];
 
@@ -46,11 +56,11 @@ class User extends Authenticatable
     public static function registerTeacherViaFacebook($user_data)
     {
         $user = self::create([
-            'name' => $user_data['name'],
-            'email' => $user_data['email'],
+            'name'             => $user_data['name'],
+            'email'            => $user_data['email'],
             'provider_user_id' => $user_data['id'],
-            'platform' => self::PLATFORM_FACEBOOK,
-            'account_type' => self::ACCOUNT_TEACHER
+            'platform'         => self::PLATFORM_FACEBOOK,
+            'account_type'     => self::ACCOUNT_TEACHER
         ]);
 
         $user->createTeacherProfile($user_data);
@@ -72,6 +82,25 @@ class User extends Authenticatable
         return $user;
     }
 
+    public static function createTeacherFromGuestApplication(
+        TeacherGeneralInfo $generalInfo,
+        TeacherEducationInfo $educationInfo,
+        string $password
+    ) {
+        $user = static::create([
+            'name'         => $generalInfo->name,
+            'email'        => $generalInfo->email,
+            'password'     => Hash::make($password),
+            'account_type' => self::ACCOUNT_TEACHER
+        ]);
+
+        $teacher = $user
+            ->teacher()
+            ->create(array_merge($generalInfo->toArray(), $educationInfo->toArray()));
+
+        return $teacher;
+    }
+
     protected function createTeacherProfile($teacher_data)
     {
         $teacher = $this->teacher()->create([
@@ -85,7 +114,7 @@ class User extends Authenticatable
             'education_qualification' => '',
         ]);
 
-        if($teacher_data['avatar'] ?? false) {
+        if ($teacher_data['avatar'] ?? false) {
             $teacher->setAvatarFromUrl($teacher_data['avatar']);
         }
     }
@@ -93,10 +122,10 @@ class User extends Authenticatable
     public static function registerSchool($school_data)
     {
         $user = static::create([
-            'name'         => $school_data['name'],
-            'email'        => $school_data['email'],
-            'password'     => Hash::make($school_data['password']),
-            'account_type' => self::ACCOUNT_SCHOOL,
+            'name'           => $school_data['name'],
+            'email'          => $school_data['email'],
+            'password'       => Hash::make($school_data['password']),
+            'account_type'   => self::ACCOUNT_SCHOOL,
             'preferred_lang' => $school_data['preferred_lang'] ?? 'en',
         ]);
 
@@ -142,7 +171,7 @@ class User extends Authenticatable
         return $this->account_type === self::ACCOUNT_ADMIN;
     }
 
-    public function redirectHome()
+    public function redirectHome($path = '')
     {
         $paths = [
             self::ACCOUNT_TEACHER => "/teachers",
@@ -150,24 +179,24 @@ class User extends Authenticatable
             self::ACCOUNT_ADMIN   => "/admin",
         ];
 
-        return $paths[$this->account_type] ?? "/";
+        return $paths[$this->account_type] . $path ?? "/";
     }
 
     public function getNotifications()
     {
-        return $this->notifications->map(fn ($notification) => $this->presentNotification($notification));
+        return $this->notifications->map(fn($notification) => $this->presentNotification($notification));
     }
 
     private function presentNotification(DatabaseNotification $notification): array
     {
 
         return [
-            'id' => $notification->id,
-            'is_read' => $notification->read(),
-            'subject' => $this->translatedNotificationField($notification, 'subject'),
-            'message' => $this->translatedNotificationField($notification, 'message'),
-            'action' => $this->translatedNotificationField($notification, 'action'),
-            'url' => $notification->data['action_url'],
+            'id'        => $notification->id,
+            'is_read'   => $notification->read(),
+            'subject'   => $this->translatedNotificationField($notification, 'subject'),
+            'message'   => $this->translatedNotificationField($notification, 'message'),
+            'action'    => $this->translatedNotificationField($notification, 'action'),
+            'url'       => $notification->data['action_url'],
             'date_sent' => DateFormatter::pretty($notification->created_at),
             'date_read' => DateFormatter::pretty($notification->read_at),
         ];
@@ -176,7 +205,7 @@ class User extends Authenticatable
 
     private function translatedNotificationField($notification, $field)
     {
-        if(!$notification->data['requires_translation'] ?? false) {
+        if (!$notification->data['requires_translation'] ?? false) {
             return $notification->data[$field]['text'];
         }
 

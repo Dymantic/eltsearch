@@ -31,6 +31,9 @@ module.exports = {
             fontSize: {
                 "6xl": "4.5rem",
             },
+            width: {
+                "9/10": "90%",
+            },
             spacing: {
                 80: "20rem",
             },

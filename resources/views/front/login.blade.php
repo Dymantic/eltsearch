@@ -12,6 +12,7 @@
     </div>
         <form action="/login" method="post" class="max-w-md mx-auto px-6">
             {!! csrf_field() !!}
+            <input type="hidden" id="hidden-hash" name="hash" value="">
             <div class="my-6">
                 <label class="form-label" for="email">Your email address:</label>
                 @error('email')
@@ -34,4 +35,8 @@
             </div>
 
         </form>
+    <script>
+        const hidden_hash = document.getElementById('hidden-hash');
+        hidden_hash.value = window.location.hash;
+    </script>
 </x-public-page>
