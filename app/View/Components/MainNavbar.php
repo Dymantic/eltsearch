@@ -39,9 +39,9 @@ class MainNavbar extends Component
     public function translatedUrl($path) {
         $lang = app()->getLocale() !== 'en' ? 'en' : 'zh';
         $path = trim($path, '/');
-        $path = Str::startsWith($path, ['en/', 'zh/']) ? substr($path, 3) : $path;
+        $path = Str::startsWith($path, ['en', 'zh']) ? substr($path, 2) : $path;
 
-        return sprintf("/%s/%s", $lang, $path);
+        return sprintf("/%s/%s", $lang, trim($path, '/'));
     }
 
 

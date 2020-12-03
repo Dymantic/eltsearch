@@ -9,7 +9,7 @@
             <p class="mb-1 type-b1"><span class="type-b2">Part Time or Full Time: </span>{{ $post['engagement'] }}</p>
             <p class="mb-1 type-b1"><span class="type-b2">Start Date: </span>{{ $post['start_date'] }}</p>
         </div>
-        <div class="h-24 w-24">
+        <div class="h-12 md:h-24 w-12 md:w-24">
             <img src="https://shaneschools.com/en/wp-content/uploads/2020/03/ses_logo-no-text-108.png"
                  alt="" class="w-full h-full object-contain">
         </div>

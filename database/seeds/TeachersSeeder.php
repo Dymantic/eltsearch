@@ -17,11 +17,16 @@ class TeachersSeeder extends Seeder
         $days = collect(range(1,1000));
 
         foreach (range(1,700) as $index) {
-            factory(Teacher::class)->create([
-                'nation_id' => $nation_ids->random(),
-                'area_id' => $areas->random(),
-                'created_at' => now()->subDays($days->random()),
-            ]);
+            try {
+                factory(Teacher::class)->create([
+                    'nation_id' => $nation_ids->random(),
+                    'area_id' => $areas->random(),
+                    'created_at' => now()->subDays($days->random()),
+                ]);
+            } catch (\Exception $e) {
+
+            }
+
         }
     }
 }

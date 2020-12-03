@@ -1,10 +1,10 @@
 <x-public-page>
-    <div class="my-20 text-center">
+    <div class="my-20 px-6 text-center">
         <h1 class="type-h2 text-navy mb-8 max-w-3xl mx-auto">Sign in to your ELT Search account</h1>
 
     </div>
 
-    <div class="mb-12">
+    <div class="mb-12 px-6">
         <x-facebook-login text="Sign in with Facebook" redirect="/login/facebook"></x-facebook-login>
         @error('facebook_login')
         <p class="text-red-500 text-xs text-center mt-2">{{ $message }}</p>

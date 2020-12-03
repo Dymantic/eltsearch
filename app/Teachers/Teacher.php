@@ -38,7 +38,7 @@ class Teacher extends Model implements HasMedia
     ];
 
     const AVATAR = 'avatar';
-    const DEFAULT_AVATAR = '/images/default_avatar.jpg';
+    const DEFAULT_AVATAR = '/images/default_avatar.svg';
 
     protected $fillable = [
         'name',
