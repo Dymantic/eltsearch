@@ -12,8 +12,13 @@ class TeacherJobMatchesController extends Controller
 {
     public function index()
     {
-        return request('teacherProfile')
-            ->jobMatches()
+        $match_query = request('teacherProfile')->jobMatches();
+
+        if(!$match_query) {
+            return [];
+        }
+
+        return $match_query
             ->latest()
             ->get()
             ->map(fn ($match) => [

@@ -3,6 +3,7 @@
 namespace App\View\Components;
 
 use App\User;
+use Illuminate\Support\Str;
 use Illuminate\View\Component;
 
 class MainNavbar extends Component
@@ -33,6 +34,14 @@ class MainNavbar extends Component
         if($this->user->isAdmin()) {
             return '/admin';
         }
+    }
+
+    public function translatedUrl($path) {
+        $lang = app()->getLocale() !== 'en' ? 'en' : 'zh';
+        $path = trim($path, '/');
+        $path = Str::startsWith($path, ['en/', 'zh/']) ? substr($path, 3) : $path;
+
+        return sprintf("/%s/%s", $lang, $path);
     }
 
 

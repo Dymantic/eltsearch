@@ -4,7 +4,7 @@
         <p class="max-w-xl mx-auto type-b1">{{ trans('how_it_works.banner.intro') }}</p>
     </div>
 
-    <div class="max-w-3xl mx-auto">
+    <div class="px-6 max-w-3xl mx-auto">
         <p class="type-h6 text-navy mb-8">{{ trans('how_it_works.steps_header') }}</p>
             <x-numbered-card index="1">
                 <p class="type-b2 text-navy">{{ trans('how_it_works.step_one.heading') }}</p>
@@ -27,7 +27,7 @@
         </x-numbered-card>
     </div>
 
-    <div class="max-w-3xl mx-auto my-20">
+    <div class="max-w-3xl mx-auto my-20 px-6">
         <p class="type-h6 text-navy mb-8">{{ trans('how_it_works.benefits.heading') }}</p>
 
         <div class="p-6 shadow-lg max-w-xl mx-auto">
@@ -39,11 +39,11 @@
         </div>
     </div>
 
-    <p class="my-16 max-w-lg mx-auto type-b1 text-center">{{ trans('how_it_works.outro.blurb') }}</p>
+    <p class="my-16 max-w-lg mx-auto type-b1 text-center px-6">{{ trans('how_it_works.outro.blurb') }}</p>
 
-    <p class="my-16 max-w-xl mx-auto type-h4 text-navy text-center">{{ trans('how_it_works.outro.sign_up_prompt') }}</p>
+    <p class="my-16 max-w-xl mx-auto type-h4 text-navy text-center px-6">{{ trans('how_it_works.outro.sign_up_prompt') }}</p>
 
-    <div class="text-center mb-20">
+    <div class="text-center mb-20 px-6">
         <a href="" class="btn-main type-a1">{{ trans('how_it_works.outro.button') }}</a>
     </div>
 

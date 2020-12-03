@@ -41,7 +41,6 @@ return [
 
     'outro' => [
         'sign_up_prompt' => 'What are you wating for? Sign up today to find the best English teachers for your school',
-        '
-        button' => 'Sign Up',
+        'button' => 'Sign Up',
     ]
 ];

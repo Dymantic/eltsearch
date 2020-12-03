@@ -4,7 +4,7 @@
         <p class="max-w-xl mx-auto type-b1">{{ trans('for_schools.banner.blurb') }}</p>
     </div>
 
-    <div class="mx-auto">
+    <div class="mx-auto px-6">
         <p class="type-h6 text-navy max-w-3xl mx-auto mb-10">{{ trans('for_schools.why_use.heading') }}</p>
         <div class="max-w-4xl mx-auto flex justify-center flex-wrap">
             <x-iconed-card :title="trans('for_schools.why_use.one.heading')" icon="database">{{ trans('for_schools.why_use.one.text') }}</x-iconed-card>
@@ -40,9 +40,9 @@
         </div>
     </div>
 
-    <p class="my-16 max-w-xl mx-auto type-h4 text-navy text-center">{{ trans('for_schools.outro.sign_up_prompt') }}</p>
+    <p class="my-16 max-w-xl mx-auto type-h4 text-navy text-center px-6">{{ trans('for_schools.outro.sign_up_prompt') }}</p>
 
-    <div class="text-center mb-20">
+    <div class="text-center mb-20 px-6">
         <a href="/register/school" class="btn-main type-a1">{{ trans('for_schools.outro.button') }}</a>
     </div>
 </x-public-page>
