@@ -10,12 +10,12 @@
             <p class="mb-1 type-b1"><span class="type-b2">Start Date: </span>{{ $post['start_date'] }}</p>
         </div>
         <div class="h-12 md:h-24 w-12 md:w-24">
-            <img src="https://shaneschools.com/en/wp-content/uploads/2020/03/ses_logo-no-text-108.png"
+            <img src="{{ $post['logo']['thumb'] }}"
                  alt="" class="w-full h-full object-contain">
         </div>
     </div>
     <p class="type-b1">{{ $post['description'] }}</p>
     <div class="flex justify-end mt-2">
-        <a href="" class="btn-text">See Job &gt;</a>
+        <a href="/job-posts/{{ $post['slug'] }}" class="btn-text">See Job &gt;</a>
     </div>
 </div>
