@@ -14,7 +14,6 @@ class TeacherGeneralInfo
     public string $native_language;
     public string $other_languages;
     public ?Carbon $date_of_birth;
-    public ?int $area_id;
     public ?int $years_experience;
 
     public function __construct($info)
@@ -25,7 +24,6 @@ class TeacherGeneralInfo
         $this->native_language = $info['native_language'] ?? '';
         $this->other_languages = $info['other_languages'] ?? '';
         $this->date_of_birth = $info['date_of_birth'] ?? false ? Carbon::parse($info['date_of_birth']) : null;
-        $this->area_id = $info['area_id'] ?? null;
         $this->years_experience = $info['years_experience'] ?? null;
     }
 
@@ -38,7 +36,6 @@ class TeacherGeneralInfo
             'native_language'  => $this->native_language,
             'other_languages'  => $this->other_languages,
             'date_of_birth'    => $this->date_of_birth,
-            'area_id'          => $this->area_id,
             'years_experience' => $this->years_experience,
         ];
     }

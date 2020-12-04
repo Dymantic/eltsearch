@@ -45,11 +45,4 @@ class CheckForNewNotificationsTest extends TestCase
         $this->assertFalse($response->json('has_new'));
     }
 
-    /**
-     *@test
-     */
-    public function check_is_false_if_no_new_notifications()
-    {
-
-    }
 }

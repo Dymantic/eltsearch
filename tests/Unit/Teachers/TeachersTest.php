@@ -24,7 +24,6 @@ class TeachersTest extends TestCase
      */
     public function can_update_general_info()
     {
-        $area = factory(Area::class)->create();
         $nation = factory(Nation::class)->create();
         $teacher = factory(Teacher::class)->create();
 
@@ -33,7 +32,6 @@ class TeachersTest extends TestCase
             'nation_id'   => $nation->id,
             'email'         => 'test@test.test',
             'date_of_birth' => Carbon::today()->subYears(35)->format(DateFormatter::STANDARD),
-            'area_id'       => $area->id,
             'native_language' => 'test native language',
             'other_languages' => 'test other languages'
         ]);
@@ -47,7 +45,6 @@ class TeachersTest extends TestCase
         $this->assertSame('test native language', $teacher->native_language);
         $this->assertSame('test other languages', $teacher->other_languages);
         $this->assertTrue($teacher->date_of_birth->isSameDay(Carbon::today()->subYears(35)));
-        $this->assertTrue($teacher->area->is($area));
     }
 
     /**

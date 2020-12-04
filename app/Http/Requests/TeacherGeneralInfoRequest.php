@@ -20,7 +20,6 @@ class TeacherGeneralInfoRequest extends FormRequest
         return [
             'email'            => ['email', 'nullable'],
             'date_of_birth'    => ['date', 'nullable'],
-            'area_id'          => ['exists:areas,id', 'nullable'],
             'years_experience' => ['integer', 'nullable'],
         ];
     }
@@ -37,7 +36,6 @@ class TeacherGeneralInfoRequest extends FormRequest
             'nation_id',
             'date_of_birth',
             'email',
-            'area_id',
             'native_language',
             'other_languages',
             'years_experience'

@@ -22,8 +22,10 @@ class UpdateTeacherProfileTest extends TestCase
     public function update_a_teachers_profile()
     {
         $this->withoutExceptionHandling();
-        $teacher = factory(Teacher::class)->create();
         $area = factory(Area::class)->create();
+        $teacher = factory(Teacher::class)->create([
+            'area_id' => $area->id,
+        ]);
         $nation = factory(Nation::class)->create();
 
         $response = $this->actingAs($teacher->user)->postJson("/api/teachers/profile/general", [
@@ -31,7 +33,6 @@ class UpdateTeacherProfileTest extends TestCase
             'nation_id'      => $nation->id,
             'email'            => 'test@test.test',
             'date_of_birth'    => Carbon::today()->subYears(35)->format(DateFormatter::STANDARD),
-            'area_id'          => $area->id,
             'native_language'  => 'test native language',
             'other_languages'  => 'test other languages',
             'years_experience' => 4
@@ -65,7 +66,6 @@ class UpdateTeacherProfileTest extends TestCase
             'nation_id'      => null,
             'email'            => null,
             'date_of_birth'    => null,
-            'area_id'          => null,
             'native_language'  => null,
             'other_languages'  => null,
             'years_experience' => null,
@@ -76,7 +76,6 @@ class UpdateTeacherProfileTest extends TestCase
         $this->assertDatabaseHas('teachers', [
             'id'              => $teacher->id,
             'user_id'         => $teacher->user->id,
-            'area_id'         => null,
             'name'            => '',
             'nation_id'     => null,
             'email'           => '',
@@ -106,14 +105,6 @@ class UpdateTeacherProfileTest extends TestCase
         $response->assertForbidden();
     }
 
-    /**
-     * @test
-     */
-    public function the_area_id_must_exist_in_areas_table()
-    {
-        $this->assertNull(Area::find(99));
-        $this->assertFieldIsInvalid(['area_id' => 99]);
-    }
 
     /**
      * @test
