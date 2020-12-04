@@ -13,9 +13,9 @@
                 :value="value"
             />
             <div
-                class="mr-3 w-4 h-4 rounded-sm border border-black fake-checkbox"
+                class="mr-3 w-4 h-4 rounded-sm border border-sky-blue fake-checkbox"
             ></div>
-            <span class="text-sm font-bold">{{ label }}</span>
+            <span class="text-sm">{{ label }}</span>
             <span class="text-xs text-red-400" v-show="errorMsg">{{
                 errorMsg
             }}</span>
@@ -70,6 +70,6 @@ export default {
 
 <style scoped>
 input[type="checkbox"]:checked + .fake-checkbox {
-    @apply bg-sky-blue;
+    @apply bg-sky-blue border-sky-blue;
 }
 </style>

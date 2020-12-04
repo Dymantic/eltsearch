@@ -82,7 +82,7 @@
 
         @if(!$has_application)
             <div class="text-center my-12">
-                <a href="/job-posts/{{ $post['slug'] }}/apply" class="hover:bg-sky-blue bg-navy text-white px-4 py-2 shadow rounded-l-full rounded-r-full text-sm">Apply Now</a>
+                <a href="/job-posts/{{ $post['slug'] }}/apply" class="btn-main">Apply Now</a>
             </div>
         @else
             <div class="text-center my-12">

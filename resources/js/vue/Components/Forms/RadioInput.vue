@@ -1,7 +1,7 @@
 <template>
     <div class="" :class="{ 'border-b border-red-400': errorMsg }">
         <label class="flex items-center">
-            <span class="text-sm font-bold">{{ label }}</span>
+            <span class="text-sm">{{ label }}</span>
             <span class="text-xs text-red-400" v-show="errorMsg">{{
                 errorMsg
             }}</span>
