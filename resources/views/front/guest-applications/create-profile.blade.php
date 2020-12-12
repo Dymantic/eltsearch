@@ -1,13 +1,7 @@
 <x-public-page>
     <div class="py-20 px-6 max-w-5xl mx-auto">
         <p class="type-h3 text-gray-600 text-center">Job Application for {{ $post['school_name'] }}</p>
-        <p class="type-h2 text-center mt-6">Step 2</p>
-        <div class="w-32 flex justify-around mx-auto  mb-12">
-            <div class="h-3 w-3 bg-sky-blue rounded-full"></div>
-            <div class="h-3 w-3 bg-sky-blue rounded-full"></div>
-            <div class="h-3 w-3 bg-gray-400 rounded-full"></div>
-            <div class="h-3 w-3 bg-gray-400 rounded-full"></div>
-        </div>
+        <x-step-header :step="1" :of="4"></x-step-header>
         <p class="max-w-lg mx-auto my-6">Provide a bit of info about yourself. This will be used to fill out your application, as well as create your free profile on ELT Search. You can always kep your profile private, should you choose.</p>
 
         <form action="/guest-applications/profile"
@@ -18,7 +12,7 @@
             @endif
 
             <div class="max-w-lg mx-auto mb-12">
-                <p class="type-h3">Account details</p>
+                <p class="type-a1 text-navy">Account details</p>
                 <x-input-field class="my-6"
                                name="name"
                                :error="$errors->first('name')"
@@ -53,7 +47,7 @@
             </div>
 
             <div class="max-w-lg mx-auto mb-12">
-                <p class="type-h3">About you</p>
+                <p class="type-a1 text-navy">About you</p>
                 <x-input-field class="my-6"
                                name="years_experience"
                                type="number"
@@ -95,7 +89,7 @@
             </div>
 
             <div class="max-w-lg mx-auto mb-12">
-                <p class="type-h3">Your education</p>
+                <p class="type-a1 text-navy">Your education</p>
                 <x-select-field class="my-6"
                                 :options="$education_levels"
                                 name="education_level"

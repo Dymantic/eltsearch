@@ -48,7 +48,7 @@ class AddPreviousExperienceTest extends TestCase
                 ]
             ]
         ]);
-        $response->assertRedirect('/guest-application/add-profile-image');
+        $response->assertRedirect('/guest-applications/add-profile-image');
 
         $this->assertDatabaseHas('previous_employments', [
             'teacher_id'    => $teacher->id,

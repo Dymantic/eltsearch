@@ -1,6 +1,6 @@
 <div {{ $attributes->merge(['class' => $wrapperClasses()]) }}>
     <label class="">
-        <span class="text-sm font-bold">{{ $label }}</span>
+        <span class="form-label">{{ $label }}</span>
         @if($errors->has($name))
             <span class="text-xs text-red-400">{{
                 $errors->first($name)
@@ -12,16 +12,15 @@
             </p>
         @endif
         <select
-            class="mt-1 w-full block border p-2 bg-transparent"
+            class="form-text-input bg-transparent"
+            name="{{ $name }}"
         >
-            <option value
-                    :selected="!$value"
+            <option value="" @if(!$value) selected @endif
             ><span class="text-gray-500">{{ $prompt }}</span></option
             >
             @foreach($options as $val => $option)
-                <option
-                    :selected="$value == $val"
-                    :value="$val"
+                <option @if($value == $val) selected @endif
+                    value="{{ $val }}"
                 >{{ $option }}</option
                 >
             @endforeach

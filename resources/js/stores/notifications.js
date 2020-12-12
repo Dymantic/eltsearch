@@ -12,6 +12,7 @@ export default {
     state: {
         all: [],
         last_fetched: null,
+        timer: null,
     },
 
     getters: {
@@ -30,6 +31,15 @@ export default {
 
         setLastChecked(state, timestamp) {
             state.last_fetched = timestamp;
+        },
+
+        setTimerHandle(state, timer) {
+            state.timer = timer;
+        },
+
+        cancelTimer(state) {
+            window.clearInterval(state.timer);
+            state.timer = null;
         },
     },
 
@@ -53,8 +63,8 @@ export default {
         },
 
         checkNew({ state, commit, dispatch }) {
-            return checkNewNotificationStatus(state.last_fetched).then(
-                ({ has_new, timestamp }) => {
+            return checkNewNotificationStatus(state.last_fetched)
+                .then(({ has_new, timestamp }) => {
                     commit("setLastChecked", timestamp);
 
                     if (has_new) {
@@ -64,8 +74,16 @@ export default {
                             root: true,
                         });
                     }
-                }
+                })
+                .catch(() => commit("cancelTimer"));
+        },
+
+        beginCheckTimer({ commit, dispatch }) {
+            const timer = window.setInterval(
+                () => dispatch("checkNew"),
+                1000 * 60
             );
+            commit("setTimerHandle", timer);
         },
 
         markAsRead({ dispatch }, notification_id) {

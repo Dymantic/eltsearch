@@ -27,6 +27,10 @@ class GuestApplicationsProfileController extends Controller
 
     public function store(GuestApplicationProfileRequest $request)
     {
+        if(!GuestApplication::jobPost()) {
+            return redirect('/job-posts');
+        }
+
         GuestApplication::createProfileForApplicant(
             $request->generalInfo(),
             $request->educationInfo(),

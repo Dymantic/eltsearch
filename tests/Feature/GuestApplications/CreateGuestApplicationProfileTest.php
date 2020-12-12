@@ -3,6 +3,7 @@
 namespace Tests\Feature\GuestApplications;
 
 use App\Nation;
+use App\Placements\GuestApplication;
 use App\Placements\JobPost;
 use App\Teachers\Teacher;
 use App\User;
@@ -10,7 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class CreateProfileTest extends TestCase
+class CreateGuestApplicationProfileTest extends TestCase
 {
 
     use RefreshDatabase;
@@ -25,6 +26,7 @@ class CreateProfileTest extends TestCase
         $post = factory(JobPost::class)->state('current')->create();
         $nation = factory(Nation::class)->create();
 
+        GuestApplication::startProcess($post);
         $response = $this->asGuest()->post("guest-applications/profile", [
             'name'                    => 'test name',
             'email'                   => 'test@test.test',
@@ -63,9 +65,38 @@ class CreateProfileTest extends TestCase
             'education_qualification' => 'BTest',
         ]);
 
-        $this->assertSame($user->id, session('guest_application.user_id'));
         $this->assertSame($teacher->id, session('guest_application.teacher_id'));
 
+    }
+
+    /**
+     *@test
+     */
+    public function attempting_to_post_profile_after_session_expires_redirects_to_find_jobs()
+    {
+        $this->withoutExceptionHandling();
+
+        $post = factory(JobPost::class)->state('current')->create();
+        $nation = factory(Nation::class)->create();
+
+        session()->forget('guest_application');
+
+        $response = $this->asGuest()->post("guest-applications/profile", [
+            'name'                    => 'test name',
+            'email'                   => 'test@test.test',
+            'password'                => 'password',
+            'password_confirmation'   => 'password',
+            'nation_id'             => $nation->id,
+            'date_of_birth'           => '1999-09-19',
+            'native_language'         => 'English',
+            'other_languages'         => 'Spanish',
+            'years_experience'        => 3,
+            'education_level'         => Teacher::EDUCATION_GRADUATE,
+            'education_institution'   => 'test college',
+            'education_qualification' => 'BTest',
+        ]);
+
+        $response->assertRedirect("/job-posts");
     }
 
     /**

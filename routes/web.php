@@ -27,7 +27,6 @@ Route::group([
 });
 
 Route::get('/job-posts/{post:slug}/apply', 'ApplicationsController@create');
-Route::post('/job-posts/{post:slug}/apply', 'ApplicationsController@store');
 
 Route::get('login/facebook', 'FacebookLoginController@redirect');
 Route::get('register/teacher/facebook', 'FacebookRegisterController@redirect');
@@ -37,10 +36,13 @@ Route::get('job-posts', 'JobPostsController@index');
 Route::get('/job-posts/{post:slug}', 'JobPostsController@show');
 
 Route::post('guest-applications', 'GuestApplicationsController@store');
+Route::get('guest-applications/create-application', 'GuestApplicationsController@create');
 Route::get('guest-applications/create-profile', 'GuestApplicationsProfileController@create');
 Route::post('guest-applications/profile', 'GuestApplicationsProfileController@store');
+Route::get('guest-applications/add-experience', 'GuestApplicationExperienceController@create');
 Route::post('guest-applications/experience', 'GuestApplicationExperienceController@store');
-Route::post('guest-applications/profile-image', 'GuestApplicationsProfileImageController@store');
+Route::get('guest-applications/add-profile-image', 'GuestApplicationsProfileImageController@create');
+Route::post('guest-applications/profile-image', 'GuestApplicationsProfileImageController@store')->middleware('json.response');
 Route::post('complete-guest-applications', 'CompleteGuestApplicationsController@store');
 
 Route::post('logout', 'LoginController@logout');

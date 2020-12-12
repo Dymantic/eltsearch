@@ -38,8 +38,8 @@ class NotifySchoolOfApplicationTest extends TestCase
 
         $teacher = factory(Teacher::class)->create();
 
-        $response = $this
-            ->actingAs($teacher->user)->post("/job-posts/{$job_post->slug}/apply", [
+        $this
+            ->actingAs($teacher->user)->postJson("/api/teachers/job-applications", [
                 'job_post_id'  => $job_post->id,
                 'cover_letter' => 'test cover letter',
                 'phone'        => 'test phone',

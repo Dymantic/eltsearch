@@ -1,6 +1,6 @@
 <div {{ $attributes->merge(['class' => $wrapperClasses]) }}>
     <label class="">
-        <span class="text-sm font-bold">{{ $label }}</span>
+        <span class="form-label">{{ $label }}</span>
         @if($errors->has($name))
         <span class="text-xs text-red-400">{{
                 $errors->first($name)
@@ -15,7 +15,7 @@
             name="{{ $name }}"
             type="{{ $inputType() }}"
             value="{{ $value }}"
-            class="mt-1 w-full block border p-2"
+            class="form-text-input"
         />
     </label>
 </div>

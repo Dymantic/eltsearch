@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\JobApplicationRequest;
+use App\Nation;
+use App\Placements\GuestApplication;
 use App\Placements\JobApplication;
 use App\Placements\JobPost;
 use App\Placements\JobPostPresenter;
+use App\Teachers\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
@@ -17,22 +20,18 @@ class ApplicationsController extends Controller
             return redirect("/teachers#/apply-to-post/{$post->slug}");
         }
 
-        return view('front.applications.create', [
-            'post' => JobPostPresenter::forPublic($post),
+
+        GuestApplication::startProcess($post);
+
+        return view('front.guest-applications.create-profile', [
+            'email' => '',
+            'post' => $post,
+            'nations' => Nation::orderBy('nationality')->get()->mapWithKeys(fn ($n) => [
+                $n->id => $n->nationality
+            ])->all(),
+            'education_levels' => collect(Teacher::ALLOWED_EDUCATION_LEVELS)
+                ->mapWithKeys(fn($l) => [$l => trans('teachers.education_levels.' . $l)])->all()
         ]);
     }
 
-    public function store(JobApplicationRequest $request, JobPost $post)
-    {
-        if($request->teacher()->hasApplicationFor($post)) {
-            throw ValidationException::withMessages([
-                'job_post' => 'You have already applied for this post'
-            ]);
-        }
-
-        $request->teacher()
-                ->applyForJob($post, $request->coverLetter(), $request->contactDetails());
-
-        return redirect("/");
-    }
 }

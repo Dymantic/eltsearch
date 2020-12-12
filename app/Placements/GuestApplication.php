@@ -17,6 +17,11 @@ class GuestApplication
         session()->put('guest_application', $applicationInfo);
     }
 
+    public static function startProcess(JobPost $post)
+    {
+        session()->put('guest_application.post_slug', $post->slug);
+    }
+
     public static function createProfileForApplicant(
         TeacherGeneralInfo $generalInfo,
         TeacherEducationInfo $educationInfo,

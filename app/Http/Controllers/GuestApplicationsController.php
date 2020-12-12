@@ -8,10 +8,20 @@ use Illuminate\Http\Request;
 
 class GuestApplicationsController extends Controller
 {
+
+    public function create()
+    {
+        return view('front.guest-applications.create-application', [
+            'post' => GuestApplication::jobPost()->toArray(),
+        ]);
+    }
+
     public function store(GuestApplicationRequest $request)
     {
-        GuestApplication::storeInitialApplication($request->applicationInfo());
+        $teacher = GuestApplication::teacherProfile();
+        $teacher->applyForJob(GuestApplication::jobPost(), $request->cover_letter, $request->contactDetails());
 
-        return redirect('/guest-applications/create-profile');
+        auth()->login($teacher->user);
+        return redirect("/teachers/#applications");
     }
 }

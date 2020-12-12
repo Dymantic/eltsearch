@@ -88,9 +88,7 @@ export default {
         );
         this.$store.dispatch("notifications/fetchAll");
 
-        window.setInterval(() => {
-            this.$store.dispatch("notifications/checkNew");
-        }, 1000 * 60);
+        this.$store.dispatch("notifications/beginCheckTimer");
     },
 
     watch: {
