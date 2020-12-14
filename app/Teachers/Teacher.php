@@ -60,6 +60,17 @@ class Teacher extends Model implements HasMedia
         'is_public' => 'boolean'
     ];
 
+    public function scopeComplete(Builder $query)
+    {
+        return $query
+            ->whereNotNull('date_of_birth')
+            ->where('education_level', '<>', '')
+            ->where('education_qualification', '<>', '')
+            ->whereNotNull('nation_id')
+            ->where('native_language', '<>', '')
+            ->whereNotNull('years_experience');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

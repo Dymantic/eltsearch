@@ -1,9 +1,9 @@
 {
-    "/js/admin-app.js": "/js/admin-app.js",
-    "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css",
-    "/css/front.css": "/css/front.css",
-    "/js/front.js": "/js/front.js",
-    "/js/school-app.js": "/js/school-app.js",
-    "/js/teacher-app.js": "/js/teacher-app.js"
+    "/js/admin-app.js": "/js/admin-app.js?id=0ce018ea21f5ecbf4d8b",
+    "/js/app.js": "/js/app.js?id=417bcc897005bbb860a7",
+    "/css/app.css": "/css/app.css?id=c0ccdd861e35e2486191",
+    "/css/front.css": "/css/front.css?id=605024283321ff1e06a7",
+    "/js/front.js": "/js/front.js?id=5da32b90248577b9da01",
+    "/js/school-app.js": "/js/school-app.js?id=939dcddb6f6908d0e0a4",
+    "/js/teacher-app.js": "/js/teacher-app.js?id=74592ec185c4248fab6c"
 }

@@ -57,9 +57,14 @@
 
             <p class="type-h4 mt-3">
                 {{ education.education_qualification }}
-                <span class="type-b3 text-gray-600"
+                <span
+                    class="type-b3 text-gray-600"
+                    v-show="education.education_level"
                     >({{ education.education_level }})</span
                 >
+            </p>
+            <p class="type-b1 text-gray-600 mt-4" v-if="missing_education">
+                Please set your education information.
             </p>
             <p class="type-b1 mt-1">{{ education.education_institution }}</p>
 
@@ -97,6 +102,13 @@ export default {
 
         education() {
             return this.$store.state.profile.education_info;
+        },
+
+        missing_education() {
+            return (
+                !this.education.education_qualification &&
+                !this.education.education_level
+            );
         },
     },
 

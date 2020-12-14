@@ -23,6 +23,7 @@ $factory->define(Teacher::class, function (Faker $faker) {
         'education_level'         => $faker->randomElement(Teacher::ALLOWED_EDUCATION_LEVELS),
         'education_institution'   => $faker->words(3, true),
         'education_qualification' => $faker->words(3, true),
+        'years_experience'        => $faker->numberBetween(1, 15),
     ];
 });
 

@@ -57,7 +57,7 @@
                     :disabled="current_locale === 'zh'"
                     @click="setLocale('zh')"
                 >
-                    ZH
+                    中文
                 </button>
             </div>
         </div>

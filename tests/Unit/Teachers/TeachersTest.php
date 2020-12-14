@@ -122,5 +122,27 @@ class TeachersTest extends TestCase
         $this->assertFalse($since_last_week->contains($old));
     }
 
+    /**
+     *@test
+     */
+    public function can_scope_teacher_profiles_as_complete()
+    {
+        $diligent = factory(Teacher::class)->create();
+        $uneducated = factory(Teacher::class)->create([
+            'education_level' => '',
+            'education_institution' => '',
+            'education_qualification' => '',
+        ]);
+        $nowhere = factory(Teacher::class)->create(['nation_id' => null]);
+        $ageless = factory(Teacher::class)->create(['date_of_birth' => null]);
+        $no_language = factory(Teacher::class)->create(['native_language' => '']);
+        $inexperienced = factory(Teacher::class)->create(['years_experience' => null]);
+
+        $completed = Teacher::complete()->get();
+
+        $this->assertCount(1, $completed);
+        $this->assertTrue($completed->first()->is($diligent));
+    }
+
 
 }

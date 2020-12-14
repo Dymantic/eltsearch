@@ -91,6 +91,8 @@ Route::group([
 
     Route::get('job-posts/{post:slug}', 'PublicJobPostsController@show');
 
+    Route::get('public-teachers', 'PublicTeachersController@index');
+
 
 });
 
