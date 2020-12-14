@@ -2,7 +2,7 @@
     <labeled-box label="Part Time/Full Time" @dismiss="dismiss">
         <div class="flex justify-between items-center">
             <p class="text-lg font-bold">
-                What age of student would you like to teach?
+                Are you looking for a full-time or a part-time job?
             </p>
         </div>
         <div class="mt-6">

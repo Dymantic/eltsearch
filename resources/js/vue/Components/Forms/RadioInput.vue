@@ -15,7 +15,7 @@
                 :checked="checked === value"
             />
             <div
-                class="ml-3 w-4 h-4 rounded-full border border-black fake-radio"
+                class="ml-3 w-4 h-4 rounded-full border border-sky-blue fake-radio"
             ></div>
             <p class="my-1 text-gray-500 text-sm" v-show="helpText">
                 {{ helpText }}
