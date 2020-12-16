@@ -13,6 +13,7 @@ class TeacherProfilePresenter
     {
         return [
             'name'             => $teacher->name,
+            'slug'             => $teacher->slug,
             'nation_id'        => $teacher->nation_id,
             'nationality'      => optional($teacher->nation)->nationality,
             'date_of_birth'    => DateFormatter::standard($teacher->date_of_birth),
@@ -27,10 +28,10 @@ class TeacherProfilePresenter
         ];
     }
 
-    public static function educationInfo(Teacher $teacher): array
+    public static function educationInfo(Teacher $teacher, $lang = 'en'): array
     {
         return [
-            'education_level'         => $teacher->education_level,
+            'education_level'         => trans("teachers.education_levels.{$teacher->education_level}", [], $lang),
             'education_institution'   => $teacher->education_institution,
             'education_qualification' => $teacher->education_qualification,
         ];
@@ -54,11 +55,11 @@ class TeacherProfilePresenter
             ])->values()->all();
     }
 
-    public static function forSchool(Teacher $teacher)
+    public static function forSchool(Teacher $teacher, $lang = 'en')
     {
         $teacher->load('previousEmployments');
         $general = self::generalInfo($teacher);
-        $education = self::educationInfo($teacher);
+        $education = self::educationInfo($teacher, $lang);
         $employment = ['previous_employment' => self::previousEmployment($teacher)];
 
         return array_merge($general, $education, $employment);

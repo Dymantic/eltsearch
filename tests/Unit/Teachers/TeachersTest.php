@@ -4,6 +4,7 @@ namespace Tests\Unit\Teachers;
 
 use App\DateFormatter;
 use App\Locations\Area;
+use App\Locations\Region;
 use App\Nation;
 use App\Placements\JobPost;
 use App\Placements\JobSearch;
@@ -142,6 +143,32 @@ class TeachersTest extends TestCase
 
         $this->assertCount(1, $completed);
         $this->assertTrue($completed->first()->is($diligent));
+    }
+
+    /**
+     *@test
+     */
+    public function can_scope_teachers_to_near_area()
+    {
+        $regionA = factory(Region::class)->create();
+        $regionB = factory(Region::class)->create();
+
+        $areaA = factory(Area::class)->create(['region_id' => $regionA->id]);
+        $areaB = factory(Area::class)->create(['region_id' => $regionA->id]);
+        $areaC = factory(Area::class)->create(['region_id' => $regionB->id]);
+        $areaD = factory(Area::class)->create(['region_id' => $regionB->id]);
+
+        $teacherA = factory(Teacher::class)->create(['area_id' => $areaA->id]);
+        $teacherB = factory(Teacher::class)->create(['area_id' => $areaC->id]);
+        $teacherC = factory(Teacher::class)->create(['area_id' => $areaD->id]);
+        $teacherD = factory(Teacher::class)->create(['area_id' => $areaB->id]);
+
+        $scoped = Teacher::nearArea($areaA)->get();
+
+        $this->assertCount(2, $scoped);
+        $this->assertTrue($scoped->contains($teacherA));
+        $this->assertTrue($scoped->contains($teacherD));
+
     }
 
 

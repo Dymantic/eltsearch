@@ -19,6 +19,7 @@ export default {
             has_access: false,
             expires_on: "",
             days_remaining: 0,
+            access_checked: false,
         },
     },
 

@@ -71,7 +71,7 @@ export default {
 
         withoutValue() {
             if (!Array.isArray(this.checked)) {
-                return true;
+                return false;
             }
 
             return this.checked.filter((item) => item !== this.value);

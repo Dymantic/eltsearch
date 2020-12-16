@@ -42,6 +42,7 @@ class Teacher extends Model implements HasMedia
 
     protected $fillable = [
         'name',
+        'slug',
         'nation_id',
         'date_of_birth',
         'email',
@@ -69,6 +70,34 @@ class Teacher extends Model implements HasMedia
             ->whereNotNull('nation_id')
             ->where('native_language', '<>', '')
             ->whereNotNull('years_experience');
+    }
+
+    public function scopeNearArea(Builder $query, ?Area $area)
+    {
+        if(!$area) {
+            return $query;
+        }
+
+        $area_ids = $area->region->areas->pluck('id')->all();
+        return $query->whereIn('area_id', $area_ids);
+    }
+
+    public function scopeWithNationality(Builder $query, int $nation_id)
+    {
+        if($nation_id === 0) {
+            return $query;
+        }
+
+        return $query->where('nation_id', $nation_id);
+    }
+
+    public function scopeWithExperienceLevel(Builder $query, int $exp_level)
+    {
+        if($exp_level === 0) {
+            return $query;
+        }
+
+        return $query->where('years_experience', '>=', $exp_level);
     }
 
     public function user()

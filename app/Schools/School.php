@@ -26,7 +26,7 @@ class School extends Model implements HasMedia
     const MAX_IMAGES = 4;
     const LOGOS = 'logos';
     const IMAGES = 'images';
-    const DEFAULT_LOGO = '/images/icon_logo.svg';
+    const DEFAULT_LOGO = '/images/logo_icon.svg';
 
     protected $guarded = [];
 

@@ -8,6 +8,14 @@ export default {
         all: [],
     },
 
+    getters: {
+        forSelect: (state) =>
+            state.all.map((nation) => ({
+                value: nation.id,
+                text: nation.nationality,
+            })),
+    },
+
     mutations: {
         setNations(state, nations) {
             state.all = nations;

@@ -16,6 +16,7 @@ import lang from "./stores/schools/lang";
 import notifications from "./stores/notifications";
 import purchases from "./stores/schools/purchases";
 import tokens from "./stores/schools/tokens";
+import nations from "./stores/nations";
 
 const store = new Vuex.Store({
     modules: {
@@ -30,6 +31,7 @@ const store = new Vuex.Store({
         notifications,
         purchases,
         tokens,
+        nations,
     },
 });
 

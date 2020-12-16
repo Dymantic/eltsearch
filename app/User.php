@@ -94,29 +94,31 @@ class User extends Authenticatable
             'account_type' => self::ACCOUNT_TEACHER
         ]);
 
-        $teacher = $user
-            ->teacher()
-            ->create(array_merge($generalInfo->toArray(), $educationInfo->toArray()));
+        $teacher = $user->createTeacherProfile(array_merge($generalInfo->toArray(), $educationInfo->toArray()));
 
         return $teacher;
     }
 
     protected function createTeacherProfile($teacher_data)
     {
-        $teacher = $this->teacher()->create([
+        $defaults = [
             'name'                    => $teacher_data['name'],
             'email'                   => $teacher_data['email'],
-            'nationality'             => '',
+            'nation_id'               => null,
             'native_language'         => '',
             'other_languages'         => '',
             'education_level'         => '',
             'education_institution'   => '',
             'education_qualification' => '',
-        ]);
+            'slug'                    => UniqueKey::for('teachers:slug'),
+        ];
+        $teacher = $this->teacher()->create(array_merge($defaults, $teacher_data));
 
         if ($teacher_data['avatar'] ?? false) {
             $teacher->setAvatarFromUrl($teacher_data['avatar']);
         }
+
+        return $teacher;
     }
 
     public static function registerSchool($school_data)

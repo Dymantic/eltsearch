@@ -8,10 +8,12 @@ use App\Teachers\Teacher;
 use App\User;
 use Faker\Generator as Faker;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 $factory->define(Teacher::class, function (Faker $faker) {
     return [
         'user_id'                 => factory(User::class)->state('teacher'),
+        'slug'                    => Str::random(8),
         'name'                    => $faker->name,
         'nation_id'               => factory(Nation::class),
         'email'                   => $faker->email,

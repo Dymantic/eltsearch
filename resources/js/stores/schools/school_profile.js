@@ -70,6 +70,13 @@ export default {
                 state: school.billing_state,
             };
         },
+
+        areaId: (state) => {
+            if (!state.current_school) {
+                return null;
+            }
+            return state.current_school.area_id;
+        },
     },
 
     actions: {

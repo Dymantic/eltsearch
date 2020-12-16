@@ -10,6 +10,6 @@ class NationsController extends Controller
 {
     public function index()
     {
-        return Nation::all();
+        return Nation::orderBy('nationality')->get();
     }
 }

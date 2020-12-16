@@ -1,6 +1,6 @@
 <div class="main-nav bg-white fixed top-0 left-0 z-50 w-screen py-1 px-6 flex lg:justify-between items-center h-16 shadow">
     <a href="/" class="text-navy hover:text-sky-blue">
-        @include('svg.logos.full_logo_2', ['classes' => 'h-8'])
+        @include('svg.logos.full_logo', ['classes' => 'h-8 text-navy'])
     </a>
     <div class="flex justify-end items-center flex-1">
         <div class="sub-nav text-navy bg-white left-0 pt-12 lg:pt-0 pl-6 lg:pl-0 fixed top-16 w-screen lg:w-auto h-screen lg:h-16 lg:static flex flex-col lg:flex-row lg:items-center">

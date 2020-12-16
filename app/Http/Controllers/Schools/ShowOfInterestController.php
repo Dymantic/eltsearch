@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Schools;
+namespace App\Http\Controllers\Schools;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ShowOfInterestRequest;

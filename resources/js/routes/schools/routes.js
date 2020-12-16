@@ -22,6 +22,7 @@ import PurchaseTokens from "../../vue/Pages/Schools/PurchaseTokens";
 import ResumePasses from "../../vue/Pages/Schools/ResumePasses";
 import CurrentResumePass from "../../vue/Pages/Schools/CurrentResumePass";
 import SessionExpired from "../../vue/Pages/SessionExpired";
+import TeacherResume from "../../vue/Pages/Schools/ResumePass/TeacherResume";
 
 export default [
     { path: "/", component: SchoolDashboard },
@@ -48,4 +49,5 @@ export default [
     { path: "/purchases/:purchase", component: PurchaseDetails },
     { path: "/resume-pass", component: CurrentResumePass },
     { path: "/resume-passes/buy", component: ResumePasses },
+    { path: "/resume-pass/teachers/:teacher", component: TeacherResume },
 ];

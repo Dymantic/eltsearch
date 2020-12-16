@@ -91,7 +91,7 @@ Route::group([
 
     Route::get('job-posts/{post:slug}', 'PublicJobPostsController@show');
 
-    Route::get('public-teachers', 'PublicTeachersController@index');
+
 
 
 });
@@ -100,7 +100,7 @@ Route::group([
 Route::group([
     'middleware' => ['school', 'auth'],
     'prefix'     => 'api',
-    'namespace'  => 'Admin\Schools'
+    'namespace'  => 'Schools'
 ], function () {
     Route::get('schools/user-schools', 'UserSchoolsController@index');
     Route::post('schools/{school}', 'SchoolProfileController@update')
@@ -148,6 +148,11 @@ Route::group([
     Route::get('schools/{school}/tokens', 'SchoolTokensController@index');
     Route::get('schools/{school}/resume-pass', 'SchoolResumePassController@show');
     Route::get('schools/packages', 'PackagesController@index');
+
+    Route::get('schools/{school}/public-teachers', 'PublicTeachersController@index');
+    Route::get('schools/{school}/public-teachers/{slug}', 'PublicTeachersController@show');
+
+    Route::post('schools/{school}/recruitment-attempts', 'SchoolRecruitmentAttemptsController@store');
 });
 
 Route::group([

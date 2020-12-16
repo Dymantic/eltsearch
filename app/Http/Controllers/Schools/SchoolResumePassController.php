@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Schools;
+namespace App\Http\Controllers\Schools;
 
 use App\DateFormatter;
 use App\Http\Controllers\Controller;
@@ -28,6 +28,7 @@ class SchoolResumePassController extends Controller
             'has_access' => true,
             'expires_on' => DateFormatter::pretty($pass->expires_on),
             'days_remaining' => now()->diffInDays($pass->expires_on),
+            'access_checked' => true,
         ];
     }
 }
