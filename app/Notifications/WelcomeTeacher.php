@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class WelcomeTeacher extends Notification implements ActionableNotification
+class WelcomeTeacher extends Notification implements ActionableNotification, ShouldQueue
 {
     use Queueable;
 
