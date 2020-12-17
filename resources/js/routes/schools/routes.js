@@ -23,6 +23,7 @@ import ResumePasses from "../../vue/Pages/Schools/ResumePasses";
 import CurrentResumePass from "../../vue/Pages/Schools/CurrentResumePass";
 import SessionExpired from "../../vue/Pages/SessionExpired";
 import TeacherResume from "../../vue/Pages/Schools/ResumePass/TeacherResume";
+import RecruitTeacher from "../../vue/Pages/Schools/ResumePass/RecruitTeacher";
 
 export default [
     { path: "/", component: SchoolDashboard },
@@ -50,4 +51,8 @@ export default [
     { path: "/resume-pass", component: CurrentResumePass },
     { path: "/resume-passes/buy", component: ResumePasses },
     { path: "/resume-pass/teachers/:teacher", component: TeacherResume },
+    {
+        path: "/resume-pass/teachers/:teacher/contact",
+        component: RecruitTeacher,
+    },
 ];

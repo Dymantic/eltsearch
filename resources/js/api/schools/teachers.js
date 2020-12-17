@@ -1,4 +1,4 @@
-import { get } from "../http";
+import { get, post } from "../http";
 
 function queryTeachers(
     school_id,
@@ -20,4 +20,11 @@ function fetchTeacherBySlug(school_id, teacher_slug) {
     return get(`/api/schools/${school_id}/public-teachers/${teacher_slug}`);
 }
 
-export { queryTeachers, fetchTeacherBySlug };
+function attemptToRecruitTeacher(school_id, teacher_slug, formData) {
+    return post(`/api/schools/${school_id}/recruitment-attempts`, {
+        teacher_slug,
+        ...formData,
+    });
+}
+
+export { queryTeachers, fetchTeacherBySlug, attemptToRecruitTeacher };

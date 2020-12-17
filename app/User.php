@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Notifications\WelcomeTeacher;
 use App\Schools\School;
 use App\Schools\SchoolUser;
 use App\Teachers\Teacher;
@@ -65,6 +66,8 @@ class User extends Authenticatable
 
         $user->createTeacherProfile($user_data);
 
+        $user->notify(new WelcomeTeacher($user));
+
         return $user;
     }
 
@@ -78,6 +81,8 @@ class User extends Authenticatable
         ]);
 
         $user->createTeacherProfile($teacher_data);
+
+        $user->notify(new WelcomeTeacher($user));
 
         return $user;
     }
@@ -94,7 +99,11 @@ class User extends Authenticatable
             'account_type' => self::ACCOUNT_TEACHER
         ]);
 
+        $user->notify((new WelcomeTeacher($user))->delay(now()->addMinutes(10)));
+
         $teacher = $user->createTeacherProfile(array_merge($generalInfo->toArray(), $educationInfo->toArray()));
+
+
 
         return $teacher;
     }

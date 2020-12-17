@@ -216,8 +216,11 @@ export default {
     },
 
     mounted() {
-        this.$store.dispatch("purchases/checkResumePass");
-        this.fetchTeachers({});
+        this.$store.dispatch("purchases/checkResumePass").then(() => {
+            if (this.$store.state.purchases.resumePass.has_access) {
+                this.fetchTeachers({});
+            }
+        });
     },
 
     methods: {

@@ -7,6 +7,7 @@ export default {
 
             if (type === "teacher") {
                 dispatch("matches/refresh", null, { root: true });
+                dispatch("recruitments/refresh", null, { root: true });
             }
 
             if (type === "school") {

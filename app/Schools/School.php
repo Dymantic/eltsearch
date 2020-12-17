@@ -21,7 +21,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class School extends Model implements HasMedia
 {
-    use InteractsWithMedia, HasSchoolLogo, MakesPurchases, UsesTokens, HasResumePasses;
+    use InteractsWithMedia, HasSchoolLogo, MakesPurchases, UsesTokens, HasResumePasses, RecruitsTeachers;
 
     const MAX_IMAGES = 4;
     const LOGOS = 'logos';

@@ -11,6 +11,7 @@ use App\Placements\JobMatch;
 use App\Placements\JobPost;
 use App\Placements\JobSearch;
 use App\Placements\JobSearchCriteria;
+use App\Placements\RecruitmentAttempt;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
@@ -271,5 +272,10 @@ class Teacher extends Model implements HasMedia
              ->fit(Manipulations::FIT_MAX, 400, 400)
              ->optimize()
              ->performOnCollections(self::AVATAR);
+    }
+
+    public function recruitmentAttempts()
+    {
+        return $this->hasMany(RecruitmentAttempt::class);
     }
 }

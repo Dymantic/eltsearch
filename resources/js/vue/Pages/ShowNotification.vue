@@ -45,8 +45,10 @@ export default {
         },
 
         action_url() {
-            return this.notification.url.substring(
-                this.notification.url.indexOf("#") + 1
+            return (
+                this.notification.url.substring(
+                    this.notification.url.indexOf("#") + 1
+                ) || "/"
             );
         },
     },

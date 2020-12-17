@@ -4,10 +4,12 @@ namespace App\Providers;
 
 use App\Placements\JobMatch;
 use App\Placements\JobPost;
+use App\Placements\RecruitmentAttempt;
 use App\Policies\JobMatchPolicy;
 use App\Policies\JobPostPolicy;
 use App\Policies\PreviousEmploymentPolicy;
 use App\Policies\ReadNotificationsPolicy;
+use App\Policies\RecruitmentAttemptPolicy;
 use App\Policies\SchoolPolicy;
 use App\Schools\School;
 use App\Teachers\PreviousEmployment;
@@ -28,6 +30,7 @@ class AuthServiceProvider extends ServiceProvider
         PreviousEmployment::class   => PreviousEmploymentPolicy::class,
         DatabaseNotification::class => ReadNotificationsPolicy::class,
         JobMatch::class             => JobMatchPolicy::class,
+        RecruitmentAttempt::class => RecruitmentAttemptPolicy::class,
     ];
 
     /**

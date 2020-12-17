@@ -1,9 +1,14 @@
 <template>
-    <div>
-        <page-header title="Teacher Resume"></page-header>
-        <busy-loading v-if="!teacher"></busy-loading>
+    <div v-if="teacher">
+        <page-header title="Teacher Resume">
+            <router-link
+                :to="`/resume-pass/teachers/${teacher.slug}/contact`"
+                class="btn-primary btn"
+                >Contact Teacher</router-link
+            >
+        </page-header>
 
-        <div class="my-12" v-if="teacher">
+        <div class="my-12">
             <general-profile :teacher="teacher"></general-profile>
 
             <div class="my-12">

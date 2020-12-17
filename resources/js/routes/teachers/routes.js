@@ -19,6 +19,7 @@ import MatchedJobPost from "../../vue/Pages/Teachers/MatchedJobPost";
 import CreateApplication from "../../vue/Pages/Teachers/CreateApplication";
 import SessionExpired from "../../vue/Pages/SessionExpired";
 import ApplyToPost from "../../vue/Pages/Teachers/ApplyToPost";
+import RecruitmentMessage from "../../vue/Pages/Teachers/Recruitment/RecruitmentMessage";
 
 export default [
     { path: "/", component: TeacherDashboard },
@@ -57,4 +58,8 @@ export default [
     { path: "/job-matches", component: JobMatchesIndex },
     { path: "/job-matches/:job_match/post", component: MatchedJobPost },
     { path: "/job-matches/:job_match/apply", component: CreateApplication },
+    {
+        path: "/recruitments/:recruitment/details",
+        component: RecruitmentMessage,
+    },
 ];

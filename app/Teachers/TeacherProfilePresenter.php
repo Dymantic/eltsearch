@@ -30,8 +30,9 @@ class TeacherProfilePresenter
 
     public static function educationInfo(Teacher $teacher, $lang = 'en'): array
     {
+        $level = $teacher->education_level ? trans("teachers.education_levels.{$teacher->education_level}", [], $lang) : '';
         return [
-            'education_level'         => trans("teachers.education_levels.{$teacher->education_level}", [], $lang),
+            'education_level'         => $level,
             'education_institution'   => $teacher->education_institution,
             'education_qualification' => $teacher->education_qualification,
         ];
@@ -63,6 +64,11 @@ class TeacherProfilePresenter
         $employment = ['previous_employment' => self::previousEmployment($teacher)];
 
         return array_merge($general, $education, $employment);
+    }
+
+    public static function forTeacher(Teacher $teacher)
+    {
+        return self::generalInfo($teacher);
     }
 
     public static function forAdmin(Teacher $teacher)

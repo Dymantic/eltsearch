@@ -152,6 +152,7 @@ Route::group([
     Route::get('schools/{school}/public-teachers', 'PublicTeachersController@index');
     Route::get('schools/{school}/public-teachers/{slug}', 'PublicTeachersController@show');
 
+    Route::get('schools/{school}/recruitment-attempts', 'SchoolRecruitmentAttemptsController@index');
     Route::post('schools/{school}/recruitment-attempts', 'SchoolRecruitmentAttemptsController@store');
 });
 
@@ -193,6 +194,10 @@ Route::group([
     Route::get('teachers/job-matches', 'TeacherJobMatchesController@index');
     Route::delete('teachers/job-matches/{match}', 'TeacherJobMatchesController@destroy')
          ->middleware('can:manage,match');
+
+    Route::get('teachers/recruitment-attempts', 'TeacherRecruitmentAttemptsController@index');
+
+    Route::post('teachers/dismissed-recruitment-attempts', 'DismissedRecruitmentAttemptsController@store');
 
 
 });
