@@ -11,7 +11,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Lang;
 
-class ApplicationReceived extends Notification
+class ApplicationReceived extends Notification implements ShouldQueue
 {
     use Queueable;
 

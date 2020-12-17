@@ -9,7 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class JobPostMatchesFound extends Notification implements ActionableNotification
+class JobPostMatchesFound extends Notification implements ActionableNotification, ShouldQueue
 {
     use Queueable;
 

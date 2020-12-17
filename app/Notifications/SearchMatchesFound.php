@@ -8,7 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Collection;
 
-class SearchMatchesFound extends Notification implements ActionableNotification
+class SearchMatchesFound extends Notification implements ActionableNotification, ShouldQueue
 {
     use Queueable;
 

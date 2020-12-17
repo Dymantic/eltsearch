@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class AttemptToRecruit extends Notification implements ActionableNotification
+class AttemptToRecruit extends Notification implements ActionableNotification, ShouldQueue
 {
     use Queueable;
 
