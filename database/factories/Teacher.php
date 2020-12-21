@@ -36,3 +36,17 @@ $factory->state(Teacher::class, 'private', [
 $factory->state(Teacher::class, 'public', [
     'is_public' => true,
 ]);
+
+$factory->state(Teacher::class, 'homeless', [
+    'area_id' => null,
+]);
+
+$factory->state(Teacher::class, 'incomplete', [
+    'is_public'               => false,
+    'date_of_birth'           => null,
+    'nation_id'               => null,
+    'years_experience'        => null,
+    'native_language'         => '',
+    'education_level'         => '',
+    'education_qualification' => '',
+]);

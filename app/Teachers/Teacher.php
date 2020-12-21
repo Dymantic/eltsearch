@@ -17,6 +17,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
@@ -75,17 +76,18 @@ class Teacher extends Model implements HasMedia
 
     public function scopeNearArea(Builder $query, ?Area $area)
     {
-        if(!$area) {
+        if (!$area) {
             return $query;
         }
 
         $area_ids = $area->region->areas->pluck('id')->all();
+
         return $query->whereIn('area_id', $area_ids);
     }
 
     public function scopeWithNationality(Builder $query, int $nation_id)
     {
-        if($nation_id === 0) {
+        if ($nation_id === 0) {
             return $query;
         }
 
@@ -94,7 +96,7 @@ class Teacher extends Model implements HasMedia
 
     public function scopeWithExperienceLevel(Builder $query, int $exp_level)
     {
-        if($exp_level === 0) {
+        if ($exp_level === 0) {
             return $query;
         }
 
@@ -212,7 +214,7 @@ class Teacher extends Model implements HasMedia
             'email'        => $contactDetails->emailOr($this->email),
         ]);
 
-        if($this->hasBeenMatchedWithPost($jobPost)) {
+        if ($this->hasBeenMatchedWithPost($jobPost)) {
             $this->dismissMatchForPost($jobPost);
         }
 
@@ -223,7 +225,7 @@ class Teacher extends Model implements HasMedia
 
     private function hasBeenMatchedWithPost(JobPost $post): bool
     {
-        if(!$this->jobMatches()) {
+        if (!$this->jobMatches()) {
             return false;
         }
 
@@ -277,5 +279,31 @@ class Teacher extends Model implements HasMedia
     public function recruitmentAttempts()
     {
         return $this->hasMany(RecruitmentAttempt::class);
+    }
+
+    public function hasCompleteProfile(): bool
+    {
+        return $this->education_level !== '' &&
+            $this->education_qualification !== '' &&
+            $this->native_language !== '' &&
+            $this->nation_id !== null &&
+            $this->years_experience !== null &&
+            $this->date_of_birth !== null;
+    }
+
+    public function checkStatus()
+    {
+        $checks = [
+            'incomplete_profile'  => CompleteProfileCheck::class,
+            'no_experience'       => PreviousEmploymentsCheck::class,
+            'has_unread_messages' => UnreadMessagesCheck::class,
+            'no_job_search'       => NoJobSearchCheck::class,
+            'no_location'         => NoSetLocationCheck::class,
+            'recent_job_matches' => RecentJobMatchesCheck::class,
+        ];
+
+        return collect($checks)
+            ->map(fn($c, $key) => (new $c($this))->check() ? $key : null)
+            ->filter(fn($s) => $s !== null);
     }
 }

@@ -11,7 +11,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Lang;
 
-class ApplicationReceived extends Notification implements ShouldQueue
+class ApplicationReceived extends Notification implements ActionableNotification, ShouldQueue
 {
     use Queueable;
 
@@ -40,7 +40,7 @@ class ApplicationReceived extends Notification implements ShouldQueue
         return $this->jobApplication->jobPost;
     }
 
-    public function getSubjectFor($notifiable)
+    public function getSubjectFor($notifiable): string
     {
         return Lang::get(self::transKeyFor('subject'), [
             'name'     => $this->teacher()->name,
@@ -48,7 +48,7 @@ class ApplicationReceived extends Notification implements ShouldQueue
         ], $notifiable->preferred_lang ?? 'en');
     }
 
-    public function getMessageFor($notifiable)
+    public function getMessageFor($notifiable): string
     {
         return Lang::get(self::transKeyFor('message'), [
             'teacher'  => $this->teacher()->name,
@@ -57,12 +57,12 @@ class ApplicationReceived extends Notification implements ShouldQueue
         ], $notifiable->preferred_lang ?? 'en');
     }
 
-    public function actionUrl($notifiable)
+    public function actionUrl($notifiable): string
     {
         return url("schools#/applications/{$this->jobApplication->id}");
     }
 
-    public function actionTextFor($notifiable)
+    public function actionTextFor($notifiable): string
     {
         return Lang::get(
             self::transKeyFor('action'), [], $notifiable->preferred_lang ?? 'en'

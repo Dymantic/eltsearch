@@ -24,6 +24,7 @@ export default {
         education_info: null,
         previous_employments: [],
         preferred_lang: "en",
+        dashboard_tiles: window.currentProfile.dashboard_tiles.split(","),
     },
 
     getters: {

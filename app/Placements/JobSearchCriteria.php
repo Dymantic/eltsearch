@@ -25,7 +25,7 @@ class JobSearchCriteria
         $this->contract_type = $info['contract_type'] ?? [];
         $this->salary = $info['salary'] ?? null;
         $this->hours_per_week = $info['hours_per_week'] ?? null;
-        $this->weekends = $info['weekends'];
+        $this->weekends = $info['weekends'] ?? null;
         $this->engagement = $info['engagement'] ?? '';
         $this->schedule = $info['schedule'] ?? [];
     }

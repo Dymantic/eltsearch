@@ -4,9 +4,11 @@
 namespace App\Purchasing;
 
 
+use App\Notifications\PurchaseComplete;
 use App\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Notification;
 
 trait MakesPurchases
 {
@@ -35,6 +37,7 @@ trait MakesPurchases
 
         if ($result->success()) {
             $this->addPackage($package, $purchase);
+            Notification::send($this->admins, new PurchaseComplete($package, $purchase, $user));
         }
 
         return $purchase;

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Notifications\WelcomeSchool;
 use App\Notifications\WelcomeTeacher;
 use App\Schools\School;
 use App\Schools\SchoolUser;
@@ -14,6 +15,7 @@ use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Log;
 
 class User extends Authenticatable
 {
@@ -122,7 +124,7 @@ class User extends Authenticatable
             'slug'                    => UniqueKey::for('teachers:slug'),
         ];
         $teacher = $this->teacher()->create(array_merge($defaults, $teacher_data));
-
+        Log::info(json_encode($teacher_data));
         if ($teacher_data['avatar'] ?? false) {
             $teacher->setAvatarFromUrl($teacher_data['avatar']);
         }
@@ -143,6 +145,8 @@ class User extends Authenticatable
         $school = School::new($school_data['school_name']);
 
         $school->setOwner($user);
+
+        $user->notify(new WelcomeSchool($user, $school));
 
         return $user;
     }

@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Schools\School;
 use App\User;
 use Illuminate\View\Component;
 
@@ -37,7 +38,7 @@ class UserLayout extends Component
         }
 
         if($this->user->isSchool()) {
-            return '';
+            return School::DEFAULT_LOGO;
         }
 
         if($this->user->isAdmin()) {
@@ -84,6 +85,15 @@ class UserLayout extends Component
     public function preferred_lang()
     {
         return $this->user->preferred_lang ?? 'en';
+    }
+
+    public function dashboardTiles()
+    {
+        if($this->user->isTeacher()) {
+            return $this->user->teacher->checkStatus();
+        }
+
+        return collect([]);
     }
 
 }

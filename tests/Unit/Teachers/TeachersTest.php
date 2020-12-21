@@ -171,5 +171,17 @@ class TeachersTest extends TestCase
 
     }
 
+    /**
+     *@test
+     */
+    public function can_check_if_profile_is_complete()
+    {
+        $complete = factory(Teacher::class)->create();
+        $incomplete = factory(Teacher::class)->state('incomplete')->create();
+
+        $this->assertTrue($complete->hasCompleteProfile());
+        $this->assertFalse($incomplete->hasCompleteProfile());
+    }
+
 
 }

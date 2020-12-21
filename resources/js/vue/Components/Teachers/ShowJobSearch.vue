@@ -1,9 +1,9 @@
 <template>
     <div>
         <page-header title="Your job search">
-            <router-link class="btn btn-primary" to="/job-search/edit"
-                >Edit</router-link
-            >
+            <router-link class="btn btn-primary" to="/job-search/edit">{{
+                empty ? "Create Your Search" : "Edit"
+            }}</router-link>
         </page-header>
 
         <p class="mb-10 text-gray-600 max-w-lg">
@@ -51,6 +51,10 @@ export default {
         used_criteria() {
             const criteria = this.search ? this.search.search_descriptions : [];
             return criteria.filter((crit) => crit.included);
+        },
+
+        empty() {
+            return this.used_criteria.length === 0;
         },
     },
 

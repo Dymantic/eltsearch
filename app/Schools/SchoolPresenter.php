@@ -29,8 +29,8 @@ class SchoolPresenter
             'billing_zip'        => $school->billing_zip,
             'school_types_names' => $school->schoolTypes->map(fn($type) => $type->name->in('en'))->values()->all(),
             'logo'               => [
-                'thumb'    => optional($logo)->getUrl('thumb'),
-                'original' => optional($logo)->getUrl(),
+                'thumb'    => optional($logo)->getUrl('thumb') ?? School::DEFAULT_LOGO,
+                'original' => optional($logo)->getUrl() ?? School::DEFAULT_LOGO,
             ],
             'images'             => $images->map(
                 fn(Media $media) => [

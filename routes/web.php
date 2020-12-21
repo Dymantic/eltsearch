@@ -13,6 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/test-mail', function() {
+    $user = factory(\App\User::class)->state('teacher')->make();
+//    return (new \App\Notifications\WelcomeTeacher($user));
+
+    $message = (new \App\Notifications\WelcomeTeacher($user))->toMail('example@test.com');
+    $markdown = new \Illuminate\Mail\Markdown(view(), config('mail.markdown'));
+
+    return $markdown->render('vendor.notifications.email', $message->data());
+});
 
 Route::group([
     'prefix'     => \Mcamara\LaravelLocalization\Facades\LaravelLocalization::setLocale(),
