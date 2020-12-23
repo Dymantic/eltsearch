@@ -9,6 +9,7 @@ use App\Placements\JobPostInfo;
 use App\Purchasing\HasResumePasses;
 use App\Purchasing\MakesPurchases;
 use App\Purchasing\UsesTokens;
+use App\StatusCheck;
 use App\UniqueKey;
 use App\User;
 use Carbon\Carbon;
@@ -36,16 +37,16 @@ class School extends Model implements HasMedia
     {
         return self::create([
             'name' => $name,
-            'key' => UniqueKey::for('schools:key'),
+            'key'  => UniqueKey::for('schools:key'),
         ]);
     }
 
     public function admins()
     {
         return $this->belongsToMany(User::class)
-            ->withPivot(['owner'])
-            ->as('team')
-            ->using(SchoolUser::class);
+                    ->withPivot(['owner'])
+                    ->as('team')
+                    ->using(SchoolUser::class);
     }
 
     public function scopeSignedUpSince($query, Carbon $cuttoff)
@@ -69,13 +70,12 @@ class School extends Model implements HasMedia
     }
 
 
-
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('thumb')
-            ->fit(Manipulations::FIT_MAX, 600, 600)
-            ->optimize()
-            ->performOnCollections(self::LOGOS, self::IMAGES);
+             ->fit(Manipulations::FIT_MAX, 600, 600)
+             ->optimize()
+             ->performOnCollections(self::LOGOS, self::IMAGES);
     }
 
     public function hasMaxImages(): bool
@@ -86,16 +86,16 @@ class School extends Model implements HasMedia
     public function addImage(UploadedFile $upload): Media
     {
         return $this->addMedia($upload)
-            ->usingFileName($upload->hashName())
-            ->toMediaCollection(self::IMAGES);
+                    ->usingFileName($upload->hashName())
+                    ->toMediaCollection(self::IMAGES);
     }
 
     public function updateProfile(SchoolProfileInfo $info)
     {
         $this->update([
-            'name' => $info->name,
+            'name'         => $info->name,
             'introduction' => $info->introduction,
-            'area_id' => $info->area_id
+            'area_id'      => $info->area_id
         ]);
 
         $this->schoolTypes()->sync($info->types);
@@ -109,7 +109,7 @@ class School extends Model implements HasMedia
     public function postJob(JobPostInfo $info, User $user): JobPost
     {
         $data = array_merge($info->toArray(), [
-            'posted_by' => $user->id,
+            'posted_by'      => $user->id,
             'last_edited_by' => $user->id,
         ]);
 
@@ -123,5 +123,24 @@ class School extends Model implements HasMedia
     public function setBillingDetails(BillingDetails $details)
     {
         $this->update($details->toArray());
+    }
+
+    public function checkStatus()
+    {
+        $checks = [
+            'incomplete_profile'      => IncompleteProfileCheck::class,
+            'incomplete_billing'      => IncompleteBillingDetailsCheck::class,
+            'can_add_images'          => SchoolImagesCheck::class,
+            'has_draft_posts'         => DraftJobPostsCheck::class,
+            'no_resume_pass'          => ResumePassCheck::class,
+            'no_tokens'               => SchoolTokensCheck::class,
+            'has_messages'            => SchoolUserMessagesCheck::class,
+            'has_recent_applications' => RecentApplicationsCheck::class,
+        ];
+
+        return collect($checks)
+            ->map(fn($check, $status) => (new $check($this))->check() ? $status : null)
+            ->reject(fn($status) => $status === null);
+
     }
 }

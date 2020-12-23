@@ -9,6 +9,7 @@ export default {
         current_school_id: window.currentProfile.school_ids[0] || null,
         school_ids: [],
         preferred_lang: "en",
+        dashboard_tiles: window.currentProfile.dashboard_tiles.split(","),
     },
 
     mutations: {

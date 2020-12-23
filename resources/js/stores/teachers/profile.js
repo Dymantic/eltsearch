@@ -1,6 +1,7 @@
 import {
     createTeacherPreviousEmployment,
     deleteTeacherPreviousEmployment,
+    fetchTeacherDashboardStatuses,
     fetchTeacherEducationInfo,
     fetchTeacherGeneralInfo,
     fetchTeacherPreviousEmploymentInfo,
@@ -58,9 +59,19 @@ export default {
         setPreviousEmployments(state, info) {
             state.previous_employments = info;
         },
+
+        setDashboardTiles(state, statuses) {
+            state.dashboard_tiles = statuses;
+        },
     },
 
     actions: {
+        refreshDashboardTiles({ commit }) {
+            return fetchTeacherDashboardStatuses()
+                .then(({ statuses }) => commit("setDashboardTiles", statuses))
+                .catch(() => showError("Failed to refresh dashboard."));
+        },
+
         refreshBasicInfo({ commit }) {
             return refreshProfileInfo()
                 .then((info) => commit("setProfileDetails", info))

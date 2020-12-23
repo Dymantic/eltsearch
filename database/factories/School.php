@@ -27,3 +27,9 @@ $factory->state(School::class, 'empty', [
     'introduction' => null,
     'area_id'      => null,
 ]);
+
+$factory->state(School::class, 'incomplete', [
+    'address'      => null,
+    'introduction' => null,
+    'area_id'      => null,
+]);

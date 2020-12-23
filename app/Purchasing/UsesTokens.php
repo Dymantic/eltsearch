@@ -15,7 +15,10 @@ trait UsesTokens
 
     public function availableTokens()
     {
-        return $this->hasMany(Token::class)->whereNull('spent_on');
+        return $this
+            ->hasMany(Token::class)
+            ->where('expires_on', '>=', now())
+            ->whereNull('spent_on');
     }
 
     public function grantTokens(int $quantity, int $purchase_id, ?Carbon $expires_on = null)

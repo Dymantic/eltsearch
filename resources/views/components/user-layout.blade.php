@@ -20,7 +20,7 @@
                 avatar: "{{ $avatar }}",
                 account_type: "{{ $account }}",
                 preferred_lang: "{{ $preferred_lang }}",
-                dashboard_tiles: "{{ $dashboardTiles()->join(",") }}"
+                dashboard_tiles: "{{ $dashboardTiles()->join(",") }}",
 
                 @if($user->isSchool())
                 school_ids: [{{ $user->schools->pluck('id')->join(", ") }}],

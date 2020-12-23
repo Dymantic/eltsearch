@@ -56,8 +56,11 @@ class TeacherProfilePresenter
             ])->values()->all();
     }
 
-    public static function forSchool(Teacher $teacher, $lang = 'en')
+    public static function forSchool(?Teacher $teacher, $lang = 'en')
     {
+        if(!$teacher) {
+            return [];
+        }
         $teacher->load('previousEmployments');
         $general = self::generalInfo($teacher);
         $education = self::educationInfo($teacher, $lang);
@@ -71,8 +74,11 @@ class TeacherProfilePresenter
         return self::generalInfo($teacher);
     }
 
-    public static function forAdmin(Teacher $teacher)
+    public static function forAdmin(?Teacher $teacher)
     {
+        if(!$teacher) {
+            return [];
+        }
         $general = self::generalInfo($teacher);
         $education = self::educationInfo($teacher);
         $employment = ['previous_employment' => self::previousEmployment($teacher)];

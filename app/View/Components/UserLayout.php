@@ -93,6 +93,10 @@ class UserLayout extends Component
             return $this->user->teacher->checkStatus();
         }
 
+        if($this->user->isSchool()) {
+            return optional($this->user->schools->first())->checkStatus() ?? collect([]);
+        }
+
         return collect([]);
     }
 

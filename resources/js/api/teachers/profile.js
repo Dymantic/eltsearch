@@ -1,5 +1,9 @@
 import { get, post, del } from "../http";
 
+function fetchTeacherDashboardStatuses() {
+    return get("/api/teachers/dashboard-status");
+}
+
 function fetchTeacherGeneralInfo() {
     return get("/api/teachers/profile/general");
 }
@@ -40,6 +44,7 @@ function updateTeacherLocation(area_id) {
 }
 
 export {
+    fetchTeacherDashboardStatuses,
     updateTeacherPersonalInfo,
     fetchTeacherGeneralInfo,
     fetchTeacherEducationInfo,

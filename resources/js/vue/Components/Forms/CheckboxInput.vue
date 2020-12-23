@@ -15,17 +15,7 @@
             <div
                 class="mr-3 w-4 h-4 rounded-sm border border-sky-blue fake-checkbox flex justify-center items-center"
             >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    class="fill-current text-white h-3"
-                >
-                    <path
-                        fill-rule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clip-rule="evenodd"
-                    />
-                </svg>
+                <check-icon class="text-white h-3"></check-icon>
             </div>
             <span class="text-sm">{{ label }}</span>
             <span class="text-xs text-red-400" v-show="errorMsg">{{
@@ -36,7 +26,9 @@
 </template>
 
 <script type="text/babel">
+import CheckIcon from "../Icons/CheckIcon";
 export default {
+    components: { CheckIcon },
     model: {
         prop: "checked",
         event: "input",

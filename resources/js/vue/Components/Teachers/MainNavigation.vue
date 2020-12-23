@@ -1,7 +1,13 @@
 <template>
     <div>
         <div class="mb-3">
-            <router-link class="font-semibold" to="/profile"
+            <router-link exact-active-class="" class="font-semibold" to="/"
+                >Dashboard</router-link
+            >
+        </div>
+
+        <div class="mb-3">
+            <router-link class="font-semibold" to="/profile" active-class=""
                 >My Profile</router-link
             >
         </div>

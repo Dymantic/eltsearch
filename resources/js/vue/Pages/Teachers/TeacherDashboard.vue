@@ -1,29 +1,33 @@
 <template>
     <div>
         <p class="type-h2 mb-12">Hi {{ name }}</p>
-        <incomplete-profile
-            class="my-8"
-            v-if="hasStatus('incomplete_profile')"
-        ></incomplete-profile>
 
-        <no-job-search
-            class="my-8"
-            v-if="hasStatus('no_job_search')"
-        ></no-job-search>
+        <essential-actions
+            :profile-incomplete="hasStatus('incomplete_profile')"
+        ></essential-actions>
 
-        <no-experience
-            class="my-8"
-            v-if="hasStatus('no_experience')"
-        ></no-experience>
+        <suggested-actions
+            :has-experience="!hasStatus('no_experience')"
+            :has-location="!hasStatus('no_location')"
+        ></suggested-actions>
+
+        <job-assistance-actions
+            :has-job-search="!hasStatus('no_job_search')"
+            :has-matches="hasStatus('recent_job_matches')"
+        ></job-assistance-actions>
     </div>
 </template>
 
 <script type="text/babel">
-import NoJobSearch from "../../Components/Teachers/Dashboard/NoJobSearch";
-import NoExperience from "../../Components/Teachers/Dashboard/NoExperience";
-import IncompleteProfile from "../../Components/Teachers/Dashboard/IncompleteProfile";
+import EssentialActions from "../../Components/Teachers/Dashboard/EssentialActions";
+import SuggestedActions from "../../Components/Teachers/Dashboard/SuggestedActions";
+import JobAssistanceActions from "../../Components/Teachers/Dashboard/JobAssistanceActions";
 export default {
-    components: { IncompleteProfile, NoExperience, NoJobSearch },
+    components: {
+        JobAssistanceActions,
+        SuggestedActions,
+        EssentialActions,
+    },
     computed: {
         profileStatuses() {
             return this.$store.state.profile.dashboard_tiles || [];

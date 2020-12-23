@@ -25,10 +25,10 @@ abstract class TestCase extends BaseTestCase
         return $this;
     }
 
-    public function setUpSchool()
+    public function setUpSchool($school_data = [], $owner_data = [])
     {
-        $school = factory(School::class)->create();
-        $owner = factory(User::class)->state('school')->create();
+        $school = factory(School::class)->create($school_data);
+        $owner = factory(User::class)->state('school')->create($owner_data);
         $school->setOwner($owner);
 
         return [$school, $owner];

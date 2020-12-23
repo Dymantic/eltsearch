@@ -13,15 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/test-mail', function() {
-    $user = factory(\App\User::class)->state('teacher')->make();
-//    return (new \App\Notifications\WelcomeTeacher($user));
 
-    $message = (new \App\Notifications\WelcomeTeacher($user))->toMail('example@test.com');
-    $markdown = new \Illuminate\Mail\Markdown(view(), config('mail.markdown'));
-
-    return $markdown->render('vendor.notifications.email', $message->data());
-});
 
 Route::group([
     'prefix'     => \Mcamara\LaravelLocalization\Facades\LaravelLocalization::setLocale(),
@@ -163,6 +155,8 @@ Route::group([
 
     Route::get('schools/{school}/recruitment-attempts', 'SchoolRecruitmentAttemptsController@index');
     Route::post('schools/{school}/recruitment-attempts', 'SchoolRecruitmentAttemptsController@store');
+
+    Route::get('schools/{school}/dashboard-status', 'SchoolDashboardStatusController@show');
 });
 
 Route::group([
@@ -207,6 +201,8 @@ Route::group([
     Route::get('teachers/recruitment-attempts', 'TeacherRecruitmentAttemptsController@index');
 
     Route::post('teachers/dismissed-recruitment-attempts', 'DismissedRecruitmentAttemptsController@store');
+
+    Route::get('teachers/dashboard-status', 'TeacherDashboardStatusController@show');
 
 
 });
