@@ -1,18 +1,12 @@
 <template>
     <div class="my-12 max-w-lg p-6 shadow rounded-lg">
-        <p class="type-h3 mb-6">Get the resume pass</p>
-        <p class="my-1">
-            Get access to teacher resumes to help find the right teacher for
-            your school.
-        </p>
-        <p class="my-1">
-            Find quality candidates, with the right amount of experience, and in
-            your area.
-        </p>
+        <p class="type-h3 mb-6">{{ trns("resume_pass.get_pass") }}</p>
+        <p class="my-1">{{ trns("resume_pass.prompt_one") }}</p>
+        <p class="my-1">{{ trns("resume_pass.prompt_two") }}</p>
         <div class="flex justify-end mt-6">
-            <router-link to="/resume-passes/buy" class="btn btn-primary"
-                >Get access now</router-link
-            >
+            <router-link to="/resume-passes/buy" class="btn btn-primary">{{
+                trns("resume_pass.get_access")
+            }}</router-link>
         </div>
     </div>
 </template>

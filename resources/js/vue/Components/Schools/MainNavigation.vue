@@ -1,6 +1,11 @@
 <template>
     <div>
         <div class="mb-3">
+            <router-link class="font-semibold text-white" to="/">{{
+                trns("nav.dashboard")
+            }}</router-link>
+        </div>
+        <div class="mb-3">
             <router-link class="font-semibold text-white" to="/profile">{{
                 trns("nav.profile")
             }}</router-link>

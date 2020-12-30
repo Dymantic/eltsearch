@@ -1,8 +1,12 @@
 <template>
     <div>
-        <page-header title="Your Resume Pass">
+        <page-header :title="trns('resume_pass.title')">
             <p v-show="passInfo.has_access" class="type-b1">
-                Valid until {{ passInfo.expires_on }}
+                {{
+                    trns("resume_pass.valid_until", "", {
+                        date: passInfo.expires_on,
+                    })
+                }}
             </p>
         </page-header>
 
@@ -24,8 +28,13 @@
 
             <div class="flex mb-4">
                 <p class="type-b1 mr-8">
-                    Found {{ total_records }} resumes. Showing page
-                    {{ page }} of {{ total_pages }}.
+                    {{
+                        trns("resume_pass.total_records", "", {
+                            total_records,
+                            page,
+                            total_pages,
+                        })
+                    }}
                 </p>
                 <div>
                     <button
@@ -33,14 +42,14 @@
                         v-show="page > 1"
                         @click="prevPage"
                     >
-                        &lt; Prev Page
+                        &lt; {{ trns("resume_pass.prev_page") }}
                     </button>
                     <button
                         class="mx-6 text-navy hover:text-sky-blue type-b2"
                         v-show="page < total_pages"
                         @click="nextPage"
                     >
-                        Next Page &gt;
+                        {{ trns("resume_pass.next_page") }} &gt;
                     </button>
                 </div>
             </div>
@@ -51,7 +60,7 @@
                 class="my-6 test-gray-600"
                 v-show="!teachers.length && !fetching"
             >
-                There are no results to show.
+                {{ trns("resume_pass.no_results") }}
             </p>
 
             <div class="" v-if="teachers.length">
@@ -64,7 +73,9 @@
                                     class="focus:outline-none type-b2 flex items-center"
                                     @click="setOrder('name')"
                                 >
-                                    <span>Name</span>
+                                    <span>{{
+                                        trns("resume_pass.teacher_name")
+                                    }}</span>
                                     <sorted-asc-icon
                                         v-show="order === 'name' && !descending"
                                         class="h-4 text-gray-600 ml-1"
@@ -80,7 +91,9 @@
                                     class="focus:outline-none type-b2 flex items-center"
                                     @click="setOrder('nationality')"
                                 >
-                                    <span>Nationality</span>
+                                    <span>{{
+                                        trns("resume_pass.nationality")
+                                    }}</span>
                                     <sorted-asc-icon
                                         v-show="
                                             order === 'nationality' &&
@@ -102,7 +115,7 @@
                                     class="focus:outline-none type-b2 flex items-center"
                                     @click="setOrder('age')"
                                 >
-                                    <span>Age</span>
+                                    <span>{{ trns("resume_pass.age") }}</span>
                                     <sorted-asc-icon
                                         v-show="order === 'age' && !descending"
                                         class="h-4 text-gray-600 ml-1"
@@ -113,7 +126,9 @@
                                     ></sorted-desc-icon>
                                 </button>
                             </th>
-                            <th class="p-2">Education</th>
+                            <th class="p-2">
+                                {{ trns("resume_pass.education") }}
+                            </th>
                         </tr>
                     </thead>
                     <tbody>

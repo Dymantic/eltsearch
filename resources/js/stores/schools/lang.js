@@ -2,6 +2,7 @@ import enTranslations from "../../lang/en";
 import zhTranslations from "../../lang/zh";
 import { setPreferredLang } from "../../api/lang";
 import { showError } from "../../libs/notifications";
+import { withSubstitutions } from "../../libs/strings";
 
 export default {
     namespaced: true,
@@ -13,20 +14,21 @@ export default {
     },
 
     getters: {
-        byKey: (state) => (key, fallback) => {
+        byKey: (state) => (key, fallback, subs) => {
             const found = key.split(".").reduce((bag, next_key) => {
                 return (bag || {})[next_key];
             }, state[state.locale]);
 
             if (state.locale === "en" || found) {
-                return found || fallback;
+                return withSubstitutions(found || fallback, subs);
             }
 
-            return (
+            const result =
                 key.split(".").reduce((bag, next_key) => {
                     return (bag || {})[next_key];
-                }, state.en) || fallback
-            );
+                }, state.en) || fallback;
+
+            return withSubstitutions(result, subs);
         },
     },
 

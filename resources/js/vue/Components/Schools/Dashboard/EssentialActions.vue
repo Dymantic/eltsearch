@@ -1,24 +1,26 @@
 <template>
     <div class="p-6 max-w-3xl border border-sky-blue">
-        <p class="type-h3 text-sky-blue">Essentials</p>
+        <p class="type-h3 text-sky-blue">
+            {{ trns("dashboard.essentials.title") }}
+        </p>
         <p class="my-1">
-            This is what you need to do before you can get started.
+            {{ trns("dashboard.essentials.explain") }}
         </p>
 
         <dashboard-action
             url="/profile"
-            action="Complete Your Profile"
+            :action="trns('dashboard.essentials.complete_action')"
             :complete="!profileIncomplete"
-            done="Your profile is complete."
-            reason="Your profile needs to be completed before you can start posting jobs."
+            :done="trns('dashboard.essentials.complete_done')"
+            :reason="trns('dashboard.essentials.complete_reason')"
         ></dashboard-action>
 
         <dashboard-action
             url="/billing-details"
-            action="Add your Billing Details"
+            :action="trns('dashboard.essentials.billing_action')"
             :complete="hasBillingInfo"
-            done="Your billing information is complete"
-            reason="You need to add your billing information before you can start posting jobs or viewing teacher resumes."
+            :done="trns('dashboard.essentials.billing_done')"
+            :reason="trns('dashboard.essentials.billing_reason')"
         ></dashboard-action>
     </div>
 </template>

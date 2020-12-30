@@ -1,41 +1,40 @@
 <template>
     <div class="p-6 max-w-3xl my-12 border border-sky-blue shadow-lg">
-        <p class="type-h3 text-sky-blue">Suggestions</p>
-        <p class="my-1">
-            Here are some things we suggest doing to increase your Job Search
-            prospects.
+        <p class="type-h3 text-sky-blue">
+            {{ trns("dashboard.suggestions.title") }}
         </p>
+        <p class="my-1">{{ trns("dashboard.suggestions.explain") }}</p>
 
         <dashboard-action
             url="/tokens"
-            action="Get Tokens"
+            :action="trns('dashboard.suggestions.tokens_action')"
             :complete="hasTokens"
-            done="You have tokens in store."
-            reason="You need to get tokens to post jobs. You can either get a single token, or a bunch at a discounted rate."
+            :done="trns('dashboard.suggestions.tokens_done')"
+            :reason="trns('dashboard.suggestions.tokens_reason')"
         ></dashboard-action>
 
         <dashboard-action
             url="/resume-pass"
-            action="Get the Resume Pass"
+            :action="trns('dashboard.suggestions.resume_action')"
             :complete="hasResumeAccess"
-            done="You already have the resume pass"
-            reason="Get the resume pass to browse and find teachers that suit your needs."
+            :done="trns('dashboard.suggestions.resume_done')"
+            :reason="trns('dashboard.suggestions.resume_reason')"
         ></dashboard-action>
 
         <dashboard-action
             url="/profile/images"
-            action="Upload some images"
+            :action="trns('dashboard.suggestions.images_action')"
             :complete="!canAddImages"
-            done="You already have added the maximum number of images"
-            reason="Adding images of your school helps teachers see what your school is like and can increase your chances of finding a new teacher."
+            :done="trns('dashboard.suggestions.images_done')"
+            :reason="trns('dashboard.suggestions.images_reason')"
         ></dashboard-action>
 
         <dashboard-action
             url="/job-posts"
-            action="Complete your Job Post"
+            :action="trns('dashboard.suggestions.post_action')"
             :complete="!hasDraftPosts"
-            done="You don't have any incomplete job posts."
-            reason="You have a job post that is still a draft. There is no time like the present to get that completed."
+            :done="trns('dashboard.suggestions.post_done')"
+            :reason="trns('dashboard.suggestions.post_reason')"
         ></dashboard-action>
     </div>
 </template>

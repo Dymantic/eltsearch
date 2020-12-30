@@ -1,9 +1,6 @@
 <template>
     <div class="my-12 flex justify-between max-w-3xl">
-        <p class="type-b1">
-            Use filters to narrow your seach by location, nationality or
-            teaching experience.
-        </p>
+        <p class="type-b1">{{ trns("resume_pass.use_filters") }}</p>
         <button
             @click="showFilters = true"
             class="flex items-center leading-none"
@@ -17,15 +14,15 @@
                     d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z"
                 />
             </svg>
-            <span>Filters</span>
+            <span>{{ trns("resume_pass.filters") }}</span>
         </button>
         <modal :show="showFilters" @close="showFilters = false">
             <div class="max-w-3xl p-6 rounded-lg">
-                <p class="type-h3 mb-4">Filters</p>
+                <p class="type-h3 mb-4">{{ trns("resume_pass.filters") }}</p>
                 <div class="">
-                    <p class="text-sm">Location:</p>
+                    <p class="text-sm">{{ trns("resume_pass.location") }}:</p>
                     <checkbox-input
-                        label="Only teachers in my area"
+                        :label="trns('resume_pass.only_in_area')"
                         v-model="filters.area"
                         :value="true"
                         class="my-3 pb-3 border-b border-gray-200"
@@ -33,7 +30,7 @@
 
                     <select-field
                         class="my-3 pb-3 border-b border-gray-200"
-                        label="Experience level:"
+                        :label="`${trns('resume_pass.experience_level')}:`"
                         :options="experience_options"
                         v-model="filters.experience"
                         empty="Any amount of experience"
@@ -41,7 +38,7 @@
 
                     <select-field
                         class="my-3 pb-3 border-b border-gray-200"
-                        label="Nationality:"
+                        :label="`${trns('resume_pass.nationality')}:`"
                         :options="nations"
                         v-model="filters.nation_id"
                         empty="Any nationality"
@@ -53,7 +50,7 @@
                             @click="clearFilters"
                             class="btn mr-4"
                         >
-                            Clear All
+                            {{ trns("resume_pass.filters_clear") }}
                         </button>
 
                         <button
@@ -61,7 +58,7 @@
                             @click="applyFilters"
                             class="btn btn-primary"
                         >
-                            Go
+                            {{ trns("resume_pass.filters_apply") }}
                         </button>
                     </div>
                 </div>

@@ -1,7 +1,9 @@
 <template>
     <div v-if="school">
-        <page-header title="Get Tokens">
-            <p class="type-h4">You have {{ tokens.length }} token(s)</p>
+        <page-header :title="trns('tokens.get_tokens')">
+            <p class="type-h4">
+                {{ trns("tokens.token_count", "", { count: tokens.length }) }}
+            </p>
         </page-header>
 
         <product-list :buyables="buyables" class="my-12"></product-list>

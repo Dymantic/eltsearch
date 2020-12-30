@@ -1,6 +1,8 @@
 <template>
     <div>
-        <p class="type-h2 mb-12 text-navy">Hi {{ name }}</p>
+        <p class="type-h2 mb-12 text-navy">
+            {{ trns("dashboard.greeting", "", { name }) }}
+        </p>
 
         <essential-actions
             :profile-incomplete="hasStatus('incomplete_profile')"

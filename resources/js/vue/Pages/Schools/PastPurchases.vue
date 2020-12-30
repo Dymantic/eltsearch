@@ -1,15 +1,17 @@
 <template>
     <div v-if="school">
-        <page-header title="Your purchases"></page-header>
+        <page-header :title="trns('purchases.title')"></page-header>
 
         <div class="my-12 shadow rounded-lg p-6">
             <table class="w-full">
                 <thead>
                     <tr class="text-left border-b border-gray-300">
-                        <th class="py-2">Date</th>
-                        <th class="py-2">Item</th>
-                        <th class="py-2">Price</th>
-                        <th class="py-2">Purchased By</th>
+                        <th class="py-2">{{ trns("purchases.date") }}</th>
+                        <th class="py-2">{{ trns("purchases.item") }}</th>
+                        <th class="py-2">{{ trns("purchases.price") }}</th>
+                        <th class="py-2">
+                            {{ trns("purchases.purchased_by") }}
+                        </th>
                     </tr>
                 </thead>
                 <tbody>

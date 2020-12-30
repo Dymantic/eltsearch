@@ -12,6 +12,7 @@ export default {
         tokens: "Buy Tokens",
         resume_pass: "Resume Pass",
         purchases: "Purchases",
+        dashboard: "Dashboard",
     },
     actions: {
         edit: "Edit",
@@ -179,5 +180,113 @@ export default {
         state_label: "State",
         submit: "Update Billing Info",
         success: "Billing details updated",
+        info: "Billing Info",
+        note: "Note",
+        incomplete:
+            "Your billing details are not complete. Please update your billing info before you make any purchases.",
+        update: "Update Billing Info",
+    },
+    tokens: {
+        get_tokens: "Get Tokens",
+        token_count: "You have :count: token(s)",
+    },
+    resume_pass: {
+        title: "Your Resume Pass",
+        valid_until: "Valid until :date:",
+        expires:
+            "Your resume pass will expire in <span class='type-b2'>:days: days</span>",
+        extend: "Extend your pass",
+        use_filters:
+            "Use filters to narrow your search by location, nationality or teaching experience",
+        filters: "Filters",
+        total_records:
+            "Found :total_records: resumes. Showing page :page: of :total_pages:",
+        next_page: "Next page",
+        prev_page: "Prev page",
+        no_results: "There are no results to show.",
+        teacher_name: "Teacher's Name",
+        nationality: "Nationality",
+        age: "Age",
+        only_in_area: "Only in my area",
+        location: "Location",
+        education: "Education",
+        experience_level: "Experience level",
+        years_experience: "Years experience",
+        filters_clear: "Clear all",
+        filters_apply: "Apply",
+        get_pass: "Get the resume pass",
+        prompt_one:
+            "Get access to teacher resumes to help find the right teacher for your school.",
+        prompt_two:
+            "Find quality candidates, with the right amount of experience, and in your area.",
+        get_access: "Get access now",
+    },
+    resume: {
+        title: "Teacher Resume",
+        contact_teacher: "Contact teacher",
+        age: "Age",
+        experience_label: "Teaching Experience",
+        experience_years: ":years: years",
+        native_lang: "Native languages",
+        other_langs: "Other languages",
+        education: "Education",
+        work_experience: "Work Experience",
+    },
+    purchases: {
+        title: "Your Purchases",
+        date: "Date",
+        item: "Item",
+        price: "Price",
+        purchased_by: "Purchased By",
+    },
+    dashboard: {
+        greeting: "Hi :name:",
+        essentials: {
+            title: "Essentials",
+            explain: "This is what you need to do before you get started",
+            complete_action: "Complete your Profile",
+            complete_reason:
+                "Your profile needs to be completed before you can start posting jobs.",
+            complete_done: "Your profile is complete.",
+            billing_action: "Add your Billing Details",
+            billing_reason:
+                "You need to add your billing information before you can start posting jobs or viewing teacher resumes.",
+            billing_done: "Your billing information is complete.",
+        },
+        suggestions: {
+            title: "Suggestions",
+            explain:
+                "Here are some things we suggest doing to increase your Job Search prospects.",
+            tokens_action: "Get Tokens",
+            tokens_reason:
+                "You need to get tokens to post jobs. You can either get a single token, or a bunch at a discounted rate.",
+            tokens_done: "You have tokens in store.",
+            resume_action: "Get the Resume Pass",
+            resume_reason:
+                "Get the resume pass to browse and find teachers that suit your needs.",
+            resume_done: "You already have the resume pass.",
+            images_action: "Upload some images",
+            images_reason:
+                "Adding images of your school helps teachers see what your school is like and can increase your chances of finding a new teacher.",
+            images_done: "You already have added the maximum number of images.",
+            post_action: "Complete your Job Post",
+            post_reason:
+                "You have a job post that is still a draft. There is no time like the present to get that completed.",
+            post_done: "You don't have any incomplete job posts.",
+        },
+        connect: {
+            title: "Connect with Teachers",
+            explain:
+                "Here are some actions you can take to possibly connect with new teachers.",
+            applications_action: "Review Applications",
+            applications_reason:
+                "Review applications from teachers who have applied to your job post.",
+            applications_done:
+                "You don't have any recent applications at the moment.",
+            messages_action: "Check your Messages",
+            messages_reason: "You have no new messages.",
+            messages_done:
+                "Check up on your unread messages, there could be an opportunity waiting for you.",
+        },
     },
 };
