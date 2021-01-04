@@ -3,7 +3,11 @@
 namespace App\Providers;
 
 use App\Events\ApplicationReceived;
+use App\Events\TeacherProfileDisabled;
+use App\Events\TeacherProfileReinstated;
 use App\Listeners\NotifySchoolOfApplication;
+use App\Listeners\NotifyTeacherOfDisabling;
+use App\Listeners\NotifyTeacherOfReinstatement;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -22,7 +26,13 @@ class EventServiceProvider extends ServiceProvider
         ],
         ApplicationReceived::class => [
             NotifySchoolOfApplication::class
-        ]
+        ],
+        TeacherProfileDisabled::class => [
+            NotifyTeacherOfDisabling::class
+        ],
+        TeacherProfileReinstated::class => [
+            NotifyTeacherOfReinstatement::class,
+        ],
 
 
     ];

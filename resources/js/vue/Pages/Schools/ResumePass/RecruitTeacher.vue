@@ -1,6 +1,6 @@
 <template>
     <div>
-        <page-header title="Contact Teacher"></page-header>
+        <page-header :title="trns('recruit.title')"></page-header>
 
         <busy-loading v-if="!teacher"></busy-loading>
 
@@ -22,8 +22,11 @@
                 class="my-6 border border-green-700 bg-green-100 rounded-lg p-4 max-w-lg"
             >
                 <p>
-                    You have already sent a message to {{ teacher.name }} on the
-                    following dates:
+                    {{
+                        trns("recruit.previous_contacts", "", {
+                            name: teacher.name,
+                        })
+                    }}
                 </p>
                 <ul class="list-disc list-inside type-b4">
                     <li v-for="attempt in recentAttempts" :key="attempt.id">
@@ -31,9 +34,7 @@
                     </li>
                 </ul>
                 <p class="my-3">
-                    Please be aware that some teachers may not enjoy being
-                    contacted too often. You may only message a teacher three
-                    limes in a two-month period.
+                    {{ trns("recruit.warning") }}
                 </p>
             </div>
 
@@ -42,9 +43,7 @@
                 v-if="recentAttempts.length > 2"
             >
                 <p>
-                    You have already contacted {{ teacher.name }} three times in
-                    the last two months. You may not send another message at
-                    this time.
+                    {{ trns("recruit.forbidden", "", { name: teacher.name }) }}
                 </p>
             </div>
             <recruitment-attempt-form

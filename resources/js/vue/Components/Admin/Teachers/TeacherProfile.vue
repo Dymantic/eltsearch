@@ -1,8 +1,15 @@
 <template>
     <div>
-        <p class="type-h3 capitalize pb-2 mb-2 border-b border-gray-300">
-            {{ teacher.name }}
-        </p>
+        <div class="flex items-center pb-2 mb-2 border-b border-gray-300">
+            <p class="type-h3 capitalize mr-3">
+                {{ teacher.name }}
+            </p>
+            <colour-label
+                colour="red"
+                text="Profile Disabled"
+                v-if="teacher.is_disabled"
+            ></colour-label>
+        </div>
         <div class="flex flex-col md:flex-row justify-between">
             <div>
                 <p class="type-h4 my-2">{{ teacher.nationality }}</p>
@@ -84,7 +91,9 @@
 </template>
 
 <script type="text/babel">
+import ColourLabel from "../../ColourLabel";
 export default {
+    components: { ColourLabel },
     props: ["teacher"],
 
     computed: {

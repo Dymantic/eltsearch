@@ -4,6 +4,8 @@ namespace App\Teachers;
 
 use App\ContactDetails;
 use App\Events\ApplicationReceived;
+use App\Events\TeacherProfileDisabled;
+use App\Events\TeacherProfileReinstated;
 use App\Locations\Area;
 use App\Nation;
 use App\Placements\JobApplication;
@@ -60,7 +62,8 @@ class Teacher extends Model implements HasMedia
     protected $dates = ['date_of_birth'];
 
     protected $casts = [
-        'is_public' => 'boolean'
+        'is_public' => 'boolean',
+        'disabled_on' => 'date'
     ];
 
     public function scopeComplete(Builder $query)
@@ -305,5 +308,30 @@ class Teacher extends Model implements HasMedia
         return collect($checks)
             ->map(fn($c, $key) => (new $c($this))->check() ? $key : null)
             ->filter(fn($s) => $s !== null);
+    }
+
+    public function disable()
+    {
+        if(!$this->isDisabled()) {
+            TeacherProfileDisabled::dispatch($this);
+        }
+
+        $this->disabled_on = now();
+        $this->save();
+    }
+
+    public function reinstate()
+    {
+        if($this->isDisabled()) {
+            TeacherProfileReinstated::dispatch($this);
+        }
+
+        $this->disabled_on = null;
+        $this->save();
+    }
+
+    public function isDisabled(): bool
+    {
+        return $this->disabled_on !== null;
     }
 }

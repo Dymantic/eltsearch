@@ -289,4 +289,22 @@ export default {
                 "Check up on your unread messages, there could be an opportunity waiting for you.",
         },
     },
+
+    recruit: {
+        title: "Contact Teacher",
+        explanation:
+            "Send a message to <span class='type-b2'>:name:</span> if you'd like them to get in touch. Once they have read your message they will be able to contact you.",
+        previous_contacts:
+            "You have already sent a message to :name: on these dates:",
+        warning:
+            "Please be aware that some teachers may not enjoy being contacted too often. You may only message a teacher three limes in a two-month period.",
+        forbidden:
+            "You have already contacted :name: three times in the last two months. You may not send another message at this time.",
+        message_label: "Your message",
+        contact_person: "Contact person name",
+        contact_help: "Who should the teacher ask to speak to?",
+        email: "Email address",
+        phone: "Phone number",
+        submit: "Send message",
+    },
 };

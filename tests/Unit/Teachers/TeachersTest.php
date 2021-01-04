@@ -183,5 +183,29 @@ class TeachersTest extends TestCase
         $this->assertFalse($incomplete->hasCompleteProfile());
     }
 
+    /**
+     *@test
+     */
+    public function can_disable_a_teacher_profile()
+    {
+        $teacher = factory(Teacher::class)->state('enabled')->create();
+        $teacher->disable();
+
+        $this->assertTrue($teacher->isDisabled());
+        $this->assertTrue($teacher->disabled_on->isToday());
+    }
+
+    /**
+     *@test
+     */
+    public function can_reinstate_a_teacher()
+    {
+        $teacher = factory(Teacher::class)->state('disabled')->create();
+        $teacher->reinstate();
+
+        $this->assertFalse($teacher->isDisabled());
+        $this->assertNull($teacher->disabled_on);
+    }
+
 
 }

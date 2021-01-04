@@ -1,13 +1,12 @@
 <template>
     <form @submit.prevent="submit" class="max-w-lg">
-        <p class="my-4">
-            Send a message to <span class="type-b2">{{ teacher.name }}</span> if
-            you'd like them to get in touch. Once they have read your message
-            they will be able to contact you.
-        </p>
+        <p
+            class="my-4"
+            v-html="trns('recruit.explanation', '', { name: teacher.name })"
+        ></p>
         <textarea-field
             class="my-6"
-            label="Your message"
+            :label="trns('recruit.message_label')"
             v-model="formData.message"
             :error-msg="formErrors.message"
             height="h-40"
@@ -15,27 +14,29 @@
 
         <input-field
             class="my-6"
-            label="Contact person name"
+            :label="trns('recruit.contact_person')"
             v-model="formData.contact_person"
             :error-msg="formErrors.contact_person"
-            help-text="Who should the teacher contact?"
+            :help-text="trns('recruit.contact_help')"
         ></input-field>
 
         <input-field
             class="my-6"
-            label="Email address"
+            :label="trns('recruit.email')"
             v-model="formData.email"
             :error-msg="formErrors.email"
         ></input-field>
 
         <input-field
             class="my-6"
-            label="Phone number"
+            :label="trns('recruit.phone')"
             v-model="formData.phone"
             :error-msg="formErrors.phone"
         ></input-field>
 
-        <submit-button :waiting="waiting">Send message</submit-button>
+        <submit-button :waiting="waiting">{{
+            trns("recruit.submit")
+        }}</submit-button>
     </form>
 </template>
 

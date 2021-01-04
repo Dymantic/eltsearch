@@ -254,4 +254,7 @@ Route::group([
     Route::get('purchases', 'PurchasesController@index');
     Route::get('purchases/{purchase}', 'PurchasesController@show');
     Route::get('purchases-overview', 'PurchasesOverviewController@show');
+
+    Route::post('disabled-teachers', 'DisabledTeachersController@store');
+    Route::delete('disabled-teachers/{teacher}', 'DisabledTeachersController@destroy');
 });

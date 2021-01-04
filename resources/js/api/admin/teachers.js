@@ -1,4 +1,4 @@
-import { get } from "../http";
+import { del, get, post } from "../http";
 
 function fetchTeacherOverview() {
     return get("/api/admin/teachers-overview");
@@ -16,8 +16,22 @@ function queryTeachers(
     );
 }
 
+function disableTeacher(teacher_id) {
+    return post("/api/admin/disabled-teachers", { teacher_id });
+}
+
+function reinstateTeacher(teacher_id) {
+    return del(`/api/admin/disabled-teachers/${teacher_id}`);
+}
+
 function fetchTeacherById(teacher_id) {
     return get(`/api/admin/teachers/${teacher_id}`);
 }
 
-export { fetchTeacherOverview, fetchTeacherById, queryTeachers };
+export {
+    fetchTeacherOverview,
+    fetchTeacherById,
+    queryTeachers,
+    disableTeacher,
+    reinstateTeacher,
+};

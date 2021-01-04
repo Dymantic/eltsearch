@@ -26,6 +26,7 @@ $factory->define(Teacher::class, function (Faker $faker) {
         'education_institution'   => $faker->words(3, true),
         'education_qualification' => $faker->words(3, true),
         'years_experience'        => $faker->numberBetween(1, 15),
+        'disabled_on'             => null,
     ];
 });
 
@@ -49,4 +50,12 @@ $factory->state(Teacher::class, 'incomplete', [
     'native_language'         => '',
     'education_level'         => '',
     'education_qualification' => '',
+]);
+
+$factory->state(Teacher::class, 'enabled', [
+    'disabled_on'             => null,
+]);
+
+$factory->state(Teacher::class, 'disabled', [
+    'disabled_on'             => now(),
 ]);

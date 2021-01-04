@@ -30,7 +30,9 @@ class TeacherProfilePresenter
 
     public static function educationInfo(Teacher $teacher, $lang = 'en'): array
     {
-        $level = $teacher->education_level ? trans("teachers.education_levels.{$teacher->education_level}", [], $lang) : '';
+        $level = $teacher->education_level ? trans("teachers.education_levels.{$teacher->education_level}", [],
+            $lang) : '';
+
         return [
             'education_level'         => $level,
             'education_institution'   => $teacher->education_institution,
@@ -58,7 +60,7 @@ class TeacherProfilePresenter
 
     public static function forSchool(?Teacher $teacher, $lang = 'en')
     {
-        if(!$teacher) {
+        if (!$teacher) {
             return [];
         }
         $teacher->load('previousEmployments');
@@ -76,13 +78,14 @@ class TeacherProfilePresenter
 
     public static function forAdmin(?Teacher $teacher)
     {
-        if(!$teacher) {
+        if (!$teacher) {
             return [];
         }
         $general = self::generalInfo($teacher);
         $education = self::educationInfo($teacher);
         $employment = ['previous_employment' => self::previousEmployment($teacher)];
 
-        return array_merge($general, $education, $employment, ['id' => $teacher->id]);
+        return array_merge($general, $education, $employment,
+            ['id' => $teacher->id, 'is_disabled' => $teacher->isDisabled()]);
     }
 }
