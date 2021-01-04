@@ -11,7 +11,7 @@
             <div>
                 {{ notification.message }}
             </div>
-            <div class="mt-6 text-center">
+            <div class="mt-6 text-center" v-if="has_action">
                 <router-link :to="action_url" class="btn-primary btn">
                     {{ notification.action }}
                 </router-link>
@@ -49,6 +49,12 @@ export default {
                 this.notification.url.substring(
                     this.notification.url.indexOf("#") + 1
                 ) || "/"
+            );
+        },
+
+        has_action() {
+            return (
+                this.notification.url !== "" && this.notification.action !== ""
             );
         },
     },

@@ -3,6 +3,8 @@
 namespace App\Schools;
 
 use App\BillingDetails;
+use App\Events\SchoolProfileDisabled;
+use App\Events\SchoolProfileReinstated;
 use App\Locations\Area;
 use App\Placements\JobPost;
 use App\Placements\JobPostInfo;
@@ -142,5 +144,29 @@ class School extends Model implements HasMedia
             ->map(fn($check, $status) => (new $check($this))->check() ? $status : null)
             ->reject(fn($status) => $status === null);
 
+    }
+
+    public function disable()
+    {
+        if(!$this->isDisabled()) {
+            SchoolProfileDisabled::dispatch($this);
+        }
+
+        $this->disabled_on = now();
+        $this->save();
+    }
+
+    public function isDisabled(): bool
+    {
+        return $this->disabled_on !== null;
+    }
+
+    public function reinstate()
+    {
+        if($this->isDisabled()) {
+            SchoolProfileReinstated::dispatch($this);
+        }
+        $this->disabled_on = null;
+        $this->save();
     }
 }

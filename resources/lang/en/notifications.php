@@ -19,5 +19,17 @@ return [
         'message' => 'Hi :name. A purchase of :package has been successfully completed by :buyer. The amount paid was :price. Thank you very much.',
         'action' => 'View details',
         'you' => 'you',
+    ],
+
+    'school_disabled' => [
+        'subject' => 'Your school profile has been disabled',
+        'message' => 'Hi :name. Your school profile for :school has been been temporarily disabled. If you would like to query this decision, please contact ELT Search at services@eltsearch.com. If the profile remains disabled for over 30 days, it will be permanently deleted. While the profile is disabled, it is not visible to the public, and you may not use all the ELT Search functions. Thanks.',
+        'action' => '',
+    ],
+
+    'school_reinstated' => [
+        'subject' => 'Your school profile has been reinstated',
+        'message' => 'Hi :name. Your school profile :school has been reinstated. All the best.',
+        'action' => '',
     ]
 ];

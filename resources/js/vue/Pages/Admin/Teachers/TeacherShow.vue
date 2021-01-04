@@ -82,6 +82,7 @@ export default {
                 .then(() => {
                     this.fetch();
                     showSuccess("Profile disabled.");
+                    this.$store.dispatch("teachers/refresh");
                 })
                 .catch(() => showError("Unable to disable teacher"))
                 .then(() => (this.waiting_on_disable = false));
@@ -93,6 +94,7 @@ export default {
                 .then(() => {
                     this.fetch();
                     showSuccess("Profile reinstated.");
+                    this.$store.dispatch("teachers/refresh");
                 })
                 .catch(() => showError("Unable to reinstate teacher"))
                 .then(() => (this.waiting_on_reinstate = false));

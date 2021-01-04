@@ -32,12 +32,12 @@ export default {
                 .catch(() => showError("Failed to fetch schools info"));
         },
 
-        getById({ state }, school_id) {
+        getById({ state }, { school_id, force = false }) {
             const from_recent = state.recent.find(
                 (s) => s.id === parseInt(school_id)
             );
 
-            if (from_recent) {
+            if (from_recent && !force) {
                 return Promise.resolve(from_recent);
             }
 

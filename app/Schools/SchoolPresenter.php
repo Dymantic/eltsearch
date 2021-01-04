@@ -100,6 +100,7 @@ class SchoolPresenter
                 ]
             )->values()->all(),
             'signed_up' => $school->created_at->diffForHumans(),
+            'is_disabled' => $school->isDisabled(),
         ];
     }
 }

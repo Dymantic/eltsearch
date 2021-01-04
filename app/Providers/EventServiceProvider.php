@@ -3,9 +3,13 @@
 namespace App\Providers;
 
 use App\Events\ApplicationReceived;
+use App\Events\SchoolProfileDisabled;
+use App\Events\SchoolProfileReinstated;
 use App\Events\TeacherProfileDisabled;
 use App\Events\TeacherProfileReinstated;
 use App\Listeners\NotifySchoolOfApplication;
+use App\Listeners\NotifySchoolOfDisabling;
+use App\Listeners\NotifySchoolOfReinstatement;
 use App\Listeners\NotifyTeacherOfDisabling;
 use App\Listeners\NotifyTeacherOfReinstatement;
 use Illuminate\Auth\Events\Registered;
@@ -32,6 +36,12 @@ class EventServiceProvider extends ServiceProvider
         ],
         TeacherProfileReinstated::class => [
             NotifyTeacherOfReinstatement::class,
+        ],
+        SchoolProfileDisabled::class => [
+            NotifySchoolOfDisabling::class,
+        ],
+        SchoolProfileReinstated::class => [
+            NotifySchoolOfReinstatement::class,
         ],
 
 
