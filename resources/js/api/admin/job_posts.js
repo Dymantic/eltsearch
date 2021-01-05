@@ -1,4 +1,4 @@
-import { get } from "../http";
+import { del, get, post } from "../http";
 
 function getJobPostsOverview() {
     return get("/api/admin/job-posts-overview");
@@ -20,4 +20,18 @@ function getJobPostById(job_post_id) {
     return get(`/api/admin/job-posts/${job_post_id}`);
 }
 
-export { getJobPostsOverview, queryJobPosts, getJobPostById };
+function disableJobPost(job_post_id) {
+    return post("/api/admin/disabled-job-posts", { job_post_id });
+}
+
+function reinstateJobPost(job_post_id) {
+    return del(`/api/admin/disabled-job-posts/${job_post_id}`);
+}
+
+export {
+    getJobPostsOverview,
+    queryJobPosts,
+    getJobPostById,
+    disableJobPost,
+    reinstateJobPost,
+};

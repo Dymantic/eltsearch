@@ -3,12 +3,16 @@
 namespace App\Providers;
 
 use App\Events\ApplicationReceived;
+use App\Events\JobPostDisabled;
+use App\Events\JobPostReinstated;
 use App\Events\SchoolProfileDisabled;
 use App\Events\SchoolProfileReinstated;
 use App\Events\TeacherProfileDisabled;
 use App\Events\TeacherProfileReinstated;
 use App\Listeners\NotifySchoolOfApplication;
+use App\Listeners\NotifySchoolOfDisabledJobPost;
 use App\Listeners\NotifySchoolOfDisabling;
+use App\Listeners\NotifySchoolOfJobPostReinstatement;
 use App\Listeners\NotifySchoolOfReinstatement;
 use App\Listeners\NotifyTeacherOfDisabling;
 use App\Listeners\NotifyTeacherOfReinstatement;
@@ -43,6 +47,12 @@ class EventServiceProvider extends ServiceProvider
         SchoolProfileReinstated::class => [
             NotifySchoolOfReinstatement::class,
         ],
+        JobPostDisabled::class => [
+            NotifySchoolOfDisabledJobPost::class,
+        ],
+        JobPostReinstated::class => [
+            NotifySchoolOfJobPostReinstatement::class,
+        ]
 
 
     ];

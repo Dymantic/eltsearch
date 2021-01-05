@@ -2,6 +2,8 @@
 
 namespace App\Placements;
 
+use App\Events\JobPostDisabled;
+use App\Events\JobPostReinstated;
 use App\Exceptions\InsufficientTokensException;
 use App\Locations\Area;
 use App\Purchasing\Token;
@@ -306,6 +308,13 @@ class JobPost extends Model implements HasMedia
 
     public function status($lang)
     {
+        if($this->isDisabled()) {
+            return [
+                'text'   => trans('job_posts.status.disabled', [], $lang),
+                'colour' => 'red'
+            ];
+        }
+
         if ($this->isDraft()) {
             return [
                 'text'   => trans('job_posts.status.draft', [], $lang),
@@ -410,5 +419,29 @@ class JobPost extends Model implements HasMedia
     public function hasMaxImages()
     {
         return $this->getMedia(self::IMAGES)->count() >= self::MAX_IMAGES;
+    }
+
+    public function disable()
+    {
+        if(!$this->isDisabled()) {
+            JobPostDisabled::dispatch($this);
+        }
+        $this->disabled_on = now();
+        $this->save();
+    }
+
+    public function isDisabled(): bool
+    {
+        return $this->disabled_on !== null;
+    }
+
+    public function reinstate()
+    {
+        if($this->isDisabled()) {
+            JobPostReinstated::dispatch($this);
+        }
+
+        $this->disabled_on = null;
+        $this->save();
     }
 }

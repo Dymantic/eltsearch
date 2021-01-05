@@ -103,6 +103,7 @@ class JobPostPresenter
                     'original' => $media->getUrl(),
                 ]
             )->values()->all(),
+            'is_disabled' => $post->isDisabled(),
         ];
     }
 

@@ -29,11 +29,12 @@ $factory->define(JobPost::class, function (Faker $faker) {
         'salary_min'             => $faker->numberBetween(100, 100000),
         'salary_max'             => $faker->numberBetween(100, 100000),
         'start_date'             => Carbon::today(),
-        'benefits'               => $faker->randomElements(JobPost::ALLOWED_BENEFITS,2),
+        'benefits'               => $faker->randomElements(JobPost::ALLOWED_BENEFITS, 2),
         'contract_length'        => $faker->randomElement(JobPost::ALLOWED_CONTRACT_LENGTHS),
         'schedule'               => $faker->randomElements(JobPost::ALLOWED_SCHEDULE, 2),
         'first_published_at'     => Carbon::yesterday(),
-        'is_public'              => $faker->boolean
+        'is_public'              => $faker->boolean,
+        'disabled_on'            => null,
     ];
 });
 
@@ -58,4 +59,10 @@ $factory->state(JobPost::class, 'current', [
 $factory->state(JobPost::class, 'expired', [
     'first_published_at' => Carbon::yesterday()->subDays(30),
     'is_public'          => true,
+]);
+
+$factory->state(JobPost::class, 'disabled', [
+    'first_published_at' => Carbon::yesterday(),
+    'is_public'          => true,
+    'disabled_on'        => now(),
 ]);

@@ -7,6 +7,7 @@ return [
         'draft' => 'Draft',
         'private' => 'Private',
         'expired' => 'Expired',
+        'disabled' => 'Disabled',
     ],
 
     'engagement' => [

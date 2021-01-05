@@ -31,5 +31,17 @@ return [
         'subject' => 'Your school profile has been reinstated',
         'message' => 'Hi :name. Your school profile :school has been reinstated. All the best.',
         'action' => '',
-    ]
+    ],
+
+    'job_post_disabled' => [
+        'subject' => 'Your ELT Search job post has been retracted',
+        'message' => 'Hi :name. Your job post for the position of :position at :school has been been temporarily retracted and will not be viewable on the site until the issue is resolved. If you would like to query this decision, please contact ELT Search at services@eltsearch.com. Please note that this does not affect the 30 day lifespan of your job post. Thanks.',
+        'action' => '',
+    ],
+
+    'job_post_reinstated' => [
+        'subject' => 'Your ELT Search job post has been reinstated',
+        'message' => 'Hi :name. Your job post for the position of :position at :school has been been reinstated and is publicly viewable as long as it is published and not expired. Thanks.',
+        'action' => '',
+    ],
 ];

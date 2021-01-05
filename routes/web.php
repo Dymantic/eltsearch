@@ -260,4 +260,7 @@ Route::group([
 
     Route::post('disabled-schools', 'DisabledSchoolsController@store');
     Route::delete('disabled-schools/{school}', 'DisabledSchoolsController@destroy');
+
+    Route::post('disabled-job-posts', 'DisabledJobPostsController@store');
+    Route::delete('disabled-job-posts/{post}', 'DisabledJobPostsController@destroy');
 });
