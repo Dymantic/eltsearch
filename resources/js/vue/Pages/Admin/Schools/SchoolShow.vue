@@ -26,7 +26,14 @@
         <div v-if="school">
             <div class="flex flex-col md:flex-row justify-between max-w-3xl">
                 <div class="md:pr-8">
-                    <p class="type-h3">{{ school.name }}</p>
+                    <div class="flex items-center">
+                        <p class="type-h3 mr-3">{{ school.name }}</p>
+                        <colour-label
+                            colour="red"
+                            text="Profile Disabled"
+                            v-if="school.is_disabled"
+                        ></colour-label>
+                    </div>
                     <p class="type-b2 my-2">
                         {{ school.school_types_names.join(", ") }}
                     </p>
@@ -62,8 +69,9 @@ import BusyLoading from "../../../Components/BusyLoading";
 import { showError, showSuccess } from "../../../../libs/notifications";
 import DeleteConfirmation from "../../../Components/DeleteConfirmation";
 import { disableSchool, reinstateSchool } from "../../../../api/admin/schools";
+import ColourLabel from "../../../Components/ColourLabel";
 export default {
-    components: { DeleteConfirmation, PageHeader, BusyLoading },
+    components: { ColourLabel, DeleteConfirmation, PageHeader, BusyLoading },
 
     data() {
         return {
