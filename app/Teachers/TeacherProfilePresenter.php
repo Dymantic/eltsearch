@@ -73,7 +73,7 @@ class TeacherProfilePresenter
 
     public static function forTeacher(Teacher $teacher)
     {
-        return self::generalInfo($teacher);
+        return array_merge(self::generalInfo($teacher), ['is_disabled' => $teacher->isDisabled()]);
     }
 
     public static function forAdmin(?Teacher $teacher)

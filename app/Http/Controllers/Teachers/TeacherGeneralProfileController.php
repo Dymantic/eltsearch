@@ -12,7 +12,7 @@ class TeacherGeneralProfileController extends Controller
 
     public function show()
     {
-        return TeacherProfilePresenter::generalInfo(request()->get('teacherProfile'));
+        return TeacherProfilePresenter::forTeacher(request()->get('teacherProfile'));
     }
 
     public function update(TeacherGeneralInfoRequest $request)

@@ -36,11 +36,11 @@ export default {
                 .catch(() => showError("Unable to fetch teacher info"));
         },
 
-        fetchById({ state }, teacher_id) {
+        fetchById({ state }, { teacher_id, force = false }) {
             const from_recent = state.recent.find(
                 (t) => t.id === parseInt(teacher_id)
             );
-            if (from_recent) {
+            if (from_recent && !force) {
                 return Promise.resolve(from_recent);
             }
 

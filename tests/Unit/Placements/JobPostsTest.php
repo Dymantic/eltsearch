@@ -5,7 +5,9 @@ namespace Tests\Unit\Placements;
 
 
 use App\ContactDetails;
+use App\Exceptions\InsufficientTokensException;
 use App\Placements\JobPost;
+use App\Purchasing\Token;
 use App\Teachers\Teacher;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -160,11 +162,13 @@ class JobPostsTest extends TestCase
         $expired = factory(JobPost::class)->state('expired')->create();
         $draft = factory(JobPost::class)->state('draft')->create();
         $private = factory(JobPost::class)->state('private')->create();
+        $disabled = factory(JobPost::class)->state('disabled')->create();
 
-        $this->assertSame(['text' => 'Live', 'colour' => 'green'], $live->status('en'));
-        $this->assertSame(['text' => 'Expired', 'colour' => 'purple'], $expired->status('en'));
-        $this->assertSame(['text' => 'Private', 'colour' => 'red'], $private->status('en'));
-        $this->assertSame(['text' => 'Draft', 'colour' => 'orange'], $draft->status('en'));
+        $this->assertSame(['text' => 'Live', 'colour' => 'green', 'state' => JobPost::STATUS_LIVE], $live->status('en'));
+        $this->assertSame(['text' => 'Expired', 'colour' => 'purple', 'state' => JobPost::STATUS_EXPIRED], $expired->status('en'));
+        $this->assertSame(['text' => 'Private', 'colour' => 'red', 'state' => JobPost::STATUS_PRIVATE], $private->status('en'));
+        $this->assertSame(['text' => 'Draft', 'colour' => 'orange', 'state' => JobPost::STATUS_DRAFT], $draft->status('en'));
+        $this->assertSame(['text' => 'Disabled', 'colour' => 'red', 'state' => JobPost::STATUS_DISABLED], $disabled->status('en'));
     }
 
     /**
@@ -185,5 +189,43 @@ class JobPostsTest extends TestCase
         factory(JobPost::class)->state('expired')->create();
 
         $this->assertSame(2, JobPost::publishedSince(now()->subDays(5))->count());
+    }
+
+    /**
+     *@test
+     */
+    public function can_republish_expired_post()
+    {
+        $post = factory(JobPost::class)->state('current')->create();
+        $post->school->grantTokens(1, 1, now()->addCentury());
+
+        $this->travel(40)->days();
+        $this->assertSame(JobPost::STATUS_EXPIRED, $post->status('en')['state']);
+
+        $post->publish($post->school->nextToken());
+
+        $this->assertTrue($post->fresh()->first_published_at->isToday());
+        $this->assertSame(JobPost::STATUS_LIVE, $post->fresh()->status('en')['state']);
+    }
+
+    /**
+     *@test
+     */
+    public function republishing_requires_a_token()
+    {
+        $post = factory(JobPost::class)->state('current')->create();
+
+        $this->travel(40)->days();
+        $this->assertSame(JobPost::STATUS_EXPIRED, $post->status('en')['state']);
+
+        try {
+            $post->publish();
+            $this->fail("expected no token exception to be thrown");
+        } catch (InsufficientTokensException $e) {
+            $this->assertFalse($post->fresh()->first_published_at->isToday());
+            $this->assertSame(JobPost::STATUS_EXPIRED, $post->fresh()->status('en')['state']);
+        }
+
+
     }
 }

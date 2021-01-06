@@ -4,6 +4,8 @@
             {{ trns("dashboard.greeting", "", { name }) }}
         </p>
 
+        <profile-disabled v-if="is_disabled" class="my-8"></profile-disabled>
+
         <essential-actions
             :profile-incomplete="hasStatus('incomplete_profile')"
             :has-billing-info="!hasStatus('incomplete_billing')"
@@ -27,8 +29,10 @@
 import EssentialActions from "../../Components/Schools/Dashboard/EssentialActions";
 import SuggestedActions from "../../Components/Schools/Dashboard/SuggestedActions";
 import FindTeacherActions from "../../Components/Schools/Dashboard/FindTeacherActions";
+import ProfileDisabled from "../../Components/Schools/ProfileDisabled";
 export default {
     components: {
+        ProfileDisabled,
         FindTeacherActions,
         SuggestedActions,
         EssentialActions,
@@ -40,6 +44,10 @@ export default {
 
         name() {
             return this.$store.state.profile.name;
+        },
+
+        is_disabled() {
+            return this.$store.getters["schoolprofile/is_disabled"];
         },
     },
 

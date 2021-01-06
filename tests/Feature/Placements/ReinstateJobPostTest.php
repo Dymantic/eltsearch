@@ -16,7 +16,7 @@ class ReinstateJobPostTest extends TestCase
     use RefreshDatabase;
 
     /**
-     *@test
+     * @test
      */
     public function reinstate_a_disabled_job_post()
     {
@@ -35,7 +35,8 @@ class ReinstateJobPostTest extends TestCase
         $response->assertSuccessful();
 
         $this->assertDatabaseHas('job_posts', [
-            'id' => $job_post->id,
+            'id'          => $job_post->id,
+            'is_public'   => true,
             'disabled_on' => null,
         ]);
 

@@ -12,4 +12,5 @@ export default {
     delete_notification: "Failed to delete notification",
     update_lang: "Failed to save language preference",
     update_billing: "Failed to update billing info",
+    fetch_job_posts: "Failed to fetch job posts",
 };

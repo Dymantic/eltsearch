@@ -1,5 +1,10 @@
 <template>
     <div v-if="generalInfo">
+        <profile-disabled
+            v-if="is_disabled"
+            class="my-8 max-w-lg mx-auto"
+        ></profile-disabled>
+
         <div class="max-w-xl mx-auto p-6 rounded-lg shadow">
             <div class="flex flex-col md:flex-row justify-between">
                 <div class="flex-1">
@@ -85,8 +90,10 @@
 import TeacherLocation from "../../Components/Teachers/TeacherLocation";
 import ImageUpload from "../../Components/ImageUpload";
 import { showError } from "../../../libs/notifications";
+import ProfileDisabled from "../../Components/Teachers/ProfileDisabled";
 export default {
     components: {
+        ProfileDisabled,
         ImageUpload,
         TeacherLocation,
     },
@@ -109,6 +116,10 @@ export default {
                 !this.education.education_qualification &&
                 !this.education.education_level
             );
+        },
+
+        is_disabled() {
+            return this.$store.getters["profile/profile_disabled"];
         },
     },
 

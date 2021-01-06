@@ -66,6 +66,11 @@ class Teacher extends Model implements HasMedia
         'disabled_on' => 'date'
     ];
 
+    public function scopeNotDisabled(Builder $query)
+    {
+        return $query->whereNull('disabled_on');
+    }
+
     public function scopeComplete(Builder $query)
     {
         return $query

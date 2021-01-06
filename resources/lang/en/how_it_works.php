@@ -21,7 +21,7 @@ return [
 
     'step_three' => [
         'heading' => 'Create a Job Search',
-        'text'    => 'Set the criteria you are looking for in a job (locations, salary, etc) and we will notify you when new job are posting that are a good match for you.',
+        'text'    => 'Set the criteria you are looking for in a job (locations, salary, etc) and we will notify you when new jobs matching your search are posted.',
     ],
 
     'step_four' => [

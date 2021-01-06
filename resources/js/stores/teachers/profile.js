@@ -34,6 +34,9 @@ export default {
 
         current_location: (state) =>
             state.general_info ? state.general_info.location : "",
+
+        profile_disabled: (state) =>
+            state.general_info && state.general_info.is_disabled,
     },
 
     mutations: {

@@ -2,6 +2,8 @@
     <div>
         <p class="type-h2 mb-12">Hi {{ name }}</p>
 
+        <profile-disabled v-if="is_disabled" class="my-8"></profile-disabled>
+
         <essential-actions
             :profile-incomplete="hasStatus('incomplete_profile')"
         ></essential-actions>
@@ -22,8 +24,10 @@
 import EssentialActions from "../../Components/Teachers/Dashboard/EssentialActions";
 import SuggestedActions from "../../Components/Teachers/Dashboard/SuggestedActions";
 import JobAssistanceActions from "../../Components/Teachers/Dashboard/JobAssistanceActions";
+import ProfileDisabled from "../../Components/Teachers/ProfileDisabled";
 export default {
     components: {
+        ProfileDisabled,
         JobAssistanceActions,
         SuggestedActions,
         EssentialActions,
@@ -36,6 +40,14 @@ export default {
         name() {
             return this.$store.state.profile.name;
         },
+
+        is_disabled() {
+            return this.$store.getters["profile/profile_disabled"];
+        },
+    },
+
+    mounted() {
+        this.$store.dispatch("profile/fetchGeneralInfo");
     },
 
     methods: {

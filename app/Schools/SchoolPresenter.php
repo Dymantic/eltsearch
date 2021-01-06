@@ -39,6 +39,7 @@ class SchoolPresenter
                     'original' => $media->getUrl(),
                 ]
             )->values()->all(),
+            'is_disabled' => $school->isDisabled(),
         ];
     }
 

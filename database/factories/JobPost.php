@@ -63,6 +63,6 @@ $factory->state(JobPost::class, 'expired', [
 
 $factory->state(JobPost::class, 'disabled', [
     'first_published_at' => Carbon::yesterday(),
-    'is_public'          => true,
+    'is_public'          => false,
     'disabled_on'        => now(),
 ]);

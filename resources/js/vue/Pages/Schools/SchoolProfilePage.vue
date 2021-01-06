@@ -6,6 +6,8 @@
             }}</router-link>
         </page-header>
 
+        <profile-disabled v-if="is_disabled" class="my-8"></profile-disabled>
+
         <div class="max-w-3xl p-6 rounded-lg shadow-lg">
             <div class="flex flex-col md:flex-row justify-between">
                 <div class="flex-1">
@@ -70,8 +72,10 @@
 import PageHeader from "../../Components/PageHeader";
 import ImageUpload from "../../Components/ImageUpload";
 import BillingDetailsSummary from "../../Components/Schools/BillingDetailsSummary";
+import ProfileDisabled from "../../Components/Schools/ProfileDisabled";
 export default {
     components: {
+        ProfileDisabled,
         BillingDetailsSummary,
         PageHeader,
         ImageUpload,
@@ -80,6 +84,10 @@ export default {
     computed: {
         school() {
             return this.$store.state.schoolprofile.current_school;
+        },
+
+        is_disabled() {
+            return this.$store.getters["schoolprofile/is_disabled"];
         },
     },
 };

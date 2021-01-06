@@ -25,6 +25,8 @@ export default {
     show_profile: {
         title: "School Profile",
         images: "School Images",
+        disabled:
+            "Your school's profile has been disabled by ELT Search. If you wish to discuss this decision further, please contact us at service@eltsearch.com",
     },
     edit_profile: {
         title: "Edit School Profile",
@@ -112,6 +114,31 @@ export default {
         submit: "Save Job Post",
         submit_and_publish: "Save & Publish",
         success: "Your post has been saved",
+    },
+    publish_post: {
+        title: "Publish Your Job Post",
+        view_button: "View Post",
+        disabled_note:
+            "Your post has been disabled by ELT Search, and will not be publishable until the issue is resolved. Please email service@eltsearch.com for assistance.",
+        private_note:
+            "Your post was originally published on :published: and expires on :expires:. You may republish to make it live again.",
+        republish: "Re-publish",
+        no_tokens:
+            "Sorry, you currently do not have any tokens to use to publish your job post. First get a token, then you can publish.",
+        buy_token: "Buy tokens",
+        ready: "Your post is ready to publish.",
+        shown_until: "If you publish today, it will be public until :expires:",
+        single_cost:
+            "<span class='type-b2'>Cost: </span>1 token (You will have :remaining: tokens left)",
+        live_note:
+            'Your post is currently public, and will be live on the site until <span class="type-b2">:expires:</span>. You may retract the post if you would like to not have it shown publicly anymore. Note that this will not affect the date when the post will be retired.',
+        retract: "Retract",
+        published: "Your post has been published",
+        publish_error: "Unable to publish post",
+        retracted: "Your post has been retracted",
+        retract_error: "Unable to retract post",
+        expired_note:
+            "Your job post has expired. If you are sure the contents of the post are still accurate and valid, you may republish the post again, as if it were new.",
     },
     show_interest_form: {
         name: "Contact person name",

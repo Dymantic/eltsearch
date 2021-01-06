@@ -18,6 +18,7 @@ class PublicTeachersController extends Controller
     {
 
         $page = Teacher::select('teachers.*')
+                       ->notDisabled()
                        ->complete()
                        ->nearArea($request->schoolArea())
                        ->withNationality($request->nationality())
@@ -26,16 +27,18 @@ class PublicTeachersController extends Controller
                        ->orderBy($request->orderColumn(), $request->orderDirection())
                        ->paginate(40);
 
-        return PagedData::forPage($page, fn($teacher) => TeacherProfilePresenter::forSchool($teacher, app()->getLocale()));
+        return PagedData::forPage($page,
+            fn($teacher) => TeacherProfilePresenter::forSchool($teacher, app()->getLocale()));
     }
 
     public function show(School $school, $slug)
     {
-        if(!$school->hasResumeAccess()) {
+        if (!$school->hasResumeAccess()) {
             abort(Response::HTTP_FORBIDDEN);
         }
 
         $teacher = Teacher::where('slug', $slug)->firstOrFail();
+
         return TeacherProfilePresenter::forSchool($teacher, app()->getLocale());
     }
 }

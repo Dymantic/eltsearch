@@ -70,7 +70,10 @@ export default {
         fetch() {
             this.fetching = true;
             this.$store
-                .dispatch("teachers/fetchById", this.$route.params.teacher)
+                .dispatch("teachers/fetchById", {
+                    teacher_id: this.$route.params.teacher,
+                    force: true,
+                })
                 .then((teacher) => (this.teacher = teacher))
                 .catch(() => showError("Failed to find teacher"))
                 .then(() => (this.fetching = false));

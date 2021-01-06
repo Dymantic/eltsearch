@@ -37,6 +37,7 @@ class DisableJobPostTest extends TestCase
 
         $this->assertDatabaseHas('job_posts', [
             'id'          => $job_post->id,
+            'is_public'   => false,
             'disabled_on' => now()->format(DateFormatter::STANDARD),
         ]);
 

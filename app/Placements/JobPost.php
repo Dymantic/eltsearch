@@ -22,6 +22,12 @@ class JobPost extends Model implements HasMedia
 {
     use InteractsWithMedia, GradesSalary;
 
+    const STATUS_DISABLED = 'disabled';
+    const STATUS_DRAFT = 'draft';
+    const STATUS_PRIVATE = 'private';
+    const STATUS_EXPIRED = 'expired';
+    const STATUS_LIVE = 'live';
+
     const FULL_TIME = 'full_time';
     const PART_TIME = 'part_time';
 
@@ -155,7 +161,7 @@ class JobPost extends Model implements HasMedia
     public function scopePublishedSince($query, \Carbon\Carbon $cutoff)
     {
         return $query->live()
-            ->where('first_published_at', '>=', $cutoff);
+                     ->where('first_published_at', '>=', $cutoff);
     }
 
     public function scopeMatching($query, JobSearch $search)
@@ -286,15 +292,23 @@ class JobPost extends Model implements HasMedia
         $this->setSalaryGrade();
     }
 
+    public function isExpired(): bool
+    {
+        return $this->first_published_at && ($this->first_published_at->addDays(30) < now());
+    }
+
     public function publish(?Token $token = null)
     {
-        if (!$this->first_published_at) {
+        if (!$this->first_published_at || $this->isExpired()) {
 
             if ($token === null || $token->isSpent()) {
                 throw InsufficientTokensException::tokenRequired();
             }
             $this->first_published_at = Carbon::now();
             $token->spend();
+        }
+        if($this->isExpired()) {
+            $this->first_published_at = Carbon::now();
         }
         $this->is_public = true;
         $this->save();
@@ -308,37 +322,42 @@ class JobPost extends Model implements HasMedia
 
     public function status($lang)
     {
-        if($this->isDisabled()) {
+        if ($this->isDisabled()) {
             return [
                 'text'   => trans('job_posts.status.disabled', [], $lang),
-                'colour' => 'red'
+                'colour' => 'red',
+                'state' => static::STATUS_DISABLED,
             ];
         }
 
         if ($this->isDraft()) {
             return [
                 'text'   => trans('job_posts.status.draft', [], $lang),
-                'colour' => 'orange'
+                'colour' => 'orange',
+                'state' => static::STATUS_DRAFT,
             ];
         }
 
         if ($this->expired()) {
             return [
                 'text'   => trans('job_posts.status.expired', [], $lang),
-                'colour' => 'purple'
+                'colour' => 'purple',
+                'state' => static::STATUS_EXPIRED,
             ];
         }
 
         if ($this->is_public) {
             return [
                 'text'   => trans('job_posts.status.live', [], $lang),
-                'colour' => 'green'
+                'colour' => 'green',
+                'state' => static::STATUS_LIVE,
             ];
         }
 
         return [
             'text'   => trans('job_posts.status.private', [], $lang),
-            'colour' => 'red'
+            'colour' => 'red',
+            'state' => static::STATUS_PRIVATE,
         ];
 
     }
@@ -423,9 +442,10 @@ class JobPost extends Model implements HasMedia
 
     public function disable()
     {
-        if(!$this->isDisabled()) {
+        if (!$this->isDisabled()) {
             JobPostDisabled::dispatch($this);
         }
+        $this->is_public = false;
         $this->disabled_on = now();
         $this->save();
     }
@@ -437,10 +457,13 @@ class JobPost extends Model implements HasMedia
 
     public function reinstate()
     {
-        if($this->isDisabled()) {
+        if ($this->isDisabled()) {
             JobPostReinstated::dispatch($this);
         }
 
+        if(!$this->isExpired()) {
+            $this->is_public = true;
+        }
         $this->disabled_on = null;
         $this->save();
     }

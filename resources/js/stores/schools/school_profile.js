@@ -77,6 +77,9 @@ export default {
             }
             return state.current_school.area_id;
         },
+
+        is_disabled: (state) =>
+            state.current_school && state.current_school.is_disabled,
     },
 
     actions: {
