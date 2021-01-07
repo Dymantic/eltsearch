@@ -139,6 +139,8 @@ export default {
         retract_error: "Unable to retract post",
         expired_note:
             "Your job post has expired. If you are sure the contents of the post are still accurate and valid, you may republish the post again, as if it were new.",
+        profile_disabled:
+            "You may not publish job posts while your school profile is disabled.",
     },
     show_interest_form: {
         name: "Contact person name",
@@ -333,5 +335,7 @@ export default {
         email: "Email address",
         phone: "Phone number",
         submit: "Send message",
+        profile_disabled:
+            "You may not contact teachers while your profile is disabled.",
     },
 };

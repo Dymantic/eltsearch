@@ -204,6 +204,7 @@ Route::group([
 
     Route::get('teachers/dashboard-status', 'TeacherDashboardStatusController@show');
 
+    Route::post('teachers/application-approvals', 'ApplicationApprovalsController@show');
 
 });
 

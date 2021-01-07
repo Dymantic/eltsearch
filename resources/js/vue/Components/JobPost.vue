@@ -71,15 +71,10 @@
                     </div>
                     <div class="text-center my-4">
                         <router-link
-                            v-if="applyUrl"
+                            v-if="can_apply"
                             :to="applyUrl"
                             class="btn btn-primary"
                             >Apply</router-link
-                        >
-                        <span
-                            v-else
-                            class="bg-sky-blue hover:bg-navy text-white px-4 py-2 shadow rounded-l-full rounded-r-full text-sm"
-                            >Apply Now</span
                         >
                     </div>
                 </div>
@@ -128,16 +123,12 @@
 
             <div class="text-center my-12">
                 <router-link
-                    v-if="applyUrl"
+                    v-if="can_apply"
                     :to="applyUrl"
                     class="btn btn-primary"
                     >Apply</router-link
                 >
-                <span
-                    v-else
-                    class="hover:bg-sky-blue bg-navy text-white px-4 py-2 shadow rounded-l-full rounded-r-full text-sm"
-                    >Apply Now</span
-                >
+                <p v-else class="text-center">{{ no_application_message }}</p>
             </div>
         </div>
         <div
@@ -166,7 +157,28 @@
 </template>
 
 <script type="text/babel">
+import { showError } from "../../libs/notifications";
+import { getApplicationApproval } from "../../api/teachers/applications";
+
 export default {
     props: ["post", "can-edit", "apply-url"],
+
+    data() {
+        return {
+            can_apply: false,
+            no_application_message: "",
+        };
+    },
+
+    mounted() {
+        if (this.$store.state.profile.account_type === "teacher") {
+            getApplicationApproval(this.post.slug)
+                .then((approval) => {
+                    this.can_apply = approval.can_apply;
+                    this.no_application_message = approval.message;
+                })
+                .catch(() => showError("Failed to get application approval"));
+        }
+    },
 };
 </script>

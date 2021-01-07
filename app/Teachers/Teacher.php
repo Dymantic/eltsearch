@@ -8,6 +8,7 @@ use App\Events\TeacherProfileDisabled;
 use App\Events\TeacherProfileReinstated;
 use App\Locations\Area;
 use App\Nation;
+use App\Placements\ApplicationApproval;
 use App\Placements\JobApplication;
 use App\Placements\JobMatch;
 use App\Placements\JobPost;
@@ -338,5 +339,22 @@ class Teacher extends Model implements HasMedia
     public function isDisabled(): bool
     {
         return $this->disabled_on !== null;
+    }
+
+    public function applicationApprovalFor(JobPost $post): ApplicationApproval
+    {
+        if($this->isDisabled()) {
+            return ApplicationApproval::disabled($this, $post);
+        }
+
+        if($this->hasApplicationFor($post)) {
+            return ApplicationApproval::appliedAlready($this, $post);
+        }
+
+        if(!$this->hasCompleteProfile()) {
+            return ApplicationApproval::incomplete($this, $post);
+        }
+
+        return ApplicationApproval::okay($this, $post);
     }
 }

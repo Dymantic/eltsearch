@@ -3,6 +3,7 @@
 namespace App\Placements;
 
 use App\ContactPersonInfo;
+use App\Exceptions\RecruitmentException;
 use App\Teachers\Teacher;
 use Illuminate\Database\Eloquent\Model;
 
@@ -32,6 +33,10 @@ class JobApplication extends Model
 
     public function showInterest(ContactPersonInfo $contactPerson): ShowOfInterest
     {
+        if($this->jobPost->school->isDisabled()) {
+            throw RecruitmentException::schoolDisabled();
+        }
+
         return $this->showOfInterests()->create($contactPerson->toArray());
     }
 

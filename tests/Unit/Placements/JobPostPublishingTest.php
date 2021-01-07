@@ -4,6 +4,7 @@
 namespace Tests\Unit\Placements;
 
 
+use App\Exceptions\PublishingPermissionException;
 use App\Placements\JobPost;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Lang;
@@ -24,6 +25,40 @@ class JobPostPublishingTest extends TestCase
             ->create();
 
         $this->assertTrue($post->fresh()->readyForPublication());
+    }
+
+    /**
+     *@test
+     */
+    public function disabled_posts_cannot_be_published()
+    {
+        $job_post = factory(JobPost::class)->state('disabled')->create();
+        $job_post->school->grantTokens(1,1,now()->addWeek());
+
+        try {
+            $job_post->publish($job_post->school->nextToken());
+            $this->fail('expected publishing permission exception');
+        } catch (PublishingPermissionException $e) {
+            $this->assertSame(PublishingPermissionException::POST_DISABLED, $e->getMessage());
+        }
+
+    }
+
+    /**
+     *@test
+     */
+    public function posts_from_disabled_schools_cannot_be_published()
+    {
+        [$school, $owner] = $this->setUpSchool(['disabled_on' => now()]);
+        $job_post = factory(JobPost::class)->create(['school_id' => $school->id]);
+        $school->grantTokens(1,1,now()->addWeek());
+
+        try {
+            $job_post->publish($job_post->school->nextToken());
+            $this->fail('expected publishing permission exception');
+        } catch (PublishingPermissionException $e) {
+            $this->assertSame(PublishingPermissionException::SCHOOL_DISABLED, $e->getMessage());
+        }
     }
 
     /**

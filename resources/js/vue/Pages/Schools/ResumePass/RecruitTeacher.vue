@@ -4,7 +4,13 @@
 
         <busy-loading v-if="!teacher"></busy-loading>
 
-        <div class="my-12" v-if="teacher">
+        <div class="my-12" v-if="school_disabled">
+            <p class="max-w-xl p-6 border-red-600 border rounded-lg bg-red-100">
+                {{ trns("recruit.profile_disabled") }}
+            </p>
+        </div>
+
+        <div class="my-12" v-if="teacher && !school_disabled">
             <div class="flex items-center mb-6">
                 <div class="w-16 h-16 mr-4">
                     <img
@@ -81,6 +87,10 @@ export default {
             return this.$store.getters["recruitments/forTeacher"](
                 this.teacher.slug
             );
+        },
+
+        school_disabled() {
+            return this.$store.getters["schoolprofile/is_disabled"];
         },
     },
 

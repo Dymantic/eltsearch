@@ -13,7 +13,13 @@
             v-if="!can_publish"
         ></incomplete-job-post-review>
 
-        <div v-if="can_publish">
+        <div class="my-12" v-if="school_disabled">
+            <p class="max-w-xl p-6 border-red-600 border rounded-lg bg-red-100">
+                {{ trns("publish_post.profile_disabled") }}
+            </p>
+        </div>
+
+        <div v-if="can_publish && !school_disabled">
             <div class="my-12" v-if="post_status === 'disabled'">
                 <p
                     class="rounded-lg border border-red-600 bg-red-100 p-4 max-w-md"
@@ -188,6 +194,10 @@ export default {
 
         school() {
             return this.$store.state.schoolprofile.current_school;
+        },
+
+        school_disabled() {
+            return this.school.is_disabled;
         },
     },
 

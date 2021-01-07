@@ -16,6 +16,10 @@ trait RecruitsTeachers
 
     public function attemptToRecruit(Teacher $teacher, RecruitmentMessage $recruitmentMessage): RecruitmentAttempt
     {
+        if($this->isDisabled()) {
+            throw RecruitmentException::schoolDisabled();
+        }
+
         if($this->recentAttemptsFor($teacher) > 2) {
             throw RecruitmentException::tooManyAttempts();
         }

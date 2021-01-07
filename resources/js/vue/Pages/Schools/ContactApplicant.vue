@@ -2,7 +2,13 @@
     <div v-if="application">
         <page-header :title="trns('contact_applicant.title')"></page-header>
 
-        <div class="max-w-3xl">
+        <div class="my-12" v-if="school_disabled">
+            <p class="max-w-xl p-6 border-red-600 border rounded-lg bg-red-100">
+                {{ trns("recruit.profile_disabled") }}
+            </p>
+        </div>
+
+        <div class="max-w-3xl" v-else>
             <p class="my-12 max-w-lg">
                 {{ trns("contact_applicant.instruction") }}
             </p>
@@ -58,6 +64,10 @@ export default {
             return this.$store.getters["applications/byId"](
                 this.$route.params.application
             );
+        },
+
+        school_disabled() {
+            return this.$store.getters["schoolprofile/is_disabled"];
         },
     },
 

@@ -5,6 +5,7 @@ namespace App\Placements;
 use App\Events\JobPostDisabled;
 use App\Events\JobPostReinstated;
 use App\Exceptions\InsufficientTokensException;
+use App\Exceptions\PublishingPermissionException;
 use App\Locations\Area;
 use App\Purchasing\Token;
 use App\Schools\School;
@@ -299,6 +300,14 @@ class JobPost extends Model implements HasMedia
 
     public function publish(?Token $token = null)
     {
+        if($this->isDisabled()) {
+            throw PublishingPermissionException::postDisabled();
+        }
+
+        if($this->school->isDisabled()) {
+            throw PublishingPermissionException::schoolDisabled();
+        }
+
         if (!$this->first_published_at || $this->isExpired()) {
 
             if ($token === null || $token->isSpent()) {

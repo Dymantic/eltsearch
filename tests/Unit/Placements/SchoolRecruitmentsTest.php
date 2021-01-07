@@ -4,6 +4,7 @@
 namespace Tests\Unit\Placements;
 
 
+use App\Exceptions\RecruitmentException;
 use App\Notifications\AttemptToRecruit;
 use App\Placements\RecruitmentMessage;
 use App\Schools\School;
@@ -51,5 +52,29 @@ class SchoolRecruitmentsTest extends TestCase
 
                 return true;
             });
+    }
+
+    /**
+     *@test
+     */
+    public function school_cannot_recruit_while_profile_is_disabled()
+    {
+        Notification::fake();
+        $school = factory(School::class)->create(['disabled_on' => now()]);
+        $teacher = factory(Teacher::class)->create();
+
+        $recruitmentMessage = new RecruitmentMessage([
+            'message'        => 'test message',
+            'contact_person' => 'test person',
+            'email'          => 'test@test.test',
+            'phone'          => 'test phone'
+        ]);
+
+        try {
+            $attempt = $school->attemptToRecruit($teacher, $recruitmentMessage);
+            $this->fail('expected recruitment exception to be thrown');
+        } catch(RecruitmentException $e) {
+            $this->assertSame(RecruitmentException::SCHOOL_DISABLED, $e->getMessage());
+        }
     }
 }

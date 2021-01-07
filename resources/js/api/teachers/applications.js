@@ -8,4 +8,8 @@ function applyForJob(formData) {
     return post("/api/teachers/job-applications", formData);
 }
 
-export { fetchTeacherApplications, applyForJob };
+function getApplicationApproval(job_post_slug) {
+    return post("/api/teachers/application-approvals", { job_post_slug });
+}
+
+export { fetchTeacherApplications, applyForJob, getApplicationApproval };
