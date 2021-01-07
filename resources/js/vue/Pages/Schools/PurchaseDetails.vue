@@ -2,8 +2,8 @@
     <div v-if="purchase">
         <page-header></page-header>
 
-        <div class="my-12 flex justify-center">
-            <div class="max-w-sm p-6 shadow rounded-lg">
+        <div class="my-12 px-6 flex justify-center">
+            <div class="w-full max-w-lg p-6 shadow rounded-lg">
                 <div class="border-b border-gray-200">
                     <p class="type-h3">{{ purchase.package.name }}</p>
                     <p class="type-b2 text-gray-600">
@@ -22,13 +22,17 @@
                             {{ purchase.card_last_four }}
                         </p>
                         <colour-label
-                            v-html="`Paid &check;`"
-                            colour="green"
+                            :colour="purchase.paid ? 'green' : 'red'"
+                            :text="purchase.paid ? 'Paid' : 'Failed'"
                         ></colour-label>
                     </div>
                 </div>
 
                 <p class="pt-4 type-b2">Ref no: {{ purchase.ref_no }}</p>
+
+                <p class="mt-6 type-b2 text-red-600" v-show="purchase.error">
+                    {{ purchase.error }}
+                </p>
             </div>
         </div>
     </div>

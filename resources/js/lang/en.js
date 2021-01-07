@@ -266,6 +266,7 @@ export default {
         date: "Date",
         item: "Item",
         price: "Price",
+        status: "Status",
         purchased_by: "Purchased By",
     },
     dashboard: {

@@ -60,6 +60,104 @@
                 </p>
             </div>
         </div>
+
+        <div class="my-12">
+            <p class="type-h3">Job Posts</p>
+            <p class="my-4 text-gray-600" v-show="job_posts.length === 0">
+                {{ school_name }} does not have any job posts
+            </p>
+            <div>
+                <table class="w-full" v-show="job_posts.length > 0">
+                    <thead>
+                        <tr class="text-left">
+                            <th class="py-2">Position</th>
+                            <th class="py-2">Salary</th>
+                            <th class="py-2">Date created</th>
+                            <th class="py-2">Date published</th>
+                            <th class="py-2">Expires on</th>
+                            <th class="py-2">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="post in job_posts" :key="post.id">
+                            <td class="px-2 py-1">
+                                <router-link
+                                    :to="`/job-posts/${post.id}/show`"
+                                    class="hover:text-sky-blue type-b2"
+                                >
+                                    {{ post.position }}
+                                </router-link>
+                            </td>
+                            <td class="px-2 py-1">{{ post.salary }}</td>
+                            <td class="px-2 py-1">
+                                {{ post.originally_created }}
+                            </td>
+                            <td class="px-2 py-1">
+                                {{ post.first_published }}
+                            </td>
+                            <td class="px-2 py-1">{{ post.expires_on }}</td>
+                            <td class="px-2 py-1">
+                                <colour-label
+                                    :colour="post.status.colour"
+                                    :text="post.status.text"
+                                ></colour-label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="my-12">
+                <p class="type-h3">Purchase History</p>
+                <p class="my-4 text-gray-600" v-show="purchases.length === 0">
+                    {{ school_name }} has not made any purchases
+                </p>
+                <div>
+                    <table class="w-full" v-show="purchases.length > 0">
+                        <thead>
+                            <tr class="text-left">
+                                <th class="py-2">Date</th>
+                                <th class="py-2">Package</th>
+                                <th class="py-2">Amount</th>
+                                <th class="py-2">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                v-for="purchase in purchases"
+                                :key="purchase.id"
+                            >
+                                <td class="px-2 py-1">
+                                    {{ purchase.purchase_date }}
+                                </td>
+                                <td class="px-2 py-1">
+                                    <router-link
+                                        :to="`/purchases/${purchase.id}/show`"
+                                        class="hover:text-sky-blue type-b2"
+                                    >
+                                        {{ purchase.package.name }}
+                                    </router-link>
+                                </td>
+
+                                <td class="px-2 py-1">
+                                    {{ purchase.pretty_price }}
+                                </td>
+                                <td class="px-2 py-1">
+                                    <colour-label
+                                        :colour="
+                                            purchase.paid ? 'green' : 'red'
+                                        "
+                                        :text="
+                                            purchase.paid ? 'Paid' : 'Failed'
+                                        "
+                                    ></colour-label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -68,7 +166,12 @@ import PageHeader from "../../../Components/PageHeader";
 import BusyLoading from "../../../Components/BusyLoading";
 import { showError, showSuccess } from "../../../../libs/notifications";
 import DeleteConfirmation from "../../../Components/DeleteConfirmation";
-import { disableSchool, reinstateSchool } from "../../../../api/admin/schools";
+import {
+    disableSchool,
+    fetchSchoolJobPosts,
+    fetchSchoolPurchases,
+    reinstateSchool,
+} from "../../../../api/admin/schools";
 import ColourLabel from "../../../Components/ColourLabel";
 export default {
     components: { ColourLabel, DeleteConfirmation, PageHeader, BusyLoading },
@@ -79,6 +182,8 @@ export default {
             school: null,
             waiting_on_disable: false,
             waiting_on_reinstate: false,
+            job_posts: [],
+            purchases: [],
         };
     },
 
@@ -97,13 +202,16 @@ export default {
     },
 
     created() {
-        this.fetch();
+        this.fetch().then(() => {
+            this.fetchPosts();
+            this.fetchPurchases();
+        });
     },
 
     methods: {
         fetch() {
             this.fetching = true;
-            this.$store
+            return this.$store
                 .dispatch("schools/getById", {
                     school_id: this.$route.params.school,
                     force: true,
@@ -135,6 +243,18 @@ export default {
                 })
                 .catch(() => showError("Failed to reinstate school profile"))
                 .then(() => (this.waiting_on_reinstate = false));
+        },
+
+        fetchPosts() {
+            fetchSchoolJobPosts(this.school.id)
+                .then((posts) => (this.job_posts = posts))
+                .catch(() => showError("Failed to fetch job posts"));
+        },
+
+        fetchPurchases() {
+            fetchSchoolPurchases(this.school.id)
+                .then((purchases) => (this.purchases = purchases))
+                .catch(() => showError("Failed to fetch school purchases"));
         },
     },
 };

@@ -25,13 +25,30 @@
         <p v-show="!post && !fetching">This post does not exist.</p>
 
         <div v-if="post" class="my-12">
-            <div class="mb-8 flex items-center">
-                <p class="type-b2 text-gray-600 mr-3">Status:</p>
-                <colour-label
-                    :colour="post.status.colour"
-                    :text="post.status.text"
-                ></colour-label>
+            <div
+                class="flex flex-col md:flex-row justify-between max-w-3xl mx-auto border-b border-gray-300 pb-2"
+            >
+                <div class="flex items-center">
+                    <p class="type-b2 text-gray-600 mr-3">Status:</p>
+                    <colour-label
+                        :colour="post.status.colour"
+                        :text="post.status.text"
+                    ></colour-label>
+                </div>
+                <div class="flex items-center">
+                    <p class="type-b2 text-gray-600 mr-3">Created on:</p>
+                    <p>{{ post.originally_created }}</p>
+                </div>
+                <div class="flex items-center">
+                    <p class="type-b2 text-gray-600 mr-3">Published on:</p>
+                    <p>{{ post.first_published }}</p>
+                </div>
+                <div class="flex items-center">
+                    <p class="type-b2 text-gray-600 mr-3">Expires:</p>
+                    <p>{{ post.expires_on }}</p>
+                </div>
             </div>
+
             <job-post :post="post"></job-post>
         </div>
     </div>

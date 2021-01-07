@@ -9,6 +9,7 @@
                         <th class="py-2">{{ trns("purchases.date") }}</th>
                         <th class="py-2">{{ trns("purchases.item") }}</th>
                         <th class="py-2">{{ trns("purchases.price") }}</th>
+                        <th class="py-2">{{ trns("purchases.status") }}</th>
                         <th class="py-2">
                             {{ trns("purchases.purchased_by") }}
                         </th>
@@ -27,12 +28,18 @@
                         <td class="py-1">
                             <router-link
                                 :to="`/purchases/${purchase.id}`"
-                                class="hover:text-sky-blue"
+                                class="hover:text-sky-blue type-b2"
                             >
                                 {{ purchase.package.name }}
                             </router-link>
                         </td>
                         <td class="py-1">{{ purchase.package.price }}</td>
+                        <td class="p-1">
+                            <colour-label
+                                :colour="purchase.paid ? 'green' : 'red'"
+                                :text="purchase.paid ? 'Paid' : 'Failed'"
+                            ></colour-label>
+                        </td>
                         <td class="py-1">{{ purchase.user.name }}</td>
                     </tr>
                 </tbody>
@@ -44,8 +51,9 @@
 <script type="text/babel">
 import PageHeader from "../../Components/PageHeader";
 import BillingDetailsSummary from "../../Components/Schools/BillingDetailsSummary";
+import ColourLabel from "../../Components/ColourLabel";
 export default {
-    components: { BillingDetailsSummary, PageHeader },
+    components: { BillingDetailsSummary, PageHeader, ColourLabel },
 
     computed: {
         school() {

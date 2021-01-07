@@ -28,10 +28,20 @@ function getSchoolById(school_id) {
     return get(`/api/admin/schools/${school_id}`);
 }
 
+function fetchSchoolJobPosts(school_id) {
+    return get(`/api/admin/schools/${school_id}/job-posts`);
+}
+
+function fetchSchoolPurchases(school_id) {
+    return get(`/api/admin/schools/${school_id}/purchases`);
+}
+
 export {
     getSchoolsOverview,
     getSchoolById,
     querySchools,
     disableSchool,
     reinstateSchool,
+    fetchSchoolJobPosts,
+    fetchSchoolPurchases,
 };

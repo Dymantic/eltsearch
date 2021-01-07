@@ -251,6 +251,8 @@ Route::group([
     Route::get('schools-overview', 'SchoolsOverviewController@show');
     Route::get('schools', 'SchoolsController@index');
     Route::get('schools/{school}', 'SchoolsController@show');
+    Route::get('schools/{school}/job-posts', 'SchoolJobPostsController@index');
+    Route::get('schools/{school}/purchases', 'SchoolPurchasesController@index');
 
     Route::get('purchases', 'PurchasesController@index');
     Route::get('purchases/{purchase}', 'PurchasesController@show');
