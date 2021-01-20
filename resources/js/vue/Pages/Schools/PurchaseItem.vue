@@ -7,14 +7,11 @@
         <div class="flex justify-between flex-col md:flex-row">
             <div class="w-full md:w-1/2">
                 <div v-if="!has_complete_billing_info">
-                    <p class="my-2">
-                        Your billing info is incomplete. Please update before
-                        you proceed.
-                    </p>
+                    <p class="my-2">{{ trns("billing.incomplete") }}</p>
                     <router-link
                         to="/billing-details"
                         class="type-b2 text-sky-blue hover:text-navy"
-                        >Edit billing info</router-link
+                        >{{ trns("billing.update") }}</router-link
                     >
                 </div>
 
@@ -30,7 +27,7 @@
                     </div>
 
                     <submit-button :waiting="waiting">
-                        Purchase
+                        {{ trns("purchasing.purchase") }}
                     </submit-button>
                 </form>
                 <div v-show="last_error">
@@ -41,27 +38,31 @@
             </div>
             <div class="w-full md:w-1/2">
                 <div class="pl-8">
-                    <p class="type-h4 mb-2">Billing Info:</p>
+                    <p class="type-h4 mb-2">{{ trns("billing.info") }}:</p>
                     <p class="mb-1">
-                        <span class="type-b2">Address: </span
+                        <span class="type-b2"
+                            >{{ trns("billing.address_label") }}: </span
                         >{{ billing_info.address }}
                     </p>
                     <p class="mb-1">
-                        <span class="type-b2">City: </span
+                        <span class="type-b2"
+                            >{{ trns("billing.city_label") }}: </span
                         >{{ billing_info.city }}
                     </p>
                     <p class="mb-1">
-                        <span class="type-b2">Country: </span
+                        <span class="type-b2"
+                            >{{ trns("billing.country_label") }}: </span
                         >{{ billing_info.country }}
                     </p>
                     <p class="mb-1">
-                        <span class="type-b2">Postal Code: </span
+                        <span class="type-b2"
+                            >{{ trns("billing.zip_label") }}: </span
                         >{{ billing_info.zip }}
                     </p>
                     <router-link
                         to="/billing-details"
                         class="text-sky-blue hover:text-navy"
-                        >Edit billing info</router-link
+                        >{{ trns("billing.update") }}</router-link
                     >
                 </div>
             </div>

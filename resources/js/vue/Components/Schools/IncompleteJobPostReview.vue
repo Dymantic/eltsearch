@@ -1,8 +1,7 @@
 <template>
     <div class="my-12 max-w-xl">
         <p class="type-b2 mb-6">
-            Your post is not complete enough to publish. Please review your
-            post, and complete any missing sections.
+            {{ trns("incomplete_post_publish.explain") }}
         </p>
         <div class="grid grid-cols-1 sm:grid-cols-2">
             <div
@@ -20,7 +19,7 @@
             <router-link
                 :to="`/job-posts/${post.id}/edit`"
                 class="btn btn-primary"
-                >Edit Post</router-link
+                >{{ trns("incomplete_post_publish.edit") }}</router-link
             >
         </div>
     </div>

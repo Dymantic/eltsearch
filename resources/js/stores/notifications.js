@@ -87,7 +87,6 @@ export default {
         },
 
         markAsRead({ dispatch }, notification_id) {
-            dispatch("profile/refreshDashboardTiles", null, { root: true });
             return markNotificationAsRead(notification_id).then(() =>
                 dispatch("refresh")
             );

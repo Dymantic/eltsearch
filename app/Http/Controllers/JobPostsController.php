@@ -21,9 +21,16 @@ class JobPostsController extends Controller
 
     public function show(JobPost $post)
     {
+        $is_teacher = auth()->user() && auth()->user()->isTeacher();
+        $has_application = $post->hasApplicationBy(auth()->user());
+        $profile_complete = $is_teacher && auth()->user()->teacher->hasCompleteProfile();
+
+
         return view('front.job-posts.post', [
             'post' => JobPostPresenter::forPublic($post),
-            'has_application' => $post->hasApplicationBy(auth()->user())
+            'has_application' => $has_application,
+            'profile_incomplete' => !$profile_complete,
+            'can_apply' => auth()->guest() || ((!$has_application) && ($profile_complete)),
         ]);
     }
 

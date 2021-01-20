@@ -2,23 +2,26 @@
     <div class="flex flex-col md:flex-row justify-between max-w-2xl">
         <div>
             <p class="type-h3 text-navy">{{ teacher.name }}</p>
-            <p class="type-h4">{{ teacher.nationality }}</p>
-            <p>
-                <span class="type-b2">Age: </span>{{ teacher.age }} ({{
-                    teacher.date_of_birth
-                }})
+            <p class="type-h4 mb-2">{{ teacher.nationality }}</p>
+            <p class="mb-1">
+                <span class="type-b2">{{ trns("resume.age") }}: </span
+                >{{ teacher.age }} ({{ teacher.date_of_birth }})
             </p>
-            <p>
-                <span class="type-b2">Teaching Experience: </span
-                >{{ teacher.years_experience }}
-                {{ teacher.years_experience === 1 ? "year" : "years" }}
+            <p class="mb-1">
+                <span class="type-b2"
+                    >{{ trns("resume.experience_label") }}: </span
+                >{{
+                    trns("resume.experience_years", "", {
+                        years: teacher.years_experience,
+                    })
+                }}
             </p>
-            <p>
-                <span class="type-b2">Native Language: </span
+            <p class="mb-1">
+                <span class="type-b2">{{ trns("resume.native_lang") }}: </span
                 >{{ teacher.native_language }}
             </p>
-            <p>
-                <span class="type-b2">Other languages: </span
+            <p class="mb-1">
+                <span class="type-b2">{{ trns("resume.other_langs") }}: </span
                 >{{ teacher.other_languages || "None supplied" }}
             </p>
         </div>

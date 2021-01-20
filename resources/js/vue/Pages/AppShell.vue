@@ -9,7 +9,7 @@
             <div
                 class="h-20 bg-gray-100 shadow flex justify-between items-center px-6"
             >
-                <button class="lg:hidden" @click="toggleNav">
+                <button class="lg:hidden relative" @click="toggleNav">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 20 20"
@@ -28,7 +28,7 @@
                     <router-link
                         v-if="$store.state.profile.account_type !== 'admin'"
                         to="/notifications"
-                        class="inline-block rounded-full mx-4 p-2"
+                        class="inline-block rounded-full mx-4 p-2 relative"
                         :class="{
                             'text-sky-blue': has_new_notifications,
                             'text-gray-600': !has_new_notifications,
@@ -44,6 +44,10 @@
                                 d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"
                             />
                         </svg>
+                        <span
+                            v-show="has_new_notifications"
+                            class="block w-2 h-2 bg-red-500 absolute top-0 right-0 rounded-full m-1"
+                        ></span>
                     </router-link>
 
                     <profile-menu></profile-menu>

@@ -2,7 +2,10 @@
     <labeled-box label="Location" @dismiss="$emit('dismiss')">
         <div class="flex justify-between items-center">
             <p class="text-lg font-bold">Where would you like to work?</p>
-            <choose-location @chosen="addArea"></choose-location>
+            <choose-location
+                @chosen="addArea"
+                heading="Where would you like to work?"
+            ></choose-location>
         </div>
         <div class="my-6">
             <div

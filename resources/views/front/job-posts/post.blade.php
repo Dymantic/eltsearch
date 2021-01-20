@@ -41,7 +41,7 @@
                 <div class="w-32 h-32">
                     <img src="https://shaneschools.com/en/wp-content/uploads/2020/03/ses_logo-no-text-108.png" alt="" class="w-full h-full object-contain">
                 </div>
-                @if(!$has_application)
+                @if($can_apply)
                 <div class="text-center my-4">
                     <a href="/job-posts/{{ $post['slug'] }}/apply" class="bg-sky-blue hover:bg-navy text-white px-4 py-2 shadow rounded-l-full rounded-r-full text-sm">Apply Now</a>
                 </div>
@@ -80,13 +80,17 @@
             </ul>
         </div>
 
-        @if(!$has_application)
+        @if($can_apply)
             <div class="text-center my-12">
                 <a href="/job-posts/{{ $post['slug'] }}/apply" class="btn-main">Apply Now</a>
             </div>
-        @else
+        @elseif($has_application)
             <div class="text-center my-12">
                 <p>You have already applied for this job! Visit your <a href="/teachers#/applications" class="text-sky-blue underline hover:text-navy">dashboard</a> to see details.</p>
+            </div>
+        @elseif($profile_incomplete)
+            <div class="text-center my-12">
+                <p>You need to complete your profile before you can apply for this job! Visit your <a href="/teachers#/applications" class="text-sky-blue underline hover:text-navy">dashboard</a> to get that done.</p>
             </div>
         @endif
 

@@ -15,6 +15,7 @@
         <choose-location
             @chosen="setLocation"
             :label="current_location ? 'Update Location' : 'Set Location'"
+            heading="Where are you based?"
         ></choose-location>
     </div>
 </template>

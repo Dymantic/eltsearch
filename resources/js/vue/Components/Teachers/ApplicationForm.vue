@@ -10,12 +10,12 @@
         </div>
 
         <form @submit.prevent="submit" class="my-12 max-w-lg">
-            <p class="type-h4">Cover Letter</p>
+            <p class="type-h4">Introduce Yourself</p>
             <textarea-field
                 class="my-6"
                 v-model="formData.cover_letter"
                 :error-msg="formErrors.cover_letter"
-                help-text="Write a few words describing why you are suitable for this specific job. Be friendly and honest."
+                help-text="Write a few words introducing yourself and describing why you are suitable for this specific job. Be friendly and honest."
                 height="h-32"
             ></textarea-field>
 

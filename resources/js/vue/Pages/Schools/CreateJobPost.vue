@@ -1,7 +1,16 @@
 <template>
     <div v-if="options">
         <page-header :title="trns('create_post.title')"></page-header>
-        <job-post-form :options="options" :school-id="schoolId"></job-post-form>
+        <div
+            class="my-12 max-w-xl p-6 rounded-lg border border-sky-blue bg-blue-100"
+        >
+            <p>{{ trns("job_post_form.use_english") }}</p>
+        </div>
+        <job-post-form
+            :options="options"
+            :school-id="schoolId"
+            :school-name="schoolName"
+        ></job-post-form>
     </div>
 </template>
 
@@ -23,6 +32,11 @@ export default {
         schoolId() {
             const school = this.$store.state.schoolprofile.current_school;
             return school ? school.id : null;
+        },
+
+        schoolName() {
+            const school = this.$store.state.schoolprofile.current_school;
+            return school ? school.name : "";
         },
     },
 

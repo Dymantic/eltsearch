@@ -49,6 +49,7 @@ export default {
         card: {
             status: "status",
         },
+        no_posts: "There are no job posts from your school yet.",
     },
     show_job_post: {
         title: "Job Post",
@@ -76,6 +77,8 @@ export default {
     },
 
     job_post_form: {
+        use_english:
+            "Please remember to use English when filling out the form, as teachers need to be able to read the information.",
         job: "Job",
         job_title: "Job Title",
         description: "Description of job",
@@ -127,6 +130,7 @@ export default {
             "Sorry, you currently do not have any tokens to use to publish your job post. First get a token, then you can publish.",
         buy_token: "Buy tokens",
         ready: "Your post is ready to publish.",
+        publish: "Publish",
         shown_until: "If you publish today, it will be public until :expires:",
         single_cost:
             "<span class='type-b2'>Cost: </span>1 token (You will have :remaining: tokens left)",
@@ -141,6 +145,11 @@ export default {
             "Your job post has expired. If you are sure the contents of the post are still accurate and valid, you may republish the post again, as if it were new.",
         profile_disabled:
             "You may not publish job posts while your school profile is disabled.",
+    },
+    incomplete_post_publish: {
+        explain:
+            "Your post is not complete enough to publish. Please review your post, and complete any missing sections",
+        edit: "Edit Post",
     },
     show_interest_form: {
         name: "Contact person name",
@@ -236,7 +245,7 @@ export default {
         teacher_name: "Teacher's Name",
         nationality: "Nationality",
         age: "Age",
-        only_in_area: "Only in my area",
+        only_in_area: "Only" + " in my area",
         location: "Location",
         education: "Education",
         experience_level: "Experience level",
@@ -260,6 +269,8 @@ export default {
         other_langs: "Other languages",
         education: "Education",
         work_experience: "Work Experience",
+        no_work_experience:
+            ":name: has not added any of their previous work experience.",
     },
     purchases: {
         title: "Your Purchases",
@@ -338,5 +349,22 @@ export default {
         submit: "Send message",
         profile_disabled:
             "You may not contact teachers while your profile is disabled.",
+    },
+    choose_location: {
+        country: "Country",
+        region: "Region",
+        area: "Area",
+        cancel: "Cancel",
+        done: "Done",
+    },
+    purchase_no_billing: {
+        explain:
+            "Your billing info is incomplete. Please update before you proceed.",
+        edit: "Edit billing info",
+        title: "Billing info",
+    },
+    purchasing: {
+        purchase: "Purchase",
+        buy_now: "Buy Now for :price:",
     },
 };

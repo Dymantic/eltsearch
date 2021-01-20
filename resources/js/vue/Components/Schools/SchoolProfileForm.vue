@@ -8,6 +8,7 @@
         ></text-field>
 
         <textarea-field
+            height="h-32"
             class="my-6 max-w-lg"
             :label="trns('edit_profile.labels.intro')"
             v-model="formData.introduction"
@@ -23,6 +24,7 @@
                 <choose-location
                     :label="trns('edit_profile.set_location')"
                     @chosen="setArea"
+                    :heading="trns('edit_profile.labels.location')"
                 ></choose-location>
             </div>
         </div>

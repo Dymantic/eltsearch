@@ -25,6 +25,8 @@ Route::group([
 
     Route::get('privacy-policy', 'PrivacyPolicyController@show');
     Route::get('terms-of-service', 'TermsOfServiceController@show');
+
+    Route::view('register/school', 'front.schools.register');
 });
 
 Route::get('/job-posts/{post:slug}/apply', 'ApplicationsController@create');
@@ -51,7 +53,7 @@ Route::post('logout', 'LoginController@logout');
 Route::get('register/teacher', 'TeacherRegistrationController@create');
 Route::post('register/teacher', 'TeacherRegistrationController@store');
 
-Route::view('register/school', 'front.schools.register');
+
 Route::post('register/school', 'SchoolRegistrationController@store');
 
 Route::view('login', 'front.login')->name('login');

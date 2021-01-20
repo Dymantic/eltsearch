@@ -10,6 +10,6 @@ class SchoolDashboardStatusController extends Controller
 {
     public function show(School $school)
     {
-        return ['statuses' => $school->checkStatus()];
+        return ['statuses' => $school->checkStatus()->values()->all()];
     }
 }

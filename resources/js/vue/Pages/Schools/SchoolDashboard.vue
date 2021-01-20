@@ -51,6 +51,10 @@ export default {
         },
     },
 
+    mounted() {
+        this.$store.dispatch("profile/refreshDashboard");
+    },
+
     methods: {
         hasStatus(status) {
             return this.profileStatuses.includes(status);

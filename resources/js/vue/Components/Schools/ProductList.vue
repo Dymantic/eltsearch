@@ -10,7 +10,9 @@
             <router-link
                 :to="`/purchasing/${buyable.id}`"
                 class="btn btn-primary"
-                >Buy Now for {{ buyable.price }}</router-link
+                >{{
+                    trns("purchasing.buy_now", "", { price: buyable.price })
+                }}</router-link
             >
         </div>
     </div>

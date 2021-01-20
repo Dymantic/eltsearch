@@ -12,4 +12,13 @@ function updateSchoolBillingInfo(school_id, formData) {
     return post(`/api/schools/${school_id}/billing-details`, formData);
 }
 
-export { fetchSchoolProfiles, updateSchoolProfile, updateSchoolBillingInfo };
+function fetchSchoolDashboardStatus(school_id) {
+    return get(`/api/schools/${school_id}/dashboard-status`);
+}
+
+export {
+    fetchSchoolProfiles,
+    updateSchoolProfile,
+    updateSchoolBillingInfo,
+    fetchSchoolDashboardStatus,
+};

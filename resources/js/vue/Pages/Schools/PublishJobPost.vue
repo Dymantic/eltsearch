@@ -81,7 +81,7 @@
                         :waiting="waiting"
                         role="button"
                         @click.native="publish"
-                        >Publish</submit-button
+                        >{{ trns("publish_post.publish") }}</submit-button
                     >
                 </div>
             </div>

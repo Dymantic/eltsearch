@@ -15,6 +15,7 @@ class JobPostsOverviewController extends Controller
             'total_live'          => JobPost::live()->count(),
             'posted_in_last_week' => JobPost::publishedSince(now()->subWeek()->startOfDay())->count(),
             'recent'              => JobPost::publishedSince(now()->subMonth())
+                                            ->latest()
                                             ->get()
                                             ->map(fn($post) => JobPostPresenter::forAdmin($post))
                                             ->values()->all(),

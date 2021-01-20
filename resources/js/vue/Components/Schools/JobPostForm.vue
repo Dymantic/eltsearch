@@ -43,6 +43,7 @@
                     <choose-location
                         :label="trns('job_post_form.set_location')"
                         @chosen="setArea"
+                        :heading="trns('job_post_form.location_prompt')"
                     ></choose-location>
                 </div>
             </div>
@@ -311,13 +312,13 @@ export default {
         SubmitButton,
     },
 
-    props: ["options", "school-id", "post"],
+    props: ["options", "school-id", "post", "school-name"],
 
     data() {
         return {
             waiting: false,
             formData: {
-                school_name: "",
+                school_name: this.schoolName,
                 description: "",
                 area_id: null,
                 position: "",

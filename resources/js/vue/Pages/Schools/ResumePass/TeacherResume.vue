@@ -1,10 +1,10 @@
 <template>
     <div v-if="teacher">
-        <page-header title="Teacher Resume">
+        <page-header :title="trns('resume.title')">
             <router-link
                 :to="`/resume-pass/teachers/${teacher.slug}/contact`"
                 class="btn-primary btn"
-                >Contact Teacher</router-link
+                >{{ trns("resume.contact_teacher") }}</router-link
             >
         </page-header>
 
@@ -13,7 +13,9 @@
 
             <div class="my-12">
                 <div class="border-b border-gray-300 pb-3 mb-3">
-                    <p class="type-h4 text-navy">Education</p>
+                    <p class="type-h4 text-navy">
+                        {{ trns("resume.education") }}
+                    </p>
                 </div>
                 <p>{{ teacher.education_level }}</p>
                 <p class="type-a1">{{ teacher.education_qualification }}</p>
@@ -22,10 +24,16 @@
 
             <div class="my-12">
                 <div class="border-b border-gray-300 pb-3 mb-3">
-                    <p class="type-h4 text-navy">Work Experience</p>
+                    <p class="type-h4 text-navy">
+                        {{ trns("resume.work_experience") }}
+                    </p>
                 </div>
                 <p v-show="!teacher.previous_employment.length">
-                    {{ teacher.name }} has not entered any previous jobs.
+                    {{
+                        trns("resume.no_work_experience", "", {
+                            name: teacher.name,
+                        })
+                    }}
                 </p>
                 <div v-for="job in teacher.previous_employment" class="mb-6">
                     <p class="type-a1">{{ job.job_title }}</p>

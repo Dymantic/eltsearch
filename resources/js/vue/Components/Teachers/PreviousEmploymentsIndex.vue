@@ -8,6 +8,14 @@
             >
         </page-header>
 
+        <div class="my-12 max-w-xl">
+            <p class="text-gray-600">
+                You have not entered any previous work experience yet. Add your
+                experience to increase your chances of finding the best job for
+                you.
+            </p>
+        </div>
+
         <div>
             <div
                 v-for="employment in employments"

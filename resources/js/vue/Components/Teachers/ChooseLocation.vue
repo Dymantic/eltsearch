@@ -6,13 +6,13 @@
         <modal :show="showModal" @close="showModal = false">
             <div class="w-screen max-w-lg p-6">
                 <div>
-                    <p class="font-bold mb-6">Where would you like to work?</p>
+                    <p class="font-bold mb-6">{{ heading }}</p>
                     <select-field
                         class="my-6"
                         v-model="country"
                         :options="countries"
                         error-msg=""
-                        label="Country"
+                        :label="trns('choose_location.country')"
                         empty="-- Choose a country --"
                     ></select-field>
 
@@ -21,7 +21,7 @@
                         v-model="region"
                         :options="regions"
                         error-msg=""
-                        label="Region"
+                        :label="trns('choose_location.region')"
                         empty="-- Choose a region --"
                         :disabled="!regions"
                     ></select-field>
@@ -31,7 +31,7 @@
                         v-model="area"
                         :options="areas"
                         error-msg=""
-                        label="Area"
+                        :label="trns('choose_location.area')"
                         empty="-- Choose an area --"
                         :disabled="!areas"
                     ></select-field>
@@ -42,7 +42,7 @@
                         @click="showModal = false"
                         class="mx-4 muted-btn"
                     >
-                        Cancel
+                        {{ trns("choose_location.cancel") }}
                     </button>
                     <button
                         type="button"
@@ -50,7 +50,7 @@
                         @click="chooseArea"
                         :disabled="incomplete"
                     >
-                        Done
+                        {{ trns("choose_location.done") }}
                     </button>
                 </div>
             </div>
@@ -67,7 +67,7 @@ export default {
         SelectField,
     },
 
-    props: ["label"],
+    props: ["label", "heading"],
 
     data() {
         return {

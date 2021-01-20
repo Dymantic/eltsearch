@@ -10,7 +10,7 @@
 
         <div class="max-w-3xl p-6 rounded-lg shadow-lg">
             <div class="flex flex-col md:flex-row justify-between">
-                <div class="flex-1">
+                <div class="flex-1 pr-8">
                     <p class="type-h3">{{ school.name }}</p>
                     <p class="type-b2 text-sky-blue">{{ school.location }}</p>
                     <p class="type-b1 my-4">{{ school.introduction }}</p>

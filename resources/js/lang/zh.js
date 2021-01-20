@@ -122,6 +122,7 @@ export default {
             "抱歉，您目前無有足夠的點數用來發佈貼文。請先購買點數，才享有發文權。",
         buy_token: "購買點數",
         ready: "您的貼文已可發佈",
+        publish: "發佈貼文",
         shown_until: "如果您今天發佈，貼文將於:expires:到期。",
         single_cost:
             "<span class='type-b2'>所需點數: </span>1點 (您尚有:remaining:點)",

@@ -5,6 +5,11 @@
                 trns("posts_index.create_post")
             }}</router-link>
         </page-header>
+
+        <div class="my-12" v-show="posts.length === 0">
+            <p class="text-gray-600">{{ trns("posts_index.no_posts") }}</p>
+        </div>
+
         <div>
             <job-post-card
                 v-for="post in posts"

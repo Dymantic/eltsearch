@@ -6,18 +6,22 @@
         @click="showMenu = !showMenu"
     >
         <div
-            class="w-12 h-12 rounded-full border-2 border-blue-500 overflow-hidden"
+            class="w-12 h-12 rounded-full border-2 border-sky-blue bg-gray-500 overflow-hidden"
         >
             <img
+                v-show="!broken_avatar"
                 :src="avatar"
                 alt="my avatar"
                 class="w-full h-full object-cover"
+                @error="retryImage"
+                @load="broken_avatar = false"
             />
         </div>
         <div
             class="p-6 shadow-lg absolute top-100 right-0 z-50 bg-white rounded-lg"
             :class="{ hidden: !showMenu }"
         >
+            <div class="w-40"></div>
             <div class="py-4 border-b">
                 <p class="type-h4 text-navy">{{ username }}</p>
                 <p class="type-b1 text-gray-600">{{ email }}</p>
@@ -71,6 +75,8 @@ export default {
     data() {
         return {
             showMenu: false,
+            broken_avatar: false,
+            avatar_retries: 0,
         };
     },
 
@@ -122,6 +128,18 @@ export default {
                 return;
             }
             this.$store.dispatch("lang/updateLocale", locale);
+        },
+
+        retryImage({ target }) {
+            this.broken_avatar = true;
+
+            if (this.avatar_retries > 10) {
+                return;
+            }
+            window.setTimeout(() => {
+                this.avatar_retries++;
+                target.src = target.src + `?v=${Math.random()}`;
+            }, 1000);
         },
     },
 };

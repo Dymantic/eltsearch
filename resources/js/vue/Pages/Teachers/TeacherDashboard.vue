@@ -48,6 +48,7 @@ export default {
 
     mounted() {
         this.$store.dispatch("profile/fetchGeneralInfo");
+        this.$store.dispatch("profile/refreshDashboardTiles");
     },
 
     methods: {

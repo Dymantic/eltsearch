@@ -1,3 +1,6 @@
+import { fetchSchoolDashboardStatus } from "../../api/schools/school_profile";
+import { showError } from "../../libs/notifications";
+
 export default {
     namespaced: true,
 
@@ -27,6 +30,21 @@ export default {
 
         setProfileAvatar(state, avatar) {
             state.avatar = avatar;
+        },
+
+        setDashboardStatus(state, statuses) {
+            state.dashboard_tiles = statuses;
+        },
+    },
+
+    actions: {
+        refreshDashboard({ commit, state }) {
+            if (!state.current_school_id) {
+                return Promise.resolve();
+            }
+            return fetchSchoolDashboardStatus(state.current_school_id)
+                .then(({ statuses }) => commit("setDashboardStatus", statuses))
+                .catch(() => showError("Failed to update dashboard"));
         },
     },
 };

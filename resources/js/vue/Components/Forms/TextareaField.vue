@@ -5,7 +5,7 @@
             <span class="text-xs text-red-400" v-show="errorMsg">{{
                 errorMsg
             }}</span>
-            <p class="my-1 text-gray-500 text-sm" v-show="helpText">
+            <p class="my-1 text-gray-600 text-sm" v-show="helpText">
                 {{ helpText }}
             </p>
             <textarea
