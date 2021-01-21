@@ -1,6 +1,6 @@
 <template>
     <div>
-        <page-header title="Resume Pass"></page-header>
+        <page-header :title="trns('resume_pass.title')"></page-header>
 
         <product-list :buyables="passes" class="my-12"></product-list>
     </div>

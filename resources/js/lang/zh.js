@@ -319,4 +319,21 @@ export default {
         submit: "傳訊息",
         profile_disabled: "當您的帳號被禁用時，您無法與老師聯絡",
     },
+    choose_location: {
+        country: "Country",
+        region: "Region",
+        area: "Area",
+        cancel: "Cancel",
+        done: "Done",
+    },
+    purchase_no_billing: {
+        explain:
+            "Your billing info is incomplete. Please update before you proceed.",
+        edit: "Edit billing info",
+        title: "Billing info",
+    },
+    purchasing: {
+        purchase: "Purchase",
+        buy_now: "Buy Now for :price:",
+    },
 };
