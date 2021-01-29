@@ -39,30 +39,30 @@ return [
     ],
 
     'salary' => [
-        \App\Placements\JobPost::SALARY_RATE_HOUR => 'hour',
-        \App\Placements\JobPost::SALARY_RATE_WEEK => 'week',
-        \App\Placements\JobPost::SALARY_RATE_MONTH => 'month',
+        \App\Placements\JobPost::SALARY_RATE_HOUR => '時數',
+        \App\Placements\JobPost::SALARY_RATE_WEEK => '每週',
+        \App\Placements\JobPost::SALARY_RATE_MONTH => '每月',
     ],
 
     'schedule' => [
-        \App\Placements\JobPost::SCHEDULE_MORNINGS => 'Morning',
-        \App\Placements\JobPost::SCHEDULE_AFTERNOONS => 'Afternoon',
-        \App\Placements\JobPost::SCHEDULE_EVENINGS => 'Evening',
+        \App\Placements\JobPost::SCHEDULE_MORNINGS => '上午',
+        \App\Placements\JobPost::SCHEDULE_AFTERNOONS => '下午',
+        \App\Placements\JobPost::SCHEDULE_EVENINGS => '傍晚',
     ],
 
     'required' => [
-        'area_id' => 'Location',
-        'school_name' => 'School name',
-        'position' => 'Position',
-        'description' => 'Job description',
-        'student_ages' => 'Student Ages',
-        'schedule' => 'Schedule / Times of day',
-        'salary_rate' => 'Salary information',
-        'min_students_per_class' => 'Students per class (min)',
-        'max_students_per_class' => 'Students per class (max)',
-        'contract_length' => 'Contract',
-        'engagement' => 'Full time/Part time',
-        'hours_per_week' => 'Hours per week',
+        'area_id' => '地點',
+        'school_name' => '學校名稱',
+        'position' => '職缺名稱',
+        'description' => '工作內容',
+        'student_ages' => '學生年齡',
+        'schedule' => '教課時段',
+        'salary_rate' => '薪資內容',
+        'min_students_per_class' => '每班最少幾位學生',
+        'max_students_per_class' => '每班最多幾位學生',
+        'contract_length' => '聯絡人',
+        'engagement' => '全職/兼職',
+        'hours_per_week' => '每週教課時數',
     ]
 
 

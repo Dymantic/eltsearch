@@ -46,6 +46,7 @@ export default {
         card: {
             status: "狀態",
         },
+        no_posts: "您目前沒有任何職缺貼文",
     },
     show_job_post: {
         title: "招募貼文",
@@ -73,6 +74,7 @@ export default {
     },
 
     job_post_form: {
+        use_english: "請注意使用英文填寫相關資料，方便外師了解相關內容",
         job: "職缺",
         job_title: "職缺名稱",
         description: "職缺內容",
@@ -157,7 +159,7 @@ export default {
         not_provided: "不提供",
         inform: "告知求職老師",
         already_shown_interest:
-            "You have already contacted this teacher. If you wish to reach out again, please contact the teacher directly.",
+            "您已透過系統與老師聯繫， 如果您想再次與老師聯絡，您可以透過email的方式。",
     },
     create_post: {
         title: "建立招募貼文",
@@ -250,6 +252,7 @@ export default {
         other_langs: "其他語言",
         education: "學歷",
         work_experience: "工作經歷",
+        no_work_experience: ":name:沒有新增任何之前教學經驗",
     },
     purchases: {
         title: "您的訂購",
@@ -320,20 +323,19 @@ export default {
         profile_disabled: "當您的帳號被禁用時，您無法與老師聯絡",
     },
     choose_location: {
-        country: "Country",
-        region: "Region",
-        area: "Area",
-        cancel: "Cancel",
-        done: "Done",
+        country: "國家",
+        region: "地區",
+        area: "地方",
+        cancel: "取消",
+        done: "完成",
     },
     purchase_no_billing: {
-        explain:
-            "Your billing info is incomplete. Please update before you proceed.",
-        edit: "Edit billing info",
-        title: "Billing info",
+        explain: "您的付款資訊尚未完成，請您先更新。",
+        edit: "編輯付款資訊",
+        title: "付款資訊",
     },
     purchasing: {
-        purchase: "Purchase",
-        buy_now: "Buy Now for :price:",
+        purchase: "購買",
+        buy_now: "立即購買:price:",
     },
 };
