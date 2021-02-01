@@ -8,11 +8,12 @@
         ></text-field>
 
         <textarea-field
-            height="h-32"
+            height="h-80"
             class="my-6 max-w-lg"
             :label="trns('edit_profile.labels.intro')"
             v-model="formData.introduction"
             :error-msg="formErrors.introduction"
+            word-limit="300"
         ></textarea-field>
 
         <div class="my-8 max-w-lg">
@@ -107,7 +108,10 @@ export default {
     },
 
     created() {
-        this.$store.dispatch("locations/fetchLocations", "zh");
+        this.$store.dispatch(
+            "locations/fetchLocations",
+            this.$store.state.profile.preferred_lang
+        );
     },
 
     mounted() {

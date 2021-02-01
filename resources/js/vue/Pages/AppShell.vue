@@ -82,6 +82,10 @@ export default {
         has_new_notifications() {
             return this.$store.getters["notifications/hasUnread"];
         },
+
+        name() {
+            return this.$store.state.profile.name;
+        },
     },
 
     mounted() {

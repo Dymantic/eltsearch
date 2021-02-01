@@ -51,6 +51,11 @@ class JobPostMatchesFound extends Notification implements ActionableNotification
         return url("teachers#/job-posts/{$this->jobPost->slug}");
     }
 
+    public function sender(): string
+    {
+        return 'ELT Search';
+    }
+
 
     public function toMail($notifiable)
     {
@@ -88,7 +93,7 @@ class JobPostMatchesFound extends Notification implements ActionableNotification
             ],
             'action' => ['text' => $this->actionTextFor($notifiable)],
             'action_url' => $this->actionUrl($notifiable),
-
+            'sender' => $this->sender(),
         ];
     }
 

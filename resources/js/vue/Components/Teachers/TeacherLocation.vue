@@ -12,11 +12,13 @@
             <span class="type-b2">{{ current_location }}</span
             >? Keeping this up to date helps us find the right job for you.
         </p>
-        <choose-location
-            @chosen="setLocation"
-            :label="current_location ? 'Update Location' : 'Set Location'"
-            heading="Where are you based?"
-        ></choose-location>
+        <div class="flex justify-end">
+            <choose-location
+                @chosen="setLocation"
+                label="Edit"
+                heading="Where are you based?"
+            ></choose-location>
+        </div>
     </div>
 </template>
 

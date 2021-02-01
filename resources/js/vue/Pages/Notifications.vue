@@ -5,9 +5,11 @@
             <table class="w-full">
                 <thead>
                     <tr>
-                        <th class="p-2 text-left"></th>
                         <th class="p-2 text-left">
                             {{ trns("notifications.received") }}
+                        </th>
+                        <th class="p-2 text-left">
+                            {{ trns("notifications.sender") }}
                         </th>
                         <th class="p-2 text-left">
                             {{ trns("notifications.subject") }}
@@ -19,21 +21,28 @@
                         v-for="notification in notifications"
                         :key="notification.id"
                         class="border-b border-gray-300 last:border-b-0"
+                        :class="{ 'font-bold': !notification.is_read }"
                     >
-                        <td class="w-16 text-center px-2 py-1">
-                            <div
-                                class="w-3 h-3 rounded-full mx-auto"
-                                :class="{
-                                    'bg-gray-300': notification.is_read,
-                                    'bg-sky-blue': !notification.is_read,
-                                }"
-                            ></div>
-                        </td>
-                        <td class="p-2">{{ notification.date_sent }}</td>
                         <td class="p-2">
                             <router-link
                                 :to="`/notifications/${notification.id}`"
-                                class="hover:text-navy"
+                                class="hover:text-sky-blue"
+                            >
+                                {{ notification.date_sent }}
+                            </router-link>
+                        </td>
+                        <td class="p-2">
+                            <router-link
+                                :to="`/notifications/${notification.id}`"
+                                class="hover:text-sky-blue"
+                            >
+                                {{ notification.sender }}
+                            </router-link>
+                        </td>
+                        <td class="p-2">
+                            <router-link
+                                :to="`/notifications/${notification.id}`"
+                                class="hover:text-sky-blue"
                             >
                                 {{ notification.subject }}
                             </router-link>

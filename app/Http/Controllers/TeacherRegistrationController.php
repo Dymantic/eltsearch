@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TeacherRegistrationRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -14,15 +15,9 @@ class TeacherRegistrationController extends Controller
         return view('front.teachers.register');
     }
 
-    public function store()
+    public function store(TeacherRegistrationRequest $request)
     {
-        request()->validate([
-            'name' => ['required'],
-            'email' => ['required', 'email', Rule::unique('users', 'email')],
-            'password' => ['required', 'min:8', 'confirmed']
-        ]);
-
-        $user = User::registerTeacher(request()->only('name', 'email', 'password'));
+        $user = User::registerTeacher($request->registrationFields());
 
         auth()->login($user);
 

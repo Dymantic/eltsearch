@@ -63,7 +63,8 @@ class WelcomeSchool extends Notification implements ActionableNotification, Shou
             ],
             'action' => ['text' => $this->transKeyFor('action'), 'params' => []],
             'action_url' => $this->actionUrl($notifiable),
-            'extra_fields' => []
+            'extra_fields' => [],
+            'sender' => $this->sender(),
         ];
     }
 
@@ -97,5 +98,10 @@ class WelcomeSchool extends Notification implements ActionableNotification, Shou
     public function actionUrl($notifiable): string
     {
         return url("/schools#/");
+    }
+
+    public function sender(): string
+    {
+        return 'ELT Search';
     }
 }

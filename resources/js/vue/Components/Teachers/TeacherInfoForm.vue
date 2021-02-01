@@ -27,6 +27,15 @@
 
         <text-field
             class="my-6 max-w-md"
+            v-show="formData.nation_id === 'xxx'"
+            v-model="formData.nation_other"
+            :error-msg="formErrors.nation_other"
+            label="Where are you from?"
+            help-text="This should be the nationality as per your passport"
+        ></text-field>
+
+        <text-field
+            class="my-6 max-w-md"
             v-model="formData.date_of_birth"
             :error-msg="formErrors.date_of_birth"
             label="Date of birth"
@@ -93,7 +102,11 @@ export default {
             waiting: false,
             formData: {
                 name: this.info.name,
-                nation_id: this.info.nation_id,
+                nation_id:
+                    !this.info.nation_id && this.info.nation_other
+                        ? "xxx"
+                        : this.nation_id,
+                nation_other: this.info.nation_other,
                 date_of_birth: this.info.date_of_birth,
                 email: this.info.email,
                 native_language: this.info.native_language,
@@ -103,6 +116,7 @@ export default {
             formErrors: {
                 name: "",
                 nation_id: "",
+                nation_other: "",
                 date_of_birth: "",
                 email: "",
                 native_language: "",
@@ -117,10 +131,18 @@ export default {
             this.waiting = true;
             this.formErrors = clearValidationErrors(this.formErrors);
             this.$store
-                .dispatch("profile/updateGeneralInfo", this.formData)
+                .dispatch("profile/updateGeneralInfo", this.submissionData())
                 .then(this.onSuccess)
                 .catch(this.onError)
                 .then(() => (this.waiting = false));
+        },
+
+        submissionData() {
+            const data = { ...this.formData };
+            if (data.nation_id === "xxx") {
+                data.nation_id = null;
+            }
+            return data;
         },
 
         onSuccess() {

@@ -1,6 +1,6 @@
 <template>
     <span>
-        <button type="button" @click="showModal = true" class="text-btn">
+        <button type="button" @click="showModal = true" class="btn btn-primary">
             {{ button_text }}
         </button>
         <modal :show="showModal" @close="showModal = false">

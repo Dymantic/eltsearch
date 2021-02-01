@@ -30,10 +30,14 @@ export default {
         },
 
         nations() {
-            return this.$store.state.nations.all.reduce((list, nation) => {
+            const all = this.$store.state.nations.all.reduce((list, nation) => {
                 list[nation.id] = nation.nationality;
                 return list;
             }, {});
+
+            all["xxx"] = "Other";
+
+            return all;
         },
     },
 

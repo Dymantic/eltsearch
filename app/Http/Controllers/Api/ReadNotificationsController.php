@@ -16,4 +16,11 @@ class ReadNotificationsController extends Controller
 
         $notification->markAsRead();
     }
+
+    public function destroy(DatabaseNotification $notification)
+    {
+        $this->authorize('read', $notification);
+
+        $notification->markAsUnread();
+    }
 }

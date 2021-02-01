@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p class="type-h2 mb-12">Hi {{ name }}</p>
+        <p class="type-h3 mb-12">Hi {{ name }}</p>
 
         <profile-disabled v-if="is_disabled" class="my-8"></profile-disabled>
 

@@ -16,30 +16,31 @@ class SchoolPresenter
         $images = $school->getMedia(School::IMAGES);
 
         return [
-            'id'                 => $school->id,
-            'name'               => $school->name,
-            'introduction'       => $school->introduction,
-            'area_id'            => $school->area_id,
-            'location'           => optional($school->area)->fullName('en'),
-            'school_types'       => $school->schoolTypes->map->toArray()->values()->all(),
-            'billing_address'    => $school->billing_address,
-            'billing_state'      => $school->billing_state,
-            'billing_city'       => $school->billing_city,
-            'billing_country'    => $school->billing_country,
-            'billing_zip'        => $school->billing_zip,
-            'school_types_names' => $school->schoolTypes->map(fn($type) => $type->name->in('en'))->values()->all(),
-            'logo'               => [
+            'id'                     => $school->id,
+            'name'                   => $school->name,
+            'introduction'           => $school->introduction,
+            'introduction_formatted' => nl2br($school->introduction),
+            'area_id'                => $school->area_id,
+            'location'               => optional($school->area)->fullName('en'),
+            'school_types'           => $school->schoolTypes->map->toArray()->values()->all(),
+            'billing_address'        => $school->billing_address,
+            'billing_state'          => $school->billing_state,
+            'billing_city'           => $school->billing_city,
+            'billing_country'        => $school->billing_country,
+            'billing_zip'            => $school->billing_zip,
+            'school_types_names'     => $school->schoolTypes->map(fn($type) => $type->name->in('en'))->values()->all(),
+            'logo'                   => [
                 'thumb'    => optional($logo)->getUrl('thumb') ?? School::DEFAULT_LOGO,
                 'original' => optional($logo)->getUrl() ?? School::DEFAULT_LOGO,
             ],
-            'images'             => $images->map(
+            'images'                 => $images->map(
                 fn(Media $media) => [
                     'id'       => $media->id,
                     'thumb'    => $media->getUrl('thumb'),
                     'original' => $media->getUrl(),
                 ]
             )->values()->all(),
-            'is_disabled' => $school->isDisabled(),
+            'is_disabled'            => $school->isDisabled(),
         ];
     }
 
@@ -100,8 +101,8 @@ class SchoolPresenter
                     'original' => $media->getUrl(),
                 ]
             )->values()->all(),
-            'signed_up' => $school->created_at->diffForHumans(),
-            'is_disabled' => $school->isDisabled(),
+            'signed_up'          => $school->created_at->diffForHumans(),
+            'is_disabled'        => $school->isDisabled(),
         ];
     }
 }

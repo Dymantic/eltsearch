@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p class="type-h2 mb-12 text-navy">
+        <p class="type-h3 mb-12 text-navy">
             {{ trns("dashboard.greeting", "", { name }) }}
         </p>
 

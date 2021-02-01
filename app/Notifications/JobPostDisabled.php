@@ -46,14 +46,15 @@ class JobPostDisabled extends Notification implements ActionableNotification, Sh
             'message'              => [
                 'text'   => $this->transKeyFor('message'),
                 'params' => [
-                    'name'   => $notifiable->name,
-                    'school' => $this->jobPost->school_name,
+                    'name'     => $notifiable->name,
+                    'school'   => $this->jobPost->school_name,
                     'position' => $this->jobPost->position,
                 ],
             ],
             'action'               => ['text' => $this->actionTextFor($notifiable), 'params' => []],
             'action_url'           => $this->actionUrl($notifiable),
-            'extra_fields'         => []
+            'extra_fields'         => [],
+            'sender'               => $this->sender(),
         ];
     }
 
@@ -83,8 +84,8 @@ class JobPostDisabled extends Notification implements ActionableNotification, Sh
     public function getMessageFor($notifiable): string
     {
         return trans($this->transKeyFor('message'), [
-            'name'   => $notifiable->name,
-            'school' => $this->jobPost->school_name,
+            'name'     => $notifiable->name,
+            'school'   => $this->jobPost->school_name,
             'position' => $this->jobPost->position,
         ], $this->lang($notifiable));
     }
@@ -97,5 +98,10 @@ class JobPostDisabled extends Notification implements ActionableNotification, Sh
     public function actionUrl($notifiable): string
     {
         return '';
+    }
+
+    public function sender(): string
+    {
+        return 'ELT Search';
     }
 }

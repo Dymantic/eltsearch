@@ -32,13 +32,17 @@ class Teacher extends Model implements HasMedia
 
     use InteractsWithMedia;
 
-    const EDUCATION_POSTGRAD = 'postgrad';
-    const EDUCATION_GRADUATE = 'graduate';
+    const EDUCATION_ASSOCIATE = 'associate';
+    const EDUCATION_BACHELOR = 'bachelor';
+    const EDUCATION_MASTER = 'master';
+    const EDUCATION_DOCTORATE = 'doctorate';
     const EDUCATION_OTHER = 'other';
 
     const ALLOWED_EDUCATION_LEVELS = [
-        self::EDUCATION_POSTGRAD,
-        self::EDUCATION_GRADUATE,
+        self::EDUCATION_ASSOCIATE,
+        self::EDUCATION_BACHELOR,
+        self::EDUCATION_MASTER,
+        self::EDUCATION_DOCTORATE,
         self::EDUCATION_OTHER,
     ];
 
@@ -49,6 +53,7 @@ class Teacher extends Model implements HasMedia
         'name',
         'slug',
         'nation_id',
+        'nation_other',
         'date_of_birth',
         'email',
         'area_id',
@@ -120,6 +125,11 @@ class Teacher extends Model implements HasMedia
     public function nation()
     {
         return $this->belongsTo(Nation::class);
+    }
+
+    public function nationality(): string
+    {
+        return $this->nation ? $this->nation->nationality : $this->nation_other ?? '';
     }
 
     public function scopeSignedUpSince(Builder $query, Carbon $cutoff)
@@ -295,7 +305,7 @@ class Teacher extends Model implements HasMedia
         return $this->education_level !== '' &&
             $this->education_qualification !== '' &&
             $this->native_language !== '' &&
-            $this->nation_id !== null &&
+            $this->nationality() !== '' &&
             $this->years_experience !== null &&
             $this->date_of_birth !== null;
     }

@@ -108,8 +108,9 @@ export default {
             );
         },
 
-        fetchSchoolTypes({ commit }) {
-            return fetchSchoolTypes("zh").then((types) =>
+        fetchSchoolTypes({ commit, rootState }) {
+            const locale = rootState.profile.preferred_lang || "zh";
+            return fetchSchoolTypes(locale).then((types) =>
                 commit("setSchoolTypes", types)
             );
         },

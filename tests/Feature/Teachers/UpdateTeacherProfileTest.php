@@ -30,7 +30,7 @@ class UpdateTeacherProfileTest extends TestCase
 
         $response = $this->actingAs($teacher->user)->postJson("/api/teachers/profile/general", [
             'name'             => 'test name',
-            'nation_id'      => $nation->id,
+            'nation_id'        => $nation->id,
             'email'            => 'test@test.test',
             'date_of_birth'    => Carbon::today()->subYears(35)->format(DateFormatter::STANDARD),
             'native_language'  => 'test native language',
@@ -57,13 +57,52 @@ class UpdateTeacherProfileTest extends TestCase
     /**
      * @test
      */
+    public function a_teacher_can_have_an_unsupported_nationality()
+    {
+        $this->withoutExceptionHandling();
+        $area = factory(Area::class)->create();
+        $teacher = factory(Teacher::class)->create([
+            'area_id' => $area->id,
+        ]);
+
+        $response = $this->actingAs($teacher->user)->postJson("/api/teachers/profile/general", [
+            'name'             => 'test name',
+            'nation_id'        => null,
+            'nation_other'     => 'test unsupported nation',
+            'email'            => 'test@test.test',
+            'date_of_birth'    => Carbon::today()->subYears(35)->format(DateFormatter::STANDARD),
+            'native_language'  => 'test native language',
+            'other_languages'  => 'test other languages',
+            'years_experience' => 4
+        ]);
+
+        $response->assertSuccessful();
+
+        $this->assertDatabaseHas('teachers', [
+            'id'               => $teacher->id,
+            'user_id'          => $teacher->user->id,
+            'area_id'          => $area->id,
+            'name'             => 'test name',
+            'nation_id'        => null,
+            'nation_other'     => 'test unsupported nation',
+            'email'            => 'test@test.test',
+            'date_of_birth'    => Carbon::today()->subYears(35),
+            'native_language'  => 'test native language',
+            'other_languages'  => 'test other languages',
+            'years_experience' => 4,
+        ]);
+    }
+
+    /**
+     * @test
+     */
     public function empty_and_null_fields_are_allowed()
     {
         $teacher = factory(Teacher::class)->create();
 
         $response = $this->actingAs($teacher->user)->postJson("/api/teachers/profile/general", [
             'name'             => null,
-            'nation_id'      => null,
+            'nation_id'        => null,
             'email'            => null,
             'date_of_birth'    => null,
             'native_language'  => null,
@@ -77,7 +116,7 @@ class UpdateTeacherProfileTest extends TestCase
             'id'              => $teacher->id,
             'user_id'         => $teacher->user->id,
             'name'            => '',
-            'nation_id'     => null,
+            'nation_id'       => null,
             'email'           => '',
             'date_of_birth'   => null,
             'native_language' => '',
@@ -96,7 +135,7 @@ class UpdateTeacherProfileTest extends TestCase
 
         $response = $this->actingAs($user)->postJson("/api/teachers/profile/general", [
             'name'          => 'test name',
-            'nation_id'   => $nation->id,
+            'nation_id'     => $nation->id,
             'email'         => 'test@test.test',
             'date_of_birth' => Carbon::today()->subYears(35)->format(DateFormatter::STANDARD),
             'area_id'       => $area->id,
@@ -137,7 +176,7 @@ class UpdateTeacherProfileTest extends TestCase
         $nation = factory(Nation::class)->create();
         $valid = [
             'name'          => 'test name',
-            'nation_id'   => $nation->id,
+            'nation_id'     => $nation->id,
             'email'         => 'test@test.test',
             'date_of_birth' => Carbon::today()->subYears(35)->format(DateFormatter::STANDARD),
             'area_id'       => $area->id,

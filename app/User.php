@@ -106,7 +106,6 @@ class User extends Authenticatable
         $teacher = $user->createTeacherProfile(array_merge($generalInfo->toArray(), $educationInfo->toArray()));
 
 
-
         return $teacher;
     }
 
@@ -208,6 +207,7 @@ class User extends Authenticatable
         return [
             'id'        => $notification->id,
             'is_read'   => $notification->read(),
+            'sender'    => $notification->data['sender'] ?? '',
             'subject'   => $this->translatedNotificationField($notification, 'subject'),
             'message'   => $this->translatedNotificationField($notification, 'message'),
             'action'    => $this->translatedNotificationField($notification, 'action'),

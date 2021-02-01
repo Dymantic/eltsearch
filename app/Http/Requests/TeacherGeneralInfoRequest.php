@@ -34,6 +34,7 @@ class TeacherGeneralInfoRequest extends FormRequest
         return new TeacherGeneralInfo($this->all([
             'name',
             'nation_id',
+            'nation_other',
             'date_of_birth',
             'email',
             'native_language',

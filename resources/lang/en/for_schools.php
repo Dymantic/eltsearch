@@ -8,7 +8,7 @@ return [
     ],
 
     'why_use' => [
-        'heading' => 'Why Use ELT Search',
+        'heading' => 'Why Use ELT Search?',
         'one'     => [
             'heading' => 'Large Database',
             'text'    => 'ELT Search has hundreds of teacher profiles all waiting for job offers that match their preferences.',

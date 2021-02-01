@@ -58,7 +58,8 @@ class AttemptToRecruit extends Notification implements ActionableNotification, S
                 'contact' => $this->recruitmentAttempt->contact_person,
                 'email' => $this->recruitmentAttempt->email,
                 'phone' => $this->recruitmentAttempt->phone,
-            ]
+            ],
+            'sender' => $this->sender(),
         ];
     }
 
@@ -93,5 +94,10 @@ class AttemptToRecruit extends Notification implements ActionableNotification, S
     public function actionUrl($notifiable): string
     {
         return url("teachers#/recruitments/{$this->recruitmentAttempt->id}/details");
+    }
+
+    public function sender(): string
+    {
+        return $this->recruitmentAttempt->school->name;
     }
 }

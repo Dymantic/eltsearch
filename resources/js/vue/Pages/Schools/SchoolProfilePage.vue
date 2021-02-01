@@ -13,7 +13,11 @@
                 <div class="flex-1 pr-8">
                     <p class="type-h3">{{ school.name }}</p>
                     <p class="type-b2 text-sky-blue">{{ school.location }}</p>
-                    <p class="type-b1 my-4">{{ school.introduction }}</p>
+                    <p
+                        class="type-b1 my-4 overflow-auto"
+                        style="max-height: 20rem;"
+                        v-html="school.introduction_formatted"
+                    ></p>
                 </div>
                 <div class="w-40 mx-auto">
                     <image-upload
@@ -56,7 +60,7 @@
                     <img
                         :src="image.thumb"
                         alt=""
-                        class="w-full h-full object-cover"
+                        class="w-full h-full object-contain"
                     />
                 </div>
             </div>

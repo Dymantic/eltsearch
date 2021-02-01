@@ -27,6 +27,8 @@ Route::group([
     Route::get('terms-of-service', 'TermsOfServiceController@show');
 
     Route::view('register/school', 'front.schools.register');
+
+    Route::view('register', 'front.register.show');
 });
 
 Route::get('/job-posts/{post:slug}/apply', 'ApplicationsController@create');
@@ -86,6 +88,7 @@ Route::group([
     Route::get('notifications', 'NotificationsController@index');
     Route::delete('notifications/{notification}', 'NotificationsController@delete');
     Route::post('read-notifications', 'ReadNotificationsController@store');
+    Route::delete('read-notifications/{notification}', 'ReadNotificationsController@destroy');
     Route::get('new-notifications-status', 'NewNotificationsStatusController@show');
 
     Route::post('preferred-lang', 'PreferredLangController@store');

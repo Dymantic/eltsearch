@@ -16,7 +16,8 @@ class JobPostReinstated extends Notification implements ActionableNotification, 
 
 
     public function __construct(public JobPost $jobPost)
-    {}
+    {
+    }
 
 
     public function via($notifiable)
@@ -45,14 +46,15 @@ class JobPostReinstated extends Notification implements ActionableNotification, 
             'message'              => [
                 'text'   => $this->transKeyFor('message'),
                 'params' => [
-                    'name'   => $notifiable->name,
-                    'school' => $this->jobPost->school_name,
+                    'name'     => $notifiable->name,
+                    'school'   => $this->jobPost->school_name,
                     'position' => $this->jobPost->position,
                 ],
             ],
             'action'               => ['text' => $this->actionTextFor($notifiable), 'params' => []],
             'action_url'           => $this->actionUrl($notifiable),
-            'extra_fields'         => []
+            'extra_fields'         => [],
+            'sender'               => $this->sender()
         ];
     }
 
@@ -82,8 +84,8 @@ class JobPostReinstated extends Notification implements ActionableNotification, 
     public function getMessageFor($notifiable): string
     {
         return trans($this->transKeyFor('message'), [
-            'name'   => $notifiable->name,
-            'school' => $this->jobPost->school_name,
+            'name'     => $notifiable->name,
+            'school'   => $this->jobPost->school_name,
             'position' => $this->jobPost->position,
         ], $this->lang($notifiable));
     }
@@ -96,5 +98,10 @@ class JobPostReinstated extends Notification implements ActionableNotification, 
     public function actionUrl($notifiable): string
     {
         return '';
+    }
+
+    public function sender(): string
+    {
+        return 'ELT Search';
     }
 }

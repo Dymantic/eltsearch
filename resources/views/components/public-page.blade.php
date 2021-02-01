@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ $lang }}">
+<html lang="{{ $lang }}" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -24,9 +24,14 @@
     <meta name="og:description" content="{{ $description }}"/>
     <meta name="description" content="{{ $description }}">
     <meta name="twitter:card" content="summary_large_image">
+
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.0/dist/alpine.min.js" defer></script>
 </head>
-<body class="text-black font-sans pt-16">
-    {{ $slot }}
+<body class="flex flex-col text-black font-sans pt-16 h-full">
+    <div class="flex-1">
+        {{ $slot }}
+    </div>
+
     @include('front.partials.footer')
     <x-main-navbar></x-main-navbar>
     <script src="{{ mix("/js/front.js") }}"></script>

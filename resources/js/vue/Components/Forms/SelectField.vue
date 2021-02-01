@@ -56,6 +56,7 @@ export default {
         },
 
         getVal(option, index) {
+            console.log({ index });
             if (
                 typeof option === "object" &&
                 option !== null &&

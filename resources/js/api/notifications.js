@@ -8,6 +8,10 @@ function markNotificationAsRead(notification_id) {
     return post("/api/read-notifications", { notification_id });
 }
 
+function markNotificationAsUnread(notification_id) {
+    return del(`/api/read-notifications/${notification_id}`);
+}
+
 function deleteNotification(notification_id) {
     return del(`/api/notifications/${notification_id}`);
 }
@@ -19,6 +23,7 @@ function checkNewNotificationStatus(timestamp) {
 export {
     fetchNotifications,
     markNotificationAsRead,
+    markNotificationAsUnread,
     deleteNotification,
     checkNewNotificationStatus,
 };

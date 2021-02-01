@@ -69,6 +69,11 @@ class ApplicationReceived extends Notification implements ActionableNotification
         );
     }
 
+    public function sender(): string
+    {
+        return $this->teacher()->name;
+    }
+
 
     public function via($notifiable)
     {
@@ -117,6 +122,7 @@ class ApplicationReceived extends Notification implements ActionableNotification
                 'params' => []
             ],
             'action_url'           => $this->actionUrl($notifiable),
+            'sender' => $this->sender(),
         ];
     }
 }

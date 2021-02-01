@@ -16,7 +16,8 @@
                 v-model="formData.cover_letter"
                 :error-msg="formErrors.cover_letter"
                 help-text="Write a few words introducing yourself and describing why you are suitable for this specific job. Be friendly and honest."
-                height="h-32"
+                height="h-64"
+                word-limit="200"
             ></textarea-field>
 
             <p class="type-h4">Contact Details</p>

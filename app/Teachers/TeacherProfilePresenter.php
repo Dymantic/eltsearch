@@ -15,7 +15,8 @@ class TeacherProfilePresenter
             'name'             => $teacher->name,
             'slug'             => $teacher->slug,
             'nation_id'        => $teacher->nation_id,
-            'nationality'      => optional($teacher->nation)->nationality,
+            'nation_other'     => $teacher->nation_other,
+            'nationality'      => $teacher->nationality(),
             'date_of_birth'    => DateFormatter::standard($teacher->date_of_birth),
             'age'              => now()->diffInYears($teacher->date_of_birth),
             'email'            => $teacher->email,
@@ -35,6 +36,7 @@ class TeacherProfilePresenter
 
         return [
             'education_level'         => $level,
+            'education_level_key'         => $teacher->education_level,
             'education_institution'   => $teacher->education_institution,
             'education_qualification' => $teacher->education_qualification,
         ];

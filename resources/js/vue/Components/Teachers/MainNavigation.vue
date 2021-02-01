@@ -2,7 +2,7 @@
     <div>
         <div class="mb-3">
             <router-link exact-active-class="" class="font-semibold" to="/"
-                >Dashboard</router-link
+                >Home</router-link
             >
         </div>
 

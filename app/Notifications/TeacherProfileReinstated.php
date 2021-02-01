@@ -14,7 +14,8 @@ class TeacherProfileReinstated extends Notification implements ActionableNotific
 
 
     public function __construct(public Teacher $teacher)
-    {}
+    {
+    }
 
 
     public function via($notifiable)
@@ -28,8 +29,8 @@ class TeacherProfileReinstated extends Notification implements ActionableNotific
         return (new MailMessage)
             ->subject($this->getSubjectFor($notifiable))
             ->markdown('email.teachers.profile-reinstated', [
-            'body' => $this->getMessageFor($notifiable),
-        ]);
+                'body' => $this->getMessageFor($notifiable),
+            ]);
     }
 
     public function toDatabase($notifiable)
@@ -44,7 +45,7 @@ class TeacherProfileReinstated extends Notification implements ActionableNotific
             ],
             'action'               => ['text' => $this->actionTextFor($notifiable)],
             'action_url'           => $this->actionUrl($notifiable),
-
+            'sender'               => $this->sender(),
         ];
     }
 
@@ -74,5 +75,10 @@ class TeacherProfileReinstated extends Notification implements ActionableNotific
     public function actionUrl($notifiable): string
     {
         return '';
+    }
+
+    public function sender(): string
+    {
+        return 'ELT Search';
     }
 }

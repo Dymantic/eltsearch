@@ -72,7 +72,8 @@ class PurchaseComplete extends Notification implements ActionableNotification, S
             ],
             'action' => ['text' => $this->transKeyFor('action'), 'params' => []],
             'action_url' => $this->actionUrl($notifiable),
-            'extra_fields' => []
+            'extra_fields' => [],
+            'sender' => $this->sender(),
         ];
     }
 
@@ -121,5 +122,10 @@ class PurchaseComplete extends Notification implements ActionableNotification, S
     public function actionUrl($notifiable): string
     {
         return url("/schools#/purchases/{$this->purchase->id}");
+    }
+
+    public function sender(): string
+    {
+        return 'ELT Search';
     }
 }

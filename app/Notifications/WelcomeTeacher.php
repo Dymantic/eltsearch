@@ -52,7 +52,8 @@ class WelcomeTeacher extends Notification implements ActionableNotification, Sho
             ],
             'action' => ['text' => $this->actionTextFor($notifiable)],
             'action_url' => $this->actionUrl($notifiable),
-            'extra_fields' => []
+            'extra_fields' => [],
+            'sender' => $this->sender(),
         ];
     }
 
@@ -87,5 +88,10 @@ class WelcomeTeacher extends Notification implements ActionableNotification, Sho
     public function actionUrl($notifiable): string
     {
         return url('/teachers#/');
+    }
+
+    public function sender(): string
+    {
+        return 'ELT Search';
     }
 }

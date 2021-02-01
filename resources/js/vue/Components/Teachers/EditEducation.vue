@@ -6,8 +6,10 @@
             <select-field
                 class="my-6 max-w-md"
                 :options="{
-                    graduate: 'Graduate Degree',
-                    postgrad: 'Postgraduate degree',
+                    associate: 'Associate\'s Degree',
+                    bachelor: 'Bachelor\'s Degree',
+                    master: 'Master\'s Degree',
+                    doctorate: 'Doctorate Degree',
                     other: 'Other',
                 }"
                 label="Level of education"
@@ -60,7 +62,7 @@ export default {
         return {
             waiting: false,
             formData: {
-                education_level: "graduate",
+                education_level: "doctorate",
                 education_institution: "",
                 education_qualification: "",
             },
@@ -103,7 +105,7 @@ export default {
             }
 
             this.formData = {
-                education_level: this.education.education_level,
+                education_level: this.education.education_level_key,
                 education_institution: this.education.education_institution,
                 education_qualification: this.education.education_qualification,
             };

@@ -3,6 +3,7 @@ import {
     deleteNotification,
     fetchNotifications,
     markNotificationAsRead,
+    markNotificationAsUnread,
 } from "../api/notifications";
 import { showError, showSuccess } from "../libs/notifications";
 
@@ -88,6 +89,12 @@ export default {
 
         markAsRead({ dispatch }, notification_id) {
             return markNotificationAsRead(notification_id).then(() =>
+                dispatch("refresh")
+            );
+        },
+
+        unread({ dispatch }, notification_id) {
+            return markNotificationAsUnread(notification_id).then(() =>
                 dispatch("refresh")
             );
         },

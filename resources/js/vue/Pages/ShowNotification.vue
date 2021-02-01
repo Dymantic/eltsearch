@@ -17,9 +17,14 @@
                 </router-link>
             </div>
         </div>
-        <div class="my-12 text-center">
-            <button @click="deleteNotification">
+        <div
+            class="my-12 flex flex-col md:flex-row justify-center items-center"
+        >
+            <button @click="deleteNotification" class="m-4">
                 {{ trns("notifications.delete_button") }}
+            </button>
+            <button @click="unreadNotification" class="m-4">
+                {{ trns("notifications.unread_button") }}
             </button>
         </div>
     </div>
@@ -80,6 +85,19 @@ export default {
                     showSuccess(this.trns("notifications.deleted"));
                 })
                 .catch(() => showError(this.trns("errors.delete_notification")))
+                .then(() => (this.waiting = false));
+        },
+
+        unreadNotification() {
+            this.$store
+                .dispatch(
+                    "notifications/unread",
+                    this.$route.params.notification
+                )
+                .then(() => {
+                    this.$router.push("/notifications");
+                })
+                .catch(() => showError(this.trns("errors.unread_notification")))
                 .then(() => (this.waiting = false));
         },
     },

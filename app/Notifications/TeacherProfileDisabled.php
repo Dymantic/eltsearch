@@ -47,7 +47,7 @@ class TeacherProfileDisabled extends Notification implements ActionableNotificat
             ],
             'action'               => ['text' => $this->actionTextFor($notifiable)],
             'action_url'           => $this->actionUrl($notifiable),
-
+            'sender' => $this->sender(),
         ];
     }
 
@@ -77,5 +77,10 @@ class TeacherProfileDisabled extends Notification implements ActionableNotificat
     public function actionUrl($notifiable): string
     {
         return '';
+    }
+
+    public function sender(): string
+    {
+        return 'ELT Search';
     }
 }

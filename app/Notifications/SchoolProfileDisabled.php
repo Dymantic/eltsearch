@@ -63,7 +63,8 @@ class SchoolProfileDisabled extends Notification implements ActionableNotificati
             ],
             'action'               => ['text' => $this->actionTextFor($notifiable), 'params' => []],
             'action_url'           => $this->actionUrl($notifiable),
-            'extra_fields'         => []
+            'extra_fields'         => [],
+            'sender'               => $this->sender(),
         ];
     }
 
@@ -96,5 +97,10 @@ class SchoolProfileDisabled extends Notification implements ActionableNotificati
     public function actionUrl($notifiable): string
     {
         return '';
+    }
+
+    public function sender(): string
+    {
+        return 'ELT Search';
     }
 }

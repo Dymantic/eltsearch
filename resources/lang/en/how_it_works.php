@@ -7,7 +7,7 @@ return [
         'intro'   => 'We will match employers with you based on the settings you choose. The broader you make your preferences the more chance you will have of being matched with a job.',
     ],
 
-    'steps_header' => 'How Does it Work',
+    'steps_header' => 'How it Works',
 
     'step_one' => [
         'heading' => 'Sign Up',

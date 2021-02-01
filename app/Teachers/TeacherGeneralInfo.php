@@ -10,6 +10,7 @@ class TeacherGeneralInfo
 {
     public string $name;
     public ?int $nation_id;
+    public string $nation_other;
     public string $email;
     public string $native_language;
     public string $other_languages;
@@ -20,6 +21,7 @@ class TeacherGeneralInfo
     {
         $this->name = $info['name'] ?? '';
         $this->nation_id = $info['nation_id'] ?? null;
+        $this->nation_other = $info['nation_id'] ? '' : $info['nation_other'] ?? '';
         $this->email = $info['email'] ?? '';
         $this->native_language = $info['native_language'] ?? '';
         $this->other_languages = $info['other_languages'] ?? '';
@@ -32,6 +34,7 @@ class TeacherGeneralInfo
         return [
             'name'             => $this->name,
             'nation_id'        => $this->nation_id,
+            'nation_other'     => $this->nation_other,
             'email'            => $this->email,
             'native_language'  => $this->native_language,
             'other_languages'  => $this->other_languages,

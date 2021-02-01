@@ -43,6 +43,6 @@
     <p class="my-16 max-w-xl mx-auto type-h4 text-navy text-center px-6">{{ trans('for_schools.outro.sign_up_prompt') }}</p>
 
     <div class="text-center mb-20 px-6">
-        <a href="/register/school" class="btn-main type-a1">{{ trans('for_schools.outro.button') }}</a>
+        <a href="/register#schools" class="btn-main type-a1">{{ trans('for_schools.outro.button') }}</a>
     </div>
 </x-public-page>

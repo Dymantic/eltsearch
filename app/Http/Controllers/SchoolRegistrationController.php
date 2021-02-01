@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SchoolRegistrationRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class SchoolRegistrationController extends Controller
 {
-    public function store()
+    public function store(SchoolRegistrationRequest $request)
     {
         request()->validate([
             'name'        => ['required'],

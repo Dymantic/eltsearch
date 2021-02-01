@@ -73,7 +73,8 @@ class InterestShown extends Notification implements ActionableNotification, Shou
             'extra_fields' => [
                 'email' => $this->showOfInterest->email,
                 'phone' => $this->showOfInterest->phone,
-            ]
+            ],
+            'sender' => $this->sender(),
         ];
     }
 
@@ -95,5 +96,10 @@ class InterestShown extends Notification implements ActionableNotification, Shou
     public function actionUrl($notifiable): string
     {
         return url("teachers#/applications/{$this->application->id}/show-of-interest");
+    }
+
+    public function sender(): string
+    {
+        return $this->school->name;
     }
 }

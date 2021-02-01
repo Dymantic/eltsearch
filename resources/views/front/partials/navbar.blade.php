@@ -10,7 +10,7 @@
         </div>
         <div class="lg:border-l border-gray-400 flex flex-col lg:flex-row lg:items-center">
             @auth
-                <div class="type-b2 pl-4 lg:pl-0 mx-0 lg:mx-6 mb-4 lg:mb-0"><a class="hover:text-sky-blue" href="/teachers">Dashboard</a></div>
+                <div class="type-b2 pl-4 lg:pl-0 mx-0 lg:mx-6 mb-4 lg:mb-0"><a class="hover:text-sky-blue" href="/teachers">My Account</a></div>
                 <div><a class="type-b2 " href="/register/teacher">Logout</a></div>
             @endauth
             @guest

@@ -49,7 +49,7 @@
             </div>
             <div class="flex justify-end mt-4">
                 <router-link to="/general-info/edit" class="btn btn-primary"
-                    >Edit Info</router-link
+                    >Edit</router-link
                 >
             </div>
         </div>

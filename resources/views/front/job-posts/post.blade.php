@@ -39,7 +39,7 @@
             </div>
             <div>
                 <div class="w-32 h-32">
-                    <img src="https://shaneschools.com/en/wp-content/uploads/2020/03/ses_logo-no-text-108.png" alt="" class="w-full h-full object-contain">
+                    <img src="{{ $post['logo']['thumb'] }}" alt="" class="w-full h-full object-contain">
                 </div>
                 @if($can_apply)
                 <div class="text-center my-4">
