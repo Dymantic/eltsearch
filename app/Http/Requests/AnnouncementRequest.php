@@ -21,6 +21,7 @@ class AnnouncementRequest extends FormRequest
             'body' => [new TranslationField()],
             'starts' => ['date'],
             'ends' => ['date', 'after_or_equal:starts'],
+            'urgent' => ['boolean'],
         ];
     }
 
@@ -30,6 +31,7 @@ class AnnouncementRequest extends FormRequest
             'body',
             'starts',
             'ends',
+            'urgent',
         ]));
     }
 }

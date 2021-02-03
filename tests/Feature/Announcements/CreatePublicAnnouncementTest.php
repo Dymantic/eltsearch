@@ -22,6 +22,7 @@ class CreatePublicAnnouncementTest extends TestCase
             'body'   => ['en' => 'test body', 'zh' => 'zh test body'],
             'starts' => now()->format('Y-m-d'),
             'ends'   => now()->addDays(7)->format('Y-m-d'),
+            'urgent' => true,
         ]);
         $response->assertSuccessful();
 
@@ -30,6 +31,7 @@ class CreatePublicAnnouncementTest extends TestCase
             'starts' => now()->format('Y-m-d'),
             'ends'   => now()->addDays(7)->format('Y-m-d'),
             'type'   => Announcement::PUBLIC,
+            'urgent' => true,
         ]);
     }
 
@@ -66,6 +68,16 @@ class CreatePublicAnnouncementTest extends TestCase
         $this->assertFieldIsInvalid([
             'ends' => now()->format('Y-m-d'),
             'starts' => now()->addDay()->format('Y-m-d'),
+        ]);
+    }
+
+    /**
+     *@test
+     */
+    public function urgent_must_be_a_boolean()
+    {
+        $this->assertFieldIsInvalid([
+            'urgent' => 'not a bool value',
         ]);
     }
 

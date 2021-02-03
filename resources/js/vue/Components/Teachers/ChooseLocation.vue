@@ -1,6 +1,6 @@
 <template>
     <span>
-        <button type="button" @click="showModal = true" class="btn btn-primary">
+        <button type="button" @click="showModal = true" :class="button_classes">
             {{ button_text }}
         </button>
         <modal :show="showModal" @close="showModal = false">
@@ -67,7 +67,7 @@ export default {
         SelectField,
     },
 
-    props: ["label", "heading"],
+    props: ["label", "heading", "mode"],
 
     data() {
         return {
@@ -81,6 +81,13 @@ export default {
     computed: {
         button_text() {
             return this.label || "Add Location";
+        },
+
+        button_classes() {
+            if (this.mode === "text") {
+                return "text-btn";
+            }
+            return "btn btn-primary";
         },
 
         locations() {

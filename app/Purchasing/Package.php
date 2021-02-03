@@ -14,6 +14,7 @@ class Package
     private string $id;
     private string $type;
     private string $description;
+    private string $icon;
 
     public function __construct(array $configured)
     {
@@ -24,6 +25,7 @@ class Package
         $this->quantity = $configured['quantity'] ?? 1;
         $this->description = $configured['description'] ?? '';
         $this->expires = $configured['expires'] ?? null;
+        $this->icon = $configured['icon'] ?? '';
     }
 
     public static function find(string $id): self
@@ -105,6 +107,7 @@ class Package
             'price' => sprintf("US$%s.00", $this->getPrice()),
             'type' => $this->getType(),
             'selling_points' => trans("{$this->trans_key}.selling_points", [], $lang),
+            'icon' => $this->icon,
         ];
     }
 }

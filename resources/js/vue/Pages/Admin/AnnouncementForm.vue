@@ -6,6 +6,17 @@
                 Preferably kept short and sweet, especially public
                 announcements.
             </p>
+            <div class="mb-8">
+                <p class="type-b2">Adding links to announcements:</p>
+                <p>
+                    You may use Markdown formatting to add links to the text.
+                </p>
+                <p>Links are written as [link text](link address)</p>
+                <p class="my-2">
+                    <strong>E.g. </strong>Click [here](https://example.com) for
+                    more info
+                </p>
+            </div>
             <text-field
                 label="English"
                 v-model="formData.body.en"
@@ -19,7 +30,17 @@
             ></text-field>
         </div>
 
-        <p class="my-8 type-h4">When should the announcement be shown</p>
+        <div class="my-12">
+            <p class="mt-12 type-h4">Is this announcement "urgent"?</p>
+            <checkbox-input
+                v-model="formData.urgent"
+                :value="true"
+                label="Yes, it is urgent"
+                help-text="Urgent announcements will be styled more drastically to try attract attention. Only use if necessary."
+            ></checkbox-input>
+        </div>
+
+        <p class="mt-12 type-h4">When should the announcement be shown</p>
         <div class="flex flex-col md:flex-row">
             <div class="mt-6 mr-8">
                 <p class="font-bold mb-2">
@@ -63,8 +84,9 @@ import {
 } from "../../../libs/forms";
 import { showError, showSuccess } from "../../../libs/notifications";
 import SubmitButton from "../../Components/Forms/SubmitButton";
+import CheckboxInput from "../../Components/Forms/CheckboxInput";
 export default {
-    components: { SubmitButton, TextField, DatePicker },
+    components: { CheckboxInput, SubmitButton, TextField, DatePicker },
 
     props: ["announcement", "type"],
 
@@ -75,6 +97,7 @@ export default {
                 body: { en: "", zh: "" },
                 starts: new Date(),
                 ends: new Date(),
+                urgent: false,
             },
             formErrors: {
                 body: "",
@@ -120,6 +143,7 @@ export default {
                 },
                 starts: new Date(this.announcement.starts_raw),
                 ends: new Date(this.announcement.ends_raw),
+                urgent: this.announcement.is_urgent,
             };
         }
     },

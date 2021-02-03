@@ -1,25 +1,27 @@
 <template>
     <div class="" :class="{ 'border-b border-red-400': errorMsg }">
-        <label class="flex items-center">
-            <span class="text-sm">{{ label }}</span>
-            <span class="text-xs text-red-400" v-show="errorMsg">{{
-                errorMsg
-            }}</span>
-            <input
-                ref="radio"
-                type="radio"
-                :name="name"
-                :value="value"
-                @input="emitValue"
-                class="hidden"
-                :checked="checked === value"
-            />
-            <div
-                class="ml-3 w-4 h-4 rounded-full border border-sky-blue fake-radio"
-            ></div>
+        <label class="">
             <p class="my-1 text-gray-500 text-sm" v-show="helpText">
                 {{ helpText }}
             </p>
+            <span class="flex items-center">
+                <span class="text-sm">{{ label }}</span>
+                <span class="text-xs text-red-400" v-show="errorMsg">{{
+                    errorMsg
+                }}</span>
+                <input
+                    ref="radio"
+                    type="radio"
+                    :name="name"
+                    :value="value"
+                    @input="emitValue"
+                    class="hidden"
+                    :checked="checked === value"
+                />
+                <div
+                    class="ml-3 w-4 h-4 rounded-full border border-sky-blue fake-radio"
+                ></div>
+            </span>
         </label>
     </div>
 </template>

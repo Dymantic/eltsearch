@@ -56,7 +56,7 @@
                             >View</router-link
                         >
                     </div>
-                    <p class="py-2">{{ announcement.body.en }}</p>
+                    <p class="py-2" v-html="announcement.body_formatted.en"></p>
                 </div>
             </div>
         </div>

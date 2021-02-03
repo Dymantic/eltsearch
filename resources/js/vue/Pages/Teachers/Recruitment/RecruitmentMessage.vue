@@ -29,6 +29,7 @@
                         <mail-icon class="h-5 mr-3 text-navy"></mail-icon>
                         <a
                             target="_blank"
+                            rel="nofollow"
                             class="hover:text-navy hover:underline text-sky-blue"
                             :href="`mailto:${message.email}`"
                             >{{ message.email }}</a

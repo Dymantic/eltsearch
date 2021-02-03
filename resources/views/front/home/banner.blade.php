@@ -8,7 +8,7 @@
         <p class="text-navy max-w-xl mx-auto text-center type-b1"></p>
     </div>
     <div class="my-12 text-center">
-        <a href="/register/teacher" class="btn-main type-a1">{{ trans('homepage.banner.button') }}</a>
+        <a href="/register" class="btn-main type-a1">{{ trans('homepage.banner.button') }}</a>
         <p class="type-b1 mt-4">{{ trans('homepage.banner.already_member') }} <a href="/login" class="type-b2 text-sky-blue hover:text-navy ">{{ trans('homepage.banner.sign_in') }}</a>
         </p>
 

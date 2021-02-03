@@ -24,10 +24,18 @@
     <div class="my-20 px-6">
         <p class="type-h6 text-navy max-w-3xl mx-auto mb-10">{{ trans('for_schools.pricing.heading') }}</p>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-5xl mx-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-16 max-w-3xl mx-auto">
             @foreach($packages as $package)
                 <div class="w-full shadow-lg mx-auto my-8">
-                    <p class="text-sky-blue bg-baby-blue type-h3 py-3 text-center shadow">{{ $package['name'] }}</p>
+                    <div class="text-sky-blue bg-baby-blue py-3 text-center shadow">
+                        @if($package['icon'])
+                        @include($package['icon'], ['classes' => 'h-6 text-sky-blue block mx-auto my-1'])
+                        @endif
+                        <p class="type-h3">
+                            {{ $package['name'] }}
+                        </p>
+
+                    </div>
                     <div class="p-4 text-center">
                         <p class="type-b2">{{ $package['price'] }}</p>
                         @foreach($package['selling_points'] as $point)

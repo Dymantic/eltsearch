@@ -13,10 +13,10 @@
             <p class="type-h4 mb-6">{{ announcement.dates }}</p>
 
             <p class="type-b2 text-sky-blue">English</p>
-            <p class="type-h4 mb-6">{{ announcement.body.en }}</p>
+            <p class="type-h4 mb-6" v-html="announcement.body_formatted.en"></p>
 
             <p class="type-b2 text-sky-blue">Chinese</p>
-            <p class="type-h4 mb-6">{{ announcement.body.zh }}</p>
+            <p class="type-h4 mb-6" v-html="announcement.body_formatted.zh"></p>
         </div>
     </div>
 </template>

@@ -88,7 +88,7 @@ export default {
         location_prompt: "Where is the school located?",
         set_location: "Set location",
         no_location: "No location set",
-        engagement: "Engagement",
+        engagement: "Working times and Hours",
         engagement_prompt: "Is the job part time or full time?",
         part_time: "Part time",
         full_time: "Full time",
@@ -231,7 +231,7 @@ export default {
         token_count: "You have :count: token(s)",
     },
     resume_pass: {
-        title: "Your Resume Pass",
+        title: "My Resume Pass",
         valid_until: "Valid until :date:",
         expires:
             "Your resume pass will expire in <span class='type-b2'>:days: days</span>",

@@ -30,9 +30,12 @@
                 </p>
                 <p class="mb-1">
                     <span class="type-b2 text-navy">Email: </span>
-                    <a :href="`mailto:application.show_of_interest.email`">{{
-                        application.show_of_interest.email
-                    }}</a>
+                    <a
+                        target="_blank"
+                        rel="nofollow"
+                        :href="`mailto:application.show_of_interest.email`"
+                        >{{ application.show_of_interest.email }}</a
+                    >
                 </p>
                 <p class="mb-1">
                     <span class="type-b2 text-navy">Phone number: </span

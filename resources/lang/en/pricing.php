@@ -13,7 +13,7 @@ return [
     ],
 
     'ten_posts_pack' => [
-        'name' => 'Token 10 Pack',
+        'name' => '10 Tokens',
         'description' => 'Get 10 tokens at a discounted rate, to use when it suits you.',
         'selling_points' => [
             'Save Big (25%)',
@@ -23,7 +23,7 @@ return [
     ],
 
     'resume_pass' => [
-        'name' => 'Resume Pass - 30 days',
+        'name' => 'Resume Pass',
         'description' => 'Get 30 days of unrestricted access to ELT Search teachers\' resumes to find the teacher your school needs.',
         'selling_points' => [
             'VIP Access to all resumes',
@@ -33,7 +33,7 @@ return [
     ],
 
     'year_resume_pass' => [
-        'name' => 'Resume Pass - 1 year',
+        'name' => 'Annual Resume Pass',
         'description' => 'Save big by getting a whole year of unrestricted access to ELT Search teachers’ resumes.',
         'selling_points' => [
             'Save Big (25%)',

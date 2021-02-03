@@ -1,26 +1,28 @@
 <template>
     <div class="" :class="{ 'border-b border-red-400': errorMsg }">
-        <label class="flex items-center">
+        <label class="items-center">
             <p class="my-1 text-gray-500 text-sm" v-show="helpText">
                 {{ helpText }}
             </p>
-            <input
-                ref="checkbox"
-                type="checkbox"
-                @input="emitValue"
-                class="hidden"
-                :checked="is_checked"
-                :value="value"
-            />
-            <div
-                class="mr-3 w-4 h-4 rounded-sm border border-sky-blue fake-checkbox flex justify-center items-center"
-            >
-                <check-icon class="text-white h-3"></check-icon>
+            <div class="flex items-center">
+                <input
+                    ref="checkbox"
+                    type="checkbox"
+                    @input="emitValue"
+                    class="hidden"
+                    :checked="is_checked"
+                    :value="value"
+                />
+                <div
+                    class="mr-3 w-4 h-4 rounded-sm border border-sky-blue fake-checkbox flex justify-center items-center"
+                >
+                    <check-icon class="text-white h-3"></check-icon>
+                </div>
+                <span class="text-sm">{{ label }}</span>
+                <span class="text-xs text-red-400" v-show="errorMsg">{{
+                    errorMsg
+                }}</span>
             </div>
-            <span class="text-sm">{{ label }}</span>
-            <span class="text-xs text-red-400" v-show="errorMsg">{{
-                errorMsg
-            }}</span>
         </label>
     </div>
 </template>

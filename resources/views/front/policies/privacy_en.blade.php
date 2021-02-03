@@ -228,17 +228,10 @@
 
             <ul class="list-disc pl-12 my-6">
                 <li>
-                    <p><strong>Stripe</strong></p>
-                    <p><a class="text-sky-blue hover:text-navy break-words" href="https://stripe.com/us/privacy">https://stripe.com/us/privacy</a></p>
+                    <p><strong>2Checkout</strong></p>
+                    <p><a class="text-sky-blue hover:text-navy break-words" href="https://www.2checkout.com/legal/privacy/">https://www.2checkout.com/legal/privacy/</a></p>
                 </li>
-                <li>
-                    <p><strong>PayPal</strong></p>
-                    <p>Their privacy policy can be viewed at <a class="text-sky-blue hover:text-navy break-words" href="https://www.paypal.com/webapps/mpp/ua/privacy-full">https://www.paypal.com/webapps/mpp/ua/privacy-full</a></p>
-                </li>
-                <li>
-                    <p><strong>Alipay</strong></p>
-                    <p>Their privacy policy can be viewed at <a class="text-sky-blue hover:text-navy break-words" href="https://render.alipay.com/p/f/agreementpages/alipayglobalprivacypolicy.html">https://render.alipay.com/p/f/agreementpages/alipayglobalprivacypolicy.html</a></p>
-                </li>
+
 
 
             </ul>

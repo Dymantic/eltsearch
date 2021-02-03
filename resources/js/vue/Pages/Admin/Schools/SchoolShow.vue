@@ -34,11 +34,25 @@
                             v-if="school.is_disabled"
                         ></colour-label>
                     </div>
+                    <div class="my-3">
+                        <p class="type-h4">Contact</p>
+                        <p>
+                            <span class="mr-4">{{
+                                school.contact_person
+                            }}</span>
+                            <a :href="`mailto:${school.contact_email}`">{{
+                                school.contact_email
+                            }}</a>
+                        </p>
+                    </div>
                     <p class="type-b2 my-2">
                         {{ school.school_types_names.join(", ") }}
                     </p>
                     <p class="my-2">{{ school.location }}</p>
-                    <p class="my-2 max-w-sm">{{ school.introduction }}</p>
+                    <p
+                        class="my-2 max-w-sm"
+                        v-html="school.introduction_formatted"
+                    ></p>
                 </div>
                 <div class="w-48 mx-auto mt-6 md:mt-0">
                     <img :src="school.logo.thumb" class="w-full" />

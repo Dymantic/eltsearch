@@ -15,6 +15,7 @@ module.exports = {
                 "light-gray": "#F5F5F5",
                 black: "#131A21",
                 "odd-pink": "#F29072",
+                orange: "#F49146",
             },
             fontFamily: {
                 sans: [

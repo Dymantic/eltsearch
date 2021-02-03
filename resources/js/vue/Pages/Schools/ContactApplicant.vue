@@ -19,11 +19,19 @@
                 </p>
                 <p class="mb-1">
                     <span class="type-b2"
-                        >{{ trns("contact_applicant.email") }}: </span
-                    >{{
-                        application.email ||
-                        trns("contact_applicant.not_provided")
-                    }}
+                        >{{ trns("contact_applicant.email") }}:
+                    </span>
+                    <span v-if="application.email">
+                        <a
+                            target="_blank"
+                            rel="nofollow"
+                            :href="`mailto:${application.email}`"
+                            >{{ application.email }}</a
+                        >
+                    </span>
+                    <span v-else>
+                        {{ trns("contact_applicant.not_provided") }}
+                    </span>
                 </p>
                 <p>
                     <span class="type-b2"

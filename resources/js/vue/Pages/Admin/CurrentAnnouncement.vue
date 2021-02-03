@@ -4,14 +4,21 @@
             Current
             <span class="capitalize">{{ type }}</span> Announcement
         </p>
+
         <div v-if="announcement">
+            <colour-label
+                colour="orange"
+                text="urgent"
+                v-if="announcement.is_urgent"
+                class="my-3 inline-block"
+            ></colour-label>
             <p class="my-3 type-b2 text-sky-blue">
                 {{ announcement.dates }}
             </p>
             <p class="type-b2 mb-1">English</p>
-            <p class="mb-2">{{ announcement.body.en }}</p>
+            <p class="mb-2" v-html="announcement.body_formatted.en"></p>
             <p class="type-b2 mb-1">Chinese</p>
-            <p>{{ announcement.body.zh }}</p>
+            <p v-html="announcement.body_formatted.zh"></p>
         </div>
         <p v-else class="text-gray-600">
             There is no {{ type }} announcement at the moment.
@@ -28,7 +35,9 @@
 </template>
 
 <script type="text/babel">
+import ColourLabel from "../../Components/ColourLabel";
 export default {
+    components: { ColourLabel },
     props: ["announcement", "type"],
 };
 </script>

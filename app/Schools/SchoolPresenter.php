@@ -81,6 +81,7 @@ class SchoolPresenter
             'id'                 => $school->id,
             'name'               => $school->name,
             'introduction'       => $school->introduction,
+            'introduction_formatted' => nl2br($school->introduction),
             'area_id'            => $school->area_id,
             'location'           => optional($school->area)->fullName('en'),
             'school_types'       => $school->schoolTypes->map->toArray()->values()->all(),
@@ -103,6 +104,8 @@ class SchoolPresenter
             )->values()->all(),
             'signed_up'          => $school->created_at->diffForHumans(),
             'is_disabled'        => $school->isDisabled(),
+            'contact_person' => optional($school->admins->first())->name,
+            'contact_email' => optional($school->admins->first())->email,
         ];
     }
 }

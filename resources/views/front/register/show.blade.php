@@ -6,22 +6,29 @@
          x-init="init">
         <div class=""
              x-show="showChoice">
-            <p class="type-h2 text-navy mb-20 text-center">Start your voyage with ELT Search</p>
+            <p class="type-h2 text-navy mb-8 text-center">Sign Up!</p>
+            <p class="type-h3 text-gray-700 mb-12 text-center">Get started immediately by signing up for free</p>
             <div class="flex flex-col md:flex-row justify-center mx-auto">
                 <a href="#teachers"
                    @click="showTeachers()"
-                   class="md:mx-12 mb-8 md:mb-0 block w-full md:w-1/2 hover:bg-blue-100">
-                    <div class="shadow border border-sky-blue p-6 text-center">
-                        <p class="type-h3 mb-3 text-navy">For Teachers</p>
-                        <p>Sign up to find the best job for you! Get notified when new jobs become available that match your search criteria.</p>
+                   class="md:mx-12 mb-8 md:mb-0 block w-full md:w-1/2">
+                    <div class="bg-sky-blue hover:bg-navy text-white rounded-lg shadow-lg p-6 text-center">
+                        <div class="flex justify-center">
+                            @include('svg.icons.teachers', ['classes' => 'h-6'])
+                        </div>
+                        <p class="type-h3 my-2">For Teachers</p>
+                        <p>Start finding jobs!</p>
                     </div>
                 </a>
                 <a href="#schools"
                    @click="showSchools()"
-                   class="md:mx-12 mb-8 md:mb-0 block w-full md:w-1/2 hover:bg-blue-100">
-                    <div class="shadow flex-1 border border-sky-blue p-6 text-center">
-                        <p class="type-h3 mb-3 text-navy">For Schools</p>
-                        <p>Sign up to find the best teachers for your school! Post jobs and see profiles of the thousands of teachers active on ELT Search.</p>
+                   class="md:mx-12 mb-8 md:mb-0 block w-full md:w-1/2">
+                    <div class="bg-sky-blue hover:bg-navy text-white rounded-lg shadow-lg p-6 text-center">
+                        <div class="flex justify-center">
+                            @include('svg.icons.school', ['classes' => 'h-6'])
+                        </div>
+                        <p class="type-h3 my-2">For Schools</p>
+                        <p>Start finding teachers!</p>
                     </div>
                 </a>
             </div>

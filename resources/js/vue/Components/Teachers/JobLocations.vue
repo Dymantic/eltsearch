@@ -1,11 +1,7 @@
 <template>
     <labeled-box label="Location" @dismiss="$emit('dismiss')">
-        <div class="flex justify-between items-center">
+        <div class="">
             <p class="text-lg font-bold">Where would you like to work?</p>
-            <choose-location
-                @chosen="addArea"
-                heading="Where would you like to work?"
-            ></choose-location>
         </div>
         <div class="my-6">
             <div
@@ -19,6 +15,22 @@
                         class="text-red-600 hover:text-red-500 h-4"
                     ></trash-icon>
                 </button>
+            </div>
+            <p class="text-gray-600 my-6" v-show="current_areas.length === 0">
+                Select the location where you would like to work. We will alert
+                you of any new posts from that location.
+            </p>
+            <div class="mt-6">
+                <choose-location
+                    @chosen="addArea"
+                    mode="text"
+                    :label="
+                        current_areas.length === 0
+                            ? 'Add location'
+                            : 'Add another location'
+                    "
+                    heading="Where would you like to work?"
+                ></choose-location>
             </div>
         </div>
     </labeled-box>

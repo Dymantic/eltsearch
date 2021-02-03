@@ -1,5 +1,5 @@
 <template>
-    <labeled-box label="Working Times" @dismiss="dismiss">
+    <labeled-box label="Schedule" @dismiss="dismiss">
         <div class="flex justify-between items-center">
             <p class="text-lg font-bold">
                 What times of day are you okay to work in?

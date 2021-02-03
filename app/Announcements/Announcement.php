@@ -6,6 +6,7 @@ use App\DateFormatter;
 use App\Translation;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Announcement extends Model
 {
@@ -14,12 +15,13 @@ class Announcement extends Model
     const FOR_SCHOOLS = 'schools';
     const FOR_TEACHERS = 'teachers';
 
-    protected $fillable = ['body', 'starts', 'ends', 'type'];
+    protected $fillable = ['body', 'starts', 'ends', 'type', 'urgent'];
 
     protected $casts = [
         'body'   => Translation::class,
         'starts' => 'date',
         'ends'   => 'date',
+        'urgent' => 'boolean',
     ];
 
     public static function forPublic(AnnouncementInfo $info): self
@@ -47,22 +49,22 @@ class Announcement extends Model
         return $this->starts->isFuture();
     }
 
-    public static function currentPublic($lang): string
+    public static function currentPublic($lang): array
     {
         return self::currentOfType(self::PUBLIC, $lang);
     }
 
-    public static function currentSchools($lang): string
+    public static function currentSchools($lang): array
     {
         return self::currentOfType(self::FOR_SCHOOLS, $lang);
     }
 
-    public static function currentTeachers($lang): string
+    public static function currentTeachers($lang): array
     {
         return self::currentOfType(self::FOR_TEACHERS, $lang);
     }
 
-    private static function currentOfType($type, $lang): string
+    private static function currentOfType($type, $lang): array
     {
         $announcement = self::latest()
                             ->where('starts', '<=', now()->endOfDay())
@@ -70,7 +72,7 @@ class Announcement extends Model
                             ->where('ends', '>=', now()->startOfDay())
                             ->first();
 
-        return $announcement ? $announcement->body->in($lang) : '';
+        return [$announcement ? Str::markdown($announcement->body->in($lang)) : '', $announcement->urgent];
     }
 
     public function toArray()
@@ -79,6 +81,10 @@ class Announcement extends Model
             'id'          => $this->id,
             'type'        => $this->type,
             'body'        => $this->body->toArray(),
+            'body_formatted' => [
+                'en' => Str::markdown($this->body->in('en')),
+                'zh' => Str::markdown($this->body->in('zh')),
+            ],
             'starts'      => DateFormatter::pretty($this->starts),
             'starts_raw'  => DateFormatter::standard($this->starts),
             'ends'        => DateFormatter::pretty($this->ends),
@@ -86,6 +92,7 @@ class Announcement extends Model
             'dates'       => DateFormatter::range($this->starts, $this->ends),
             'is_current'  => $this->isCurrent(),
             'is_upcoming' => $this->isUpcoming(),
+            'is_urgent' => $this->urgent,
         ];
     }
 }

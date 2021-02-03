@@ -3,6 +3,7 @@
 namespace Tests\Unit\Announcements;
 
 use App\Announcements\Announcement;
+use App\Translation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -38,9 +39,9 @@ class AnnouncementsTest extends TestCase
         $announcement = factory(Announcement::class)->state('current')->create([
             'type' => Announcement::PUBLIC
         ]);
-        $fetched = Announcement::currentPublic('en');
+        [$fetched, $urgent] = Announcement::currentPublic('en');
 
-        $this->assertSame($announcement->body->in('en'), $fetched);
+        $this->assertStringContainsString($announcement->body->in('en'), $fetched);
     }
 
     /**
@@ -51,9 +52,9 @@ class AnnouncementsTest extends TestCase
         $announcement = factory(Announcement::class)->state('current')->create([
             'type' => Announcement::FOR_SCHOOLS
         ]);
-        $fetched = Announcement::currentSchools('zh');
+        [$fetched, $urgent] = Announcement::currentSchools('zh');
 
-        $this->assertSame($announcement->body->in('zh'), $fetched);
+        $this->assertStringContainsString($announcement->body->in('zh'), $fetched);
     }
 
     /**
@@ -64,9 +65,9 @@ class AnnouncementsTest extends TestCase
         $announcement = factory(Announcement::class)->state('current')->create([
             'type' => Announcement::FOR_TEACHERS
         ]);
-        $fetched = Announcement::currentTeachers('zh');
+        [$fetched, $urgent] = Announcement::currentTeachers('zh');
 
-        $this->assertSame($announcement->body->in('zh'), $fetched);
+        $this->assertStringContainsString($announcement->body->in('zh'), $fetched);
     }
 
     /**
@@ -84,9 +85,9 @@ class AnnouncementsTest extends TestCase
             'type' => Announcement::PUBLIC
         ]);
 
-        $fetched = Announcement::currentPublic('en');
+        [$fetched, $urgent] = Announcement::currentPublic('en');
 
-        $this->assertSame($new_current->body->in('en'), $fetched);
+        $this->assertStringContainsString($new_current->body->in('en'), $fetched);
     }
 
     /**
@@ -102,5 +103,23 @@ class AnnouncementsTest extends TestCase
 
         $this->assertTrue($upcoming->isUpcoming());
         $this->assertFalse($past->isUpcoming());
+    }
+
+    /**
+     *@test
+     */
+    public function an_announcement_can_use_markdown()
+    {
+        $announcement = factory(Announcement::class)->state('current')->create([
+            'type' => Announcement::PUBLIC,
+            'body' => new Translation([
+                'en' => 'This has a [link](https://test.test)',
+                'zh' => 'zh body'
+            ])
+        ]);
+
+        $expected = 'This has a <a href="https://test.test">link</a>';
+
+        $this->assertStringContainsString($expected, Announcement::currentPublic('en')[0]);
     }
 }

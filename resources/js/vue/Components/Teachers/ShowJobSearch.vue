@@ -1,6 +1,6 @@
 <template>
     <div>
-        <page-header title="Your job search">
+        <page-header title="My Job Search">
             <router-link class="btn btn-primary" to="/job-search/edit">{{
                 empty ? "Create Your Search" : "Edit"
             }}</router-link>

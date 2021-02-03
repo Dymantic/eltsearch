@@ -1,7 +1,12 @@
 <template>
     <div>
         <div>
-            <p class="text-lg font-bold">Your Job Search</p>
+            <p class="type-h3">My Job Search</p>
+            <p class="my-6 max-w-xl">
+                <span class="type-b2">Note: </span>You may remove criteria from
+                your search if you decide don't want your results limited by
+                that criteria.
+            </p>
             <div class="flex flex-col">
                 <job-locations
                     v-show="useCriteria('location')"
@@ -67,7 +72,9 @@
                         @click="used_criteria.push(criteria)"
                         v-for="criteria in available_criteria"
                     >
-                        <span class="capitalize font-bold">{{ criteria }}</span>
+                        <span class="font-bold">{{
+                            criteriaName(criteria)
+                        }}</span>
                     </button>
                 </div>
             </div>
@@ -169,6 +176,22 @@ export default {
                 (crit) => crit !== criteria
             );
             this.formData[formField] = value;
+        },
+
+        criteriaName(label) {
+            const lookup = {
+                location: "Location",
+                students: "Student Ages",
+                benefits: "Job Benefits",
+                contract: "Contract Length",
+                weekends: "Weekend Work",
+                hours: "Hours",
+                salary: "Salary",
+                schedule: "Schedule",
+                engagement: "Part time/Full time",
+            };
+
+            return lookup[label];
         },
 
         orderPosition(criterion) {
