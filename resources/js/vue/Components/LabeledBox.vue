@@ -8,7 +8,7 @@
         <button
             v-if="dismissable"
             @click="$emit('dismiss')"
-            class="pb-2 w-8 h-8 rounded-full border border-gray-400 bg-gray-400 hover:bg-red-400 text-white absolute top-0 right-0 flex justify-center items-center -m-2 leading-none type-h2"
+            class="pb-2 w-8 h-8 rounded-full border border-gray-400 hover:border-red-500 bg-gray-400 hover:bg-red-400 text-white absolute top-0 right-0 flex justify-center items-center -m-2 leading-none text-4xl font-semibold"
         >
             &times;
         </button>

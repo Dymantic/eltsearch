@@ -4,8 +4,8 @@
             <p class="type-h3">My Job Search</p>
             <p class="my-6 max-w-xl">
                 <span class="type-b2">Note: </span>You may remove criteria from
-                your search if you decide don't want your results limited by
-                that criteria.
+                your search if you decide that you don't want your results
+                limited by that specific criteria.
             </p>
             <div class="flex flex-col">
                 <job-locations
