@@ -72,7 +72,11 @@ class Announcement extends Model
                             ->where('ends', '>=', now()->startOfDay())
                             ->first();
 
-        return [$announcement ? Str::markdown($announcement->body->in($lang)) : '', $announcement->urgent];
+        if(!$announcement) {
+            return ['', false];
+        }
+
+        return [Str::markdown($announcement->body->in($lang)), $announcement->urgent];
     }
 
     public function toArray()
