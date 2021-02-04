@@ -15,6 +15,7 @@
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.min.js" defer></script>
     @endif
 
+    @include('front.partials.favicon-links')
 
     <meta name="og:image" content=""/>
     <meta name="og:url" content="{{ Request::url() }}"/>

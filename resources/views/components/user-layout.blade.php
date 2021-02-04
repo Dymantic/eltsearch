@@ -13,6 +13,8 @@
     <META NAME="ROBOTS"
           CONTENT="NOINDEX, NOFOLLOW">
 
+    @include('front.partials.favicon-links')
+
         <script>
             window.currentProfile = {
                 name: "{{ $name }}",
