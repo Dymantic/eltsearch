@@ -26,7 +26,6 @@
                 <div class="flex justify-end items-center flex-1">
                     <top-bar></top-bar>
                     <router-link
-                        v-if="$store.state.profile.account_type !== 'admin'"
                         to="/notifications"
                         class="inline-block rounded-full mx-4 p-2 relative"
                         :class="{

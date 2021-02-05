@@ -11,6 +11,7 @@ return [
     'log_in'             => 'Log in',
     'terms_of_service'   => 'Terms of Service',
     'privacy_policy'     => 'Privacy Policy',
+    'contact_us'         => 'Contact Us',
     'registered'         => 'Registered',
     'built_by'           => 'This website was beautifully designed and built by',
     'dymantic'           => 'Dymantic Design',

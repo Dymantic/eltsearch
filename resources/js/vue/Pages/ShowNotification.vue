@@ -12,9 +12,16 @@
                 {{ notification.message }}
             </div>
             <div class="mt-6 text-center" v-if="has_action">
-                <router-link :to="action_url" class="btn-primary btn">
+                <router-link
+                    :to="action_url"
+                    class="btn-primary btn"
+                    v-if="internal_action"
+                >
                     {{ notification.action }}
                 </router-link>
+                <a v-else :href="notification.url" class="btn btn-primary">{{
+                    notification.action
+                }}</a>
             </div>
         </div>
         <div
@@ -61,6 +68,14 @@ export default {
             return (
                 this.notification.url !== "" && this.notification.action !== ""
             );
+        },
+
+        internal_action() {
+            if (this.notification.url.indexOf("http") === 0) {
+                return false;
+            }
+
+            return this.notification.url.indexOf("mailto") !== 0;
         },
     },
 

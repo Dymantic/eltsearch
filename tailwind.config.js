@@ -17,6 +17,9 @@ module.exports = {
                 "odd-pink": "#F29072",
                 orange: "#F49146",
             },
+            zIndex: {
+                minus: '-1',
+            },
             fontFamily: {
                 sans: [
                     "Raleway",

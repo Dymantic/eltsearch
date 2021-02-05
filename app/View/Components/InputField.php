@@ -12,8 +12,9 @@ class InputField extends Component
     public string $label;
     public string $name;
     public string $error;
+    public string $bindTo;
 
-    public function __construct(string $label, string $name, string $value, string $error = '', string $helpText = '', string $type = '')
+    public function __construct(string $label, string $name, string $value, string $error = '', string $helpText = '', string $type = '', string $bindTo = '')
     {
         $this->value = $value;
         $this->helpText = $helpText;
@@ -21,6 +22,7 @@ class InputField extends Component
         $this->label = $label;
         $this->name = $name;
         $this->error = $error;
+        $this->bindTo = $bindTo;
     }
 
 
@@ -41,5 +43,15 @@ class InputField extends Component
         }
 
         return '';
+    }
+
+    public function isBound(): bool
+    {
+        return $this->bindTo !== '';
+    }
+
+    public function modelBinding(): string
+    {
+        return $this->bindTo;
     }
 }

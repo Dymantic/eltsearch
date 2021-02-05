@@ -24,6 +24,8 @@ import PurchasesBrowse from "../../vue/Pages/Admin/Purchases/PurchasesBrowse";
 import PurchasesIndex from "../../vue/Pages/Admin/Purchases/PurchasesIndex";
 import PurchaseShow from "../../vue/Pages/Admin/Purchases/PurchaseShow";
 import SessionExpired from "../../vue/Pages/SessionExpired";
+import Notifications from "../../vue/Pages/Notifications";
+import ShowNotification from "../../vue/Pages/ShowNotification";
 
 export default [
     { path: "/", component: AdminDashboard },
@@ -102,5 +104,13 @@ export default [
     {
         path: "/purchases/browse",
         component: PurchasesBrowse,
+    },
+    {
+        path: "/notifications",
+        component: Notifications,
+    },
+    {
+        path: "/notifications/:notification",
+        component: ShowNotification,
     },
 ];

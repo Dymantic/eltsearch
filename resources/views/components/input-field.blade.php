@@ -16,6 +16,7 @@
             type="{{ $inputType() }}"
             value="{{ $value }}"
             class="form-text-input"
+            @if($isBound()) x-model="{{ $modelBinding() }}" @endif
         />
     </label>
 </div>
