@@ -110,7 +110,7 @@ class TeacherSignUpTest extends TestCase
             ->from("/register/teacher")
             ->asGuest()
             ->post("/register/teacher", array_merge($valid, $field));
-        $response->assertRedirect("/register/teacher");
+        $response->assertRedirect("/register/teacher#teachers");
 
         $response ->assertSessionHasErrors(array_key_first($field));
     }

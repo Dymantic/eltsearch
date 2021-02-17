@@ -167,7 +167,7 @@ class SchoolSignUpTest extends TestCase
             ->from("/register/school")
             ->post("/register/school", array_merge($valid, $field));
 
-        $response->assertRedirect("/register/school");
+        $response->assertRedirect("/register/school#schools");
         $response->assertSessionHasErrors(array_key_first($field));
     }
 }

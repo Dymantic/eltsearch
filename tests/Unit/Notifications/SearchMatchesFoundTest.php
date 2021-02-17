@@ -46,7 +46,7 @@ class SearchMatchesFoundTest extends TestCase
             ],
             'action'               => ['text' => 'See Matches'],
             'action_url'           => $expected_url,
-
+            'sender'               => 'ELT Search',
         ];
 
         $notifiable = $jobSearch->teacher->user;

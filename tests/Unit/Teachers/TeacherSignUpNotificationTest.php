@@ -87,7 +87,7 @@ class TeacherSignUpNotificationTest extends TestCase
         ]);
 
         $education = new TeacherEducationInfo([
-            'education_level'         => Teacher::EDUCATION_GRADUATE,
+            'education_level'         => Teacher::EDUCATION_BACHELOR,
             'education_institution'   => 'test college',
             'education_qualification' => 'BTest',
         ]);

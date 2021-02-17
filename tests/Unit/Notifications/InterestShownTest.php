@@ -46,6 +46,7 @@ class InterestShownTest extends TestCase
             ],
             'action' => ['text' => 'See details'],
             'action_url' => url("teachers#/applications/{$application->id}/show-of-interest"),
+            'sender' => $job_post->school->name,
             'extra_fields' => [
                 'email' => ContactDetails::fake()->email,
                 'phone' => ContactDetails::fake()->phone,

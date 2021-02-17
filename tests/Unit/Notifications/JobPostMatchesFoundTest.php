@@ -42,7 +42,7 @@ class JobPostMatchesFoundTest extends TestCase
             ],
             'action' => ['text' => $expected_action],
             'action_url' => $expected_url,
-
+            'sender' => 'ELT Search',
         ];
 
 

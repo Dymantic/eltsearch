@@ -23,7 +23,7 @@ class UpdateTeacherEducationTest extends TestCase
         $teacher = factory(Teacher::class)->create();
 
         $response = $this->actingAs($teacher->user)->postJson("/api/teachers/profile/education", [
-            'education_level'         => Teacher::EDUCATION_POSTGRAD,
+            'education_level'         => Teacher::EDUCATION_BACHELOR,
             'education_institution'   => 'test college',
             'education_qualification' => 'BTest',
         ]);
@@ -31,7 +31,7 @@ class UpdateTeacherEducationTest extends TestCase
 
         $this->assertDatabaseHas('teachers', [
             'id'                      => $teacher->id,
-            'education_level'         => Teacher::EDUCATION_POSTGRAD,
+            'education_level'         => Teacher::EDUCATION_BACHELOR,
             'education_institution'   => 'test college',
             'education_qualification' => 'BTest',
         ]);
@@ -64,7 +64,7 @@ class UpdateTeacherEducationTest extends TestCase
     {
         $teacher = factory(Teacher::class)->create();
         $valid = [
-            'education_level'         => Teacher::EDUCATION_POSTGRAD,
+            'education_level'         => Teacher::EDUCATION_BACHELOR,
             'education_institution'   => 'test college',
             'education_qualification' => 'BTest',
         ];

@@ -55,14 +55,14 @@ class TeachersTest extends TestCase
     {
         $teacher = factory(Teacher::class)->create();
         $education_info = new TeacherEducationInfo([
-            'education_level'         => Teacher::EDUCATION_POSTGRAD,
+            'education_level'         => Teacher::EDUCATION_BACHELOR,
             'education_institution'   => 'test college',
             'education_qualification' => 'BTest',
         ]);
 
         $teacher->updateEducationInfo($education_info);
 
-        $this->assertSame(Teacher::EDUCATION_POSTGRAD, $teacher->education_level);
+        $this->assertSame(Teacher::EDUCATION_BACHELOR, $teacher->education_level);
         $this->assertSame('test college', $teacher->education_institution);
         $this->assertSame('BTest', $teacher->education_qualification);
 

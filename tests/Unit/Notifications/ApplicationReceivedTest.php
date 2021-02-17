@@ -76,10 +76,11 @@ class ApplicationReceivedTest extends TestCase
                 ]
             ],
             'action'               => [
-                'text' => 'notifications.application_received.action',
+                'text'   => 'notifications.application_received.action',
                 'params' => [],
             ],
             'action_url'           => url("/schools#/applications/{$application->id}"),
+            'sender'               => $teacher->name,
         ];
 
         $this->assertSame($expected_subject, $notification->getSubjectFor($school_admin));

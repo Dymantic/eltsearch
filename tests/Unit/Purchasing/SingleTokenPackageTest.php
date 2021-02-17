@@ -28,14 +28,14 @@ class SingleTokenPackageTest extends TestCase
 
         $this->assertInstanceOf(Package::class, $package);
         $this->assertSame(88, $package->getPrice());
-        $this->assertSame('Single Post', $package->getName());
+        $this->assertSame('Single Token', $package->getName());
 
         $expected = [
             'Code'         => null,
             'IsDynamic'    => true,
             'PurchaseType' => 'PRODUCT',
             'Tangible'     => false,
-            'Name'         => 'Single Post',
+            'Name'         => 'Single Token',
             'Price'        => [
                 'PriceAmount' => 88.00,
                 'PriceType'   => 'CUSTOM',

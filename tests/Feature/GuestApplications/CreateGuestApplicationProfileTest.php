@@ -37,7 +37,7 @@ class CreateGuestApplicationProfileTest extends TestCase
             'native_language'         => 'English',
             'other_languages'         => 'Spanish',
             'years_experience'        => 3,
-            'education_level'         => Teacher::EDUCATION_GRADUATE,
+            'education_level'         => Teacher::EDUCATION_BACHELOR,
             'education_institution'   => 'test college',
             'education_qualification' => 'BTest',
         ]);
@@ -60,7 +60,7 @@ class CreateGuestApplicationProfileTest extends TestCase
             'native_language'         => 'English',
             'other_languages'         => 'Spanish',
             'years_experience'        => 3,
-            'education_level'         => Teacher::EDUCATION_GRADUATE,
+            'education_level'         => Teacher::EDUCATION_BACHELOR,
             'education_institution'   => 'test college',
             'education_qualification' => 'BTest',
         ]);
@@ -91,7 +91,7 @@ class CreateGuestApplicationProfileTest extends TestCase
             'native_language'         => 'English',
             'other_languages'         => 'Spanish',
             'years_experience'        => 3,
-            'education_level'         => Teacher::EDUCATION_GRADUATE,
+            'education_level'         => Teacher::EDUCATION_BACHELOR,
             'education_institution'   => 'test college',
             'education_qualification' => 'BTest',
         ]);
@@ -224,7 +224,7 @@ class CreateGuestApplicationProfileTest extends TestCase
             'native_language'         => 'English',
             'other_languages'         => 'Spanish',
             'years_experience'        => 3,
-            'education_level'         => Teacher::EDUCATION_GRADUATE,
+            'education_level'         => Teacher::EDUCATION_BACHELOR,
             'education_institution'   => 'test college',
             'education_qualification' => 'BTest',
         ];
