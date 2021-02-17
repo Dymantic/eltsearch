@@ -119,8 +119,8 @@ export default {
     },
 
     methods: {
-        setArea(area) {
-            this.formData.area_id = area;
+        setArea({ id }) {
+            this.formData.area_id = id;
         },
 
         setForm() {

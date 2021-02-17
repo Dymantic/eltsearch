@@ -37,6 +37,25 @@ class MatchJobSearchTest extends TestCase
     /**
      * @test
      */
+    public function can_match_on_region()
+    {
+        $area = factory(Area::class)->create();
+        $should_match = factory(JobPost::class)
+            ->state('current')->create(['area_id' => $area->id]);
+        $should_not_match = factory(JobPost::class)->state('current')->create();
+        $not_live = factory(JobPost::class)->state('expired')->create();
+
+        $search = $this->makeTestSearch(['region_ids' => [$area->region->id]]);
+
+        $matches = JobPost::matching($search)->get();
+
+        $this->assertCount(1, $matches);
+        $this->assertTrue($matches->first()->is($should_match));
+    }
+
+    /**
+     * @test
+     */
     public function can_match_on_student_ages()
     {
         $should_match = factory(JobPost::class)
@@ -315,42 +334,44 @@ class MatchJobSearchTest extends TestCase
         $should_match = factory(JobPost::class)
             ->state('current')
             ->create([
-                'area_id' => $area->id,
-                'student_ages' => [JobPost::AGE_UNIVERSITY, JobPost::AGE_ADULT],
+                'area_id'          => $area->id,
+                'student_ages'     => [JobPost::AGE_UNIVERSITY, JobPost::AGE_ADULT],
                 'work_on_weekends' => false,
-                'benefits' => [JobPost::BENEFIT_ARC, JobPost::BENEFIT_INSURANCE],
-                'contract_length' => JobPost::CONTRACT_YEAR,
-                'salary_rate' => JobPost::SALARY_RATE_HOUR,
-                'salary_min'  => 550,
-                'salary_max'  => 700,
+                'benefits'         => [JobPost::BENEFIT_ARC, JobPost::BENEFIT_INSURANCE],
+                'contract_length'  => JobPost::CONTRACT_YEAR,
+                'salary_rate'      => JobPost::SALARY_RATE_HOUR,
+                'salary_min'       => 550,
+                'salary_max'       => 700,
             ]);
 
         $should_not_match = factory(JobPost::class)
             ->state('current')
             ->create([
-                'area_id' => $area->id,
-                'student_ages' => [JobPost::AGE_ELEMENTARY, JobPost::AGE_JUNIOR_HIGH],
+                'area_id'          => $area->id,
+                'student_ages'     => [JobPost::AGE_ELEMENTARY, JobPost::AGE_JUNIOR_HIGH],
                 'work_on_weekends' => false,
-                'benefits' => [JobPost::BENEFIT_ARC, JobPost::BENEFIT_INSURANCE],
-                'contract_length' => JobPost::CONTRACT_YEAR,
-                'salary_rate' => JobPost::SALARY_RATE_HOUR,
-                'salary_min'  => 550,
-                'salary_max'  => 700,
+                'benefits'         => [JobPost::BENEFIT_ARC, JobPost::BENEFIT_INSURANCE],
+                'contract_length'  => JobPost::CONTRACT_YEAR,
+                'salary_rate'      => JobPost::SALARY_RATE_HOUR,
+                'salary_min'       => 550,
+                'salary_max'       => 700,
             ]);
 
         $should_match->setSalaryGrade();
         $should_not_match->setSalaryGrade();
 
         $search = $this->makeTestSearch([
-                'area_ids' => [$area->id, 22,33],
-                'student_ages' => [
-                    JobPost::AGE_SENIOR_HIGH, JobPost::AGE_UNIVERSITY, JobPost::AGE_ADULT
-                ],
-                'weekends' => false,
-                'benefits' => [JobPost::BENEFIT_ARC],
-                'contract_type' => [JobPost::CONTRACT_YEAR, JobPost::CONTRACT_OVER_YEAR],
-                'salary' => JobSearch::SALARY_AVG,
-            ]);
+            'area_ids'      => [$area->id, 22, 33],
+            'student_ages'  => [
+                JobPost::AGE_SENIOR_HIGH,
+                JobPost::AGE_UNIVERSITY,
+                JobPost::AGE_ADULT
+            ],
+            'weekends'      => false,
+            'benefits'      => [JobPost::BENEFIT_ARC],
+            'contract_type' => [JobPost::CONTRACT_YEAR, JobPost::CONTRACT_OVER_YEAR],
+            'salary'        => JobSearch::SALARY_AVG,
+        ]);
 
         $matches = JobPost::matching($search)->get();
 
@@ -359,7 +380,7 @@ class MatchJobSearchTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function does_not_match_on_posts_already_matched()
     {
@@ -373,7 +394,6 @@ class MatchJobSearchTest extends TestCase
             ]);
 
 
-
         $search = $this->makeTestSearch([
             'schedule' => [
                 JobPost::SCHEDULE_AFTERNOONS,
@@ -382,7 +402,7 @@ class MatchJobSearchTest extends TestCase
         ]);
 
         factory(JobMatch::class)->create([
-            'job_post_id' => $should_match->id,
+            'job_post_id'   => $should_match->id,
             'job_search_id' => $search->id,
 
         ]);
@@ -396,6 +416,7 @@ class MatchJobSearchTest extends TestCase
     {
         $default = [
             'area_ids'       => [],
+            'region_ids'     => [],
             'student_ages'   => [],
             'benefits'       => [],
             'contract_type'  => [],

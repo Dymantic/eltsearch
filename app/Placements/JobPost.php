@@ -174,7 +174,7 @@ class JobPost extends Model implements HasMedia
               );
 
         if ($search->hasLocation()) {
-            $query->whereIn('area_id', $search->area_ids);
+            $query->whereIn('area_id', $search->allAreas());
         }
 
         if ($search->hasStudentAges()) {

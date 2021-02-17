@@ -57,4 +57,9 @@ class Region extends Model
             'areas' => $this->areas->map->presentForLang($lang)
         ];
     }
+
+    public function fullName($lang)
+    {
+        return sprintf("%s, %s", $this->name->in($lang), $this->country->name->in($lang));
+    }
 }

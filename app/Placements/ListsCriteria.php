@@ -51,8 +51,13 @@ trait ListsCriteria
 
     public function hasLocation()
     {
-        return $this->area_ids && count($this->area_ids);
+        $has_areas = $this->area_ids && count($this->area_ids);
+        $has_regions = $this->region_ids && count($this->region_ids);
+
+        return $has_areas || $has_regions;
     }
+
+
 
     public function hasStudentAges()
     {

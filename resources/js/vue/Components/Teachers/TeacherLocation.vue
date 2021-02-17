@@ -35,9 +35,9 @@ export default {
     },
 
     methods: {
-        setLocation(area_id) {
+        setLocation({ id }) {
             this.$store
-                .dispatch("profile/setLocation", area_id)
+                .dispatch("profile/setLocation", id)
                 .then(() => showSuccess("Location updated"))
                 .catch(() => showError("Failed to update location"));
         },

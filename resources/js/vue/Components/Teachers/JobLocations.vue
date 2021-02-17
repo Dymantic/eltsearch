@@ -5,6 +5,18 @@
         </div>
         <div class="my-6">
             <div
+                v-for="region in current_regions"
+                :key="region.region_id"
+                class="border border-gray-300 px-4 py-2 flex justify-between mb-2"
+            >
+                <p class="text-sm">{{ region.fullname }}</p>
+                <button @click="removeRegion(region.region_id)">
+                    <trash-icon
+                        class="text-red-600 hover:text-red-500 h-4"
+                    ></trash-icon>
+                </button>
+            </div>
+            <div
                 v-for="area in current_areas"
                 :key="area.area_id"
                 class="border border-gray-300 px-4 py-2 flex justify-between mb-2"
@@ -22,6 +34,7 @@
             </p>
             <div class="mt-6">
                 <choose-location
+                    :select-region="true"
                     @chosen="addArea"
                     mode="text"
                     :label="
@@ -51,22 +64,48 @@ export default {
 
     computed: {
         current_areas() {
-            return this.value.map((area_id) =>
+            return this.value.areas.map((area_id) =>
                 this.$store.getters["locations/area_info"](area_id)
+            );
+        },
+
+        current_regions() {
+            return this.value.regions.map((region_id) =>
+                this.$store.getters["locations/region_info"](region_id)
             );
         },
     },
 
     methods: {
-        addArea(area_id) {
-            this.$emit("input", [...this.value, area_id]);
+        addArea({ id, is_region }) {
+            if (is_region) {
+                return this.$emit("input", {
+                    areas: this.value.areas,
+                    regions: [id, ...this.value.regions],
+                });
+            }
+
+            this.$emit("input", {
+                areas: [id, ...this.value.areas],
+                regions: this.value.regions,
+            });
         },
 
         removeArea(area_id) {
-            this.$emit(
-                "input",
-                this.value.filter((id) => parseInt(id) !== parseInt(area_id))
-            );
+            this.$emit("input", {
+                areas: this.value.areas.filter(
+                    (id) => parseInt(id) !== parseInt(area_id)
+                ),
+                regions: this.value.regions,
+            });
+        },
+        removeRegion(region_id) {
+            this.$emit("input", {
+                areas: this.value.areas,
+                regions: this.value.regions.filter(
+                    (id) => parseInt(id) !== parseInt(region_id)
+                ),
+            });
         },
     },
 };

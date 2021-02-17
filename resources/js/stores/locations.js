@@ -18,7 +18,7 @@ export default {
             );
 
             if (!country) {
-                return;
+                return {};
             }
 
             const region = country.regions.find((region) =>
@@ -34,6 +34,29 @@ export default {
                 area_id: area.id,
                 area_name: area.name,
                 fullname: `${area.name}, ${region.name}, ${country.name}`,
+            };
+        },
+
+        region_info: (state) => (region_id) => {
+            region_id = parseInt(region_id);
+            const country = state.all_locations.find((country) =>
+                country.regions.some((region) => region.id === region_id)
+            );
+
+            if (!country) {
+                return {};
+            }
+
+            const region = country.regions.find(
+                (region) => region.id === region_id
+            );
+
+            return {
+                country_id: country.id,
+                country_name: country.name,
+                region_id: region.id,
+                region_name: region.name,
+                fullname: `${region.name}, ${country.name}`,
             };
         },
     },

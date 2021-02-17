@@ -8,6 +8,7 @@ class JobSearchCriteria
 {
 
     public array $area_ids;
+    public array $region_ids;
     public array $student_ages;
     public array $benefits;
     public array $contract_type;
@@ -20,6 +21,7 @@ class JobSearchCriteria
     public function __construct($info)
     {
         $this->area_ids = $info['area_ids'] ?? [];
+        $this->region_ids = $info['region_ids'] ?? [];
         $this->student_ages = $info['student_ages'] ?? [];
         $this->benefits = $info['benefits'] ?? [];
         $this->contract_type = $info['contract_type'] ?? [];
@@ -34,6 +36,7 @@ class JobSearchCriteria
     {
         return [
             'area_ids'       => $this->area_ids,
+            'region_ids'       => $this->region_ids,
             'student_ages'   => $this->student_ages,
             'benefits'       => $this->benefits,
             'contract_type'  => $this->contract_type,

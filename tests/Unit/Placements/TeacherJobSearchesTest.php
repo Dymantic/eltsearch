@@ -5,6 +5,7 @@ namespace Tests\Unit\Placements;
 
 
 use App\Locations\Area;
+use App\Locations\Region;
 use App\Placements\JobPost;
 use App\Placements\JobSearch;
 use App\Placements\JobSearchCriteria;
@@ -152,5 +153,29 @@ class TeacherJobSearchesTest extends TestCase
         $teacher->setJobSearch($searchInfo);
 
         $this->assertSame($original_search->id, $teacher->currentJobSearch()->id);
+    }
+
+    /**
+     *@test
+     */
+    public function can_get_all_area_ids_for_job_search_including_regions()
+    {
+        $regionA = factory(Region::class)->create();
+        $regionB = factory(Region::class)->create();
+
+        $areaA = factory(Area::class)->create(['region_id' => $regionA->id]);
+        $areaB = factory(Area::class)->create(['region_id' => $regionA->id]);
+        $areaC = factory(Area::class)->create(['region_id' => $regionA->id]);
+        $areaD = factory(Area::class)->create(['region_id' => $regionB->id]);
+        $areaE = factory(Area::class)->create(['region_id' => $regionA->id]);
+
+        $search = factory(JobSearch::class)->create([
+            'area_ids' => [$areaD->id, $areaE->id],
+            'region_ids' => [$regionA->id],
+        ]);
+
+        $expected = [$areaA->id, $areaB->id, $areaC->id, $areaE->id, $areaD->id];
+
+        $this->assertSame($expected, $search->allAreas());
     }
 }

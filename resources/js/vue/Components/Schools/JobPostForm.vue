@@ -411,8 +411,8 @@ export default {
             };
         },
 
-        setArea(area_id) {
-            this.formData.area_id = area_id;
+        setArea({ id }) {
+            this.formData.area_id = id;
         },
 
         submit() {

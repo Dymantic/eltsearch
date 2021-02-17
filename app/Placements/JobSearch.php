@@ -2,6 +2,7 @@
 
 namespace App\Placements;
 
+use App\Locations\Region;
 use App\Teachers\Teacher;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -40,6 +41,7 @@ class JobSearch extends Model
 
     protected $fillable = [
         'area_ids',
+        'region_ids',
         'student_ages',
         'benefits',
         'contract_type',
@@ -52,6 +54,7 @@ class JobSearch extends Model
 
     protected $casts = [
         'area_ids'      => 'array',
+        'region_ids'      => 'array',
         'student_ages'  => 'array',
         'benefits'      => 'array',
         'contract_type' => 'array',
@@ -170,6 +173,19 @@ class JobSearch extends Model
         return $this->matches()->create([
             'job_post_id' => $post->id,
         ]);
+    }
+
+    public function allAreas(): array
+    {
+        $regions = Region::with('areas')->find($this->region_ids ?? []);
+        if($regions->count() === 0) {
+            return $this->area_ids ?? [];
+        }
+
+        $region_areas = $regions->reduce(function($areas, $region) {
+            return $areas->merge($region->areas->pluck('id')->values());
+        }, collect([]));
+        return $region_areas->merge(collect($this->area_ids ?? []))->unique()->values()->all();
     }
 
 

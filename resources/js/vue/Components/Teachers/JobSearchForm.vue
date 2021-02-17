@@ -10,7 +10,7 @@
             <div class="flex flex-col">
                 <job-locations
                     v-show="useCriteria('location')"
-                    v-model="formData.area_ids"
+                    v-model="formData.location"
                     :class="orderPosition('location')"
                     @dismiss="clearCriteria('location', 'area_ids', [])"
                 ></job-locations>
@@ -135,7 +135,10 @@ export default {
             ready: false,
             waiting: false,
             formData: {
-                area_ids: this.search.area_ids || [],
+                location: {
+                    areas: this.search.area_ids || [],
+                    regions: this.search.region_ids || [],
+                },
                 student_ages: this.search.student_ages || [],
                 benefits: this.search.benefits || [],
                 contract_type: this.search.contract_type || [],
@@ -161,6 +164,14 @@ export default {
             }
 
             return "You may add more criteria from below:";
+        },
+
+        preparedData() {
+            return {
+                ...this.formData,
+                area_ids: this.formData.location.areas,
+                region_ids: this.formData.location.regions,
+            };
         },
     },
 
@@ -206,7 +217,7 @@ export default {
             this.waiting = true;
 
             this.$store
-                .dispatch("placements/updateJobSearch", this.formData)
+                .dispatch("placements/updateJobSearch", this.preparedData)
                 .then(this.onSuccess)
                 .catch(this.onError)
                 .then(() => (this.waiting = false));

@@ -5,6 +5,7 @@ namespace App\Placements;
 
 
 use App\Locations\Area;
+use App\Locations\Region;
 use Illuminate\Support\Facades\Lang;
 
 class JobSearchPresenter
@@ -14,6 +15,7 @@ class JobSearchPresenter
         return [
             'id' => $search->id,
             'area_ids' => $search->area_ids,
+            'region_ids' => $search->region_ids,
             'student_ages' => $search->student_ages,
             'benefits' => $search->benefits,
             'contract_type' => $search->contract_type,
@@ -26,7 +28,7 @@ class JobSearchPresenter
             'search_descriptions' => [
                 [
                     'criteria' => 'locations',
-                    'description' => self::describeLocations($search->area_ids),
+                    'description' => self::describeLocations($search->area_ids, $search->region_ids),
                     'description_type' => 'list',
                     'included' => $search->hasLocation(),
                 ],
@@ -83,9 +85,12 @@ class JobSearchPresenter
         ];
     }
 
-    private static function describeLocations($locations)
+    private static function describeLocations($area_ids, $region_ids)
     {
-        return collect($locations)->map(fn ($id) => Area::find($id)->fullName('en'))->values()->all();
+        $areas =  collect($area_ids)->map(fn ($id) => Area::find($id)->fullName('en'))->values()->all();
+        $regions = collect($region_ids)->map(fn ($id) => Region::find($id)->fullName('en'))->values()->all();
+
+        return array_merge($regions, $areas);
     }
 
     private static function describeStudentAges($ages)

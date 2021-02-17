@@ -47,6 +47,7 @@
                     <button
                         type="button"
                         class="btn btn-primary"
+                        :class="{ 'opacity-50': incomplete }"
                         @click="chooseArea"
                         :disabled="incomplete"
                     >
@@ -67,7 +68,7 @@ export default {
         SelectField,
     },
 
-    props: ["label", "heading", "mode"],
+    props: ["label", "heading", "mode", "select-region"],
 
     data() {
         return {
@@ -133,13 +134,23 @@ export default {
                 return {};
             }
 
-            return this.from_region.areas.reduce((options, area) => {
-                options[area.id] = area.name;
-                return options;
-            }, {});
+            const region_areas = this.from_region.areas.reduce(
+                (options, area) => {
+                    options[area.id] = area.name;
+                    return options;
+                },
+                {}
+            );
+
+            return this.selectRegion
+                ? { 0: "Any area", ...region_areas }
+                : region_areas;
         },
 
         incomplete() {
+            if (this.selectRegion) {
+                return !this.country || !this.regions;
+            }
             return !this.country || !this.regions || !this.area;
         },
     },
@@ -154,7 +165,7 @@ export default {
 
         region(to, from) {
             if (to !== from) {
-                this.area = null;
+                this.area = this.selectRegion ? 0 : null;
             }
         },
     },
@@ -165,7 +176,12 @@ export default {
 
     methods: {
         chooseArea() {
-            this.$emit("chosen", this.area);
+            if (this.area === 0) {
+                this.$emit("chosen", { id: this.region, is_region: true });
+            } else {
+                this.$emit("chosen", { id: this.area, is_region: false });
+            }
+
             this.country = null;
             this.region = null;
             this.area = null;

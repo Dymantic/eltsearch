@@ -5,6 +5,7 @@ namespace Tests\Feature\Placements;
 
 
 use App\Locations\Area;
+use App\Locations\Region;
 use App\Placements\JobPost;
 use App\Placements\JobSearch;
 use App\Teachers\Teacher;
@@ -25,9 +26,11 @@ class CreateJobSearchTest extends TestCase
 
         $teacher = factory(Teacher::class)->create();
         $area = factory(Area::class)->create();
+        $region = factory(Region::class)->create();
 
         $response = $this->actingAs($teacher->user)->postJson("/api/teachers/job-searches", [
             'area_ids'       => [$area->id],
+            'region_ids'     => [$region->id],
             'student_ages'   => [
                 JobPost::AGE_SENIOR_HIGH,
                 JobPost::AGE_UNIVERSITY,
@@ -53,6 +56,7 @@ class CreateJobSearchTest extends TestCase
         $this->assertDatabaseHas('job_searches', [
             'teacher_id'     => $teacher->id,
             'area_ids'       => $this->asJson([$area->id], 'area_ids'),
+            'region_ids'       => $this->asJson([$region->id], 'region_ids'),
             'student_ages'   => $this->asJson([
                 JobPost::AGE_SENIOR_HIGH,
                 JobPost::AGE_UNIVERSITY,
@@ -86,14 +90,15 @@ class CreateJobSearchTest extends TestCase
 
         $response = $this->actingAs($teacher->user)->postJson("/api/teachers/job-searches", [
             'area_ids'       => [],
+            'region_ids'       => [],
             'student_ages'   => [],
             'benefits'       => [],
             'weekends'       => null,
             'contract_type'  => [],
             'hours_per_week' => null,
             'salary'         => null,
-            'engagement' => null,
-            'schedule' => [],
+            'engagement'     => null,
+            'schedule'       => [],
         ]);
 
         $response->assertSuccessful();
@@ -125,6 +130,22 @@ class CreateJobSearchTest extends TestCase
     {
         $this->assertNull(Area::find(99));
         $this->assertFieldIsInvalid(['area_ids' => [99]], 'area_ids.0');
+    }
+
+    /**
+     *@test
+     */
+    public function the_region_ids_must_be_an_array()
+    {
+        $this->assertFieldIsInvalid(['region_ids' => 'not-an-array']);
+    }
+
+    /**
+     *@test
+     */
+    public function each_region_id_must_exist_in_regions_table()
+    {
+        $this->assertFieldIsInvalid(['region_ids' => [99]], 'region_ids.0');
     }
 
     /**
@@ -201,7 +222,7 @@ class CreateJobSearchTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function the_engagement_must_be_part_or_full_time()
     {
@@ -209,7 +230,7 @@ class CreateJobSearchTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function the_schedule_must_be_an_array()
     {
@@ -217,7 +238,7 @@ class CreateJobSearchTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function each_schedule_value_must_be_an_allowed_schedule_time()
     {

@@ -27,6 +27,8 @@ class JobSearchRequest extends FormRequest
         return [
             'area_ids'        => ['array'],
             'area_ids.*'      => ['exists:areas,id'],
+            'region_ids'      => ['array'],
+            'region_ids.*'    => ['exists:regions,id'],
             'student_ages'    => ['array'],
             'student_ages.*'  => [Rule::in(JobPost::ALLOWED_AGES)],
             'benefits'        => ['array'],
@@ -46,6 +48,7 @@ class JobSearchRequest extends FormRequest
     {
         return new JobSearchCriteria($this->all([
             'area_ids',
+            'region_ids',
             'student_ages',
             'benefits',
             'contract_type',
