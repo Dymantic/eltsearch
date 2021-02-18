@@ -96,11 +96,32 @@
 
     </div>
 
-    <div class="my-12 flex justify-center max-w-5xl mx-auto">
+    <div class="my-12 flex justify-center max-w-5xl mx-auto" x-data="schoolImages()">
         @foreach($post['images'] as $image)
         <div class="w-1/4 mx-4">
-            <img src="{{ $image['thumb'] }}" alt="{{ $post['school_name'] }}" class="w-full h-full object-cover">
+            <img src="{{ $image['thumb'] }}" alt="{{ $post['school_name'] }}" class="w-full h-full object-cover" @click="showImage('{{ $image['full'] }}')">
         </div>
         @endforeach
+        <div class="fixed inset-0 bg-black bg-opacity-75 w-full h-full flex justify-center items-center" x-show="show" @keydown.escape.window="show = false">
+            <button x-cloak type="button" class="m-6 bg-white shadow-lg rounded-l-full rounded-r-full px-6 py-2 absolute top-16 right-0 hover:bg-baby-blue focus:outline-none" @click="show = false">X</button>
+            <div class="max-w-4xl max-h-full">
+                <img :src="source"
+                     alt="" class="w-full h-full object-contain">
+            </div>
+
+        </div>
+
     </div>
+    <script>
+        function schoolImages() {
+            return {
+                show: false,
+                source: '{{ $post['images'][0]['full'] ?? "" }}',
+                showImage(s) {
+                    this.source = s;
+                    this.show = true;
+                }
+            };
+        }
+    </script>
 </x-public-page>

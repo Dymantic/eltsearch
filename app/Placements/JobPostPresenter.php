@@ -48,6 +48,7 @@ class JobPostPresenter
                 fn(Media $media) => [
                     'id'       => $media->id,
                     'thumb'    => $media->getUrl('thumb'),
+                    'full'     => $media->getUrl('full'),
                     'original' => $media->getUrl(),
                 ]
             )->values()->all(),
@@ -103,7 +104,7 @@ class JobPostPresenter
                     'original' => $media->getUrl(),
                 ]
             )->values()->all(),
-            'is_disabled' => $post->isDisabled(),
+            'is_disabled'           => $post->isDisabled(),
         ];
     }
 
