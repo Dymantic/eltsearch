@@ -1,6 +1,6 @@
 <template>
     <span>
-        <button @click="showModal = true">Delete</button>
+        <button class="btn btn-subtle" @click="showModal = true">Delete</button>
         <modal :show="showModal" @close="showModal = false">
             <div class="p-6 w-screen max-w-md">
                 <p class="text-lg font-bold text-red-500">Are you sure?</p>

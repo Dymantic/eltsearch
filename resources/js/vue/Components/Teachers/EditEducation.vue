@@ -1,6 +1,9 @@
 <template>
     <div v-if="education">
-        <p class="font-bold text-2xl mb-8">Update your education info</p>
+        <page-header
+            title="Update your education info"
+            :back="true"
+        ></page-header>
 
         <form @submit.prevent="submit">
             <select-field
@@ -51,8 +54,10 @@ import {
     clearValidationErrors,
     setValidationErrors,
 } from "../../../libs/forms";
+import PageHeader from "../PageHeader";
 export default {
     components: {
+        PageHeader,
         TextField,
         SelectField,
         SubmitButton,

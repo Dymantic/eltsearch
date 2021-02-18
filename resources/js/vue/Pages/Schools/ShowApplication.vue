@@ -1,6 +1,6 @@
 <template>
     <div v-if="application">
-        <page-header :title="trns('show_application.title')">
+        <page-header :title="trns('show_application.title')" :back="true">
             <router-link
                 :to="`/applications/${application.id}/contact`"
                 class="btn-primary btn"

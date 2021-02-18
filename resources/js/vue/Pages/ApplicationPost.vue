@@ -1,10 +1,6 @@
 <template>
     <div v-if="application">
-        <page-header title="Job Post">
-            <router-link to="/applications" class="muted-btn"
-                >&larr; Job applications</router-link
-            >
-        </page-header>
+        <page-header title="Job Post" :back="true"> </page-header>
 
         <job-post :post="application.post" :can-edit="false"></job-post>
     </div>

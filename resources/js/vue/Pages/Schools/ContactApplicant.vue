@@ -1,6 +1,9 @@
 <template>
     <div v-if="application">
-        <page-header :title="trns('contact_applicant.title')"></page-header>
+        <page-header
+            :title="trns('contact_applicant.title')"
+            :back="true"
+        ></page-header>
 
         <div class="my-12" v-if="school_disabled">
             <p class="max-w-xl p-6 border-red-600 border rounded-lg bg-red-100">

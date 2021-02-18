@@ -1,6 +1,6 @@
 <template>
     <div v-if="post">
-        <page-header title="Apply for job"></page-header>
+        <page-header title="Apply for job" :back="true"></page-header>
 
         <application-form :post="post"></application-form>
     </div>

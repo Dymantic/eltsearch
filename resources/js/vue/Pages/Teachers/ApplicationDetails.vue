@@ -1,10 +1,6 @@
 <template>
     <div v-if="application">
-        <page-header title="Job Post Application">
-            <router-link to="/applications" class="muted-btn"
-                >&larr; Job applications</router-link
-            >
-        </page-header>
+        <page-header title="Job Post Application" :back="true"> </page-header>
         <div class="my-12">
             <p class="mb-2">
                 <span class="type-b2 text-navy">Position: </span>

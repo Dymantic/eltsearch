@@ -83,6 +83,7 @@ export default {
             return purchasePackageForSchool(school_id, formData).then(
                 (purchase) => {
                     dispatch("refreshPurchases", school_id);
+                    dispatch("checkResumePass", school_id);
                     dispatch("tokens/refresh", school_id, { root: true });
                     return purchase;
                 }
@@ -91,7 +92,7 @@ export default {
 
         checkResumePass({ commit, rootState }, school_id) {
             if (!school_id) {
-                school_id = rootState.schoolprofile.current_school.id;
+                school_id = rootState.profile.current_school_id;
             }
             return fetchSchoolResumePassInfo(school_id)
                 .then((passInfo) => commit("setResumePass", passInfo))

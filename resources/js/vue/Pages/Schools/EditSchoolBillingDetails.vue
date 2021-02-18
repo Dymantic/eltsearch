@@ -1,6 +1,6 @@
 <template>
     <div v-if="school">
-        <page-header title="Billing Info"></page-header>
+        <page-header title="Billing Info" :back="true"></page-header>
 
         <billing-info-form :school="school"></billing-info-form>
     </div>

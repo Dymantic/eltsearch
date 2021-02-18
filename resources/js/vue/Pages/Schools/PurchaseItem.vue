@@ -1,6 +1,6 @@
 <template>
     <div v-if="product">
-        <page-header :title="product.name"></page-header>
+        <page-header :title="product.name" :back="true"></page-header>
 
         <p class="my-8 max-w-lg">{{ product.description }}</p>
 

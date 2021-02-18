@@ -1,6 +1,6 @@
 <template>
     <div v-if="post">
-        <page-header title="Matched Job">
+        <page-header title="Matched Job" :back="true">
             <delete-confirmation
                 :disabled="waiting_on_delete"
                 item="this job match"

@@ -1,6 +1,9 @@
 <template>
     <div v-if="post">
-        <page-header :title="trns('edit_post.title')"></page-header>
+        <page-header
+            :title="trns('edit_post.title')"
+            :back="true"
+        ></page-header>
 
         <job-post-form
             :options="options"

@@ -25,6 +25,11 @@ export default {
     show_profile: {
         title: "學校資料",
         images: "學校照片",
+        no_images:
+            "You haven't uploaded any images of your school yet. Adding photos of your school improves your profile.",
+        logo: "School Logo",
+        disabled:
+            "Your school's profile has been disabled by ELT Search. If you wish to discuss this decision further, please contact us at service@eltsearch.com",
     },
     edit_profile: {
         title: "編輯學校資料",
@@ -53,6 +58,7 @@ export default {
     },
     post_images: {
         title: "招募照片",
+        prompt: "Add up to 4 images to be shown with your job post.",
         gallery_title: "學校照片",
         actions: {
             view: "預覽貼文",

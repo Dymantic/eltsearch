@@ -1,9 +1,6 @@
 <template>
     <div v-if="notification">
-        <page-header :title="trns('notifications.show_title')">
-            <router-link to="/notifications" class="muted-btn"
-                >&larr; {{ trns("notifications.back_button") }}</router-link
-            >
+        <page-header :title="trns('notifications.show_title')" :back="true">
         </page-header>
         <div class="my-12 max-w-md mx-auto rounded-lg shadow-lg p-8">
             <p class="type-b2">{{ notification.date_sent }}</p>

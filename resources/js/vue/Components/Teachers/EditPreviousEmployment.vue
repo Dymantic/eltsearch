@@ -1,17 +1,12 @@
 <template>
     <div v-if="employment">
-        <div class="flex justify-between mb-8">
-            <p class="text-lg font-bold">Edit previous employment info</p>
-            <div class="flex justify-end items-center">
-                <delete-employment
-                    :employer="employment.employer"
-                    :employment-id="employment.id"
-                ></delete-employment>
-                <router-link to="/previous-employments" class="ml-4"
-                    >Back</router-link
-                >
-            </div>
-        </div>
+        <page-header title="Edit previous employment info" :back="true">
+            <delete-employment
+                :employer="employment.employer"
+                :employment-id="employment.id"
+            ></delete-employment>
+        </page-header>
+
         <previous-employment-form
             :employment="employment"
         ></previous-employment-form>
@@ -22,8 +17,10 @@
 import PreviousEmploymentForm from "./PreviousEmploymentForm";
 import DeleteEmployment from "./DeleteEmployment";
 import { showError } from "../../../libs/notifications";
+import PageHeader from "../PageHeader";
 export default {
     components: {
+        PageHeader,
         PreviousEmploymentForm,
         DeleteEmployment,
     },

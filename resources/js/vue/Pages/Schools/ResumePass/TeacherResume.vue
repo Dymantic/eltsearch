@@ -1,6 +1,6 @@
 <template>
     <div v-if="teacher">
-        <page-header :title="trns('resume.title')">
+        <page-header :title="trns('resume.title')" :back="true">
             <router-link
                 :to="`/resume-pass/teachers/${teacher.slug}/contact`"
                 class="btn-primary btn"

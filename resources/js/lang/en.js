@@ -16,7 +16,7 @@ export default {
     },
     actions: {
         edit: "Edit",
-        edit_images: "Edit images",
+        edit_images: "Edit",
         back: "back",
         view: "View",
         images: "Images",
@@ -24,7 +24,10 @@ export default {
     },
     show_profile: {
         title: "School Profile",
+        logo: "School Logo",
         images: "School Images",
+        no_images:
+            "You haven't uploaded any images of your school yet. Adding photos of your school improves your profile.",
         disabled:
             "Your school's profile has been disabled by ELT Search. If you wish to discuss this decision further, please contact us at service@eltsearch.com",
     },
@@ -56,6 +59,7 @@ export default {
     },
     post_images: {
         title: "Job Post Images",
+        prompt: "Add up to 4 images to be shown with your job post.",
         gallery_title: "School Images",
         actions: {
             view: "View Post",

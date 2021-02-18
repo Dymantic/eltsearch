@@ -1,6 +1,6 @@
 <template>
     <div v-if="application" class="">
-        <page-header title="Get in touch">
+        <page-header title="Get in touch" :back="true">
             <router-link
                 :to="`/applications/${application.id}/post`"
                 class="text-btn mr-4"

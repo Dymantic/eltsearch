@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <p class="type-h3">My Job Search</p>
+            <page-header title="My Job Search" :back="true"></page-header>
             <p class="my-6 max-w-xl">
                 <span class="type-b2">Note: </span>You may remove criteria from
                 your search if you decide that you don't want your results
@@ -102,8 +102,10 @@ import ScheduleTimes from "./ScheduleTimes";
 import EngagementType from "./EngagementType";
 import SubmitButton from "../Forms/SubmitButton";
 import { showError, showSuccess } from "../../../libs/notifications";
+import PageHeader from "../PageHeader";
 export default {
     components: {
+        PageHeader,
         JobLocations,
         StudentTypes,
         BenefitsWanted,

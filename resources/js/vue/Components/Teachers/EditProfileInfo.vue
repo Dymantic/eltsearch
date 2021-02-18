@@ -1,9 +1,6 @@
 <template>
     <div v-if="general_info">
-        <page-header title="Update your personal info">
-            <router-link to="/profile" class="muted-btn"
-                >&larr; Back</router-link
-            >
+        <page-header title="Update your personal info" :back="true">
         </page-header>
         <div v-if="nations && general_info">
             <teacher-info-form

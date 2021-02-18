@@ -1,6 +1,6 @@
 <template>
     <div v-if="school">
-        <page-header :title="school.name"></page-header>
+        <page-header :title="school.name" :back="true"></page-header>
 
         <div>
             <sortable-gallery

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <page-header :title="trns('recruit.title')"></page-header>
+        <page-header :title="trns('recruit.title')" :back="true"></page-header>
 
         <busy-loading v-if="!teacher"></busy-loading>
 

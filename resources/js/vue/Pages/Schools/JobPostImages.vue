@@ -1,15 +1,14 @@
 <template>
     <div v-if="post">
-        <page-header :title="trns('post_images.title')">
+        <page-header :title="trns('post_images.title')" :back="true">
             <router-link
                 :to="`/job-posts/${post.id}/show`"
                 class="text-btn mr-4"
                 >{{ trns("post_images.actions.view") }}</router-link
             >
-            <router-link :to="`/job-posts/`" class="muted-btn"
-                >&larr; {{ trns("post_images.actions.back") }}</router-link
-            >
         </page-header>
+
+        <p class="my-6">{{ trns("post_images.prompt") }}</p>
 
         <div>
             <sortable-gallery
