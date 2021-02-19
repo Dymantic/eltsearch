@@ -6,9 +6,14 @@
 
 
 <div class="mb-12 px-6">
-    <x-facebook-login redirect="/register/teacher/facebook"></x-facebook-login>
-
-    <x-google-login redirect="/register/teacher/google" text="Sign Up with Google"></x-google-login>
+    <div class="flex flex-col justify-center items-center">
+        <div class="my-4">
+            <x-facebook-login text="Sign in with Facebook" redirect="/login/facebook"></x-facebook-login>
+        </div>
+        <div class="my-4">
+            <x-google-login redirect="/login/google" text="Sign in with Google"></x-google-login>
+        </div>
+    </div>
 </div>
 
 @include('front.register.already-member')
