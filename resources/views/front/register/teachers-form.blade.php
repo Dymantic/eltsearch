@@ -7,6 +7,8 @@
 
 <div class="mb-12 px-6">
     <x-facebook-login redirect="/register/teacher/facebook"></x-facebook-login>
+
+    <x-google-login redirect="/register/teacher/google" text="Sign Up with Google"></x-google-login>
 </div>
 
 @include('front.register.already-member')

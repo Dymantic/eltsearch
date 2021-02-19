@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 
-class FacebookRegisterController extends Controller
+class GoogleRegisterController extends Controller
 {
     public function redirect()
     {
         request()->session()->put('oauth_login_intention', 'register');
-        return Socialite::driver('facebook')->redirect();
+
+        return Socialite::driver('google')->redirect();
     }
 }

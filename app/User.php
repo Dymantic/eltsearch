@@ -26,6 +26,7 @@ class User extends Authenticatable
     const ACCOUNT_ADMIN = 3;
 
     const PLATFORM_FACEBOOK = 'facebook';
+    const PLATFORM_GOOGLE = 'google';
 
 
     protected $fillable = [
@@ -52,7 +53,16 @@ class User extends Authenticatable
         return self::where([
             ['email', $creds['email']],
             ['platform', self::PLATFORM_FACEBOOK],
-            ['provider_user_id', $creds['id']],
+            ['provider_user_id', $creds['id'] ?? ''],
+        ])->first();
+    }
+
+    public static function findGoogleUser(array $creds): ?self
+    {
+        return self::where([
+            ['email', $creds['email']],
+            ['platform', self::PLATFORM_GOOGLE],
+            ['provider_user_id', $creds['id'] ?? ''],
         ])->first();
     }
 
@@ -63,6 +73,23 @@ class User extends Authenticatable
             'email'            => $user_data['email'],
             'provider_user_id' => $user_data['id'],
             'platform'         => self::PLATFORM_FACEBOOK,
+            'account_type'     => self::ACCOUNT_TEACHER
+        ]);
+
+        $user->createTeacherProfile($user_data);
+
+        $user->notify(new WelcomeTeacher($user));
+
+        return $user;
+    }
+
+    public static function registerTeacherViaGoogle(array $user_data): self
+    {
+        $user = self::create([
+            'name'             => $user_data['name'],
+            'email'            => $user_data['email'],
+            'provider_user_id' => $user_data['id'],
+            'platform'         => self::PLATFORM_GOOGLE,
             'account_type'     => self::ACCOUNT_TEACHER
         ]);
 

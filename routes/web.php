@@ -35,6 +35,10 @@ Route::group([
 
 Route::get('/job-posts/{post:slug}/apply', 'ApplicationsController@create');
 
+Route::get('login/google', 'GoogleLoginController@redirect');
+Route::get('google/auth/callback', 'GoogleAuthResponseController@store')->middleware('test_google_oauth');
+Route::get('register/teacher/google', 'GoogleRegisterController@redirect');
+
 Route::get('login/facebook', 'FacebookLoginController@redirect');
 Route::get('register/teacher/facebook', 'FacebookRegisterController@redirect');
 Route::get('facebook/auth/callback', 'FacebookAuthResponseController@store');

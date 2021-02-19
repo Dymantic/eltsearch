@@ -6,19 +6,19 @@ use App\Http\Requests\OAuthRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
 use Laravel\Socialite\Facades\Socialite;
 
-class FacebookAuthResponseController extends Controller
+class GoogleAuthResponseController extends Controller
 {
     public function store(OAuthRequest $request)
     {
+        $user_data = Socialite::driver('google')->stateless()->user()->user;
         if($request->forLogin()) {
-            $user = User::findFacebookUser($this->facebookUser());
+            $user = User::findGoogleUser($user_data);
 
             if(!$user) {
                 return redirect('/login')->withErrors([
-                    'facebook_login' => 'You are not registered with this facebook account.'
+                    'google_login' => 'You are not registered with this Google account.'
                 ]);
             }
 
@@ -28,7 +28,7 @@ class FacebookAuthResponseController extends Controller
         }
 
         if($request->forRegistration()) {
-            $user = User::findFacebookUser($this->facebookUser());
+            $user = User::findFacebookUser($user_data);
 
             if($user) {
                 Auth::login($user, true);
@@ -36,26 +36,12 @@ class FacebookAuthResponseController extends Controller
                 return redirect($user->redirectHome());
             }
 
-            $user = User::registerTeacherViaFacebook($this->facebookUser());
+            $user = User::registerTeacherViaGoogle($user_data);
 
             Auth::login($user, true);
 
             return redirect($user->redirectHome());
 
         }
-
-
-    }
-
-    private function facebookUser()
-    {
-        $fb_user = Socialite::driver('facebook')->stateless()->user();
-
-        return [
-            'name' => $fb_user->getName(),
-            'email' => $fb_user->getEmail(),
-            'id' => $fb_user->getId(),
-            'avatar' => $fb_user->getAvatar(),
-        ];
     }
 }

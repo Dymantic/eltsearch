@@ -5,10 +5,32 @@
     </div>
 
     <div class="mb-12 px-6">
-        <x-facebook-login text="Sign in with Facebook" redirect="/login/facebook"></x-facebook-login>
+        <div class="flex flex-col justify-center items-center">
+            <div class="my-4">
+                <x-facebook-login text="Sign in with Facebook" redirect="/login/facebook"></x-facebook-login>
+            </div>
+            <div class="my-4">
+                <x-google-login redirect="/login/google" text="Sign in with Google"></x-google-login>
+            </div>
+        </div>
+
         @error('facebook_login')
         <p class="text-red-500 text-xs text-center mt-2">{{ $message }}</p>
         @enderror
+
+        @error('google_login')
+        <p class="text-red-500 text-xs text-center mt-2">{{ $message }}</p>
+        @enderror
+
+
+
+        <script>
+            const login_hash = window.location.hash.slice(2);
+            document.querySelectorAll('.hashed-login-link')
+                    .forEach(link => {
+                        link.href = `${link.href}?hash=${login_hash}`;
+                    });
+        </script>
     </div>
         <form action="/login" method="post" class="max-w-md mx-auto px-6">
             {!! csrf_field() !!}
