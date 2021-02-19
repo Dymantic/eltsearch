@@ -8,10 +8,10 @@
 <div class="mb-12 px-6">
     <div class="flex flex-col justify-center items-center">
         <div class="my-4">
-            <x-facebook-login text="Sign in with Facebook" redirect="/login/facebook"></x-facebook-login>
+            <x-facebook-login text="Sign in with Facebook" redirect="/register/teacher/facebook"></x-facebook-login>
         </div>
         <div class="my-4">
-            <x-google-login redirect="/login/google" text="Sign in with Google"></x-google-login>
+            <x-google-login redirect="/register/teacher/google" text="Sign in with Google"></x-google-login>
         </div>
     </div>
 </div>
