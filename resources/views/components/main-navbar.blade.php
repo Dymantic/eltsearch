@@ -11,10 +11,10 @@
             </div>
             <div class="lg:border-l border-gray-400 flex flex-col lg:flex-row lg:items-center">
                 @auth
-                    <div class="type-b2 pl-4 lg:pl-0 mx-0 lg:mx-6 mb-4 lg:mb-0"><a class="hover:text-sky-blue" href="{{ $dashboard_url }}">My Account</a></div>
+                    <div class="type-b2 pl-4 lg:pl-0 mx-0 lg:mx-6 mb-4 lg:mb-0"><a class="hover:text-sky-blue" href="{{ $dashboard_url }}">{{ trans('nav.account') }}</a></div>
                     <form method="POST" action="/logout" class="pl-4">
                         {!! csrf_field() !!}
-                        <button type="submit" class="type-b2 " href="/register/teacher">Logout</button>
+                        <button type="submit" class="type-b2 " href="/register/teacher">{{ trans('nav.logout') }}</button>
                     </form>
                 @endauth
                 @guest

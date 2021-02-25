@@ -15,6 +15,7 @@ class Package
     private string $type;
     private string $description;
     private string $icon;
+    private string $iconSize;
 
     public function __construct(array $configured)
     {
@@ -26,6 +27,7 @@ class Package
         $this->description = $configured['description'] ?? '';
         $this->expires = $configured['expires'] ?? null;
         $this->icon = $configured['icon'] ?? '';
+        $this->iconSize = $configured['icon_size'] ?? '';
     }
 
     public static function find(string $id): self
@@ -108,6 +110,7 @@ class Package
             'type' => $this->getType(),
             'selling_points' => trans("{$this->trans_key}.selling_points", [], $lang),
             'icon' => $this->icon,
+            'icon_size' => $this->iconSize,
         ];
     }
 }

@@ -7,6 +7,7 @@ return [
         'type' => 'token',
         'trans_key' => 'pricing.single_post',
         'icon' => 'svg.icons.token',
+        'icon_size' => 'h-6',
     ],
     [
         'id' => 'token_ten_pack',
@@ -15,6 +16,7 @@ return [
         'type' => 'token',
         'trans_key' => 'pricing.ten_posts_pack',
         'icon' => 'svg.icons.token-pack',
+        'icon_size' => 'h-6',
     ],
     [
         'id' => 'resume_pass_month',
@@ -24,6 +26,7 @@ return [
         'type' => 'resume_pass',
         'trans_key' => 'pricing.resume_pass',
         'icon' => 'svg.icons.resume-pass',
+        'icon_size' => 'h-6',
     ],
     [
         'id' => 'resume_pass_year',
@@ -32,6 +35,7 @@ return [
         'expires' => 365,
         'type' => 'resume_pass',
         'trans_key' => 'pricing.year_resume_pass',
-        'icon' => 'svg.icons.resume-pass',
+        'icon' => 'svg.icons.resume-pass-year',
+        'icon_size' => 'h-8',
     ]
 ];

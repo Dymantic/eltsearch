@@ -1,6 +1,11 @@
 <?php
 
 return [
+
+    'heading' => 'Sign Up!',
+    'intro' => 'Get started immediately by signing up for free.',
+
+
     'schools' => [
         'title' => 'Sign up to post jobs ELT Search',
         'already_member' => 'Already a member?',
@@ -15,6 +20,16 @@ return [
         'english' => 'English',
         'submit' => 'Sign Up',
         'agree' => 'By signing up you agree to the ',
-        'terms' => 'ELT Search Terms and Conditions'
+        'terms' => 'ELT Search Terms and Conditions',
     ],
+
+    'for_teachers' => [
+        'title' => 'For Teachers',
+        'text' => 'Start finding jobs!',
+    ],
+
+    'for_schools' => [
+        'title' => 'For Schools',
+        'text' => 'Start finding teachers!',
+    ]
 ];

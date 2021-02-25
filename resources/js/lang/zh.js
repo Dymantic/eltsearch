@@ -25,11 +25,10 @@ export default {
     show_profile: {
         title: "學校資料",
         images: "學校照片",
-        no_images:
-            "You haven't uploaded any images of your school yet. Adding photos of your school improves your profile.",
-        logo: "School Logo",
+        no_images: "您尚未上傳任何照片。立即上傳照片讓您學校的資料更完整。",
+        logo: "學校標誌",
         disabled:
-            "Your school's profile has been disabled by ELT Search. If you wish to discuss this decision further, please contact us at service@eltsearch.com",
+            "您學校帳號資料已被ELT Search禁止使用。若您有任何疑問，請與我們聯絡: 電子郵件service@eltsearch.com",
     },
     edit_profile: {
         title: "編輯學校資料",
@@ -58,7 +57,7 @@ export default {
     },
     post_images: {
         title: "招募照片",
-        prompt: "Add up to 4 images to be shown with your job post.",
+        prompt: "最多可上傳4張照片至您的職缺貼文",
         gallery_title: "學校照片",
         actions: {
             view: "預覽貼文",
@@ -198,11 +197,11 @@ export default {
         index_title: "訊息",
         show_title: "訊息",
         received: "已接收",
-        sender: "Sender",
+        sender: "傳送者",
         subject: "主旨",
         back_button: "回到收件箱",
         delete_button: "刪除訊息",
-        unread_button: "Leave message as unread",
+        unread_button: "標示為未讀",
         deleted: "提醒已被刪除",
         empty_inbox: "目前尚未有任何新訊息",
     },

@@ -31,6 +31,10 @@ Route::group([
     Route::view('register', 'front.register.show');
 
     Route::view('contact', 'front.contact.page');
+
+    Route::view('login', 'front.login')->name('login');
+    Route::view('password/request', 'front.request-password-reset');
+    Route::get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
 });
 
 Route::get('/job-posts/{post:slug}/apply', 'ApplicationsController@create');
@@ -64,7 +68,7 @@ Route::post('register/teacher', 'TeacherRegistrationController@store');
 
 Route::post('register/school', 'SchoolRegistrationController@store');
 
-Route::view('login', 'front.login')->name('login');
+
 Route::post('login', 'LoginController@login');
 
 Route::get('teachers', 'TeacherDashboardController@show')->middleware(["auth", "teacher"]);
@@ -72,10 +76,10 @@ Route::get('teachers', 'TeacherDashboardController@show')->middleware(["auth", "
 Route::get('schools', 'SchoolsDashboardController@show')->middleware(["auth", "school"]);
 Route::get('admin', 'AdminDashboardController@show')->middleware(["auth", "admin"]);
 
-Route::view('password/request', 'front.request-password-reset');
+
 Route::post('password/request', 'RequestPasswordResetLinkController@sendResetLinkEmail');
 
-Route::get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
+
 Route::post('password/reset', 'ResetPasswordController@reset');
 
 Route::post('/api/me/reset-password', 'UserPasswordController@update')->middleware('auth');

@@ -29,7 +29,9 @@
                 <div class="w-full shadow-lg mx-auto my-8">
                     <div class="text-sky-blue bg-baby-blue py-3 text-center shadow">
                         @if($package['icon'])
-                        @include($package['icon'], ['classes' => 'h-6 text-sky-blue block mx-auto my-1'])
+                            <div class="h-8 flex items-center justify-center my-1">
+                                @include($package['icon'], ['classes' => $package['icon_size'] . ' text-sky-blue block mx-auto'])
+                            </div>
                         @endif
                         <p class="type-h3">
                             {{ $package['name'] }}

@@ -23,7 +23,7 @@ return [
     ],
 
     'resume_pass' => [
-        'name' => 'Resume Pass',
+        'name' => 'Monthly Resume Pass',
         'description' => 'Get 30 days of unrestricted access to ELT Search teachers\' resumes to find the teacher your school needs.',
         'selling_points' => [
             'VIP Access to all resumes',

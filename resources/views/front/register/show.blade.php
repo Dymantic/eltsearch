@@ -6,8 +6,8 @@
          x-init="init">
         <div class=""
              x-show="showChoice">
-            <p class="type-h2 text-navy mb-8 text-center">Sign Up!</p>
-            <p class="type-h3 text-gray-700 mb-12 text-center">Get started immediately by signing up for free</p>
+            <p class="type-h2 text-navy mb-8 text-center">{{ trans('registration.heading') }}</p>
+            <p class="type-h3 text-gray-700 mb-12 text-center">{{ trans('registration.intro') }}</p>
             <div class="flex flex-col md:flex-row justify-center mx-auto">
                 <a href="#teachers"
                    @click="showTeachers()"
@@ -16,8 +16,8 @@
                         <div class="flex justify-center">
                             @include('svg.icons.teachers', ['classes' => 'h-6'])
                         </div>
-                        <p class="type-h3 my-2">For Teachers</p>
-                        <p>Start finding jobs!</p>
+                        <p class="type-h3 my-2">{{ trans('registration.for_teachers.title') }}</p>
+                        <p>{{ trans('registration.for_teachers.text') }}</p>
                     </div>
                 </a>
                 <a href="#schools"
@@ -27,8 +27,8 @@
                         <div class="flex justify-center">
                             @include('svg.icons.school', ['classes' => 'h-6'])
                         </div>
-                        <p class="type-h3 my-2">For Schools</p>
-                        <p>Start finding teachers!</p>
+                        <p class="type-h3 my-2">{{ trans('registration.for_schools.title') }}</p>
+                        <p>{{ trans('registration.for_schools.text') }}</p>
                     </div>
                 </a>
             </div>
