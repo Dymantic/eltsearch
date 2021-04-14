@@ -78,7 +78,7 @@ class AttemptToRecruit extends Notification implements ActionableNotification, S
 
     public function getSubjectFor($notifiable): string
     {
-        return sprintf("%s wants you.", $this->recruitmentAttempt->school->name);
+        return sprintf("%s would like to contact you.", $this->recruitmentAttempt->school->name);
     }
 
     public function getMessageFor($notifiable): string
