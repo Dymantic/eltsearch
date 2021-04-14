@@ -1,4 +1,4 @@
-<x-public-page title="Signup for ELTSearch">
+<x-public-page title="Signup for ELTSearch" :dontIndex="true">
 
     <div class="max-w-5xl mx-auto px-6 py-20"
          x-data="registerPage()"

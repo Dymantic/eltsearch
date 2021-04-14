@@ -1,4 +1,4 @@
-<x-public-page title="Signup for ELTSearch">
+<x-public-page title="Signup for ELTSearch" :dontIndex="true">
         <div class="my-20 text-center">
             <h1 class="type-h2 text-navy mb-8 max-w-3xl mx-auto">{{ trans('registration.schools.title') }}</h1>
             <p class="type-b1 mt-4">{{ trans('registration.schools.already_member') }} <a href="/login" class="type-b2 text-sky-blue hover:text-navy ">{{ trans('registration.schools.sign_in') }}</a>

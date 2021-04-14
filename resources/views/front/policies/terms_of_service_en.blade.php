@@ -1,4 +1,4 @@
-<x-public-page>
+<x-public-page :dontIndex="true">
     <div class="py-20 px-6 max-w-4xl mx-auto">
         <p class="type-h2 mb-12">Terms of Service</p>
         <p class="my-6">Last updated: September 24, 2020</p>

@@ -11,6 +11,10 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;800&display=swap" rel="stylesheet">
 
+    @if($dontIndex)
+    <meta name="robots" content="noindex,nofollow">
+    @endif
+
     @if($alpine)
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.min.js" defer></script>
     @endif

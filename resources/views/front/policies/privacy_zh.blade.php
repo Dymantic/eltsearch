@@ -1,4 +1,4 @@
-<x-public-page>
+<x-public-page :dontIndex="true">
     <div class="max-w-4xl mx-auto">
         <div class="py-20 px-6">
             <p class="type-h2 mb-12">隱私政策</p>

@@ -1,4 +1,4 @@
-<x-public-page>
+<x-public-page :dontIndex="true">
     <div class="my-20 px-6 text-center">
         <h1 class="type-h2 text-navy mb-8 max-w-3xl mx-auto">{{ trans('login.heading') }}</h1>
 

@@ -1,4 +1,4 @@
-<x-public-page>
+<x-public-page :dontIndex="true">
     <div class="py-3 text-white flex justify-center items-center announcement-bar @if($announcement_is_urgent) bg-orange @else bg-sky-blue @endif">
         <div class=" px-3 text-center type-h4">{!! $announcement !!}</div>
     </div>

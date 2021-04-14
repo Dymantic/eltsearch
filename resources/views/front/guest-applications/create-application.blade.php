@@ -1,4 +1,4 @@
-<x-public-page title="Apply for job">
+<x-public-page title="Apply for job" :dontIndex="true">
     <div class="max-w-4xl mx-auto px-6 py-12">
         <div class="pt-20 px-6 max-w-5xl mx-auto">
             <p class="type-h3 text-gray-600 text-center">Job Application for {{ $post['school_name'] }}</p>

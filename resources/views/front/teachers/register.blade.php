@@ -1,4 +1,4 @@
-<x-public-page title="Signup for ELTSearch">
+<x-public-page title="Signup for ELTSearch" :dontIndex="true">
     <div class="my-20 px-6 text-center">
         <h1 class="type-h2 text-navy mb-8">Sign up to find jobs on ELT Search</h1>
         <p class="max-w-3xl mx-auto type-b1">This is for teachers to sign up. Are you a school looking to post jobs? Then

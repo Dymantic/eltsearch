@@ -20,6 +20,7 @@ class JobPostPresenter
         return [
             'slug'               => $post->slug,
             'school'             => $post->school->name,
+            'school_slug'        => "/schools/{$post->school->key}",
             'school_name'        => $post->school_name,
             'area'               => $post->area->fullName('en'),
             'position'           => $post->position,

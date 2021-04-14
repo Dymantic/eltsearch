@@ -35,6 +35,8 @@ Route::group([
     Route::view('login', 'front.login')->name('login');
     Route::view('password/request', 'front.request-password-reset');
     Route::get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
+
+    Route::get('schools/{school:key}', 'SchoolProfilesController@show');
 });
 
 Route::get('/job-posts/{post:slug}/apply', 'ApplicationsController@create');

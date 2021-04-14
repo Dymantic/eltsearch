@@ -1,4 +1,4 @@
-<x-public-page>
+<x-public-page :dontIndex="true">
     <div class="border border-navy rounded-lg max-w-3xl mx-auto my-20 p-6">
         <div class="flex justify-between">
             <div class="flex-1 mr-10">
@@ -111,6 +111,9 @@
 
         </div>
 
+    </div>
+    <div class="flex justify-center">
+        <a href="{{ $post['school_slug'] }}">Visit School Profile</a>
     </div>
     <script>
         function schoolImages() {

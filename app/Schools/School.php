@@ -78,6 +78,11 @@ class School extends Model implements HasMedia
              ->fit(Manipulations::FIT_MAX, 600, 600)
              ->optimize()
              ->performOnCollections(self::LOGOS, self::IMAGES);
+
+        $this->addMediaConversion('full')
+             ->fit(Manipulations::FIT_MAX, 1200, 1200)
+             ->optimize()
+             ->performOnCollections(self::IMAGES);
     }
 
     public function hasMaxImages(): bool

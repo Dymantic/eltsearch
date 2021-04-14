@@ -44,6 +44,31 @@ class SchoolPresenter
         ];
     }
 
+    public static function forPublic(School $school)
+    {
+        $school->load('area', 'schoolTypes');
+        $logo = $school->getFirstMedia(School::LOGOS);
+        $images = $school->getMedia(School::IMAGES);
+
+        return [
+            'name'                   => $school->name,
+            'introduction' => nl2br($school->introduction),
+            'location'               => optional($school->area)->fullName('en'),
+            'school_types'     => $school->schoolTypes->map(fn($type) => $type->name->in('en'))->values()->all(),
+            'logo'                   => [
+                'thumb'    => optional($logo)->getUrl('thumb') ?? School::DEFAULT_LOGO,
+                'original' => optional($logo)->getUrl() ?? School::DEFAULT_LOGO,
+            ],
+            'images'                 => $images->map(
+                fn(Media $media) => [
+                    'id'       => $media->id,
+                    'thumb'    => $media->getUrl('thumb'),
+                    'original' => $media->getUrl(),
+                ]
+            )->values()->all(),
+        ];
+    }
+
     public static function forTeacher(School $school): array
     {
         $school->load('area', 'schoolTypes');

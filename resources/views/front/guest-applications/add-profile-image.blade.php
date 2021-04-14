@@ -1,4 +1,4 @@
-<x-public-page :alpine="true">
+<x-public-page :alpine="true" :dontIndex="true">
     <div class="pt-20 px-6 max-w-5xl mx-auto">
         <p class="type-h3 text-gray-600 text-center">Job Application for {{ $post['school_name'] }}</p>
         <x-step-header :step="3" :of="4"></x-step-header>

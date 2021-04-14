@@ -1,4 +1,4 @@
-<x-public-page title="Contact ELT Search">
+<x-public-page title="Contact ELT Search" :dontIndex="true">
     <div class="my-20 px-6">
         <h1 class="type-h2 text-center text-navy">Contact Us</h1>
         <p class="max-w-xl mx-auto text-center my-6">Please contact us with any questions you may have.</p>
