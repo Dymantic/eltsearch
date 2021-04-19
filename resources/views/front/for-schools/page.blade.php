@@ -7,13 +7,13 @@
     <div class="mx-auto px-6">
         <p class="type-h6 text-navy max-w-3xl mx-auto mb-10">{{ trans('for_schools.why_use.heading') }}</p>
         <div class="max-w-4xl mx-auto flex justify-center flex-wrap">
-            <x-iconed-card :title="trans('for_schools.why_use.one.heading')" icon="database">{{ trans('for_schools.why_use.one.text') }}</x-iconed-card>
+            <x-iconed-card :title="trans('for_schools.why_use.one.heading')" icon="sign-up">{{ trans('for_schools.why_use.one.text') }}</x-iconed-card>
 
             <x-iconed-card :title="trans('for_schools.why_use.two.heading')" icon="global">{{ trans('for_schools.why_use.two.text') }}</x-iconed-card>
 
-            <x-iconed-card :title="trans('for_schools.why_use.three.heading')" icon="supply">{{ trans('for_schools.why_use.three.text') }}</x-iconed-card>
+            <x-iconed-card :title="trans('for_schools.why_use.three.heading')" icon="database">{{ trans('for_schools.why_use.three.text') }}</x-iconed-card>
 
-            <x-iconed-card :title="trans('for_schools.why_use.four.heading')" icon="sign-up">{{ trans('for_schools.why_use.four.text') }}</x-iconed-card>
+            <x-iconed-card :title="trans('for_schools.why_use.four.heading')" icon="supply">{{ trans('for_schools.why_use.four.text') }}</x-iconed-card>
 
             <x-iconed-card :title="trans('for_schools.why_use.five.heading')" icon="dashboard">{{ trans('for_schools.why_use.five.text') }}</x-iconed-card>
 

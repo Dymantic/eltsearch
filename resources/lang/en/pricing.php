@@ -27,7 +27,7 @@ return [
         'description' => 'Get 30 days of unrestricted access to ELT Search teachers\' resumes to find the teacher your school needs.',
         'selling_points' => [
             'VIP Access to all resumes',
-            'Get notified of matches',
+            'Match on your criteria',
             'Never miss out on top teachers',
         ]
     ],
@@ -38,7 +38,7 @@ return [
         'selling_points' => [
             'Save Big (25%)',
             'Unlimited VIP Access',
-            'Unlimited Teacher Matches',
+            'Match on your criteria',
         ]
     ]
 ];

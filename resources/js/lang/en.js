@@ -264,6 +264,14 @@ export default {
         prompt_two:
             "Find quality candidates, with the right amount of experience, and in your area.",
         get_access: "Get access now",
+        filters_experience: {
+            any: "Any amount of experience",
+            one: "One or more years experience",
+            three: "Three or more years experience",
+            five: "Five or more years experience",
+            ten: "Ten or more years experience",
+        },
+        any_nationality: "Any nationality",
     },
     resume: {
         title: "Teacher Resume",

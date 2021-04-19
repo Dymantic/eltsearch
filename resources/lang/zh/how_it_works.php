@@ -3,8 +3,8 @@
 return [
 
     'banner' => [
-        'heading' => 'The quickest, easiest way to find an English teaching job.',
-        'intro'   => 'We will match employers with you based on the settings you choose. The broader you make your preferences the more chance you will have of being matched with a job.',
+        'heading' => '最快速，最簡單的方法尋找英語教學工作',
+        'intro'   => '我們將根據您所設定的選擇配對合適的雇主。您的喜好選擇越廣泛，工作配對的機率相對會越大',
     ],
 
     'steps_header' => '如何運作',
@@ -31,17 +31,17 @@ return [
 
     'benefits' => [
         'heading' => '加入ELT Search 的好處',
-        'one'     => '容易使用',
-        'two'     => '全球聯網',
-        'three'   => '找到最優良的師資及學校',
-        'four'    => '友善介面可輕鬆操作',
-        'five'    => '合理收費標準',
+        'one'     => '全球網絡',
+        'two'     => '尋找最優質的師資&學校',
+        'three'   => '簡單的操作方式以及介面',
+        'four'    => '最優惠的價格及價值',
+        'five'    => '符合條件的通知',
     ],
 
     'outro' => [
-        'blurb'          => 'With hundreds of schools looking for English Teachers on ELT Search your chances of getting a job just got a whole lot better.',
-        'sign_up_prompt' => 'What are you waiting for? Sign up today for the easiest way to find an English Teaching job.',
-        'button'         => 'Sign Up'
+        'blurb'          => '數百所學校在ELT Search上尋找師資，您獲得工作的機會將會大幅增加',
+        'sign_up_prompt' => '還在等什麼? 立即註冊，快來加入最方便使用的ELT Search，讓您容易地找到工作 ',
+        'button'         => '註冊'
     ],
 
 ];

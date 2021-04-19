@@ -29,13 +29,14 @@ return [
         'text'    => 'Easily apply for the job you want, and your resume and application will be presented to the school in the best possible way.',
     ],
 
+
     'benefits' => [
         'heading' => 'Benefits of ELT Search',
-        'one'     => 'Easy to use.',
-        'two'     => 'Global Network.',
-        'three'   => 'Find the best teachers and schools.',
-        'four'    => 'User-friendly dashboard.',
-        'five'    => 'Best listing rates.',
+        'one'     => 'Global Network',
+        'two'     => 'Find the best teachers & schools',
+        'three'   => 'Easy to use & User friendly interface',
+        'four'    => 'Best rates & value',
+        'five'    => 'Notification of new matches',
     ],
 
     'outro' => [

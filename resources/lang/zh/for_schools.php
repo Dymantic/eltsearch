@@ -3,44 +3,44 @@
 return [
 
     'banner' => [
-        'heading' => 'Find English Teachers quickly and hassle free.',
-        'blurb'   => 'Hundreds of English teachers are looking for jobs, and ELT Search is the place to find them. Set up your school profile and start posting jobs immediately.',
+        'heading' => '快速，輕鬆地找到英語老師',
+        'blurb'   => '數以百計的英語老師在尋找工作，ELT Search是最佳找尋外師的網站。立即註冊，即可發招聘貼文。',
     ],
 
     'why_use' => [
         'heading' => '為什麼使用ELT Search師資配對平台',
         'one'     => [
-            'heading' => '大量師資數據庫',
-            'text'    => 'ELT Search 有數百名優秀的英文教師檔案可進行搜尋，所有教師檔案都等待與其需求配對的工作機會。',
+            'heading' => '簡易地建立帳號',
+            'text'    => '建立帳號以及開始使用只需要一分鐘',
         ],
         'two'     => [
-            'heading' => '全球連結網絡',
-            'text'    => '所有師資皆來自於以英語為母語的國家。並且大多都已在您居住的城市或計劃到海外教書。',
+            'heading' => '全球網絡',
+            'text'    => '在ELT Search刊登的師資主要來自英語系國家，許多人已在您所處的地區。',
         ],
         'three'   => [
-            'heading' => '不間斷的提供師資。',
-            'text'    => '每當有新老師報名參加ELT搜索，您能隨時得到最新的師資訊息',
+            'heading' => '大數據資料',
+            'text'    => 'ELT Search有數百家學校及老師資源。',
         ],
         'four'    => [
-            'heading' => '簡易的註冊方式',
-            'text'    => '簡易的註冊及發佈流程，您可終身擁有其帳戶。',
+            'heading' => '持續更新',
+            'text'    => '每日有新師資和學校加入ELT Search，您每天都會知道有新機會',
         ],
         'five'    => [
-            'heading' => '友善介面可輕鬆操作',
-            'text'    => '友善的介面可幫助您的隨時管理申請人資訊和尋找潛在師資。',
+            'heading' => '友善的使用介面',
+            'text'    => '直觀的介面讓您輕鬆管理帳戶。',
         ],
         'six'     => [
-            'heading' => '簡易的條款和條件',
-            'text'    => '註冊後，您便能立即享有以上提及的服務。我們將保證ELT搜索為您所知的最佳師資招聘網站。',
+            'heading' => '簡單的條款和條件',
+            'text'    => '我們的條款和條件有助於保護用戶，ELT Search 是您招聘教師的最佳網站',
         ],
     ],
 
     'pricing' => [
-        'heading' => 'Pricing',
+        'heading' => '收費方式',
     ],
 
     'outro' => [
-        'sign_up_prompt' => 'What are you wating for? Sign up today to find the best English teachers for your school',
-        'button' => 'Sign Up',
+        'sign_up_prompt' => '還在等甚麼? 立即註冊，以最簡單的方式尋找英語教學工作',
+        'button' => '註冊',
     ]
 ];

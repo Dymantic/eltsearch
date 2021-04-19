@@ -17,7 +17,7 @@
             <span>{{ trns("resume_pass.filters") }}</span>
         </button>
         <modal :show="showFilters" @close="showFilters = false">
-            <div class="max-w-3xl p-6 rounded-lg">
+            <div class="max-w-3xl w-80 p-6 rounded-lg">
                 <p class="type-h3 mb-4">{{ trns("resume_pass.filters") }}</p>
                 <div class="">
                     <p class="text-sm">{{ trns("resume_pass.location") }}:</p>
@@ -33,7 +33,7 @@
                         :label="`${trns('resume_pass.experience_level')}:`"
                         :options="experience_options"
                         v-model="filters.experience"
-                        empty="Any amount of experience"
+                        :empty="trns('resume_pass.filters_experience.any')"
                     ></select-field>
 
                     <select-field
@@ -41,7 +41,7 @@
                         :label="`${trns('resume_pass.nationality')}:`"
                         :options="nations"
                         v-model="filters.nation_id"
-                        empty="Any nationality"
+                        :empty="trns('resume_pass.any_nationality')"
                     ></select-field>
 
                     <div class="flex items-center justify-end mt-6">
@@ -87,15 +87,28 @@ export default {
 
     computed: {
         nations() {
-            return this.$store.getters["nations/forSelect"];
+            const lang = this.$store.state.profile.preferred_lang;
+            return this.$store.getters["nations/forSelect"](lang);
         },
 
         experience_options() {
             return [
-                { value: 1, text: "One ot more years" },
-                { value: 3, text: "Three or more years" },
-                { value: 5, text: "Five or more years" },
-                { value: 7, text: "Ten or more years" },
+                {
+                    value: 1,
+                    text: this.trns("resume_pass.filters_experience.one"),
+                },
+                {
+                    value: 3,
+                    text: this.trns("resume_pass.filters_experience.three"),
+                },
+                {
+                    value: 5,
+                    text: this.trns("resume_pass.filters_experience.five"),
+                },
+                {
+                    value: 7,
+                    text: this.trns("resume_pass.filters_experience.ten"),
+                },
             ];
         },
     },

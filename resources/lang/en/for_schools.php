@@ -10,28 +10,28 @@ return [
     'why_use' => [
         'heading' => 'Why Use ELT Search?',
         'one'     => [
-            'heading' => 'Large Database',
-            'text'    => 'ELT Search has hundreds of teacher profiles all waiting for job offers that match their preferences.',
+            'heading' => 'Easy Sign-Up Process',
+            'text'    => 'Sign up and start your journey in minutes.',
         ],
         'two'     => [
             'heading' => 'Global Network',
-            'text'    => 'Our teachers are from major English speaking countries, already in your country or planning to come.',
+            'text'    => 'Our teachers are from major English speaking countries. Many are already in your country.',
         ],
         'three'   => [
-            'heading' => 'Constant Supply',
-            'text'    => 'New teachers sign up for ELT Search every day so you know that fresh eyes will be looking at your job posts.',
+            'heading' => 'Large Database',
+            'text'    => 'ELT Search has hundreds of schools and teacher profiles ready to be matched.',
         ],
         'four'    => [
-            'heading' => 'Easy Sign-Up process',
-            'text'    => 'Sign up and get posting in minutes. You’ll have your account for life.',
+            'heading' => 'Constant Supply',
+            'text'    => 'New teachers and schools sign up for ELT Search everyday so you know that there will be new opportunities each day.',
         ],
         'five'    => [
-            'heading' => 'User-friendly dashboard',
-            'text'    => 'Our user-friendly dashboard helps manage your job posts and prospective applicants.',
+            'heading' => 'User-friendly interface',
+            'text'    => 'Our intuitive interface helps you manage your account with ease.',
         ],
         'six'     => [
-            'heading' => 'Simple t & C\'s',
-            'text'    => 'Simple. Once signed up we’ll let you do your thing and we’ll promise to keep ELT Search the best teacher recruitment website you know. ',
+            'heading' => 'Simple T & C’s',
+            'text'    => 'Our terms and conditions help protect the user to keep ELT Search the best teacher recruitment website you’ll ever use.',
         ],
     ],
 
@@ -40,7 +40,7 @@ return [
     ],
 
     'outro' => [
-        'sign_up_prompt' => 'What are you wating for? Sign up today to find the best English teachers for your school',
+        'sign_up_prompt' => 'What are you waiting for? Sign up today to find the best English teachers for your school',
         'button' => 'Sign Up',
     ]
 ];

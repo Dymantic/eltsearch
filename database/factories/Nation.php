@@ -9,7 +9,7 @@ $factory->define(Nation::class, function (Faker $faker) {
     $nation = $faker->country;
     return [
         'iso_code'   => $faker->countryCode,
-        'nationality' => $nation,
+        'nationality' => new \App\Translation(['en' => $nation, 'zh' => "{$nation} [zh]"]),
         'name'     => $nation,
     ];
 });

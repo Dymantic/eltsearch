@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Nation;
+use App\Translation;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
@@ -30,7 +31,7 @@ class PopulateNations extends Command
         collect($data)->each(fn ($nation) => Nation::create([
             'iso_code' => $nation['alpha_2_code'],
             'name' => $nation['en_short_name'],
-            'nationality' => $nation['nationality'],
+            'nationality' => new Translation($nation['nationality']),
         ]));
         return 0;
     }

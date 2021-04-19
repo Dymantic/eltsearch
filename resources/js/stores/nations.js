@@ -9,11 +9,13 @@ export default {
     },
 
     getters: {
-        forSelect: (state) =>
-            state.all.map((nation) => ({
+        forSelect: (state) => (lang) => {
+            const l = lang || "en";
+            return state.all.map((nation) => ({
                 value: nation.id,
-                text: nation.nationality,
-            })),
+                text: nation.nationality[l],
+            }));
+        },
     },
 
     mutations: {

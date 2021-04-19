@@ -23,7 +23,7 @@ class PublicTeachersController extends Controller
                        ->nearArea($request->schoolArea())
                        ->withNationality($request->nationality())
                        ->withExperienceLevel($request->experienceLevel())
-                       ->join('nations', 'nations.id', '=', 'teachers.nation_id')
+                       ->leftJoin('nations', 'nations.id', '=', 'teachers.nation_id')
                        ->orderBy($request->orderColumn(), $request->orderDirection())
                        ->paginate(40);
 

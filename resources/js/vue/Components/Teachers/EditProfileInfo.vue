@@ -27,12 +27,10 @@ export default {
         },
 
         nations() {
-            const all = this.$store.state.nations.all.reduce((list, nation) => {
-                list[nation.id] = nation.nationality;
-                return list;
-            }, {});
+            const lang = this.$store.state.profile.preferred_lang;
+            const all = this.$store.getters["nations/forSelect"](lang);
 
-            all["xxx"] = "Other";
+            all.push({ text: "Other", value: "xxx" });
 
             return all;
         },

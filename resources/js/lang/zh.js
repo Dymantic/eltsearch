@@ -248,6 +248,14 @@ export default {
         prompt_one: "取得師資履歷協助您尋找合適的老師。",
         prompt_two: "在您的所在區域，找尋最合適的師資人選",
         get_access: "立即取得使用權限",
+        filters_experience: {
+            any: "任何年資",
+            one: "一年以上",
+            three: "三年以上",
+            five: "五年以上",
+            ten: "十年以上",
+        },
+        any_nationality: "任何國籍",
     },
     resume: {
         title: "老師的履歷",

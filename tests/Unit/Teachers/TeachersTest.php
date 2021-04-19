@@ -148,6 +148,31 @@ class TeachersTest extends TestCase
     /**
      *@test
      */
+    public function a_teacher_with_an_other_nationality_can_still_be_complete()
+    {
+        $nomad = factory(Teacher::class)->create([
+            'nation_id' => null,
+            'nation_other' => 'test other nation',
+        ]);
+        $uneducated = factory(Teacher::class)->create([
+            'education_level' => '',
+            'education_institution' => '',
+            'education_qualification' => '',
+        ]);
+        $nowhere = factory(Teacher::class)->create(['nation_id' => null, 'nation_other' => null]);
+        $ageless = factory(Teacher::class)->create(['date_of_birth' => null]);
+        $no_language = factory(Teacher::class)->create(['native_language' => '']);
+        $inexperienced = factory(Teacher::class)->create(['years_experience' => null]);
+
+        $completed = Teacher::complete()->get();
+
+        $this->assertCount(1, $completed);
+        $this->assertTrue($completed->first()->is($nomad));
+    }
+
+    /**
+     *@test
+     */
     public function can_scope_teachers_to_near_area()
     {
         $regionA = factory(Region::class)->create();

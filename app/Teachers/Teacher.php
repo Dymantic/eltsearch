@@ -83,7 +83,11 @@ class Teacher extends Model implements HasMedia
             ->whereNotNull('date_of_birth')
             ->where('education_level', '<>', '')
             ->where('education_qualification', '<>', '')
-            ->whereNotNull('nation_id')
+            ->where(function ($query) {
+                $query->whereNotNull('nation_id')
+                    ->orWhere('nation_other', '<>', '')
+                    ->orWhere('nation_other', '<>', null);
+            })
             ->where('native_language', '<>', '')
             ->whereNotNull('years_experience');
     }

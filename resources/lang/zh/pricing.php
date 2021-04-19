@@ -6,9 +6,9 @@ return [
         'name' => '點數',
         'description' => '利用購買的點數，您才能發文',
         'selling_points' => [
-            'Global Reach',
-            'Hire the best teacher',
-            'Incredible Value',
+            '全球範圍',
+            '招聘最優質的老師',
+            '優惠的價格',
         ]
     ],
 
@@ -16,9 +16,9 @@ return [
         'name' => '購買10點',
         'description' => '直接購買10點，享有點數優惠',
         'selling_points' => [
-            'Save Big (25%)',
-            'Post anytime',
-            'Maximum Exposure',
+            '省下最多(25%)',
+            '隨時可貼文',
+            '最高曝光率',
         ]
     ],
 
@@ -26,9 +26,9 @@ return [
         'name' => '使用權限-30天',
         'description' => '取得30天無限使用ELT Search搜索您學校所需的師資',
         'selling_points' => [
-            'VIP Access to all resumes',
-            'Get notified of matches',
-            'Never miss out on top teachers',
+            'VIP 權限觸及所有履歷',
+            '根據您的需求進行配對',
+            '永遠不會錯過最頂尖的老師',
         ]
     ],
 
@@ -36,9 +36,9 @@ return [
         'name' => '使用權限-1年',
         'description' => '整整一年不受限使用ELT搜尋師資履歷。',
         'selling_points' => [
-            'Save Big (25%)',
-            'Unlimited VIP Access',
-            'Unlimited Teacher Matches',
+            '省下最多(25%)',
+            '無限制的VIP權限',
+            '根據您的需求進行配對',
         ]
     ]
 ];
