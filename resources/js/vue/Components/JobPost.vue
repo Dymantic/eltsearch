@@ -2,19 +2,26 @@
     <div>
         <div class="border border-navy rounded-lg max-w-3xl mx-auto my-20 p-6">
             <div class="flex justify-between">
-                <div class="flex-1 mr-10">
+                <div class="flex-1 md:mr-10">
+                    <div class="w-20 h-20 block md:hidden mx-auto mb-4">
+                        <img
+                            :src="post.logo.thumb"
+                            alt=""
+                            class="w-full h-full object-contain"
+                        />
+                    </div>
                     <div class="border-b border-navy pb-2">
                         <p class="text-2xl font-bold">
                             {{ post.school_name }}
                         </p>
-                        <p>
-                            <span class="text-sm pr-3 border-r border-navy">{{
-                                post.position
-                            }}</span>
-                            <span class="text-sm px-3 border-r border-navy">{{
+                        <p
+                            class="flex flex-col md:flex-row md:divide-x divide-navy md:gap-3"
+                        >
+                            <span class="text-sm">{{ post.position }}</span>
+                            <span class="text-sm md:pl-3">{{
                                 post.engagement
                             }}</span>
-                            <span class="text-sm px-3">{{ post.area }}</span>
+                            <span class="text-sm md:pl-3">{{ post.area }}</span>
                         </p>
                     </div>
                     <div class="py-2">
@@ -61,7 +68,7 @@
                         </p>
                     </div>
                 </div>
-                <div>
+                <div class="hidden md:block">
                     <div class="w-32 h-32">
                         <img
                             :src="post.logo.thumb"
