@@ -37,9 +37,18 @@ Route::group([
     Route::get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
 
     Route::get('schools/{school:key}', 'SchoolProfilesController@show');
+
+    Route::get('job-posts', 'JobPostsController@index');
+    Route::get('/job-posts/{post:slug}', 'JobPostsController@show');
+
+    Route::get('/job-posts/{post:slug}/apply', 'ApplicationsController@create');
+    Route::get('guest-applications/create-application', 'GuestApplicationsController@create');
+    Route::get('guest-applications/create-profile', 'GuestApplicationsProfileController@create');
+    Route::get('guest-applications/add-experience', 'GuestApplicationExperienceController@create');
+    Route::get('guest-applications/add-profile-image', 'GuestApplicationsProfileImageController@create');
 });
 
-Route::get('/job-posts/{post:slug}/apply', 'ApplicationsController@create');
+
 
 Route::get('login/google', 'GoogleLoginController@redirect');
 Route::get('google/auth/callback', 'GoogleAuthResponseController@store')->middleware('test_google_oauth');
@@ -49,16 +58,15 @@ Route::get('login/facebook', 'FacebookLoginController@redirect');
 Route::get('register/teacher/facebook', 'FacebookRegisterController@redirect');
 Route::get('facebook/auth/callback', 'FacebookAuthResponseController@store');
 
-Route::get('job-posts', 'JobPostsController@index');
-Route::get('/job-posts/{post:slug}', 'JobPostsController@show');
+
+
 
 Route::post('guest-applications', 'GuestApplicationsController@store');
-Route::get('guest-applications/create-application', 'GuestApplicationsController@create');
-Route::get('guest-applications/create-profile', 'GuestApplicationsProfileController@create');
+
 Route::post('guest-applications/profile', 'GuestApplicationsProfileController@store');
-Route::get('guest-applications/add-experience', 'GuestApplicationExperienceController@create');
+
 Route::post('guest-applications/experience', 'GuestApplicationExperienceController@store');
-Route::get('guest-applications/add-profile-image', 'GuestApplicationsProfileImageController@create');
+
 Route::post('guest-applications/profile-image', 'GuestApplicationsProfileImageController@store')->middleware('json.response');
 Route::post('complete-guest-applications', 'CompleteGuestApplicationsController@store');
 

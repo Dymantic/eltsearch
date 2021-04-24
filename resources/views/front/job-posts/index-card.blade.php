@@ -4,7 +4,8 @@
             <p class="type-h3 mb-3 border-b border-navy">
                 <a href="/job-posts/{{ $post['slug'] }}" class="text-navy hover:text-sky-blue">{{ $post['school_name'] }}</a>
             </p>
-            <p class="mb-1 type-b1"><span class="type-b2">Company: </span>{{ $post['school'] }}</p>
+            <p class="mb-1 type-b1"><span class="type-b2">Job: </span>{{ $post['position'] }}</p>
+            <p class="mb-1 type-b1"><span class="type-b2">School: </span>{{ $post['school'] }}</p>
             <p class="mb-1 type-b1"><span class="type-b2">Location: </span>{{ $post['area'] }}</p>
             <p class="mb-1 type-b1"><span class="type-b2">Part Time or Full Time: </span>{{ $post['engagement'] }}</p>
             <p class="mb-1 type-b1"><span class="type-b2">Start Date: </span>{{ $post['start_date'] }}</p>

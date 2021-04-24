@@ -29,7 +29,7 @@ class JobPostsController extends Controller
         return view('front.job-posts.post', [
             'post' => JobPostPresenter::forPublic($post),
             'has_application' => $has_application,
-            'profile_incomplete' => !$profile_complete,
+            'profile_incomplete' => !$profile_complete && $is_teacher,
             'can_apply' => auth()->guest() || ((!$has_application) && ($profile_complete)),
         ]);
     }

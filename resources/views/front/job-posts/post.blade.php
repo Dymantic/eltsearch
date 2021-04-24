@@ -1,43 +1,50 @@
 <x-public-page :dontIndex="true">
-    <div class="border border-navy rounded-lg max-w-3xl mx-auto my-20 p-6">
+    <div class="md:border border-navy rounded-lg max-w-3xl mx-auto my-12 md:my-20 p-6">
+        <div class="w-32 h-32 mx-auto mb-12 block md:hidden">
+            <img src="{{ $post['logo']['thumb'] }}" alt="" class="w-full h-full object-contain">
+        </div>
         <div class="flex justify-between">
             <div class="flex-1 mr-10">
                 <div class="border-b border-navy pb-2">
-                    <p class="text-2xl font-bold">{{ $post['school_name'] }}</p>
-                    <p>
-                        <span class="text-sm pr-3 border-r border-navy">{{ $post['engagement'] }}</span>
-                        <span class="text-sm px-3 border-r border-navy">{{ $post['area'] }}</span>
-                        <span class="text-sm pl-3">{{ $post['start_date'] }}</span>
+                    <p class="text-2xl font-bold text-navy">{{ $post['school_name'] }}</p>
+                    <p class="flex flex-col md:flex-row md:divide-x divide-navy md:gap-3">
+                        <span class="text-sm">{{ $post['engagement'] }}</span>
+                        <span class="text-sm md:pl-3">{{ $post['area'] }}</span>
+                        <span class="text-sm md:pl-3">{{ $post['start_date'] }}</span>
                     </p>
                 </div>
                 <div class="py-2">
                     <p class="my-2">
-                        <span class="font-bold">Salary: </span>
+                        <span class="font-bold text-navy">Job: </span>
+                        <span>{{ $post['position'] }}</span>
+                    </p>
+                    <p class="my-2">
+                        <span class="font-bold text-navy">Salary: </span>
                         <span>{{ $post['salary'] }}</span>
                     </p>
                     <p class="my-2">
-                        <span class="font-bold">Contract: </span>
+                        <span class="font-bold text-navy">Contract: </span>
                         <span>{{ $post['contract'] }}</span>
                     </p>
                     <p class="my-2">
-                        <span class="font-bold">Hours: </span>
+                        <span class="font-bold text-navy">Hours: </span>
                         <span>{{ $post['hours_per_week'] }}/week approx.</span>
                     </p>
                     <p class="my-2">
-                        <span class="font-bold">Times: </span>
-                        <span class=" divide-x divide-navy">
+                        <span class="font-bold text-navy">Times: </span>
+                        <span class="divide-x divide-navy">
                         @foreach($post['schedule'] as $time)
                         <span class="px-2">{{ $time }}</span>
                         @endforeach
                         </span>
                     </p>
                     <p class="my-2">
-                        <span class="font-bold">Weekends: </span>
+                        <span class="font-bold text-navy">Weekends: </span>
                         <span>{{ $post['work_on_weekends'] }}</span>
                     </p>
                 </div>
             </div>
-            <div>
+            <div class="hidden md:block">
                 <div class="w-32 h-32">
                     <img src="{{ $post['logo']['thumb'] }}" alt="" class="w-full h-full object-contain">
                 </div>
@@ -49,12 +56,12 @@
             </div>
         </div>
         <div class="pt-10">
-            <p class="font-bold">Job Description</p>
+            <p class="font-bold text-navy">Job Description</p>
             <p>{{ $post['description'] }}</p>
         </div>
 
         <div class="pt-10">
-            <p class="font-bold">Student Ages</p>
+            <p class="font-bold text-navy">Student Ages</p>
             <ul class="list-disc list-inside">
                 @foreach($post['student_ages'] as $age)
                 <li>{{ $age }}</li>
@@ -63,7 +70,7 @@
         </div>
 
         <div class="pt-10">
-            <p class="font-bold">Job Benefits</p>
+            <p class="font-bold text-navy">Job Benefits</p>
             <ul class="list-disc list-inside">
                 @foreach($post['benefits'] as $benefit)
                     <li>{{ $benefit }}</li>
@@ -72,7 +79,7 @@
         </div>
 
         <div class="pt-10">
-            <p class="font-bold">Requirements</p>
+            <p class="font-bold text-navy">Requirements</p>
             <ul class="list-disc list-inside">
                 @foreach($post['requirements'] as $requirement)
                     <li>{{ $requirement }}</li>
@@ -112,8 +119,8 @@
         </div>
 
     </div>
-    <div class="flex justify-center">
-        <a href="{{ $post['school_slug'] }}">Visit School Profile</a>
+    <div class="flex justify-center my-12">
+        <a class="type-a1 text-navy hover:text-sky-blue underline" href="{{ $post['school_slug'] }}">Visit School Profile</a>
     </div>
     <script>
         function schoolImages() {

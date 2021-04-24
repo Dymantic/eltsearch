@@ -5,8 +5,9 @@
                 <img src="{{ $school['logo']['thumb'] }}"
                      alt="{{ $school['name'] }} logo" class="w-full h-full object-contain">
             </div>
-            <h1 class="type-h2 text-navy">{{ $school['name'] }}</h1>
-            <p>{{ implode(", ", $school['school_types']) }}</p>
+            <h1 class="type-h2 text-navy text-center leading-none my-4">{{ $school['name'] }}</h1>
+            <p class="type-b2 text-navy">{{ $school['location'] }}</p>
+            <p class="type-b2 mt-1 text-gray-600">{{ implode(", ", $school['school_types']) }}</p>
         </div>
 
         <div class="my-12 max-w-xl mx-auto">

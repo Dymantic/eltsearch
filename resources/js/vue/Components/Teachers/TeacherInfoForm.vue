@@ -105,7 +105,7 @@ export default {
                 nation_id:
                     !this.info.nation_id && this.info.nation_other
                         ? "xxx"
-                        : this.nation_id,
+                        : this.info.nation_id,
                 nation_other: this.info.nation_other,
                 date_of_birth: this.info.date_of_birth,
                 email: this.info.email,
