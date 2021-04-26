@@ -28,7 +28,7 @@ import Notifications from "../../vue/Pages/Notifications";
 import ShowNotification from "../../vue/Pages/ShowNotification";
 
 export default [
-    { path: "/", component: AdminDashboard },
+    { path: "/", redirect: "/job-posts" },
     { path: "/session-expired", component: SessionExpired },
     { path: "/change-password", component: ChangePassword },
     { path: "/locations", component: LocationsPage },
