@@ -4,49 +4,62 @@ namespace App\Console\Commands;
 
 use App\User;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class FlushAllData extends Command
+class ResetDatabase extends Command
 {
-
-    protected $signature = 'housekeeping:sweep';
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'db:reset';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Truncates all tables ** use at your own risk **';
+    protected $description = 'reset db completely';
 
-
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
     public function __construct()
     {
         parent::__construct();
     }
 
-
+    /**
+     * Execute the console command.
+     *
+     * @return int
+     */
     public function handle()
     {
         $admin = User::where('account_type', User::ACCOUNT_ADMIN)->get();
 
         $tables = collect([
             'announcements',
-//            'areas',
-//            'countries',
+            'areas',
+            'countries',
             'failed_jobs',
             'job_applications',
             'job_matches',
             'job_posts',
             'job_searches',
             'media',
-//            'migrations',
+            'migrations',
             'nations',
             'notifications',
             'password_resets',
             'previous_employments',
             'purchases',
-//            'regions',
+            'regions',
             'resume_passes',
             'school_school_type',
             'school_types',
@@ -55,13 +68,17 @@ class FlushAllData extends Command
             'recruitment_attempts',
             'show_of_interests',
             'teachers',
-//            'tokens',
+            'tokens',
             'users',
         ]);
 
         Schema::disableForeignKeyConstraints();
-        $tables->each(fn($table) => DB::table($table)->truncate());
+        $tables->each(fn($table) => Schema::dropIfExists($table));
         Schema::enableForeignKeyConstraints();
+
+        Artisan::call('migrate');
+        Artisan::call('nations:populate');
+        Artisan::call('locations:towns');
 
         $admin->each(function ($admin) {
             User::create([
@@ -72,7 +89,6 @@ class FlushAllData extends Command
                 'remember_token' => $admin->remember_token,
             ]);
         });
-
         return 0;
     }
 }
