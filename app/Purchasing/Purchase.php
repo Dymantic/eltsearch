@@ -13,6 +13,9 @@ class Purchase extends Model
 {
     use HasFactory;
 
+    const SECURE_3DS_APPROVED = '3ds_approved';
+    const SECURE_3DS_CANCELLED = '3ds_cancelled';
+
     protected $fillable = [
         'user_id',
         'package_id',
@@ -25,6 +28,7 @@ class Purchase extends Model
         'gateway_status',
         'gateway_error',
         'ref_no',
+        'purchase_uuid',
     ];
 
     protected $casts = [
@@ -55,6 +59,22 @@ class Purchase extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function complete3DSFlow()
+    {
+        $this->gateway_status = static::SECURE_3DS_APPROVED;
+        $this->paid = true;
+        $this->save();
+        $package = Package::find($this->package_id);
+        $this->customer->addPackage($package, $this);
+    }
+
+    public function cancelled3DSFlow()
+    {
+        $this->gateway_status = static::SECURE_3DS_CANCELLED;
+        $this->paid = false;
+        $this->save();
     }
 
     public function toArray()

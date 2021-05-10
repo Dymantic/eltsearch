@@ -26,6 +26,15 @@ class SchoolPurchasesController extends Controller
             ->withPaymentDetails($request->paymentDetails())
             ->buy($package);
 
+
+        if($response->requiresSecure3D()) {
+            $school->initiatePurchase($response, $package, auth()->user());
+            return [
+                'requires_secure3d_redirect' => true,
+                'redirect_secure3d_url' => $response->secure3DRedirectUrl(),
+            ];
+        }
+
         $purchase = $school->completePurchase($response, $package, auth()->user());
 
         return $purchase->toArray();

@@ -22,5 +22,11 @@ $factory->define(Purchase::class, function (Faker $faker) {
         'gateway_status' => $faker->randomElement(['AUTHRECEIVED', 'PENDING']),
         'gateway_error' => $faker->sentence,
         'ref_no' => \Illuminate\Support\Str::random(3) . now()->format('Ymd'),
+        'purchase_uuid' => \Illuminate\Support\Str::uuid()->toString(),
     ];
 });
+
+$factory->state(Purchase::class, 'requires3ds', [
+    'gateway_status' => 'PENDING',
+    'paid' => false,
+]);

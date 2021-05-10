@@ -18,6 +18,25 @@ trait MakesPurchases
         return $this->morphMany(Purchase::class, 'customer');
     }
 
+    public function initiatePurchase(TransactionResult $result, Package $package, User $user)
+    {
+        $purchase = $this->purchases()
+                         ->create([
+                             'user_id'        => $user->id,
+                             'package_id'     => $package->getId(),
+                             'price'          => $result->pricePaidInCents(),
+                             'currency'       => $result->currency(),
+                             'card_last_four' => $result->cardLastFour(),
+                             'card_type'      => $result->cardType(),
+                             'paid'           => $result->success(),
+                             'gateway_ref_no' => $result->refNo(),
+                             'gateway_status' => $result->getGatewayStatus(),
+                             'gateway_error' => $result->getError(),
+                             'ref_no'         => Purchase::nextRefNumber(),
+                             'purchase_uuid' => $result->getPurchaseUuid(),
+                         ]);
+    }
+
     public function completePurchase(TransactionResult $result, Package $package, User $user)
     {
         $purchase = $this->purchases()

@@ -19,10 +19,11 @@ class ApplyAsGuestTest extends TestCase
     public function start_application_for_post_as_a_guest()
     {
         $this->withoutExceptionHandling();
+        $this->refreshApplicationWithLocale('en');
 
         $post = factory(JobPost::class)->state('current')->create();
 
-        $response = $this->asGuest()->get("/job-posts/{$post->slug}/apply");
+        $response = $this->asGuest()->get("/en/job-posts/{$post->slug}/apply");
         $response ->assertViewIs('front.guest-applications.create-profile');
 
         $this->assertSame($post->slug, session('guest_application.post_slug'));

@@ -162,6 +162,10 @@ export default {
         },
 
         onSuccess(purchase) {
+            if (purchase.requires_secure3d_redirect) {
+                return (window.location = purchase.redirect_secure3d_url);
+            }
+
             if (purchase.paid) {
                 showSuccess("Payment complete");
                 return this.$router.push("/purchases");

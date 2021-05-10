@@ -48,6 +48,9 @@ Route::group([
     Route::get('guest-applications/add-profile-image', 'GuestApplicationsProfileImageController@create');
 });
 
+Route::get('/secure3d-orders/{purchase:purchase_uuid}/return', 'SuccessSecure3DSPurchaseController@store');
+Route::get('/secure3d-orders/{purchase:purchase_uuid}/cancel', 'CancelledSecure3DSPurchaseController@store');
+
 
 
 Route::get('login/google', 'GoogleLoginController@redirect');
@@ -172,6 +175,8 @@ Route::group([
 
     Route::get('schools/{school}/purchases', 'SchoolPurchasesController@index');
     Route::post('schools/{school}/purchases', 'SchoolPurchasesController@store');
+
+
 
     Route::get('schools/{school}/tokens', 'SchoolTokensController@index');
     Route::get('schools/{school}/resume-pass', 'SchoolResumePassController@show');

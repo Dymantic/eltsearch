@@ -5,6 +5,7 @@ namespace App\Purchasing;
 
 
 use App\User;
+use Illuminate\Support\Str;
 
 class TwoCheckoutTransaction implements Transaction
 {
@@ -34,7 +35,7 @@ class TwoCheckoutTransaction implements Transaction
     public function buy(Package $package): TransactionResult
     {
         $this->package = $package;
-
+        $uuid = Str::uuid()->toString();
 
         $payload = [
             'Language' => 'zh',
@@ -49,12 +50,12 @@ class TwoCheckoutTransaction implements Transaction
                 'Email' => $this->payment_details['email'],
             ],
             'PaymentDetails' => [
-                "Type" => "TEST",
+                "Type" => config('two-checkout.environment') === 'live' ? "EES_TOKEN_PAYMENT" : "TEST",
                 "Currency" => "USD",
                 "PaymentMethod" => [
                     "EesToken" => $this->payment_details['token'],
-                    "Vendor3DSReturnURL" => 'https://example.test',
-                    "Vendor3DSCancelURL" => 'https://example.test',
+                    "Vendor3DSReturnURL" => url("secure3d-orders/{$uuid}/return"),
+                    "Vendor3DSCancelURL" => url("secure3d-orders/{$uuid}/cancel"),
                 ],
 
             ],
