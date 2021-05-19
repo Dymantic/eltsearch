@@ -14,15 +14,15 @@ class TeacherOverviewController extends Controller
         $recent_signups = Teacher::with('previousEmployments', 'nation')
                                  ->signedUpSince(now()->subMonth())
                                  ->latest()
-                                ->limit(20)
                                  ->get();
 
         return [
             'total_count'          => Teacher::count(),
             'signed_up_last_month' => $recent_signups->count(),
-            'recent'               => $recent_signups
+            'recent'               => $recent_signups->take(20)
                 ->map(fn($t) => TeacherProfilePresenter::forAdmin($t))
                 ->values()->all(),
+            'complete_profiles' => Teacher::complete()->count(),
         ];
     }
 }

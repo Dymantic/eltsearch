@@ -11,13 +11,18 @@ export default {
         total_count: 0,
         signed_up_last_month: 0,
         recent: [],
+        complete_profiles: 0,
     },
 
     mutations: {
-        setOverview(state, { total_count, signed_up_last_month, recent }) {
+        setOverview(
+            state,
+            { total_count, signed_up_last_month, recent, complete_profiles }
+        ) {
             state.total_count = total_count;
             state.signed_up_last_month = signed_up_last_month;
             state.recent = recent;
+            state.complete_profiles = complete_profiles;
         },
     },
 

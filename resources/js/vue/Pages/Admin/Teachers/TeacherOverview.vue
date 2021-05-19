@@ -17,6 +17,11 @@
                 :stat="signed_up"
                 title="Teachers signed up in the last month"
             ></number-stat>
+            <number-stat
+                class="md:mr-6 mb-4"
+                :stat="complete_profiles"
+                title="Completed Profiles"
+            ></number-stat>
         </div>
 
         <div class="my-12">
@@ -68,6 +73,10 @@ export default {
 
         recent() {
             return this.$store.state.teachers.recent;
+        },
+
+        complete_profiles() {
+            return this.$store.state.teachers.complete_profiles;
         },
     },
 
