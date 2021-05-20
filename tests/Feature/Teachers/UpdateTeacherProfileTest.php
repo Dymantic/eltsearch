@@ -103,6 +103,7 @@ class UpdateTeacherProfileTest extends TestCase
         $response = $this->actingAs($teacher->user)->postJson("/api/teachers/profile/general", [
             'name'             => null,
             'nation_id'        => null,
+            'nation_other'     => 'test nation',
             'email'            => null,
             'date_of_birth'    => null,
             'native_language'  => null,
@@ -121,6 +122,7 @@ class UpdateTeacherProfileTest extends TestCase
             'date_of_birth'   => null,
             'native_language' => '',
             'other_languages' => '',
+            'nation_other'     => 'test nation',
         ]);
     }
 
@@ -167,6 +169,17 @@ class UpdateTeacherProfileTest extends TestCase
     public function the_date_of_birth_must_be_a_real_date()
     {
         $this->assertFieldIsInvalid(['date_of_birth' => 'not-a-date-just-like-high-school']);
+    }
+
+    /**
+     * @test
+     */
+    public function the_nation_other_is_required_when_nation_id_is_null()
+    {
+        $this->assertFieldIsInvalid([
+            'nation_other' => '',
+            'nation_id'    => null,
+        ]);
     }
 
     private function assertFieldIsInvalid($field)

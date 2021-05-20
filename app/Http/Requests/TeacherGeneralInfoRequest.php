@@ -21,6 +21,7 @@ class TeacherGeneralInfoRequest extends FormRequest
             'email'            => ['email', 'nullable'],
             'date_of_birth'    => ['date', 'nullable'],
             'years_experience' => ['integer', 'nullable'],
+            'nation_other'     => ['required_if:nation_id,null'],
         ];
     }
 
