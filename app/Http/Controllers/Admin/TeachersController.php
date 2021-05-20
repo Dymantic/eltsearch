@@ -15,7 +15,7 @@ class TeachersController extends Controller
     public function index(TeachersQueryRequest $request)
     {
         $page = Teacher::select('teachers.*')
-                         ->join('nations', 'nations.id', '=', 'teachers.nation_id')
+                         ->leftJoin('nations', 'nations.id', '=', 'teachers.nation_id')
                          ->where('teachers.name', 'LIKE', "%{$request->search()}%")
                          ->orderBy($request->order(), $request->direction())
                          ->paginate(70);

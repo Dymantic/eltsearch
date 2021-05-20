@@ -68,7 +68,7 @@ class Teacher extends Model implements HasMedia
     protected $dates = ['date_of_birth'];
 
     protected $casts = [
-        'is_public' => 'boolean',
+        'is_public'   => 'boolean',
         'disabled_on' => 'date'
     ];
 
@@ -85,11 +85,14 @@ class Teacher extends Model implements HasMedia
             ->where('education_qualification', '<>', '')
             ->where(function ($query) {
                 $query->whereNotNull('nation_id')
-                    ->orWhere('nation_other', '<>', '')
-                    ->orWhere('nation_other', '<>', null);
+                      ->orWhere(function ($query) {
+                          $query->where('nation_other', '<>', '')
+                                ->where('nation_other', '<>', null);
+                      });
             })
             ->where('native_language', '<>', '')
-            ->whereNotNull('years_experience');
+            ->whereNotNull('years_experience')
+            ->has('media');
     }
 
     public function scopeNearArea(Builder $query, ?Area $area)
@@ -322,7 +325,7 @@ class Teacher extends Model implements HasMedia
             'has_unread_messages' => UnreadMessagesCheck::class,
             'no_job_search'       => NoJobSearchCheck::class,
             'no_location'         => NoSetLocationCheck::class,
-            'recent_job_matches' => RecentJobMatchesCheck::class,
+            'recent_job_matches'  => RecentJobMatchesCheck::class,
         ];
 
         return collect($checks)
@@ -332,7 +335,7 @@ class Teacher extends Model implements HasMedia
 
     public function disable()
     {
-        if(!$this->isDisabled()) {
+        if (!$this->isDisabled()) {
             TeacherProfileDisabled::dispatch($this);
         }
 
@@ -342,7 +345,7 @@ class Teacher extends Model implements HasMedia
 
     public function reinstate()
     {
-        if($this->isDisabled()) {
+        if ($this->isDisabled()) {
             TeacherProfileReinstated::dispatch($this);
         }
 
@@ -357,15 +360,15 @@ class Teacher extends Model implements HasMedia
 
     public function applicationApprovalFor(JobPost $post): ApplicationApproval
     {
-        if($this->isDisabled()) {
+        if ($this->isDisabled()) {
             return ApplicationApproval::disabled($this, $post);
         }
 
-        if($this->hasApplicationFor($post)) {
+        if ($this->hasApplicationFor($post)) {
             return ApplicationApproval::appliedAlready($this, $post);
         }
 
-        if(!$this->hasCompleteProfile()) {
+        if (!$this->hasCompleteProfile()) {
             return ApplicationApproval::incomplete($this, $post);
         }
 

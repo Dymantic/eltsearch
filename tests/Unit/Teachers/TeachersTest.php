@@ -13,7 +13,9 @@ use App\Teachers\Teacher;
 use App\Teachers\TeacherEducationInfo;
 use App\Teachers\TeacherGeneralInfo;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class TeachersTest extends TestCase
@@ -128,16 +130,30 @@ class TeachersTest extends TestCase
      */
     public function can_scope_teacher_profiles_as_complete()
     {
+        Storage::fake('media');
         $diligent = factory(Teacher::class)->create();
+        $diligent->setAvatar(UploadedFile::fake()->image('test1.jpg'));
+        $diligent->refresh();
+        $no_pic = factory(Teacher::class)->create();
         $uneducated = factory(Teacher::class)->create([
             'education_level' => '',
             'education_institution' => '',
             'education_qualification' => '',
         ]);
+        $uneducated->setAvatar(UploadedFile::fake()->image('test1.jpg'));
+        $uneducated->refresh();
         $nowhere = factory(Teacher::class)->create(['nation_id' => null]);
+        $nowhere->setAvatar(UploadedFile::fake()->image('test1.jpg'));
+        $nowhere->refresh();
         $ageless = factory(Teacher::class)->create(['date_of_birth' => null]);
+        $ageless->setAvatar(UploadedFile::fake()->image('test1.jpg'));
+        $ageless->refresh();
         $no_language = factory(Teacher::class)->create(['native_language' => '']);
+        $no_language->setAvatar(UploadedFile::fake()->image('test1.jpg'));
+        $no_language->refresh();
         $inexperienced = factory(Teacher::class)->create(['years_experience' => null]);
+        $inexperienced->setAvatar(UploadedFile::fake()->image('test1.jpg'));
+        $inexperienced->refresh();
 
         $completed = Teacher::complete()->get();
 
@@ -150,19 +166,33 @@ class TeachersTest extends TestCase
      */
     public function a_teacher_with_an_other_nationality_can_still_be_complete()
     {
+        Storage::fake('media');
         $nomad = factory(Teacher::class)->create([
             'nation_id' => null,
             'nation_other' => 'test other nation',
         ]);
+        $nomad->setAvatar(UploadedFile::fake()->image('test1.jpg'));
+        $nomad->refresh();
         $uneducated = factory(Teacher::class)->create([
             'education_level' => '',
             'education_institution' => '',
             'education_qualification' => '',
         ]);
+        $uneducated->setAvatar(UploadedFile::fake()->image('test1.jpg'));
+        $uneducated->refresh();
         $nowhere = factory(Teacher::class)->create(['nation_id' => null, 'nation_other' => null]);
+        $nowhere->setAvatar(UploadedFile::fake()->image('test1.jpg'));
+        $nowhere->refresh();
         $ageless = factory(Teacher::class)->create(['date_of_birth' => null]);
+        $ageless->setAvatar(UploadedFile::fake()->image('test1.jpg'));
+        $ageless->refresh();
         $no_language = factory(Teacher::class)->create(['native_language' => '']);
+        $no_language->setAvatar(UploadedFile::fake()->image('test1.jpg'));
+        $no_language->refresh();
+
         $inexperienced = factory(Teacher::class)->create(['years_experience' => null]);
+        $inexperienced->setAvatar(UploadedFile::fake()->image('test1.jpg'));
+        $inexperienced->refresh();
 
         $completed = Teacher::complete()->get();
 

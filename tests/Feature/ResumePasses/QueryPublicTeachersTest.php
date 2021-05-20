@@ -7,6 +7,8 @@ use App\Nation;
 use App\Purchasing\ResumePass;
 use App\Teachers\Teacher;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class QueryPublicTeachersTest extends TestCase
@@ -19,6 +21,7 @@ class QueryPublicTeachersTest extends TestCase
     public function can_query_public_teachers()
     {
         $this->withoutExceptionHandling();
+        Storage::fake('media');
 
         list($school, $owner) = $this->setUpSchool();
         factory(ResumePass::class)->create(['school_id' => $school->id]);
@@ -55,6 +58,12 @@ class QueryPublicTeachersTest extends TestCase
             'nation_id' => $nationA->id,
             'years_experience' => 1,
         ]);
+
+        collect([$teacherA, $teacherB, $teacherC, $teacherD, $teacherE])
+            ->each(function($teacher) {
+                $teacher->setAvatar(UploadedFile::fake()->image('test.jpg'));
+                $teacher->refresh();
+            });
 
         $url_format = "/api/schools/%s/public-teachers?page=1&near=%s&exp_level=%s&nation=%s&order=name&direction=asc";
         $query = sprintf($url_format, $school->id, $school->area_id, 5, $nationA->id);
