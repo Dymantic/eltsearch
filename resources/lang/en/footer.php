@@ -11,6 +11,8 @@ return [
     'log_in'             => 'Log in',
     'terms_of_service'   => 'Terms of Service',
     'privacy_policy'     => 'Privacy Policy',
+    'refund_policy'      => 'Refund Policy',
+    'delivery_policy'    => 'Delivery Policy',
     'contact_us'         => 'Contact Us',
     'registered'         => 'Registered',
     'built_by'           => 'This website was beautifully designed and built by',

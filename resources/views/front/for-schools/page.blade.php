@@ -24,8 +24,13 @@
     <div class="my-20 px-6">
         <p class="type-h6 text-navy max-w-3xl mx-auto mb-10">{{ trans('for_schools.pricing.heading') }}</p>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-16 max-w-3xl mx-auto">
-            @foreach($packages as $package)
+        <p class=" max-w-3xl mx-auto mb-12 type-h4 text-center text-navy">{{ trans('for_schools.pricing.intro') }}</p>
+
+        <p class=" max-w-3xl mx-auto mb-6 type-a1">{{ trans('for_schools.pricing.job_posts.heading') }}</p>
+        <p class=" max-w-3xl mx-auto mb-12 type-b1">{{ trans('for_schools.pricing.job_posts.text') }}</p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-16 max-w-4xl mx-auto mb-20">
+            @foreach($job_posts as $package)
                 <div class="w-full shadow-lg mx-auto my-8">
                     <div class="text-sky-blue bg-baby-blue py-3 text-center shadow">
                         @if($package['icon'])
@@ -48,7 +53,37 @@
             @endforeach
 
         </div>
+
+        <p class=" max-w-3xl mx-auto mb-6 type-a1">{{ trans('for_schools.pricing.resume_pass.heading') }}</p>
+        <p class=" max-w-3xl mx-auto mb-12 type-b1">{{ trans('for_schools.pricing.resume_pass.text') }}</p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-16 max-w-4xl mx-auto">
+            @foreach($passes as $package)
+                <div class="w-full shadow-lg mx-auto my-8">
+                    <div class="text-sky-blue bg-baby-blue py-3 text-center shadow">
+                        @if($package['icon'])
+                            <div class="h-8 flex items-center justify-center my-1">
+                                @include($package['icon'], ['classes' => $package['icon_size'] . ' text-sky-blue block mx-auto'])
+                            </div>
+                        @endif
+                        <p class="type-h3">
+                            {{ $package['name'] }}
+                        </p>
+
+                    </div>
+                    <div class="p-4 text-center">
+                        <p class="type-b2">{{ $package['price'] }}</p>
+                        @foreach($package['selling_points'] as $point)
+                            <p class="type-b1">{{ $point }}</p>
+                        @endforeach
+                    </div>
+                </div>
+            @endforeach
+
+        </div>
     </div>
+
+
 
     <p class="my-16 max-w-xl mx-auto type-h4 text-navy text-center px-6">{{ trans('for_schools.outro.sign_up_prompt') }}</p>
 

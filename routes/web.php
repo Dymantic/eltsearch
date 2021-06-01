@@ -24,6 +24,8 @@ Route::group([
     Route::get('for-schools', 'ForSchoolsPageController@show');
 
     Route::get('privacy-policy', 'PrivacyPolicyController@show');
+    Route::get('delivery-policy', 'DeliveryPolicyController@show');
+    Route::get('refund-policy', 'RefundPolicyController@show');
     Route::get('terms-of-service', 'TermsOfServiceController@show');
 
     Route::view('register/school', 'front.schools.register');

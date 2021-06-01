@@ -3,8 +3,8 @@
 return [
 
     'single_post' => [
-        'name' => 'Single Token',
-        'description' => 'This token can be used to publish your job post.',
+        'name' => 'Job Post',
+        'description' => 'You may publish a single job post at any time.',
         'selling_points' => [
             'Global Reach',
             'Hire the best teacher',
@@ -13,8 +13,8 @@ return [
     ],
 
     'ten_posts_pack' => [
-        'name' => '10 Tokens',
-        'description' => 'Get 10 tokens at a discounted rate, to use when it suits you.',
+        'name' => '10 Job Posts',
+        'description' => 'Get 10 job posts at a discounted rate, to use when it suits you.',
         'selling_points' => [
             'Save Big (25%)',
             'Post anytime',

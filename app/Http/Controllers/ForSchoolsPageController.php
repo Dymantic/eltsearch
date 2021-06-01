@@ -9,9 +9,19 @@ class ForSchoolsPageController extends Controller
 {
     public function show()
     {
-        $packages = collect(config('packages'))
+        $job_posts = collect(config('packages'))
+            ->filter(fn($package) => $package['type'] === 'token')
             ->map(fn($package) => Package::find($package['id'])->present(app()->getLocale()))
             ->values()->all();
-        return view("front.for-schools.page", ['packages' => $packages]);
+
+        $passes = collect(config('packages'))
+            ->filter(fn($package) => $package['type'] === 'resume_pass')
+            ->map(fn($package) => Package::find($package['id'])->present(app()->getLocale()))
+            ->values()->all();
+
+        return view("front.for-schools.page", [
+            'job_posts' => $job_posts,
+            'passes' => $passes,
+        ]);
     }
 }

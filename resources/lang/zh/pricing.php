@@ -3,8 +3,8 @@
 return [
 
     'single_post' => [
-        'name' => '點數',
-        'description' => '利用購買的點數，您才能發文',
+        'name' => '職缺貼文',
+        'description' => '您可隨時發佈單一職缺貼文',
         'selling_points' => [
             '全球範圍',
             '招聘最優質的老師',
@@ -13,8 +13,8 @@ return [
     ],
 
     'ten_posts_pack' => [
-        'name' => '購買10點',
-        'description' => '直接購買10點，享有點數優惠',
+        'name' => '10個職缺貼文',
+        'description' => '以優惠的折扣價格，取得10個職缺貼文，以便日後使用',
         'selling_points' => [
             '省下最多(25%)',
             '隨時可貼文',

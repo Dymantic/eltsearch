@@ -11,6 +11,8 @@ return [
     'log_in'             => ' 登入',
     'terms_of_service'   => '服務條款',
     'privacy_policy'     => '隱私政策',
+    'refund_policy'      => '退款政策',
+    'delivery_policy'    => '交易政策',
     'contact_us'         => '與我們聯絡',
     'registered'         => 'Registered',
     'built_by'           => 'This website was beautifully designed and built by',

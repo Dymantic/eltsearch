@@ -37,6 +37,18 @@ return [
 
     'pricing' => [
         'heading' => 'Pricing',
+
+        'intro' => 'ELT Search offers its services to English language schools looking to connect with the best teachers. Schools may use the ELT Search platform to post jobs, and to access the resumes of hundreds of teachers looking for English teaching jobs.',
+
+        'job_posts' => [
+            'heading' => 'Job Posts',
+            'text' => 'Publishing a job post on ELT Search is a great way to find the best teacher for your school. Your post will be live and public for 30 days from when you post it, and you may retract it at any time. Additionally, your post will be sent directly to teachers who are a good fit for your school.'
+        ],
+
+        'resume_pass' => [
+            'heading' => 'Resume Pass',
+            'text' => 'You get direct access to the resumes and profiles of our participating teachers. You may filter teachers based on criteria such as experience and location, and reach out to teachers whom you are interested in.'
+        ]
     ],
 
     'outro' => [

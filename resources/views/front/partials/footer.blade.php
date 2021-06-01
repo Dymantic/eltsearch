@@ -1,4 +1,4 @@
-<footer class="bg-navy relative text-white px-6 z-minus">
+<footer class="bg-navy relative text-white px-6">
 {{--    @include('svg.logos.icon_logo', ['classes' => 'hidden lg:block absolute text-white h-24 ml-4 left-0 top-50 transform -translate-y-1/2'])--}}
     @include('svg.logos.icon_logo', ['classes' => 'absolute text-white opacity-10 h-64 right-16 top-50 -translate-y-1/2 transform'])
     <div class="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-3xl mx-auto justify-center pt-20">
@@ -50,6 +50,12 @@
         <span class="hidden lg:block mx-4 text-white">|</span>
         <a href="/privacy-policy"
            class="hover:text-sky-blue type-b2">{{ trans('footer.privacy_policy') }}</a>
+        <span class="hidden lg:block mx-4 text-white">|</span>
+        <a href="/delivery-policy"
+           class="hover:text-sky-blue type-b2">{{ trans('footer.delivery_policy') }}</a>
+        <span class="hidden lg:block mx-4 text-white">|</span>
+        <a href="/refund-policy"
+           class="hover:text-sky-blue type-b2">{{ trans('footer.refund_policy') }}</a>
         <span class="hidden lg:block mx-4 text-white">|</span>
         <a href="/contact"
            class="hover:text-sky-blue type-b2">{{ trans('footer.contact_us') }}</a>
