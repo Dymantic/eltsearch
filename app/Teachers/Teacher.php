@@ -77,6 +77,11 @@ class Teacher extends Model implements HasMedia
         return $query->whereNull('disabled_on');
     }
 
+    public function scopeDisabled(Builder $query)
+    {
+        return $query->whereNotNull('disabled_on');
+    }
+
     public function scopeComplete(Builder $query)
     {
         return $query
@@ -395,5 +400,15 @@ class Teacher extends Model implements HasMedia
         $this->sent_incomplete_reminder_times = $this->sent_incomplete_reminder_times + 1;
         $this->last_sent_incomplete_reminder = now();
         $this->save();
+    }
+
+    public function purge()
+    {
+        $this->recruitmentAttempts()->delete();
+        $this->jobSearches()->delete();
+        $this->jobApplications()->delete();
+        $this->previousEmployments()->delete();
+        $this->delete();
+        $this->user->delete();
     }
 }
