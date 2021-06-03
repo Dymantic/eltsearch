@@ -164,6 +164,48 @@ class TeachersTest extends TestCase
     /**
      *@test
      */
+    public function can_scope_teacher_profiles_as_incomplete()
+    {
+        Storage::fake('media');
+        $diligent = factory(Teacher::class)->create();
+        $diligent->setAvatar(UploadedFile::fake()->image('test1.jpg'));
+        $diligent->refresh();
+        $no_pic = factory(Teacher::class)->create();
+        $uneducated = factory(Teacher::class)->create([
+            'education_level' => '',
+            'education_institution' => '',
+            'education_qualification' => '',
+        ]);
+        $uneducated->setAvatar(UploadedFile::fake()->image('test1.jpg'));
+        $uneducated->refresh();
+        $nowhere = factory(Teacher::class)->create(['nation_id' => null]);
+        $nowhere->setAvatar(UploadedFile::fake()->image('test1.jpg'));
+        $nowhere->refresh();
+        $ageless = factory(Teacher::class)->create(['date_of_birth' => null]);
+        $ageless->setAvatar(UploadedFile::fake()->image('test1.jpg'));
+        $ageless->refresh();
+        $no_language = factory(Teacher::class)->create(['native_language' => '']);
+        $no_language->setAvatar(UploadedFile::fake()->image('test1.jpg'));
+        $no_language->refresh();
+        $inexperienced = factory(Teacher::class)->create(['years_experience' => null]);
+        $inexperienced->setAvatar(UploadedFile::fake()->image('test1.jpg'));
+        $inexperienced->refresh();
+
+        $no_nation_other = factory(Teacher::class)->create([
+            'nation_id' => null, 'nation_other' => ''
+        ]);
+        $no_nation_other->setAvatar(UploadedFile::fake()->image('test1.jpg'));
+        $no_nation_other->refresh();
+
+        $incomplete = Teacher::incomplete()->get();
+
+        $this->assertCount(7, $incomplete);
+        $this->assertFalse($incomplete->contains(fn (Teacher $t) => $t->is($diligent)));
+    }
+
+    /**
+     *@test
+     */
     public function a_teacher_with_an_other_nationality_can_still_be_complete()
     {
         Storage::fake('media');

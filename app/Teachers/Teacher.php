@@ -95,6 +95,21 @@ class Teacher extends Model implements HasMedia
             ->has('media');
     }
 
+    public function scopeIncomplete(Builder $query)
+    {
+        return $query
+            ->whereNull('date_of_birth')
+            ->orWhere('education_level', '')
+            ->orWhere('education_qualification', '')
+            ->orWhere(function ($query) {
+                $query->whereNull('nation_id')
+                      ->orWhere('nation_id', '<=', '');
+            })
+            ->orWhere('native_language', '')
+            ->orWhereNull('years_experience')
+            ->orWhere(fn ($q) => $q->doesntHave('media') );
+    }
+
     public function scopeNearArea(Builder $query, ?Area $area)
     {
         if (!$area) {
@@ -373,5 +388,12 @@ class Teacher extends Model implements HasMedia
         }
 
         return ApplicationApproval::okay($this, $post);
+    }
+
+    public function markAsRemindedOfIncompleteProfile()
+    {
+        $this->sent_incomplete_reminder_times = $this->sent_incomplete_reminder_times + 1;
+        $this->last_sent_incomplete_reminder = now();
+        $this->save();
     }
 }
