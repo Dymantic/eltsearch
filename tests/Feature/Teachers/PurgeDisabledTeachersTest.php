@@ -55,6 +55,46 @@ class PurgeDisabledTeachersTest extends TestCase
      */
     public function non_disabled_profiles_are_not_deleted()
     {
-//        $this->sk
+        Event::fake();
+        $this->withoutExceptionHandling();
+
+        $enabled = factory(Teacher::class)->create();
+        $employment = factory(PreviousEmployment::class)->create(['teacher_id' => $enabled->id]);
+        $recruitment = factory(RecruitmentAttempt::class)->create(['teacher_id' => $enabled->id]);
+        $search = factory(JobSearch::class)->create(['teacher_id' => $enabled->id]);
+        $application = factory(JobApplication::class)->create(['teacher_id' => $enabled->id]);
+
+
+        Artisan::call('teachers:purge-disabled');
+
+        $this->assertDatabaseHas('teachers', ['id' => $enabled->id]);
+        $this->assertDatabaseHas('previous_employments', ['teacher_id' => $enabled->id]);
+        $this->assertDatabaseHas('job_searches', ['teacher_id' => $enabled->id]);
+        $this->assertDatabaseHas('recruitment_attempts', ['teacher_id' => $enabled->id]);
+    }
+
+    /**
+     *@test
+     */
+    public function disabled_teachers_are_not_purged_too_soon()
+    {
+        Event::fake();
+        $this->withoutExceptionHandling();
+
+        $disabled = factory(Teacher::class)->create();
+        $employment = factory(PreviousEmployment::class)->create(['teacher_id' => $disabled->id]);
+        $recruitment = factory(RecruitmentAttempt::class)->create(['teacher_id' => $disabled->id]);
+        $search = factory(JobSearch::class)->create(['teacher_id' => $disabled->id]);
+        $application = factory(JobApplication::class)->create(['teacher_id' => $disabled->id]);
+
+        $disabled->disable();
+        $this->travel(5)->days();
+
+        Artisan::call('teachers:purge-disabled');
+
+        $this->assertDatabaseHas('teachers', ['id' => $disabled->id]);
+        $this->assertDatabaseHas('previous_employments', ['teacher_id' => $disabled->id]);
+        $this->assertDatabaseHas('job_searches', ['teacher_id' => $disabled->id]);
+        $this->assertDatabaseHas('recruitment_attempts', ['teacher_id' => $disabled->id]);
     }
 }
