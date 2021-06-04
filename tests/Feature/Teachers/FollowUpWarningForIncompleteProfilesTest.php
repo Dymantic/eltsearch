@@ -28,7 +28,7 @@ class FollowUpWarningForIncompleteProfilesTest extends TestCase
 
         $requires_warning = factory(Teacher::class)->create([
             'sent_incomplete_reminder_times' => 1,
-            'last_sent_incomplete_reminder' => now()->subDays(8),
+            'last_sent_incomplete_reminder' => now()->subDays(Teacher::ALLOWED_INCOMPLETE_PERIOD + 1),
             'created_at' => now()->subMonth(),
         ]);
 
@@ -63,7 +63,7 @@ class FollowUpWarningForIncompleteProfilesTest extends TestCase
 
         $complete = factory(Teacher::class)->create([
             'sent_incomplete_reminder_times' => 1,
-            'last_sent_incomplete_reminder' => now()->subDays(8),
+            'last_sent_incomplete_reminder' => now()->subDays(Teacher::ALLOWED_INCOMPLETE_PERIOD + 1),
             'created_at' => now()->subMonth(),
         ]);
         $complete->setAvatar(UploadedFile::fake()->image('test.jpg'));
@@ -84,7 +84,7 @@ class FollowUpWarningForIncompleteProfilesTest extends TestCase
 
         $incomplete = factory(Teacher::class)->create([
             'sent_incomplete_reminder_times' => 1,
-            'last_sent_incomplete_reminder' => now()->subDays(5),
+            'last_sent_incomplete_reminder' => now()->subDays(Teacher::ALLOWED_INCOMPLETE_PERIOD - 1),
             'created_at' => now()->subMonth(),
         ]);
 

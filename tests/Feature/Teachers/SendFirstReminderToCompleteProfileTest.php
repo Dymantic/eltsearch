@@ -37,7 +37,7 @@ class SendFirstReminderToCompleteProfileTest extends TestCase
 
         $incomplete = factory(Teacher::class)->create(); // no avatar - incomplete
 
-        $this->travel(10)->days();
+        $this->travel(Teacher::ALLOWED_INCOMPLETE_PERIOD)->days();
         Artisan::call('teachers:warn-incomplete-profiles');
 
         Notification::assertSentTo(
@@ -72,7 +72,7 @@ class SendFirstReminderToCompleteProfileTest extends TestCase
     /**
      *@test
      */
-    public function the_reminder_is_not_sent_to_teachers_reminded_in_the_last_week()
+    public function the_reminder_is_not_sent_to_teachers_already_reminded()
     {
         Storage::fake('media', config('filesystems.disks.media'));
         Notification::fake();
@@ -80,7 +80,7 @@ class SendFirstReminderToCompleteProfileTest extends TestCase
 
         $incomplete = factory(Teacher::class)->create([
             'sent_incomplete_reminder_times' => 1,
-            'last_sent_incomplete_reminder' => now()->subDays(5),
+            'last_sent_incomplete_reminder' => now()->subDays(Teacher::ALLOWED_INCOMPLETE_PERIOD - 1),
             'created_at' => now()->subMonth(),
         ]); // no avatar - incomplete
 

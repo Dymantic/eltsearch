@@ -28,7 +28,7 @@ class WarnTeachersOfIncompleteProfile extends Command
                              ->incomplete()
                              ->where('created_at', '<', now()->subWeek())
                              ->where(function ($q) {
-                                 return $q->where('last_sent_incomplete_reminder', '<', now()->subWeek())
+                                 return $q->where('last_sent_incomplete_reminder', '<', now()->subDays(Teacher::ALLOWED_INCOMPLETE_PERIOD))
                                           ->orWhereNull('last_sent_incomplete_reminder');
                              })
                              ->get();

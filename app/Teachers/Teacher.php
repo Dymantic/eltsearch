@@ -49,6 +49,8 @@ class Teacher extends Model implements HasMedia
     const AVATAR = 'avatar';
     const DEFAULT_AVATAR = '/images/default_avatar.svg';
 
+    const ALLOWED_INCOMPLETE_PERIOD = 14;
+
     protected $fillable = [
         'name',
         'slug',
