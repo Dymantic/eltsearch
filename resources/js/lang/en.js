@@ -9,7 +9,7 @@ export default {
         logout: "Logout",
         notifications: "Messages",
         billing: "Billing",
-        tokens: "Buy Tokens",
+        tokens: "Buy Job Posts",
         resume_pass: "Resume Pass",
         purchases: "Purchases",
         dashboard: "Home",
@@ -131,13 +131,13 @@ export default {
             "Your post was originally published on :published: and expires on :expires:. You may republish to make it live again.",
         republish: "Re-publish",
         no_tokens:
-            "Sorry, you currently do not have any tokens to use to publish your job post. First get a token, then you can publish.",
-        buy_token: "Buy tokens",
+            "Sorry, you currently have not paid for and job posts. Purchasing job posts will allow you to publish.",
+        buy_token: "Buy job posts",
         ready: "Your post is ready to publish.",
         publish: "Publish",
         shown_until: "If you publish today, it will be public until :expires:",
         single_cost:
-            "<span class='type-b2'>Cost: </span>1 token (You will have :remaining: tokens left)",
+            "<span class='type-b2'>Cost: </span>1 Job Post (You will have :remaining: posts left)",
         live_note:
             'Your post is currently public, and will be live on the site until <span class="type-b2">:expires:</span>. You may retract the post if you would like to not have it shown publicly anymore. Note that this will not affect the date when the post will be retired.',
         retract: "Retract",
@@ -231,8 +231,8 @@ export default {
         update: "Update Billing Info",
     },
     tokens: {
-        get_tokens: "Get Tokens",
-        token_count: "You have :count: token(s)",
+        get_tokens: "Purchase Job Posts",
+        token_count: "You have :count: post(s)",
     },
     resume_pass: {
         title: "My Resume Pass",
@@ -312,10 +312,10 @@ export default {
             title: "Suggestions",
             explain:
                 "Here are some things we suggest doing to increase your Job Search prospects.",
-            tokens_action: "Get Tokens",
+            tokens_action: "Purchase Job Posts",
             tokens_reason:
-                "You need to get tokens to post jobs. You can either get a single token, or a bunch at a discounted rate.",
-            tokens_done: "You have tokens in store.",
+                "You need to purchase job posts to publish. You can either purchase a single post, or a bunch at a discounted rate.",
+            tokens_done: "You have posts in store.",
             resume_action: "Get the Resume Pass",
             resume_reason:
                 "Get the resume pass to browse and find teachers that suit your needs.",
