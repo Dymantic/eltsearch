@@ -26,6 +26,9 @@ class Kernel extends ConsoleKernel
     {
          $schedule->command('backup:clean')->dailyAt('01:00');
          $schedule->command('backup:run')->dailyAt('01:30');
+         $schedule->command('teachers:warn-incomplete-profiles')->dailyAt('02:00');
+         $schedule->command('teachers:purge-incomplete')->dailyAt('02:30');
+         $schedule->command('teachers:purge-disabled')->dailyAt('02:45');
     }
 
     /**
