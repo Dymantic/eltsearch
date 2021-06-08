@@ -2,9 +2,9 @@
 
 Hi {{ $name }}
 
-We have noticed that your profile on ELTSearch has not been completed yet. Completing your profile gives you better chances of finding the right job for you, even if you are not actively looking right now.
+We've noticed your profile on ELTSearch is still not ready. Unfortunately, this does not qualify you to match with available teaching opportunities.
 
-You profile is considered incomplete because it is missing one of the following: a profile picture, your teaching experience, your nationality, your age, native language or years of teaching experience. Please complete your profile to make ELTSearch a better opportunity for all.
+Please take a quick moment to complete your profile so that you can become part of the great community at ELTSearch.
 
 @component('mail::button', ['url' => $url])
     {{ $action }}

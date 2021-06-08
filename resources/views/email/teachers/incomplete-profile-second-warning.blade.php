@@ -2,9 +2,9 @@
 
 Hi {{ $name }}
 
-I've told you once, and now I'm telling you twice. If you don't complete your profile, I'm coming for you.
+We see that your profile on ELTSearch is still not complete. If you'd like to qualify to get matched with available teaching opportunities, please take a moment to complete your profile.
 
-You profile is considered incomplete because it is missing one of the following: a profile picture, your teaching experience, your nationality, your age, native language or years of teaching experience. Please complete your profile to make ELTSearch a better opportunity for all.
+This will be the last request we will send you. We will delete incomplete profiles after two weeks. Complete your profile and become part of the great community at ELTSearch now.
 
 @component('mail::button', ['url' => $url])
     {{ $action }}
