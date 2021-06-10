@@ -32,7 +32,7 @@ class JobSearchOptionsController extends Controller
                     "value"       => JobPost::BENEFIT_INSURANCE,
                     "description" => "Health insurance",
                 ],
-                ["value" => JobPost::BENEFIT_RENEWAL_BONUS, "description" => "Renewal onus"],
+                ["value" => JobPost::BENEFIT_RENEWAL_BONUS, "description" => "Renewal bonus"],
             ],
             "contract_lengths" => [
                 ["value" => JobPost::CONTRACT_NONE, "description" => "No contract"],
