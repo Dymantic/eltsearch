@@ -28,7 +28,7 @@
                class="hover:text-sky-blue">
                 @include('svg.icons.facebook_circle', ['classes' => 'h-10 mx-auto'])
             </a>
-            <p class="type-b2 w-32 mx-auto mt-3"><a href="https://www.facebook.com/groups/TaiwanTeachingJobs">{{ trans('footer.facebook_community') }}</a></p>
+            <p class="type-b2 w-32 mx-auto mt-3"><a href="https://www.facebook.com/groups/TaiwanTeachingJobs" target="_blank" rel="nofollow">{{ trans('footer.facebook_community') }}</a></p>
 
         </div>
         <div class="text-center lg:text-left lg:pl-20">
@@ -62,5 +62,6 @@
     </div>
     <p class="type-b2 text-center py-1">&copy; {{ trans('footer.registered') }} {{ now()->year }}. {{ trans('footer.built_by') }}
         <a href="https://dymanticdesign.com"
+           target="_blank" rel="nofollow"
            class="hover:text-odd-pink">{{ trans('footer.dymantic') }}</a></p>
 </footer>
