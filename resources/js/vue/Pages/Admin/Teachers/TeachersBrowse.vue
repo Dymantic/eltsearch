@@ -95,6 +95,12 @@
                                 >
                                     {{ teacher.name }}
                                 </router-link>
+
+                                <span
+                                    class="ml-3 inline-block px-3 py-1 text-xs uppercase border border-red-500 text-red-700 bg-red-100 rounded-lg"
+                                    v-if="teacher.is_disabled"
+                                    >disbaled</span
+                                >
                             </td>
                             <td class="px-2 py-1">{{ teacher.nationality }}</td>
                             <td class="px-2 py-1">{{ teacher.signed_up }}</td>
