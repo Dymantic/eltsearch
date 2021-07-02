@@ -168,12 +168,10 @@
                 doRecaptcha() {
                     return new Promise((resolve, reject) => {
                         if (!this.needs_recaptcha) {
-                            console.log('miss');
                             return resolve('');
                         }
                         grecaptcha.execute('{{ $recaptcha_key }}', {action: 'contact_form'})
                                   .then((token) => {
-                                      console.log(token);
                                       resolve(token);
                                   })
                                   .catch((err) => {
