@@ -66,7 +66,7 @@ class TeacherProfileDisabled extends Notification implements ActionableNotificat
 
     public function getMessageFor($notifiable): string
     {
-        return 'ELT Search has temporarily disabled your profile. If you wish to contest this, you may reach out to the admin team at services@eltsearch.com for further discussion. If your profile remains disabled for 30 days it will be permanently removed.';
+        return 'ELT Search has temporarily disabled your profile. If you wish to contest this, you may reach out to the admin team at services@eltsearch.com for further discussion. If your profile remains disabled for 7 days it will be permanently removed.';
     }
 
     public function actionTextFor($notifiable): string

@@ -5,8 +5,10 @@ namespace Tests\Feature\Notifications;
 
 
 use App\Notifications\ContactMessage;
+use App\Recaptcha;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
@@ -15,38 +17,44 @@ class ContactFormTest extends TestCase
     use RefreshDatabase;
 
     /**
-     *@test
+     * @test
      */
     public function submitted_contact_form_sends_notification_to_admins()
     {
+        Http::fake([
+            Recaptcha::VALIDATE_ENDPOINT => Http::response(['score' => 0.9, 'success' => true])
+        ]);
+
         Notification::fake();
         $this->withoutExceptionHandling();
 
         $admin = factory(User::class)->state('admin')->create();
 
-        $respone = $this->asGuest()->post("/contact", [
-            "name" => 'test name',
-            'email' => 'test@test.test',
-            'message' => 'test message',
+        $response = $this->asGuest()->post("/contact", [
+            "name"            => 'test name',
+            'email'           => 'test@test.test',
+            'message'         => 'test message',
+            'recaptcha_token' => 'test token'
         ]);
-        $respone->assertSuccessful();
+        $response->assertSuccessful();
 
         Notification::assertSentTo(
             $admin,
             ContactMessage::class,
-            function(ContactMessage $notification, $channels) {
+            function (ContactMessage $notification, $channels) {
                 $this->assertSame('test name', $notification->sender_name);
                 $this->assertSame('test@test.test', $notification->sender_email);
                 $this->assertSame('test message', $notification->message_body);
                 $this->assertTrue(in_array('database', $channels));
                 $this->assertTrue(in_array('mail', $channels));
+
                 return true;
             }
         );
     }
 
     /**
-     *@test
+     * @test
      */
     public function the_name_is_required()
     {
@@ -54,7 +62,7 @@ class ContactFormTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function the_email_must_be_a_valid_email()
     {
@@ -63,7 +71,7 @@ class ContactFormTest extends TestCase
     }
 
     /**
-     *@test
+     * @test
      */
     public function the_message_is_required()
     {
@@ -72,11 +80,15 @@ class ContactFormTest extends TestCase
 
     private function assertFieldIsInvalid($field)
     {
+        Http::fake([
+            Recaptcha::VALIDATE_ENDPOINT => Http::response(['score' => 0.9, 'success' => true])
+        ]);
+
         Notification::fake();
 
         $valid = [
-            "name" => 'test name',
-            'email' => 'test@test.test',
+            "name"    => 'test name',
+            'email'   => 'test@test.test',
             'message' => 'test message',
         ];
 

@@ -31,6 +31,7 @@
     <meta name="twitter:card" content="summary_large_image">
 
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.0/dist/alpine.min.js" defer></script>
+    @stack('head_scripts')
 </head>
 <body class="flex flex-col text-black font-sans pt-16 h-full">
     <div class="flex-1">

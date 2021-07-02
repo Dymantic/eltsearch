@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactMessageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,7 +33,7 @@ Route::group([
 
     Route::view('register', 'front.register.show');
 
-    Route::view('contact', 'front.contact.page');
+    Route::get('contact', [ContactMessageController::class, 'show']);
 
     Route::view('login', 'front.login')->name('login');
     Route::view('password/request', 'front.request-password-reset');
