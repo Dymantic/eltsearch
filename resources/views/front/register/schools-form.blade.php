@@ -9,7 +9,7 @@
     @include('front.register.already-member')
 </div>
 
-<form action="/register/school" method="post" class="max-w-md mx-auto">
+<form action="/register/school" method="post" class="max-w-md mx-auto" id="school-form">
     {!! csrf_field() !!}
     <div class="my-6">
         <label class="form-label" for="school_name">{{ trans('registration.schools.name') }}:</label>
@@ -67,10 +67,24 @@
         </div>
 
     </div>
-
+    <input type="hidden" id="school_recaptcha_token" name="recaptcha_token" value="">
     <div class="my-12 text-center">
-        <button type="submit" class="btn-main type-a1">{{ trans('registration.schools.submit') }}</button>
+        <button type="submit"
+                class="btn-main type-a1 g-recaptcha"
+                data-sitekey="{{ $recaptcha_key }}"
+                data-callback="onSchoolRegister"
+                data-action="submit"
+        >{{ trans('registration.schools.submit') }}</button>
     </div>
 </form>
 
 
+<script>
+
+    function onSchoolRegister(token) {
+        const form = document.querySelector('#school-form');
+        const input = document.querySelector('#school_recaptcha_token');
+        input.value = token;
+        form.submit();
+    }
+</script>

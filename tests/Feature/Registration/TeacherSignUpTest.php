@@ -2,9 +2,11 @@
 
 namespace Tests\Feature\Registration;
 
+use App\Recaptcha;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
 class TeacherSignUpTest extends TestCase
@@ -16,6 +18,12 @@ class TeacherSignUpTest extends TestCase
      */
     public function teacher_can_register()
     {
+        Http::fake([
+            Recaptcha::VALIDATE_ENDPOINT => Http::response([
+                'success' => true,
+                'score' => Recaptcha::THRESHOLD + 0.1
+            ]),
+        ]);
         $this->withoutExceptionHandling();
 
         $response = $this->asGuest()->post("/register/teacher", [
@@ -99,6 +107,13 @@ class TeacherSignUpTest extends TestCase
 
     private function assertFieldIsInvalid($field)
     {
+        Http::fake([
+            Recaptcha::VALIDATE_ENDPOINT => Http::response([
+                'success' => true,
+                'score' => Recaptcha::THRESHOLD + 0.1
+            ]),
+        ]);
+
         $valid = [
             'name' => 'test name',
             'email' => 'test@test.test',

@@ -96,5 +96,7 @@
             };
         }
     </script>
-
+    @push('head_scripts')
+        <script src="https://www.google.com/recaptcha/api.js?render={{ $recaptcha_key }}"></script>
+    @endpush
 </x-public-page>

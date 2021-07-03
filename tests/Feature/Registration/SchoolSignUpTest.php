@@ -4,10 +4,12 @@
 namespace Tests\Feature\Registration;
 
 
+use App\Recaptcha;
 use App\Schools\School;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
 class SchoolSignUpTest extends TestCase
@@ -19,6 +21,13 @@ class SchoolSignUpTest extends TestCase
      */
     public function sign_up_a_school()
     {
+        Http::fake([
+            Recaptcha::VALIDATE_ENDPOINT => Http::response([
+                'success' => true,
+                'score' => Recaptcha::THRESHOLD + 0.1
+            ]),
+        ]);
+
         $this->withoutExceptionHandling();
 
         $response = $this->asGuest()->post("/register/school", [
@@ -152,6 +161,13 @@ class SchoolSignUpTest extends TestCase
 
     private function assertFieldIsInvalid($field)
     {
+        Http::fake([
+            Recaptcha::VALIDATE_ENDPOINT => Http::response([
+                'success' => true,
+                'score' => Recaptcha::THRESHOLD + 0.1
+            ]),
+        ]);
+
         $valid = [
             'school_name'           => 'test school',
             'school_address'        => 'test school address',

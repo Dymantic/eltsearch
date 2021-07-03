@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ContactMessageController;
+use App\Http\Controllers\RegistrationPageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,7 +32,7 @@ Route::group([
 
     Route::view('register/school', 'front.schools.register');
 
-    Route::view('register', 'front.register.show');
+    Route::get('register', [RegistrationPageController::class, 'show']);
 
     Route::get('contact', [ContactMessageController::class, 'show']);
 

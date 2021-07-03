@@ -20,6 +20,7 @@
 
 <form action="/register/teacher"
       method="post"
+      id="teacher-form"
       class="max-w-md mx-auto">
     {!! csrf_field() !!}
     <div class="my-6">
@@ -66,10 +67,24 @@
                name="password_confirmation"
                class="form-text-input">
     </div>
+    <input type="hidden" id="recaptcha_token" name="recaptcha_token" value="">
     <div class="text-center my-12">
-        <button class="btn-main type-a1"
+        <button class="btn-main type-a1 g-recaptcha"
+                data-sitekey="{{ $recaptcha_key }}"
+                data-callback="onTeacherRegister"
+                data-action="submit"
                 type="submit">Sign Up
         </button>
     </div>
 
 </form>
+
+<script>
+
+    function onTeacherRegister(token) {
+        const form = document.querySelector('#teacher-form');
+        const input = document.querySelector('#recaptcha_token');
+        input.value = token;
+        form.submit();
+    }
+</script>

@@ -13,6 +13,7 @@ class Recaptcha
 
     public static function accepts(string $token, ?string $ip = null): bool
     {
+
         $data = [
             'secret' => config('services.recaptcha.secret_key'),
             'response' => $token,
