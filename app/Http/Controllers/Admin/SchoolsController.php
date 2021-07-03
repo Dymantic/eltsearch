@@ -16,7 +16,7 @@ class SchoolsController extends Controller
     {
 
         $page = School::select('schools.*')
-                       ->join('areas', 'areas.id', '=', 'schools.area_id')
+                       ->leftJoin('areas', 'areas.id', '=', 'schools.area_id')
                        ->where('schools.name', 'LIKE', "%{$request->search()}%")
                        ->orderBy($request->order(), $request->direction())
                        ->paginate(70);
