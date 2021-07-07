@@ -44,7 +44,10 @@ return [
     'recaptcha' => [
         'site_key' => env('RECAPTCHA_SITE_KEY'),
         'secret_key' => env('RECAPTCHA_SECRET_KEY'),
-    ]
+    ],
+    'analytics' => [
+        'tracking_id' => env('GA_TRACKING_ID'),
+    ],
 
 
 

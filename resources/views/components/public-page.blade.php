@@ -41,5 +41,13 @@
     @include('front.partials.footer')
     <x-main-navbar></x-main-navbar>
     <script src="{{ mix("/js/front.js") }}"></script>
+
+    @production
+        <script>
+            window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
+            ga('create', '{{ config('services.analytics.tracking_id') }}', 'auto'); ga('send', 'pageview')
+        </script>
+        <script src="https://www.google-analytics.com/analytics.js" async defer></script>
+    @endproduction
 </body>
 </html>
