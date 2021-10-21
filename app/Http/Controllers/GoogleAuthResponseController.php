@@ -28,7 +28,7 @@ class GoogleAuthResponseController extends Controller
         }
 
         if($request->forRegistration()) {
-            $user = User::findFacebookUser($user_data);
+            $user = User::findGoogleUser($user_data);
 
             if($user) {
                 Auth::login($user, true);
