@@ -1,4 +1,4 @@
-<x-public-page :dontIndex="true">
+<x-public-page :dontIndex="false">
     <div class="md:border border-navy rounded-lg max-w-3xl mx-auto my-12 md:my-20 p-6">
         <div class="w-32 h-32 mx-auto mb-12 block md:hidden">
             <img src="{{ $post['logo']['thumb'] }}" alt="" class="w-full h-full object-contain">

@@ -1,4 +1,4 @@
-<x-public-page :dontIndex="true">
+<x-public-page :dontIndex="false">
     <div class="my-20 px-6 max-w-3xl mx-auto text-center">
         <h1 class="type-h2 text-navy mb-12">{{ trans('for_schools.banner.heading') }}</h1>
         <p class="max-w-xl mx-auto type-b1">{{ trans('for_schools.banner.blurb') }}</p>

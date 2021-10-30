@@ -116,7 +116,9 @@ export default {
     mounted() {
         this.$store.dispatch("purchases/fetchPackages");
 
-        this.initCheckout();
+        if (this.has_complete_billing_info) {
+            this.initCheckout();
+        }
     },
 
     methods: {
@@ -125,7 +127,7 @@ export default {
             this.checkout_component = this.client.components.create("card");
             window.setTimeout(() => {
                 this.checkout_component.mount("#card-element");
-            }, 200);
+            }, 400);
         },
 
         getToken() {

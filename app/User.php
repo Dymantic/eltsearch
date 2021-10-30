@@ -13,6 +13,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
@@ -171,6 +172,12 @@ class User extends Authenticatable
         $school = School::new($school_data['school_name']);
 
         $school->setOwner($user);
+
+        $free_cutoff = Carbon::parse('2022-05-31')->endOfDay();
+        if(now()->lte($free_cutoff)) {
+            $school->awardFreeResumePass($free_cutoff);
+            $school->awardFreeTokens(6, $free_cutoff);
+        }
 
         $user->notify(new WelcomeSchool($user, $school));
 

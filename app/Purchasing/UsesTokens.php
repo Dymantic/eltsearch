@@ -31,6 +31,16 @@ trait UsesTokens
         }
     }
 
+    public function awardFreeTokens(int $quantity, Carbon $expiry)
+    {
+        foreach(range(1, $quantity) as $index) {
+            $this->tokens()->create([
+                'purchase_id' => null,
+                'expires_on' => $expiry,
+            ]);
+        }
+    }
+
     public function nextToken(): ?Token
     {
         return $this->availableTokens()->orderBy('expires_on')->first();

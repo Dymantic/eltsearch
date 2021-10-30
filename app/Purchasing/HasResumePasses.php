@@ -5,6 +5,7 @@ namespace App\Purchasing;
 
 
 use App\Schools\School;
+use Illuminate\Support\Carbon;
 
 trait HasResumePasses
 {
@@ -34,6 +35,14 @@ trait HasResumePasses
         return $this->resumePasses()->create([
             'purchase_id' => $purchase->id,
             'expires_on' => $package->getExpiry()->addDays($this->daysRemaining()),
+        ]);
+    }
+
+    public function awardFreeResumePass(Carbon $expiry)
+    {
+        return $this->resumePasses()->create([
+            'purchase_id' => null,
+            'expires_on' => $expiry,
         ]);
     }
 
