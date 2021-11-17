@@ -21,7 +21,7 @@
     <div class="flex flex-col items-center px-8 my-6">
         <p class="mb-2 type-b1 text-gray-600">Are you a tutor? Looking to monetize your free time?</p>
         <p class="mb-6 type-b1 text-gray-600">Check out Bookee, proud partner of ELT Search.</p>
-        <a target="_blank" rel="nofollow" href="https::/bookee.cc">
+        <a target="_blank" rel="nofollow" href="https://bookee.cc">
             <img src="/images/bookee.png" class="w-48"
                 alt="Bookee logo">
         </a>
