@@ -179,6 +179,10 @@
             <p class="my-6">The Company will retain Your Personal Data only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use Your Personal Data to the extent necessary to comply with our legal obligations (for example, if we are required to retain your data to comply with applicable laws), resolve disputes, and enforce our legal agreements and policies.</p>
             <p class="my-6">The Company will also retain Usage Data for internal analysis purposes. Usage Data is generally retained for a shorter period of time, except when this data is used to strengthen the security or to improve the functionality of Our Service, or We are legally obligated to retain this data for longer time periods.</p>
 
+            <p class="type-h4 my-6">Request Data Deletion</p>
+
+            <p class="my-6">You may request your personal data to be deleted at any time by contacting The Company at <a href="mailto:service@eltsearch.com" class="text-sky-blue hover:test-navy">service@eltsearch.com</a></p>
+
             <p class="type-h4 my-6">Transfer of Your Personal Data</p>
             <p class="my-6">Your information, including Personal Data, is processed at the Company's operating offices and in any other places where the parties involved in the processing are located. It means that this information may be transferred to — and maintained on — computers located outside of Your state, province, country or other governmental jurisdiction where the data protection laws may differ than those from Your jurisdiction.</p>
             <p class="my-6">Your consent to this Privacy Policy followed by Your submission of such information represents Your agreement to that transfer.</p>
@@ -256,7 +260,7 @@
             <p class="my-6">If you have any questions about this Privacy Policy, You can contact us:</p>
             <ul class="list-disc my-6 pl-12">
                 <li>By email: <a href="mailto:service@eltsearch.com"
-                                 class="text-sky-blue hover:test-navy">mailto:service@eltsearch.com</a></li>
+                                 class="text-sky-blue hover:test-navy">service@eltsearch.com</a></li>
             </ul>
         </div>
 
