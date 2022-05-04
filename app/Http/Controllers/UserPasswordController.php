@@ -9,7 +9,7 @@ class UserPasswordController extends Controller
     public function update()
     {
         request()->validate([
-            'old_password' => ['required', 'password'],
+            'old_password' => ['required', 'current_password'],
             'password' => ['confirmed', 'min:8'],
         ]);
 

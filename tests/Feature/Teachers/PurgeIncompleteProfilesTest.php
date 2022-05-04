@@ -53,7 +53,7 @@ class PurgeIncompleteProfilesTest extends TestCase
 
         Artisan::call('teachers:purge-incomplete');
 
-        $this->assertDeleted($should_purge);
+        $this->assertModelMissing($should_purge);
         $this->assertDatabaseHas('teachers', ['id' => $complete->id]);
         $this->assertDatabaseHas('teachers', ['id' => $too_soon->id]);
         $this->assertDatabaseHas('teachers', ['id' => $no_final_warning->id]);

@@ -40,11 +40,11 @@ class PurgeDisabledTeachersTest extends TestCase
         Artisan::call('teachers:purge-disabled');
 
 
-        $this->assertDeleted($disabled);
-        $this->assertDeleted($employment);
-        $this->assertDeleted($recruitment);
-        $this->assertDeleted($search);
-        $this->assertDeleted($application);
+        $this->assertModelMissing($disabled);
+        $this->assertModelMissing($employment);
+        $this->assertModelMissing($recruitment);
+        $this->assertModelMissing($search);
+        $this->assertModelMissing($application);
 
         $this->assertDatabaseMissing('users', ['id' => $user_id]);
 
